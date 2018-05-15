@@ -1,0 +1,20 @@
+title: Server Side Ad Insertion
+description: A demo of how you can use server side ad insertion with the player
+
+executable:
+  executable: true
+  indexfile: index.html
+
+code:
+  show_code: true
+  language: js
+  files:
+    - demo.js
+
+tags:
+  - advertissement
+  - server side
+  - ssai
+  - ads
+
+priority: 840

@@ -1,0 +1,114 @@
+<div class="thumbnail-demo">
+    <div class="row">
+        <div class="col-lg-6 player-col mt-3 mb-4">
+            <h4>Reduce file size by removing unused features</h4>
+            <ul>
+                <li>Reduces CDN cost</li>
+                <li>Save bandwidth for users, especially helpful in emerging markets</li>
+                <li>Reduces transmission and parsing time, speeds up the startup time
+                </li>
+            </ul>
+
+            <h4 class="mt-4">Can be configured</h4>
+            <ul>
+                <li>Statically during build-time</li>
+                <li>Dynamically during runtime</li>
+            </ul>
+
+            <div id="accordion" class="accordion mt-4">
+                <div class="card">
+                    <div class="card-header collapsed" id="headingOne" data-toggle="collapse" data-target="#collapseOne"
+                         aria-expanded="false" aria-controls="collapseOne">
+                        Required Modules
+                    </div>
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <ul>
+                                <li>Core</li>
+                                <li>Rendering engine: MediaSource extensions (MSE), native engine or Flash</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header collapsed" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo"
+                         aria-expanded="false" aria-controls="collapseTwo">
+                        Optional Modules
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            <ul>
+                                <li>Ads</li>
+                                <li>AES encryption</li>
+                                <li>DRM</li>
+                                <li>HLS</li>
+                                <li>Smooth Streaming</li>
+                                <li>VR/360</li>
+                                <li>Chromecast</li>
+                                <li>Flash fallback</li>
+                                <li>Polyfills & Patches for legacy browsers</li>
+                                <li>DASH</li>
+                                <li>MPEG-2 TS to MP4 muxing</li>
+                                <li>WebM Support</li>
+                                <li>MP4 Support</li>
+                                <li>Side-loaded subtitle/closed caption formats (WebVTT, TTML, …)</li>
+                                <li>In-stream closed caption formats (CEA-608)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-6 code-col">
+            <div class="text-center mb-4">
+                <img id="selection-target"
+                     src="https://bitmovin-a.akamaihd.net/webpages/demo-fw/modular-player/modular-player-default.svg"
+                     class="w-100">
+            </div>
+            <div class="mt-3 mb-5 image-swap"
+                 data-img-url="https://bitmovin-a.akamaihd.net/webpages/demo-fw/modular-player/modular-player-default.svg"
+                 data-image-swap-target="selection-target" data-swap-selected-class="btn-primary"
+                 data-swap-unselected-class="btn-outline-primary">
+                <div class="btn-group" role="group" aria-label="Modular Player">
+                    <button class="btn btn-outline-primary mt-2 swap"
+                            data-img-url="https://bitmovin-a.akamaihd.net/webpages/demo-fw/modular-player/modular-player-hls.svg"
+                            data-show-target=".size-1">
+                        HLS/fMP4 + CEA-608
+                        <span class="size-1 size">
+                61% smaller than monolith
+            </span>
+                    </button>
+                    <button class="btn btn-outline-primary mt-2 swap"
+                            data-img-url="https://bitmovin-a.akamaihd.net/webpages/demo-fw/modular-player/modular-player-drm.svg"
+                            data-show-target=".size-2">
+                        DASH + DRM + Chromecast
+                        <span class="size-2 size">
+                55% smaller than monolith
+            </span>
+                    </button>
+                    <button class="btn btn-outline-primary mt-2 swap"
+                            data-img-url="https://bitmovin-a.akamaihd.net/webpages/demo-fw/modular-player/modular-player-dash.svg"
+                            data-show-target=".size-3">
+                        DASH/webM + TTML + Ads
+                        <span class="size-3 size">
+                50% smaller than monolith
+            </span>
+                    </button>
+                </div>
+                <div class="text-center mt-3">
+          <span class="size-1 size-small">
+            61% smaller than monolith
+          </span>
+                    <span class="size-2 size-small">
+            55% smaller than monolith
+          </span>
+                    <span class="size-3 size-small">
+            50% smaller than monolith
+          </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

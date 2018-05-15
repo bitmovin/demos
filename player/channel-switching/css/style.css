@@ -1,0 +1,24 @@
+@media (min-width: 991px) {
+    .code-block {
+        float: right;
+    }
+
+    .info-block {
+        float: left;
+    }
+}
+
+.button-container {
+    margin-bottom: 25px;
+}
+
+.button-container .channel-button {
+    width: 100%;
+    color: #fff;
+    height: 3em;
+    border: 0;
+    font-size: 1.1em;
+    background-size: 55px 55px;
+    padding-right: 70px;
+    margin: 5px 0;
+}

@@ -1,0 +1,26 @@
+.player-container {
+    background: #777;
+    position: relative;
+}
+
+#player {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transition: 0.3s;
+    width: 100%;
+}
+
+.player-switch.fixed-player #player {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 30vw;
+    min-width: 250px;
+    height: auto;
+    /* make sure the player is OVER the
+    code snippet and the other player*/
+    z-index: 2;
+
+    transition: 0.3s;
+}

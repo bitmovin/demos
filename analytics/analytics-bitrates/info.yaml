@@ -1,0 +1,24 @@
+title: Analytics Bitrates
+description: Build and customize graphs exactly the way your team needs it
+
+executable:
+  executable: true
+  indexfile: index.html
+
+code:
+  show_code: true
+  language: js
+  files:
+    - available-bitrates.js
+    - available-bandwidth.js
+    - playback-bitrate.js
+
+tags: 
+  - dashboard
+  - analytics
+  - bitrate
+  - monitor
+  - REST
+  - AB
+  - testing
+  - QOE

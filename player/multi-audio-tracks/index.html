@@ -1,0 +1,68 @@
+<script type="text/javascript"
+        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
+
+<div class="multi-lang-demo">
+
+    <div class="description">
+        <p>
+            This demo page showcases the Bitmovin Player's ability to handle streams which have audio
+            available in multiple languages alongside multiple subtitles.
+        </p>
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-6 player-col">
+            <div id="player" class="tv-frame">
+            </div>
+        </div>
+        <div class="col-lg-6 code-col">
+            <div class="setup-code">
+                ${code:setup.js}
+            </div>
+        </div>
+    </div>
+
+    <div class="row article">
+        <div class="col-md-12">
+            <div class="entry">
+                <h2>Multi audio tracks</h2>
+                <p>Bitmovin supports multiple audio/language tracks, without the need of duplication or repackaging the
+                    video,
+                    either for live or on-demand content. Due to the flexibility of DASH, content publishers can easily
+                    provide
+                    multiple language tracks for video assets, where our player supports multi-bitrate audio tracks also
+                    in
+                    multi-language scenarios. The Bitmovin Player also allows viewers to instantaneously
+                    switch
+                    to an alternate audio track either before or during playback.</p>
+                <p>Bitmovin also supports subtitles and closed captions. Switching during playback of the video to
+                    different
+                    subtitles is possible. The subtitles are fully separated from the original video files.</p>
+            </div>
+            <div class="entry">
+                <h2>Using the multi language controls</h2>
+                <div class="image-container">
+          <span class="single-image">
+            <label class="image-number" for="settings-image">1.</label>
+            <a href="https://bitmovin-a.akamaihd.net/webpages/demo-fw/player_settings.png" data-featherlight="image">
+              <img src="https://bitmovin-a.akamaihd.net/webpages/demo-fw/player_settings.png"
+                   id="settings-image" alt="HTML5 video multiple audio tracks multi audio" width="300" height="229">
+            </a>
+          </span>
+                    <span class="single-image">
+            <label class="image-number" for="language-select">2.</label>
+            <a href="https://bitmovin-a.akamaihd.net/webpages/demo-fw/player_langselect.png" data-featherlight="image">
+              <img src="https://bitmovin-a.akamaihd.net/webpages/demo-fw/player_langselect.png"
+                   id="language-select" alt="HTML5 video multiple audio tracks multi audio" width="300" height="229">
+            </a>
+          </span>
+                </div>
+                <p><strong>Step 1.</strong> Open the settings menu of of the player using the gear icon in the bottom
+                    right
+                    corner.
+                <p><strong>Step 2.</strong> Select your preferred audio language.</p>
+            </div>
+        </div>
+    </div>
+</div>

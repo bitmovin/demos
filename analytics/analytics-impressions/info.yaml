@@ -1,0 +1,11 @@
+title: Impression Count
+description: Query the Analytics Impressions that occured in the last 24 hours, grouped by hour
+code:
+  show_code: true
+  language: js
+  files: 
+    - impressions.js
+
+tags: 
+  - basic
+  - impression

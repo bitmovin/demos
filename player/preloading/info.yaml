@@ -1,0 +1,17 @@
+title: Preloading
+description: Configure the Bitmovin Player to start loading videos in advance of playing
+
+executable:
+  executable: true
+  indexfile: index.html
+
+code:
+  show_code: true
+  language: js
+  files:
+    - setup.js
+
+tags:
+  - preload
+  - startup
+  - playback

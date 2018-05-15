@@ -1,0 +1,17 @@
+title: Per-Scene Adaptation
+description: Save up to 30% on CDN costs and improve QoE with Per-Scene Adaptation
+
+executable:
+  executable: true
+  indexfile: index.html
+
+tags:
+  - adaptation
+  - scene
+  - encoding
+
+
+additionalCategories:
+  - player
+
+priority: 950

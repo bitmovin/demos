@@ -1,0 +1,31 @@
+#settings-image {
+    margin: 1em auto;
+    display: inline-block;
+    text-align: center;
+}
+
+.cc-demo p {
+    font-size: 18px;
+}
+
+#player {
+    margin-bottom: 20px;
+}
+
+.image-and-description {
+    text-align: center;
+}
+
+body .demo-detail .code-example {
+    margin-top: 0;
+}
+
+@media (min-width: 1200px) {
+    .player-col {
+        float: left;
+    }
+
+    .code-col {
+        float: right;
+    }
+}

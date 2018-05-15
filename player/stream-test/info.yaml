@@ -1,0 +1,20 @@
+title: DASH, HLS or PROGRESSIVE stream test
+description: Test your own stream with the Bitmovin Player
+
+executable:
+  executable: true
+  indexfile: index.html
+
+code:
+  show_code: false
+  language: js
+
+tags:
+  - dash
+  - hls
+  - stream
+  - basic
+  - test
+  - player
+
+priority: 900

@@ -1,0 +1,39 @@
+.single-image {
+    display: inline-block;
+    white-space: nowrap;
+    margin: 3px 0;
+}
+
+.single-image .image-number {
+    vertical-align: top;
+    background-color: #0dc3ff;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.single-image img {
+    padding: 6px;
+    border: 1px solid #0dc3ff;
+}
+
+body .setup-code .code-example {
+    margin-top: 0;
+}
+
+@media (min-width: 1200px) {
+    .player-col {
+        float: left;
+    }
+
+    .code-col {
+        float: right;
+    }
+}
+
+@media (max-width: 992px) {
+    .diagram {
+        width: 100%;
+        height: auto;
+    }
+}

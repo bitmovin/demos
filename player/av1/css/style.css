@@ -1,0 +1,7 @@
+#player .bmpui-ui-tvnoisecanvas {
+    display: none;
+}
+
+#player .bmpui-ui-errormessage-label {
+    background: transparent;
+}

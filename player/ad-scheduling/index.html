@@ -1,0 +1,91 @@
+<script type="text/javascript"
+        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
+<script type="text/javascript"
+        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer-ui.js"></script>
+<link rel="stylesheet" href="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer-ui.css">
+
+<div class="description">
+    <p>
+        This demo showcases the Bitmovin Player’s ad insertion capabilities. The player can be used with different
+        advertising standards, namely VAST, VPAID, IMA and VMAP.
+    </p>
+    <p>
+        Simply schedule your ads at different times of the video by choosing an advertisement standard and providing the
+        link
+        to the ad tag in the text area. Use the “schedule ads” button to insert the ad, and the “reset
+        configuration” button to clear previous scheduled ads.
+    </p>
+    <p>
+        This demo has a pre-roll ad scheduled by default. If you do not want to see these ads, reset the configuration
+        before playing the video.
+    </p>
+</div>
+
+<div class="controls">
+    <div class="row">
+        <div class="col-sm-6 mb-3">
+            <select id="adType" class="form-control">
+                <option selected="selected" value="vast">VAST</option>
+                <option value="vpaid">VPAID</option>
+                <option value="vmap">VMAP</option>
+                <option value="ima">IMA</option>
+            </select>
+        </div>
+        <div class="col-sm-6 mb-3">
+            <select id="schedule-list" class="form-control">
+                <option selected="selected" value="pre">Ad position : pre-roll (0%)</option>
+                <option value="5%">Ad position : mid-roll(5%)</option>
+                <option value="10%">Ad position : mid-roll(10%)</option>
+                <option value="post">Ad position : post-roll (100%)</option>
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-12">
+            <input id="ad-server-url" type="text" class="form-control"
+                   placeholder="Custom ad server URL, if empty default will be used">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 text-right">
+            <input id="scheudle-ad-button" class="btn btn-success mr-3 mt-2" type="button" value="Schedule AD">
+            <input id="reset-button" class="btn btn-warning mt-2" type="button" value="Reset Configuration">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div id="ad-error"></div>
+    </div>
+    <div class="col-md-12">
+        <div id="ad-warning"></div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-6 col-sm-12">
+        <div id="player" class="no-frame">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <div id="dynamic-code">
+            <h2>Schedule an ad during playback</h2>
+            <p>Use the Bitmovin Player's API to schedule ads during playback:</p>
+            ${code:dynamic-schedule.js}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div id="initial-code">
+            <h2>Setup an ad via the config</h2>
+            <p>Use the advertising section of the configuration to schedule ads at the desired positions. This example
+                will
+                play an ad before the actual video will start.</p>
+            ${code:initial-schedule.js}
+        </div>
+    </div>
+</div>
+  

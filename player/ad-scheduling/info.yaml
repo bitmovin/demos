@@ -1,0 +1,21 @@
+title: Ad Scheduling
+description: Schedule VAST / IMA / VPAID ads at your desired time
+
+executable:
+  executable: true
+  indexfile: index.html
+
+code:
+  show_code: true
+  language: js
+  files:
+    - initial-schedule.js
+    - dynamic-schedule.js
+
+tags: 
+  - advertisement
+  - VAST
+  - IMA
+  - VPAID
+
+priority: 860

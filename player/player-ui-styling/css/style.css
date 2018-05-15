@@ -1,0 +1,77 @@
+#player {
+    margin-bottom: 20px;
+}
+
+@media (min-width: 1200px) {
+    .code-col {
+        float: right;
+    }
+
+    .info-col {
+        float: left;
+        margin-top: 30px;
+    }
+}
+
+.button-container {
+    margin-bottom: 25px;
+}
+
+.button-container .ui-button {
+    width: 100%;
+    color: #fff;
+    height: 3em;
+    border: 0;
+    font-size: 1.1em;
+    background-size: 55px 55px;
+    padding-right: 70px;
+    margin: 5px 0;
+}
+
+/*#smallscreen {*/
+/*background-color: #498b4d;*/
+/*}*/
+/*#watermark {*/
+/*background-color: #22aae2;*/
+/*}*/
+/*#bigseek {*/
+/*background-color: #ff7174;*/
+/*}*/
+
+/*#color1 {*/
+/*background-color: #ff931e;*/
+/*}*/
+/*#color2 {*/
+/*background-color: #22b573;*/
+/*}*/
+/*#redbuffer {*/
+/*background-color: #ff1237;*/
+/*}*/
+
+.bmpui-seekbar-backdrop.orange {
+    background-color: #ff931e !important;
+}
+
+.bmpui-seekbar-backdrop.green {
+    background-color: #22b573 !important;
+}
+
+.bmpui-seekbar-bufferlevel.red {
+    background-color: #ff1237 !important;
+}
+
+/* always show UI being styled */
+
+.bmpui-controls-hidden {
+    all: unset !important;
+}
+
+.bmpui-ui-controlbar.bmpui-hidden {
+    visibility: unset !important;
+    opacity: unset !important;
+}
+
+.bmpui-ui-titlebar.bmpui-hidden {
+    visibility: unset !important;
+    opacity: unset !important;
+}

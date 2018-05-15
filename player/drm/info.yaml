@@ -1,0 +1,19 @@
+title: DRM stream test
+description: Test your protected DRM stream with the Bitmovin Player
+
+executable:
+  executable: true
+  indexfile: index.html
+
+code:
+  show_code: true
+  language: js
+  files:
+    - demo.js
+
+tags:
+  - drm
+  - widevine
+  - playready
+
+priority: 880

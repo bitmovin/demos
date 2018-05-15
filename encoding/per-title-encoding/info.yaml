@@ -1,0 +1,11 @@
+title: Per-Title Encoding
+description: Adjust the bitrate based on the complexity of the source file
+
+executable:
+  executable: true
+  indexfile: index.html
+
+tags:
+  - per title encoding
+
+priority: 1000

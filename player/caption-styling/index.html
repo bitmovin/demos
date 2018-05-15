@@ -1,0 +1,78 @@
+<script type="text/javascript" src="//bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
+
+<div class="cc-demo">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="description">
+                <p>This shows the Bitmovin Player and a stream with captions.
+                    Through the UI you can update many settings on how the captions are displayed</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 player-col">
+            <div id="player" class="tv-frame">
+            </div>
+        </div>
+        <div class="col-lg-6 code-col">
+            ${code:demo.js}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="description-header">Bitmovin closed captions and subtitles support</h2>
+            <p>The Bitmovin adaptive <a href="//bitmovin.com/html5-player/">HTML5 video player</a>
+                supports a wide range of closed captions formats.
+                With each of them it's possible for your viewer to adapt the display options, their preferences will be
+                stored.
+                For more information about all the supported options head over to
+                <a href="https://developer.bitmovin.com/hc/en-us/articles/115001446334-Subtitle-Closed-Captions-Support">tutorial
+                    section</a>.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <h3 class="description-header">Where to find the additional settings</h3>
+            <p>The small gear icons next to the subtitles menu point gives you access to the menu with all settings.</p>
+        </div>
+        <div class="col-md-7 image-and-description">
+            <a href="//bitmovin-a.akamaihd.net/webpages/demo-fw/player_access_captions_options.png"
+               data-featherlight="image" id="settings-image">
+                <img src="//bitmovin-a.akamaihd.net/webpages/demo-fw/player_access_captions_options.png"
+                     alt="menu closed captions bitmovin" width="70%">
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <h3 class="description-header">Configuration options</h3>
+            <p>Here you can see the different options the player offers: </p>
+            <ul>
+                <li>Font Size &amp; Font Family: control the font display, font-families uses your browser font to
+                    follow CEA-708 precepts
+                </li>
+                <li>Font Color: some videos may have content too similar to the font color - change it here, default is
+                    white
+                </li>
+                <li>Character edge: allows you to change the border of the font to improve readability when needed</li>
+                <li>Background Color &amp; Background opacity: You can define a color to be displayed in the back of the
+                    subtitle text
+                    and it's opacity. Default is black with 0% opacity (completely transparent)
+                </li>
+                <li>Window Color &amp; Window Opacity: Offers to create a window stretching over all of the videos width
+                    and contains the subtitles
+                    and the ability to control its transparency. Default is black at 0% opacity (completely transparent)
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-7  image-and-description">
+            <a href="//bitmovin-a.akamaihd.net/webpages/demo-fw/player_captionsOptions.png" data-featherlight="image"
+               id="settings-image">
+                <img src="//bitmovin-a.akamaihd.net/webpages/demo-fw/player_captionsOptions.png"
+                     alt="feature list closed captions bitmovin" width="70%">
+            </a>
+        </div>
+    </div>
+</div>

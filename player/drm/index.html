@@ -1,0 +1,72 @@
+<script type="text/javascript"
+        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
+
+<div class="demo_form">
+    <div class="row">
+        <div class="col-md-4 adjust-pad-right mt-2">
+            <select id="available-manifest-type" class="form-control">
+                <option value='dash'>DASH</option>
+                <option value='hls'>HLS</option>
+            </select>
+        </div>
+        <div class="col-md-4 adjust-pad-left adjust-pad-right mt-2">
+            <input id="manifest-in" type="text" class="form-control" placeholder="Manifest URL">
+        </div>
+        <div class="col-md-4 adjust-pad-left adjust-pad-right mt-2">
+            <input id="licence-in" type="text" class="form-control" placeholder="License Server URL">
+        </div>
+    </div>
+    <div class="row mt-3 mb-3">
+        <div class="col-md-8 mt-2">
+            <form class="detection" role="search">
+                <span>Detected <span id="detected-browser"></span>, using</span>
+                <select id="available-drm-systems" disabled>
+                    <option value=''>No DRM</option>
+                </select>
+            </form>
+        </div>
+        <div class="col-md-4 adjust-pad-left adjust-pad-right">
+            <input class="btn btn-success form-control" id="load-btn" value="Load" type="button">
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 player-col">
+        <div id="player" class="tv-frame">
+        </div>
+    </div>
+    <div class="col-lg-6 code-col">
+        ${code:demo.js}
+    </div>
+</div>
+
+<hr class="mt-5">
+
+<!--<div class="row">-->
+<!--<div class="col-12">-->
+<!--<h3>Compatibility</h3>-->
+<!--</div>-->
+<!--</div>-->
+
+<div class="row mt-5">
+    <div class="col-lg-6">
+        <h4>Media Source Extension – MSE</h4>
+        <p>MSE is <span id="mse-supported"></span> by your current browser.</p>
+        <div class="code">
+            <ul id="mse-list">
+
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <h4>Encrypted Media Extension – EME</h4>
+        <p>EME is <span id="eme-supported"></span> by your current browser.</p>
+        <div class="code">
+            <ul id="eme-list">
+
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<script type="text/javascript"
+        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
+
+<div class="switch-demo">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="description">
+                <p>Experience the Bitmovin Player's ability to switch between streams without having to run setup twice.
+                    This
+                    improves the speed immensely</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-8">
+            <div id="player" class="tv-frame">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row button-container">
+                <div class="col-md-12">
+                    <span id="switch-time">Click a button to show switch time.</span>
+                </div>
+                <div class="col-md-12">
+                    <button class="channel-button btn btn-success" id="ch1" type="button"
+                            onclick="switchChannel('1', event)">Art of Motion<span class="timer"></span></button>
+                </div>
+                <div class="col-md-12">
+                    <button class="channel-button btn btn-warning" id="ch2" type="button"
+                            onclick="switchChannel('2', event)">Elephant's Dream<span class="timer"></span></button>
+                </div>
+                <div class="col-md-12">
+                    <button class="channel-button btn btn-primary" id="ch3" type="button"
+                            onclick="switchChannel('3', event)">Sintel<span class="timer"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-6 info-col">
+            <h2>One setup call for multiple sources</h2>
+            <p>
+                Call the <code>setup</code> function only for the initial player setup. The Bitmovin Player can load new
+                sources
+                without being destroyed and having to set up all the components again. This saves time for your
+                customers and
+                gives your page a more responsive feeling.
+            </p>
+        </div>
+        <div class="col-lg-6 code-col">
+            ${code:setup.js}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 info-col">
+            <h2>Load a source dynamically</h2>
+            <p>Respond to the user's input and load a different source without having to run the setup again:</p>
+            <p>This functionality is especially valuable if you plan to create some kind of tv-station.</p>
+        </div>
+        <div class="col-lg-6 code-col">
+            ${code:switchChannel.js}
+        </div>
+    </div>
+</div>

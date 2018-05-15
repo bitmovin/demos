@@ -1,0 +1,19 @@
+title: HLS fragmented MP4
+description: The Bitmovin Player fully supports fragmented MP4 in HLS
+
+executable:
+  executable: true
+  indexfile: index.html
+
+code:
+  show_code: true
+  language: js
+  files:
+    - demo.js
+
+tags:
+  - fMP4
+  - fragmented
+  - MP4
+  - HLS
+  - basic

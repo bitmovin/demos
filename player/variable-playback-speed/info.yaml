@@ -1,0 +1,16 @@
+title: Variable Playback Speed
+description: Change the playback speed of content
+
+executable:
+  executable: true
+  indexfile: index.html
+
+code:
+  show_code: true
+  language: js
+  files:
+    - demo.js
+
+tags:
+  - playback speed
+  - dynamic

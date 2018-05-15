@@ -1,0 +1,21 @@
+title: AV1
+description: AV1 is a next generation codec that can reduce bandwidth and CDN costs by a factor of 10
+
+executable:
+  executable: true
+  indexfile: index.html
+
+tags:
+  - experimental
+  - AV1
+  - Chrome
+  - Firefox
+  - Google
+  - Mozilla
+  - Nightly
+  - Canary
+
+additionalCategories:
+  - encoding
+
+priority: 920

@@ -1,0 +1,69 @@
+<script type="text/javascript"
+        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
+<div>
+    <div class="row">
+        <div class="col-lg-6 player-col mt-3">
+            <ul class="mb-4">
+                <li>Match codecs to browsers dynamically</li>
+                <li>50% bandwidth savings or more</li>
+                <li>Deliver the best quality possible for each user, based on their browser</li>
+            </ul>
+            <a href="//bitmovin-a.akamaihd.net/webpages/demo-fw/multi-codec/browser-usage.png" data-featherlight="image"
+               title="Browser Usage">
+                <span class="btn btn-outline-primary">Browser Usage</span>
+            </a>
+        </div>
+        <div class="col-lg-6 player-col mt-3">
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-6 player-col">
+            <p>Detected <span id="detected-browser"></span>, using <span class="selected-codec"></span></p>
+            <div id="tv-wrapper">
+                <div id="player-wrapper" class="pb-5 pb-lg-5">
+                    <div id="player">
+                        <div id="player-container" class="notebook-frame"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 code-col mt-5">
+            <div id="stats-panels-wrapper">
+                <div class="panel bitmovin-panel-bitrate mb-4">
+                    <div class="panel-heading bitmovin-panel-heading-bitrate">
+                        <h4 class="mb-3">Bitrate</h4>
+                    </div>
+                    <div>
+                        <canvas height="110px" id="chart-container"></canvas>
+                    </div>
+                </div>
+                <div id="stats-table-wrapper">
+                    <h4 class="mb-3 mt-5">Performance</h4>
+                    <table id="stats-table">
+                        <tbody>
+                        <tr>
+                            <td><span class="selected-codec"></span> Segment Data</td>
+                            <td><span id="selected-codec-request-data">0</span> MB</td>
+                        </tr>
+                        <tr>
+                            <td><span id="compare-codec"></span> Segment Data</td>
+                            <td><span id="compare-codec-request-data">0</span> MB</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td>Savings</td>
+                            <td><span id="savings-percentage">0</span> %</td>
+                        </tr>
+                        <tr class="strong">
+                            <td>Cost reduction*</td>
+                            <td><span id="cost-reduction">0</span> USD</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                    <div class="small ml-2">* assuming 1,000,000 Views and 0.025 USD Distribution Cost per GB</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

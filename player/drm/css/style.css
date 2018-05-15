@@ -1,0 +1,78 @@
+
+body .demo-detail .code-example {
+    margin-top: 0;
+}
+
+#player {
+    margin-bottom: 20px;
+}
+
+@media (min-width: 1200px) {
+    .player-col {
+        float: left;
+    }
+
+    .code-col {
+        float: right;
+    }
+}
+
+.detection {
+    font-size: 18px;
+}
+
+#available-drm-systems {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    background-color: #fff;
+    border: none;
+    outline: none;
+}
+
+.browser-icon,
+#available-drm-systems {
+    font-size: 1.5em;
+}
+
+.code {
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.code ul li {
+    font-size: 1.1em;
+}
+
+.code ul li.supported, .yes {
+    color: rgb(0, 148, 227);
+}
+
+.code ul li.unsupported, .no {
+    color: rgb(160, 160, 160);
+}
+
+.code ul li::before {
+    all: unset;
+    display: block;
+    margin-left: -20px;
+    margin-top: 2px;
+}
+
+.code ul li.supported::before {
+    font-family: FontAwesome;
+    color: rgb(0, 148, 227);
+    content: "\f14a";
+}
+
+.code ul li.unsupported::before {
+    font-family: FontAwesome;
+    color: rgb(160, 160, 160);
+    content: "\f146";
+}
+
+.code ul li span {
+    display: inline-block;
+    margin-left: 10px;
+    color: rgb(13, 56, 65);
+}

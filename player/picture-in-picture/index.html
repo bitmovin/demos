@@ -1,0 +1,56 @@
+<script type="text/javascript"
+        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
+
+<div class="vr-demo">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="description">
+                <p>
+                    Keep the Bitmovin Player visible to users in any case. Simply scroll down to see the picture in
+                    picture feature in action.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+            <div class="player-container">
+                <p class="placeholder-text">
+          <span>
+            This is where the player will return when you scroll back up
+          </span>
+                </p>
+                <div class="player-switch">
+                    <div id="player" class="no-radius no-frame">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9 info-column">
+            <h2>Setup</h2>
+            <p>
+                The following steps will lead you through an example implementation:
+            </p>
+            <h3>Set up the player: </h3>
+            ${code:setup.js}
+
+            <p class="clearfix"></p>
+
+            <h3>React to the scrolling of the document:</h3>
+            ${code:scrollListener.js}
+
+            <p class="clearfix"></p>
+
+            <h3>Adjust player size and position via CSS</h3>
+            ${code:magic.css:css}
+
+        </div>
+    </div>
+    <div class="col-md-3">
+        <!-- in order for the player not to overlap with text, leave space on the right -->
+    </div>
+</div>

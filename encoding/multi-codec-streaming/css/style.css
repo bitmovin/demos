@@ -1,0 +1,15 @@
+#stats-table td {
+    padding: 5px;
+}
+
+#stats-table tr > td:first-child {
+    padding-right: 1rem;
+}
+
+.browser-icon {
+    font-size: 1.5em;
+}
+
+.codec-image {
+    font-size: 1.5em;
+}

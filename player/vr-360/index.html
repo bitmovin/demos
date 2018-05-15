@@ -1,0 +1,77 @@
+<script type="text/javascript"
+        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
+<script type="text/javascript"
+        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer-vr.js"></script>
+<script type="text/javascript"
+        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer-ui.js"></script>
+<link rel="stylesheet" href="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer-ui.css">
+
+<div class="vr-demo">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="description">
+                <p>This demo shows the Bitmovin Player displaying a 360° video with VR. The controls include 360° – 2D,
+                    3D, 2D stereo and 3D stereo, as well as resolution settings.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+            <div id="player" class="phone-frame">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="col-md-12 input-hint">
+                <p>Control the view by dragging your mouse across the player or using your keyboard:</p>
+                <div class="player-control">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <span class="keyboard-button">W</span>
+                            <span class="direction">UP</span>
+                        </div>
+                        <div class="col-md-12 col-xs-12">
+                            <span class="keyboard-button">S</span>
+                            <span class="direction">DOWN</span>
+                        </div>
+                        <div class="col-md-12 col-xs-12">
+                            <span class="keyboard-button">A</span>
+                            <span class="direction">LEFT</span>
+                        </div>
+                        <div class="col-md-12 col-xs-12">
+                            <span class="keyboard-button">D</span>
+                            <span class="direction">RIGHT</span>
+                        </div>
+                        <div class="col-md-12 col-xs-12">
+                            <span class="keyboard-button">Q</span>
+                            <span class="direction">Rotate counter clockwise</span>
+                        </div>
+                        <div class="col-md-12 col-xs-12">
+                            <span class="keyboard-button">E</span>
+                            <span class="direction">Rotate clockwise</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-6 code-column">
+            ${code:demo.js}
+        </div>
+        <div class="col-md-6 info-column">
+            <h2 class="description-header">HTML5 VR and 360° Adaptive Video Streaming</h2>
+            <p>The Bitmovin adaptive <a href="https://bitmovin.com/html5-player/">HTML5 video player</a> is the ideal
+                solution for
+                360° and VR playback for a number of reasons. If you are developing a 360° app or platform, then you are
+                probably already
+                aware of the challenges involved in streaming immersive video due to the extra file size. This makes the
+                quality of your adaption logic of paramount importance. The patented technology of the Bitmovin Player
+                puts it a few steps ahead of its nearest competitors.</p>
+            <p>For more information about VR Playback head over to our
+                <a href="https://developer.bitmovin.com/hc/en-us/articles/115001514354-How-to-Setup-VR-and-360-Video-Playback">tutorial
+                    section</a>.</p>
+        </div>
+    </div>
+</div>

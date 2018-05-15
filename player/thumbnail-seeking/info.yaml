@@ -1,0 +1,19 @@
+title: Thumbnail seeking
+description: Display thumbnails over the seek bar to show a preview of the video at seeked time
+
+executable:
+  executable: true
+  indexfile: index.html
+
+code:
+  show_code: true
+  language: js
+  files:
+    - setup.js
+    - tracks.js
+
+tags:
+  - thumbnail
+  - seek
+  - preview
+  - basic

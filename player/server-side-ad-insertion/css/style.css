@@ -1,0 +1,39 @@
+#player {
+    margin-bottom: 20px;
+}
+
+.imgContainer {
+    text-align: center;
+}
+
+.server-ads-demo img {
+    width: 100%;
+}
+
+body .demo-detail .code-example {
+    margin-top: 0;
+}
+
+@media (max-width: 1200px) {
+    .lgImg {
+        display: none;
+    }
+}
+
+@media (min-width: 1200px) {
+    .player-col {
+        float: left;
+    }
+
+    .code-col {
+        float: right;
+    }
+
+    .smImg {
+        display: none;
+    }
+}
+
+#player .bitmovinplayer-poster {
+    background-color: white;
+}

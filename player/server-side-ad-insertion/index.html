@@ -1,0 +1,54 @@
+<script type="text/javascript"
+        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
+<script type="text/javascript"
+        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer-ui.js"></script>
+<link rel="stylesheet" href="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer-ui.css">
+
+<div class="server-ads-demo">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="description">
+                <p>
+                    Server side ad insertion gives you the power of bypassing most of today's ad blocking techniques,
+                    since a continuous stream is delivered.
+                </p>
+                <p>
+                    In this demo the video will be interrupted by a mid-roll ad at around 30 seconds.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 player-col">
+            <div id="player" class="no-frame">
+            </div>
+            <div class="imgContainer lgImg">
+                <a href="https://bitmovin-a.akamaihd.net/webpages/demo-fw/player_ssai.svg" data-featherlight="image">
+                    <img src="https://bitmovin-a.akamaihd.net/webpages/demo-fw/player_ssai.svg"
+                         alt="HTML5 video serer side ads insertion">
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-6 code-col">
+            ${code:demo.js}
+            <div>
+                <p>The Bitmovin Player's <a
+                        href="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/docs/modules/events.html">Events
+                    API</a> is used to hide some controls while ads play.</p>
+                <p>
+                    Since the ads are inserted into the content on the encoding level, they cannot be blocked by the
+                    client.
+                    See our <a href="https://bitmovin.com/bypass-adblock-server-side-ad-insertion/">blog post</a> with
+                    more details on how to use our solution.
+                </p>
+            </div>
+            <div class="imgContainer smImg">
+                <a href="https://bitmovin-a.akamaihd.net/webpages/demo-fw/player_ssai.svg" data-featherlight="image">
+                    <img src="https://bitmovin-a.akamaihd.net/webpages/demo-fw/player_ssai.svg"
+                         alt="HTML5 video serer side ads insertion">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

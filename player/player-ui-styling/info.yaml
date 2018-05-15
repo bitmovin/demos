@@ -1,0 +1,19 @@
+title: UI Styling
+description: Learn how you can entirely controls the styling of the player UI
+
+executable:
+  executable: true
+  indexfile: index.html
+
+code:
+  show_code: true
+  language: js
+  files:
+    - playerManaged.js
+    - externallyManaged.js
+    - cssOverloading.js
+
+tags:
+  - styling
+  - css
+  - UI

@@ -1,0 +1,18 @@
+title: Chromeless Player
+description: This demo shows how the player can work without an UI
+
+executable:
+  executable: true
+  indexfile: index.html
+
+code:
+  show_code: true
+  language: js
+  files:
+    - demo.js
+
+tags:
+  - UI
+  - chromeless
+  - headless
+  - basic

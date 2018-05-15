@@ -1,0 +1,12 @@
+title: Modular Player
+description: Modular approach improves Bitmovin Player speed
+
+executable:
+  executable: true
+  indexfile: index.html
+
+tags:
+  - modular
+  - reduce size
+
+priority: 960

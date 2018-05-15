@@ -1,0 +1,38 @@
+<script type="text/javascript"
+        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
+
+<div class="description">
+    <p>Simply paste the link to your video file to test your own stream with the Bitmovin Player.</p>
+</div>
+
+<div class="demo_form">
+    <div class="row">
+        <div class="col-md-3 adjust-pad-right mt-2">
+            <select id="stream_format" class="form-control">
+                <option selected="selected" value="dash">DASH (.mpd)</option>
+                <option value="hls">HLS (.m3u8)</option>
+                <option value="progressive">Progressive</option>
+            </select>
+        </div>
+        <div class="col-md-6 adjust-pad-left adjust-pad-right mt-2">
+            <input id="manifest" class="form-control" name="manifest" type="text"
+                   placeholder="//bitmovin-a.akamaihd.net/content/sintel/sintel.mpd">
+        </div>
+        <div class="col-md-3 adjust-pad-left mt-2">
+            <input id="submit" class="btn btn-success" type="submit" value="Load" onclick="loadManifest()">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="error" style="color: red;"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 col-md-12 m-auto">
+        <div id="player" class="notebook-frame">
+        </div>
+    </div>
+</div>

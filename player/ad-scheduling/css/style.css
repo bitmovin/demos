@@ -1,0 +1,17 @@
+@media (min-width: 768px) {
+    #player {
+        margin-bottom: -10px;
+    }
+}
+
+#ad-error {
+    color: red;
+}
+
+#ad-warning {
+    color: #ff8c52;
+}
+
+#player .bitmovinplayer-poster {
+    background-color: white;
+}

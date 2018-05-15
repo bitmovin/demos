@@ -1,0 +1,52 @@
+.player-container {
+    position: relative;
+}
+
+#player {
+    /*position: absolute;*/
+    bottom: 0;
+    right: 0;
+    transition: 0.3s;
+    width: 100%;
+}
+
+#player2 {
+    margin-bottom: 25px;
+}
+
+.player-switch {
+    position: relative;
+}
+
+.placeholder-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 5px;
+    right: 0;
+    bottom: 0;
+    /*bottom: 10%;*/
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.placeholder-text span {
+    display: inline-block;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 50%;
+}
+
+.player-switch.fixed-player #player {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 30vw;
+    min-width: 250px;
+    height: auto;
+    /* make sure the player is OVER the
+    code snippet and the other player*/
+    z-index: 2;
+}

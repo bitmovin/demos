@@ -1,0 +1,62 @@
+<script type="text/javascript"
+        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
+
+<div class="thumbnail-demo">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="description">
+                <p>Hover over the timeline of the Bitmovin Player to see the thumbnail seeking feature in action.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 player-col">
+            <div id="player" class="tv-frame">
+            </div>
+        </div>
+        <div class="col-lg-6 code-col">
+            ${code:setup.js}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 info-block">
+            <h2>How to set up thumbnail seeking in your Bitmovin Player</h2>
+
+            <p>Thumbnail seeking is a must have for any video longer than a few minutes. It increases usability and
+                the general
+                <a href="https://bitmovin.com/ultra-high-definition-quality-experience-mpeg-dash-part-1/">QoE (Quality
+                    of Experience)</a> dramatically.
+            </p>
+
+            <div class="row text-with-code">
+                <div class="col-md-8">
+                    <p>Setting up is simple with the Bitmovin Player. Thumbnails are loaded into the timeline as a
+                        track. All you need to do is to tell the player the location of the thumbnail file:</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="track-code">
+                        ${code:tracks.js}
+                    </div>
+                </div>
+            </div>
+
+            <p>To set up your video player with thumbnails have a look at this article for a more comprehensive
+                explanation of the
+                <a href="https://developer.bitmovin.com/hc/en-us/articles/115001561533-Bitmovin-Player-API-Documentation-v7">
+                    Bitmovin Player configuration</a>.
+            </p>
+
+            <h2>What’s required for a video player with thumbnails</h2>
+
+            <p>
+                Adaptive Streaming relies on encoding your video into several groups of files (streams) at various
+                resolutions, while thumbnails also need to be generated in the encoding process. The encoder creates a
+                set of thumbnail images and combines them into a single image file (“Sprite”). For more
+                information on encoding your videos, have a look at our <a href="https://bitmovin.com/encoding/">Cloud
+                Encoding Service</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+</div>

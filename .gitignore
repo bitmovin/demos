@@ -1,0 +1,5 @@
+.idea/
+node_modules
+yarn-error.log
+.ruby-version
+.DS_Store

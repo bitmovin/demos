@@ -1,0 +1,19 @@
+title: Picture in Picture
+description: Showcases the ability to keep a minimized player in the corner of your screen when you scroll too far
+
+executable:
+  executable: true
+  indexfile: index.html
+
+code:
+  show_code: true
+  language: js
+  files:
+    - setup.js
+    - scrollListener.js
+    - magic.css:css
+
+tags:
+  - picture
+  - mini
+  - advanced

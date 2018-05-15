@@ -1,0 +1,25 @@
+.sdk-demos {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.sdk-demos img {
+    height: 36px;
+}
+
+.sdk-demos .col-6 {
+    padding: 0;
+    margin: 0;
+}
+
+.sdk-demos .col-6:first-child {
+    padding-right: 1rem;
+}
+
+.sdk-demos .col-6:last-child {
+    padding-left: 0.2rem;
+}
+
+.info-box {
+    padding-right: 2rem;
+}

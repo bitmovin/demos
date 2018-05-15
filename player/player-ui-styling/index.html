@@ -1,0 +1,115 @@
+<script type="text/javascript"
+        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
+<script type="text/javascript"
+        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer-ui.js"></script>
+<link rel="stylesheet" href="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer-ui.css">
+
+<div class="cc-demo">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="description">
+                The Bitmovin Player UI is independent of the Player's core, which makes it easy to customize the
+                Player's appearance.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div id="player" class="tv-frame">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row button-container">
+                <div class="col-md-12">
+                    <button class="ui-button btn btn-info" id="smallscreen" type="button"
+                            onclick="toggleSmallScreenUI()">Toggle Small Screen UI
+                    </button>
+                </div>
+                <div class="col-md-12">
+                    <button class="ui-button btn btn-primary" id="watermark" type="button" onclick="toggleWatermark()">
+                        Toggle Watermark
+                    </button>
+                </div>
+                <div class="col-md-12">
+                    <button class="ui-button btn btn-warning" id="bigseek" type="button" onclick="giantSeekBar()">Toggle
+                        Big Seek Bar
+                    </button>
+                </div>
+                <div class="col-md-12">
+                    <button class="ui-button btn btn-secondary" id="color1" type="button" onclick="toOrange()">Orange
+                        Seek Bar
+                    </button>
+                </div>
+                <div class="col-md-12">
+                    <button class="ui-button btn btn-success" id="color2" type="button" onclick="toGreen()">Green Seek
+                        Bar
+                    </button>
+                </div>
+                <div class="col-md-12">
+                    <button class="ui-button btn btn-danger" id="redbuffer" type="button"
+                            onclick="toggleRedBufferLevel()">Red Buffer Level
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                The UI is designed to be as flexible as possible.
+                Here we are showing you a few ways you can adapt the UI to better fit the rest of your content.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 info-col">
+            <h2>Setup via configuration</h2>
+            <p>
+                Take control over the Player's appearance, by creating your own custom UI with our <a
+                    href="https://github.com/bitmovin/bitmovin-player-ui/">Player UI Framework</a>, which can be set via
+                the configuration.
+            </p>
+        </div>
+        <div class="col-lg-6 code-col">
+            ${code:playerManaged.js}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 info-col">
+            <h2>Dynamic UI loading</h2>
+            <p>
+                For full flexibility use our <code>UIManager</code> to dynamically change the UI of the Bitmovin Player,
+                as shown in this example and by setting the configuration option <code>ux: false</code>.
+            </p>
+            <p>
+                This can be combined with a custom created UI too, allowing for an even more fine grained control of the
+                UI.
+            </p>
+        </div>
+        <div class="col-lg-6 code-col">
+            ${code:externallyManaged.js}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 info-col">
+            <h2>Styling of single components</h2>
+            <p>
+                If you prefer to update just a few elements without having to build an entire UI, all elements can be
+                restyled using CSS.
+                <a href="https://developer.bitmovin.com/hc/en-us/articles/115001507873-Player-UI-CSS-Class-Reference">The
+                    documentation</a> provides a complete reference of all CSS classes used in the UI.
+                You may even want to have a look at our <a
+                    href="https://github.com/bitmovin/bitmovin-player-ui/tree/develop/src/scss">SCSS source</a> files.
+            </p>
+            <p>
+                In this demo we use this feature to dynamically change the background color of the seekbar.
+            </p>
+        </div>
+        <div class="col-lg-6 code-col">
+            ${code:cssOverloading.js}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+title: Chromecast
+description: Cast video directly to your television screen using Chromecast and the Bitmovin Player
+
+executable:
+  executable: true
+  indexfile: index.html
+
+code:
+  show_code: true
+  language: js
+  files:
+    - demo.js
+
+tags:
+  - chromecast
+  - television
+
+priority: 820

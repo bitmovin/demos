@@ -1,0 +1,29 @@
+@media (min-width: 1200px) {
+    body .demo-detail .code-example {
+        margin-top: 0;
+    }
+}
+
+@media (min-width: 1200px) {
+    .player-col {
+        float: left;
+    }
+
+    .code-col {
+        float: right;
+    }
+}
+
+@media (min-width: 991px) {
+    .text-with-code p {
+        margin-top: 20px;
+    }
+}
+
+.demo-detail .thumbnail-demo .track-code .code-example .demo-info {
+    display: none;
+}
+
+.info-block {
+    margin-bottom: 20px;
+}
