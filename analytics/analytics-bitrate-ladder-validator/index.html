@@ -1,0 +1,57 @@
+<div class="paginated">
+    <div class="row page">
+        <div class="col-lg-7 mb-3 code-col">
+            <a href="//bitmovin-a.akamaihd.net/webpages/demo-fw/analytics-bitrate-demo/step-1.png" data-featherlight="image">
+                <img src="//bitmovin-a.akamaihd.net/webpages/demo-fw/analytics-bitrate-demo/step-1.png" alt="" class="w-100">
+            </a>
+        </div>
+        <div class="col-lg-5 code-col">
+            <h2>Query for Available Bitrates</h2>
+            ${code:available-bitrates.js}
+            <p>
+                This query returns the available bitrates of the asset with the id "vid-39102-123"
+                which are shown as dotted, horizontal lines in the chart.
+            </p>
+        </div>
+    </div>
+    <div class="row page">
+        <div class="col-lg-7 mb-3 code-col">
+            <a href="//bitmovin-a.akamaihd.net/webpages/demo-fw/analytics-bitrate-demo/step-2.png" data-featherlight="image">
+                <img src="//bitmovin-a.akamaihd.net/webpages/demo-fw/analytics-bitrate-demo/step-2.png" alt="" class="w-100">
+            </a>
+        </div>
+        <div class="col-lg-5 code-col">
+            <h2>Query for Available Bandwidth</h2>
+            ${code:available-bandwidth.js}
+            <p>
+                This query returns the average available bandwidth to the user.
+            </p>
+        </div>
+    </div>
+    <div class="row page">
+        <div class="col-lg-7 mb-3 code-col">
+            <a href="//bitmovin-a.akamaihd.net/webpages/demo-fw/analytics-bitrate-demo/step-3.png" data-featherlight="image">
+                <img src="//bitmovin-a.akamaihd.net/webpages/demo-fw/analytics-bitrate-demo/step-3.png" alt="" class="w-100">
+            </a>
+        </div>
+        <div class="col-lg-5 code-col">
+            <h2>Query for Playback Bitrate</h2>
+            ${code:playback-bitrate.js}
+            <p>
+                This query returns the playback bitrate chosen by the player.
+                As you can see an additional rendition (e.g. 3.5 Mbit/s) should be added to provide a better QOE.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row text-center">
+    <div class="col-12">
+        <button class="btn btn-outline-primary btn-paginated paginated-prev" data-paginated-disabled="true">
+            Previous
+        </button>
+        <button class="btn btn-outline-primary btn-paginated paginated-next" data-paginated-disabled="true">
+            Next
+        </button>
+    </div>
+</div>

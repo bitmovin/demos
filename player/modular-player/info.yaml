@@ -10,3 +10,5 @@ tags:
   - reduce size
 
 priority: 960
+
+hide_github_link: true
