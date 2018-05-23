@@ -1,5 +1,6 @@
 title: Custom Adaptation
 description: Showcasing the player's ability to switch between bitrates to avoid re-buffering, minimize startup time, and provide the best possible quality
+long_descripition: The adaptation logic in the player is the key to avoiding buffering and minimizing startup time. Custom adaptation gives you complete control over your player.
 
 executable:
   executable: true

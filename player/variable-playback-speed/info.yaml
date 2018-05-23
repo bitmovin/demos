@@ -1,5 +1,6 @@
 title: Variable Playback Speed
 description: Change the playback speed of content
+long_description: Bitmovin Player gives you the option to control the playback speed. This can be useful for many applications. Try the demo.
 
 executable:
   executable: true

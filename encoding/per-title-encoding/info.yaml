@@ -1,5 +1,6 @@
 title: Per-Title Encoding
 description: Adjust the bitrate based on the complexity of the source file
+long_description: Per-Title Encoding is a technique for optimizing the bitrate of your encoding profiles based on the content of the video that you are encoding.
 
 executable:
   executable: true

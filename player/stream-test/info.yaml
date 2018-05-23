@@ -1,5 +1,6 @@
 title: DASH, HLS or PROGRESSIVE stream test
 description: Test your own stream with the Bitmovin Player
+long_description: Simply paste the link to your video file to test your own stream with the Bitmovin Player. Playback in any browser and any device, fast start up, no buffering.
 
 executable:
   executable: true

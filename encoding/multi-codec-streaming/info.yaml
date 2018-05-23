@@ -1,5 +1,6 @@
 title: Multi-Codec Streaming
 description: Save bandwidth and improve quality by ensuring that you are delivering the most efficient codec possible
+long_description: Improve video quality by encoding in multiple codecs and dynamically switching between codecs based on the user’s individual playback environment.
 
 executable:
   executable: true

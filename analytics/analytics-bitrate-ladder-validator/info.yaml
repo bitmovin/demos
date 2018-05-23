@@ -1,5 +1,6 @@
 title: Bitrate Ladder Validator
 description: Build and customize graphs exactly the way your team needs it
+long_description: Build and customize graphs exactly the way your team needs it to help troubleshoot, optimize and plan your development efforts.
 
 executable:
   executable: true

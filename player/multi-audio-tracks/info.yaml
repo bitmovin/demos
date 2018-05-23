@@ -1,5 +1,6 @@
 title: Multiple Audio Tracks & Multiple Subtitles
 description: Display multi language and audio options available with the Bitmovin player
+long_description: Bitmovin supports multiple audio/language tracks, without the need of duplication or repackaging the video, either for live or on-demand content. Try the demo.
 
 executable:
   executable: true

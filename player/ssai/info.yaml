@@ -1,5 +1,6 @@
 title: Server Side Ad Insertion
 description: A demo of how you can use server side ad insertion with the player
+long_description: Ad Blocking software has had a major impact on ad revenue across the entire video industry. Server-Side Ad Insertion offers a way to bypass Ad Blockers.
 
 executable:
   executable: true
