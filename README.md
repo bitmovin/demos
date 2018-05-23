@@ -50,6 +50,9 @@ An optional section giving information about the code snippets which will be dis
 #### `priority` (number, optional)
   Optional configuration that affects sorting. Defaults to `0`.
 
+#### `hide_github_link` (boolean, optional)
+  Remove the link to the GitHub repository by setting this to `true`. Defaults to `false`.
+
 ## Minimal YAML File Example
 
 ```yaml

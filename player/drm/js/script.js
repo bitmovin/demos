@@ -1,15 +1,5 @@
 (function () {
 
-  var BROWSER = {
-    OPERA: 'OPERA',
-    FIREFOX: 'FIREFOX',
-    SAFARI: 'SAFARI',
-    CHROME: 'CHROME',
-    IE: 'IE',
-    EDGE: 'EDGE',
-    UNKNOWN: 'UNKNOWN'
-  };
-
   var noDrmSource = {
     'hls': 'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/m3u8s/11331.m3u8',
   };
@@ -177,41 +167,6 @@
 
       // setupPlayer(retVal.length > 0 ? retVal[0] : null);
     });
-  }
-
-  function getBrowser() {
-    // Opera 8.0+
-    var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
-
-    // Firefox 1.0+
-    var isFirefox = typeof InstallTrigger !== 'undefined';
-
-    // Safari 3.0+ "[object HTMLElementConstructor]"
-    var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) {
-      return p.toString() === "[object SafariRemoteNotification]";
-    })(!window['safari'] || safari.pushNotification);
-
-    var isIosSafari = /Safari/i.test(navigator.userAgent) && /iP(hone|od|ad)/i.test(navigator.userAgent);
-
-    // Internet Explorer 6-11
-    var isIE = /*@cc_on!@*/false || !!document.documentMode;
-
-    // Edge 20+
-    var isEdge = !isIE && !!window.StyleMedia;
-
-    // Chrome 1+
-    var isChrome = !!window.chrome && !!window.chrome.webstore;
-
-    var isChromeMobileAndroid = /Chrome/i.test(navigator.userAgent) && /android/i.test(navigator.userAgent);
-
-    return isOpera ? BROWSER.OPERA :
-      isFirefox ? BROWSER.FIREFOX :
-        isSafari ? BROWSER.SAFARI :
-          isChrome || isChromeMobileAndroid ? BROWSER.CHROME :
-            isIE ? BROWSER.IE :
-              isEdge ? BROWSER.EDGE :
-                isIosSafari ? BROWSER.SAFARI :
-                  BROWSER.UNKNOWN;
   }
 
   function getBrowserImage(selectedBrowser) {

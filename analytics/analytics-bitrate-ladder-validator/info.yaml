@@ -1,4 +1,4 @@
-title: Analytics Bitrates
+title: Bitrate Ladder Validator
 description: Build and customize graphs exactly the way your team needs it
 
 executable:
@@ -17,8 +17,11 @@ tags:
   - dashboard
   - analytics
   - bitrate
+  - ladder validator
   - monitor
   - REST
   - AB
   - testing
   - QOE
+
+hide_github_link: true
