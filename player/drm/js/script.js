@@ -1,7 +1,8 @@
 (function () {
 
   var noDrmSource = {
-    'hls': 'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/m3u8s/11331.m3u8',
+    'dash': 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
+    'hls': 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8'
   };
 
   var defaultSource = {
@@ -12,7 +13,7 @@
         'LA_URL': 'https://widevine-proxy.appspot.com/proxy'
       },
       'playready': {
-        'LA_URL': 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&#038;ContentKey=EAtsIJQPd5pFiRUrV9Layw=='
+        'LA_URL': 'https://playready-testserver.azurewebsites.net/rightsmanager.asmx'
       }
     }
   };
@@ -24,7 +25,7 @@
     'fairplay': ['com.apple.fps.1_0', 'com.apple.fps.2_0']
   };
 
-// force https, otherwisw DRM would not work
+  // force https, otherwise DRM would not work
   if (window.location.protocol !== 'https:' && window._rails_env === 'production') {
     window.location.protocol = 'https:';
   } else {
@@ -43,7 +44,6 @@
   };
 
   var player = bitmovin.player('player');
-  getSupportedDRMSystem(true);
 
   document.getElementById('detected-browser').innerHTML = getBrowserImage(getBrowser());
 
@@ -60,10 +60,12 @@
       player.destroy();
       player = null;
     }
+
     player = bitmovin.player('player');
 
     // clone config to avoid leftovers from previous calls
     var conf = JSON.parse(JSON.stringify(config));
+
     if (manifestUrl == null || manifestUrl === '') {
       if (drm == null || drm == '') {
         conf.source = JSON.parse(JSON.stringify(noDrmSource));
@@ -91,13 +93,6 @@
     });
   }
 
-  /**
-   * gathers information from the inputs and reloads the player
-   */
-  document.querySelector('#load-btn').addEventListener('click', loadPlayerFromControls);
-  document.querySelector('#licence-in').addEventListener('keyup', loadPlayerOnEnter);
-  document.querySelector('#manifest-in').addEventListener('keyup', loadPlayerOnEnter);
-
   function loadPlayerOnEnter(keyEvent) {
     if (keyEvent.keyCode === 13) {
       loadPlayerFromControls();
@@ -107,8 +102,10 @@
   function loadPlayerFromControls() {
     var manifestInput = document.querySelector('#manifest-in').value;
     var licenceInput = document.querySelector('#licence-in').value;
+
     var drmSystem = document.querySelector('#available-drm-systems').options;
     drmSystem = drmSystem[drmSystem.selectedIndex].value;
+
     var manifestType = document.querySelector('#available-manifest-type').options;
     manifestType = manifestType[manifestType.selectedIndex].value;
 
@@ -131,7 +128,8 @@
     initial = initial || false;
 
     var retVal = [];
-    player.getSupportedDRM().then(function (drmSystem) {
+
+    return player.getSupportedDRM().then(function (drmSystem) {
       drmSystem.forEach(function (element) {
         var match = keySystems.widevine.find(function (obj) {
           return obj === element;
@@ -164,8 +162,6 @@
           selectBox.value = retVal[0];
         }
       }
-
-      // setupPlayer(retVal.length > 0 ? retVal[0] : null);
     });
   }
 
@@ -306,7 +302,15 @@
     });
   }
 
-  insertMseSupportList();
-  insertEmeSupportList();
-  loadPlayerFromControls();
+
+  getSupportedDRMSystem(true).then(function() {
+
+    insertMseSupportList();
+    insertEmeSupportList();
+    loadPlayerFromControls();
+
+    document.querySelector('#load-btn').addEventListener('click', loadPlayerFromControls);
+    document.querySelector('#licence-in').addEventListener('keyup', loadPlayerOnEnter);
+    document.querySelector('#manifest-in').addEventListener('keyup', loadPlayerOnEnter);
+  });
 })();
