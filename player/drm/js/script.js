@@ -13,7 +13,7 @@
         'LA_URL': 'https://widevine-proxy.appspot.com/proxy'
       },
       'playready': {
-        'LA_URL': 'https://playready-testserver.azurewebsites.net/rightsmanager.asmx'
+        'LA_URL': 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&#038;ContentKey=EAtsIJQPd5pFiRUrV9Layw=='
       }
     }
   };
