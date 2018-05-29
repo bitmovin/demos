@@ -103,3 +103,12 @@ function removeSchedule() {
     }
   });
 }
+
+(function() {
+  if (isAdblockEnabled) {
+    var blockerWrapperEl = document.getElementById('blocker-wrapper');
+    var blockerInfoEl = document.getElementById('blocker-info');
+    blockerInfoEl.innerHTML = '<b>Ad Blocker detected!</b> Ads may be blocked. Click here to see our server side ad insertion solution to bypass ad blockers.';
+    blockerWrapperEl.style.display = 'block';
+  }
+})();
