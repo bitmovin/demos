@@ -37,3 +37,16 @@ body .demo-detail .code-example {
 #player .bitmovinplayer-poster {
     background-color: white;
 }
+
+#blocker-wrapper {
+    display: none;
+}
+
+#blocker-info {
+    padding: 10px;
+    font-size: 1.3em;
+    text-align: center;
+    margin-bottom: 0.8rem;
+    background-color: #c8f7d0;
+    border-radius: 4px;
+}

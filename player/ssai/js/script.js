@@ -33,3 +33,12 @@ player.setup(conf).then(function (value) {
     }
   });
 });
+
+(function() {
+  if (isAdblockEnabled) {
+    var blockerWrapperEl = document.getElementById('blocker-wrapper');
+    var blockerInfoEl = document.getElementById('blocker-info');
+    blockerInfoEl.innerHTML = '<b>Ad Blocker detected!</b> However, ads will still play, since they are inserted already on the server side.';
+    blockerWrapperEl.style.display = 'block';
+  }
+})();

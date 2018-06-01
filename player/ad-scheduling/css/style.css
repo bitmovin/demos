@@ -15,3 +15,25 @@
 #player .bitmovinplayer-poster {
     background-color: white;
 }
+
+#blocker-wrapper {
+    display: none;
+}
+
+#blocker-wrapper a {
+    color: inherit;
+}
+
+#blocker-info {
+    padding: 10px;
+    font-size: 1.3em;
+    text-align: center;
+    margin-bottom: 2.2rem;
+    background-color: #fff073;
+    border-radius: 4px;
+    transition: background-color ease-in-out 150ms;
+}
+
+#blocker-info:hover {
+    background-color: #ffe25a;
+}
