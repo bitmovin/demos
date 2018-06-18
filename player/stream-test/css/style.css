@@ -9,3 +9,8 @@
     height: 42px;
     line-height: 20px;
 }
+
+body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
+    top: 0;
+	left: 0
+}
