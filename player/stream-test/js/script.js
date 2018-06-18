@@ -36,7 +36,7 @@ function setURLParameter() {
   if (!manifest.value) {
       manifest.value = manifest.placeholder;
   }
-  var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?format=' + streamFormat.value + '&manifest=' + manifest.value;
+  var newURL = window.location.protocol + '//' + window.location.host + window.location.pathname + '?format=' + streamFormat.value + '&manifest=' + manifest.value;
   window.history.pushState({ path: newURL }, '', newURL);
 }
 
