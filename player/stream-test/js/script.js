@@ -1,3 +1,14 @@
+window.onload = function getURLParams() {
+  var urlString = window.location.href;
+  var url = new URL(urlString);
+  var streamFormatParam = url.searchParams.get('format');
+  var manifestParam = url.searchParams.get('manifest');
+  if (manifest && stream_format) {
+      document.getElementById('stream_format').value = streamFormatParam;
+      document.getElementById('manifest').value = manifestParam;
+  }
+};
+
 var manifest = document.getElementById('manifest');
 manifest.onkeyup = handleKeyPress;
 
@@ -20,6 +31,14 @@ var conf = {
 
 var player = bitmovin.player('player');
 player.setup(JSON.parse(JSON.stringify(conf)));
+
+function setURLParameter() {
+  if (!manifest.value) {
+      manifest.value = manifest.placeholder;
+  }
+  var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?format=' + streamFormat.value + '&manifest=' + manifest.value;
+  window.history.pushState({ path: newURL }, '', newURL);
+}
 
 function load(manifestUrl) {
   var loadConfig = {};
@@ -54,12 +73,14 @@ function loadManifest() {
       return false;
     }
     check404(manifest.value).then(function () {
+      setURLParameter();
       handleError('clean');
       load(manifest.value);
     }).catch(function (reason) {
       handleError(reason);
     });
   } else {
+    setURLParameter();
     handleError('emptyfield');
     load(conf.source[streamFormat.value]);
   }
