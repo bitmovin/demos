@@ -12,5 +12,5 @@
 
 body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
     top: 0;
-	left: 0
+    left: 0;
 }
