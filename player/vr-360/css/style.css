@@ -73,3 +73,8 @@ body .demo-detail .description {
         bottom: 5%;
     }
 }
+
+body:not(.fullscreen) :not(.no-frame).phone-frame::before {
+    top: 0;
+    left: 0;
+}

@@ -23,3 +23,8 @@
 .info-box {
     padding-right: 2rem;
 }
+
+body:not(.fullscreen) :not(.no-frame).phone-frame::before {
+    top: 0;
+    left: 0;
+}

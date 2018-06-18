@@ -22,3 +22,8 @@ body .demo-detail .code-example {
         width: 100%;
     }
 }
+
+body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
+    top: 0;
+    left: 0;
+}
