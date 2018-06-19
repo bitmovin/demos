@@ -37,6 +37,7 @@ function setURLParameter() {
       manifest.value = conf.source[streamFormat.value];
   }
   var newURL = window.location.protocol + '//' + window.location.host + window.location.pathname + '?format=' + streamFormat.value + '&manifest=' + manifest.value;
+  encodeURIComponent(newURL);
   window.history.pushState({ path: newURL }, '', newURL);
 }
 
