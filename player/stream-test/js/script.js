@@ -3,7 +3,7 @@ window.onload = function getURLParams() {
   var url = new URL(urlString);
   var streamFormatParam = url.searchParams.get('format');
   var manifestParam = url.searchParams.get('manifest');
-  if (manifest && stream_format) {
+  if (manifestParam && streamFormatParam) {
       document.getElementById('stream_format').value = streamFormatParam;
       document.getElementById('manifest').value = manifestParam;
   }
