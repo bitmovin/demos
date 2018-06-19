@@ -34,7 +34,7 @@ player.setup(JSON.parse(JSON.stringify(conf)));
 
 function setURLParameter() {
   if (!manifest.value) {
-      manifest.value = manifest.placeholder;
+      manifest.value = conf.source[streamFormat.value];
   }
   var newURL = window.location.protocol + '//' + window.location.host + window.location.pathname + '?format=' + streamFormat.value + '&manifest=' + manifest.value;
   window.history.pushState({ path: newURL }, '', newURL);
