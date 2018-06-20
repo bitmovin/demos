@@ -112,7 +112,7 @@ function handleError(error) {
       document.getElementById('error').innerHTML = '';
       break;
     case 'emptyfield':
-      document.getElementById('error').innerHTML = 'No file provided - The default Bitmovin DASH Example will be loaded';
+      document.getElementById('error').innerHTML = 'No file provided - The default Bitmovin ' + streamFormat.innerText + ' Example will be loaded';
       break;
     case 0:
       document.getElementById('error').innerHTML = 'The provided url is not reachable';
