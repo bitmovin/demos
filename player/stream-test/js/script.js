@@ -40,8 +40,7 @@ function handleKeyPress(keyEvent) {
     } else if ((lowerCaseUrl.indexOf('.webm') > -1 && lowerCaseUrl.indexOf('.webm') === lowerCaseUrl.length - 5) ||
       (lowerCaseUrl.indexOf('.mp4') > -1 && lowerCaseUrl.indexOf('.mp4') == lowerCaseUrl.length - 4)) {
       streamFormat.value = 'progressive';
-    } else if (lowerCaseUrl.indexOf('/manifest') > -1 && lowerCaseUrl.indexOf('/manifest') === lowerCaseUrl.length - 9) {
-      streamFormat.value = 'smooth';
+    }
   }
 
   if (keyEvent.keyCode === 13) {
