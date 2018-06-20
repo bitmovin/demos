@@ -2,8 +2,8 @@ window.onload = function getURLParams() {
   var manifestParam = getParamsQueryString('manifest');
   var streamFormatParam = getParamsQueryString('format');
   if (manifestParam && streamFormatParam) {
-      document.getElementById('stream_format').value = streamFormatParam;
-      document.getElementById('manifest').value = manifestParam;
+    document.getElementById('stream_format').value = streamFormatParam;
+    document.getElementById('manifest').value = manifestParam;
   }
 };
 
@@ -32,7 +32,7 @@ player.setup(JSON.parse(JSON.stringify(conf)));
 
 function setURLParameter() {
   if (!manifest.value) {
-      manifest.value = conf.source[streamFormat.value];
+    manifest.value = conf.source[streamFormat.value];
   }
   var newURL = window.location.protocol + '//' + window.location.host + window.location.pathname + '?format=' + streamFormat.value + '&manifest=' + manifest.value;
   encodeURIComponent(newURL);
@@ -71,13 +71,7 @@ function loadManifest() {
       handleError('invalidUrl');
       return false;
     }
-    check404(manifest.value).then(function () {
-      setURLParameter();
-      handleError('clean');
-      load(manifest.value);
-    }).catch(function (reason) {
-      handleError(reason);
-    });
+    check404(manifest.value, callback404);
   } else {
     setURLParameter();
     handleError('emptyfield');
@@ -118,21 +112,26 @@ function getParamsQueryString() {
   return key === false ? res : null;
 }
 
-function check404(url) {
-  return new Promise(function (resolve, reject) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.onreadystatechange = function () {
-      if (xhr.status !== 200) {
-        xhr.onreadystatechange = null;
-        reject(xhr.status);
-      } else {
-        xhr.onreadystatechange = null;
-        resolve(200);
-      }
-    };
-    xhr.send('Content-type', 'application/x-www-form-urlencoded');
-  });
+function check404(url, cb) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = null;
+      cb(xhr.status);
+  };
+
+  xhr.send('Content-type', 'application/x-www-form-urlencoded');
+}
+
+function callback404(status) {
+  if (status !== 200) {
+      handleError(status);
+  }
+  else {
+      setURLParameter();
+      handleError('clean');
+      load(manifest.value);
+  }
 }
 
 function handleError(error) {
