@@ -30,6 +30,11 @@ function load(manifestUrl) {
   });
 }
 
+function setSelectedOption() {
+  var options = streamFormat.getElementsByTagName("option");
+  return options[streamFormat.selectedIndex].innerHTML;
+};
+
 function handleKeyPress(keyEvent) {
   if (manifest.value.length > 0) {
     var lowerCaseUrl = manifest.value.toLowerCase();
@@ -112,7 +117,7 @@ function handleError(error) {
       document.getElementById('error').innerHTML = '';
       break;
     case 'emptyfield':
-      document.getElementById('error').innerHTML = 'No file provided - The default Bitmovin ' + streamFormat.innerText + ' Example will be loaded';
+      document.getElementById('error').innerHTML = 'No file provided - The default Bitmovin ' + setSelectedOption() + ' Example will be loaded';
       break;
     case 0:
       document.getElementById('error').innerHTML = 'The provided url is not reachable';
