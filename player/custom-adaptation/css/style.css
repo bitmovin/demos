@@ -11,3 +11,8 @@ body .demo-detail .code-example {
         float: right;
     }
 }
+
+body:not(.fullscreen) :not(.no-frame).phone-frame::before {
+    top: 0;
+    left: 0;
+}
