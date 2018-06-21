@@ -11,6 +11,7 @@ var conf = {
     dash: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
     hls: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
     progressive: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4',
+    smooth: 'http://test.playready.microsoft.com/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/manifest',
     poster: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/poster.jpg'
   },
   cast: {
@@ -28,6 +29,11 @@ function load(manifestUrl) {
     player.play();
   });
 }
+
+function getSelectedOption() {
+  var options = streamFormat.getElementsByTagName("option");
+  return options[streamFormat.selectedIndex].innerHTML;
+};
 
 function handleKeyPress(keyEvent) {
   if (manifest.value.length > 0) {
@@ -111,7 +117,7 @@ function handleError(error) {
       document.getElementById('error').innerHTML = '';
       break;
     case 'emptyfield':
-      document.getElementById('error').innerHTML = 'No file provided - The default Bitmovin DASH Example will be loaded';
+      document.getElementById('error').innerHTML = 'No file provided - The default Bitmovin ' + getSelectedOption() + ' Example will be loaded';
       break;
     case 0:
       document.getElementById('error').innerHTML = 'The provided url is not reachable';
