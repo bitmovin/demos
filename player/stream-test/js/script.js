@@ -30,7 +30,7 @@ function load(manifestUrl) {
   });
 }
 
-function setSelectedOption() {
+function getSelectedOption() {
   var options = streamFormat.getElementsByTagName("option");
   return options[streamFormat.selectedIndex].innerHTML;
 };
