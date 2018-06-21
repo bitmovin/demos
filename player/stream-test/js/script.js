@@ -117,7 +117,7 @@ function handleError(error) {
       document.getElementById('error').innerHTML = '';
       break;
     case 'emptyfield':
-      document.getElementById('error').innerHTML = 'No file provided - The default Bitmovin ' + setSelectedOption() + ' Example will be loaded';
+      document.getElementById('error').innerHTML = 'No file provided - The default Bitmovin ' + getSelectedOption() + ' Example will be loaded';
       break;
     case 0:
       document.getElementById('error').innerHTML = 'The provided url is not reachable';
