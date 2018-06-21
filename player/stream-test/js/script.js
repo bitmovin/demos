@@ -96,28 +96,25 @@ function checkIsUrlValid(url, urlPurpose) {
   return true;
 }
 
-function getParamsQueryString() {
-  var key = false, res = {}, itm = null;
-  var qs = location.search.substring(1);
-  if (arguments.length > 0 && arguments[0].length > 1)
-    key = arguments[0];
-  var pattern = /([^&=]+)=([^&]*)/g;
-  while (itm = pattern.exec(qs)) {
-    if (key !== false && decodeURIComponent(itm[1]) === key)
-      return decodeURIComponent(itm[2]);
-    else if (key === false)
-      res[decodeURIComponent(itm[1])] = decodeURIComponent(itm[2]);
+function getParamsQueryString(key) {
+  var querySearch = location.search.substring(1).split('&');
+  for (var i = 0; i < querySearch.length; i++) {
+      var keyValueParameter = querySearch[i].split('=');
+      if (keyValueParameter[0] === key) {
+          return keyValueParameter[1];
+      }
   }
-
-  return key === false ? res : null;
+  return key === false || key === null ? res : null;
 }
 
-function check404(url, cb) {
+function check404(url, callbackFunction) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', url, true);
   xhr.onreadystatechange = function () {
-      xhr.onreadystatechange = null;
-      cb(xhr.status);
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+        xhr.onreadystatechange = null;
+        callbackFunction(xhr.status);
+    }
   };
 
   xhr.send('Content-type', 'application/x-www-form-urlencoded');
