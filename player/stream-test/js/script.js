@@ -34,8 +34,9 @@ function setURLParameter() {
   if (!manifest.value) {
     manifest.value = conf.source[streamFormat.value];
   }
-  var newURL = window.location.protocol + '//' + window.location.host + window.location.pathname + '?format=' + streamFormat.value + '&manifest=' + manifest.value;
-  encodeURIComponent(newURL);
+  var manifestValue = encodeURIComponent(manifest.value);
+  var streamFormatValue = encodeURIComponent(streamFormat.value);
+  var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?format=' + streamFormatValue + '&manifest=' + manifestValue;
   window.history.pushState({ path: newURL }, '', newURL);
 }
 
@@ -101,7 +102,7 @@ function getParamsQueryString(key) {
   for (var i = 0; i < querySearch.length; i++) {
       var keyValueParameter = querySearch[i].split('=');
       if (keyValueParameter[0] === key) {
-          return keyValueParameter[1];
+          return decodeURIComponent(keyValueParameter[1]);
       }
   }
   return key === false || key === null ? res : null;
