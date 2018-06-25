@@ -1,3 +1,12 @@
+window.onload = function getURLParams() {
+  var manifestParam = getParamsQueryString('manifest');
+  var streamFormatParam = getParamsQueryString('format');
+  if (manifestParam && streamFormatParam) {
+    document.getElementById('stream_format').value = streamFormatParam;
+    document.getElementById('manifest').value = manifestParam;
+  }
+};
+
 var manifest = document.getElementById('manifest');
 manifest.onkeyup = handleKeyPress;
 
@@ -21,6 +30,16 @@ var conf = {
 
 var player = bitmovin.player('player');
 player.setup(JSON.parse(JSON.stringify(conf)));
+
+function setURLParameter() {
+  if (!manifest.value) {
+    manifest.value = conf.source[streamFormat.value];
+  }
+  var manifestValue = encodeURIComponent(manifest.value);
+  var streamFormatValue = encodeURIComponent(streamFormat.value);
+  var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?format=' + streamFormatValue + '&manifest=' + manifestValue;
+  window.history.pushState({ path: newURL }, '', newURL);
+}
 
 function load(manifestUrl) {
   var loadConfig = {};
@@ -59,13 +78,9 @@ function loadManifest() {
       handleError('invalidUrl');
       return false;
     }
-    check404(manifest.value).then(function () {
-      handleError('clean');
-      load(manifest.value);
-    }).catch(function (reason) {
-      handleError(reason);
-    });
+    check404(manifest.value, callback404);
   } else {
+    setURLParameter();
     handleError('emptyfield');
     load(conf.source[streamFormat.value]);
   }
@@ -88,21 +103,39 @@ function checkIsUrlValid(url, urlPurpose) {
   return true;
 }
 
-function check404(url) {
-  return new Promise(function (resolve, reject) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.onreadystatechange = function () {
-      if (xhr.status !== 200) {
-        xhr.onreadystatechange = null;
-        reject(xhr.status);
-      } else {
-        xhr.onreadystatechange = null;
-        resolve(200);
+function getParamsQueryString(key) {
+  var querySearch = location.search.substring(1).split('&');
+  for (var i = 0; i < querySearch.length; i++) {
+      var keyValueParameter = querySearch[i].split('=');
+      if (keyValueParameter[0] === key) {
+          return decodeURIComponent(keyValueParameter[1]);
       }
-    };
-    xhr.send('Content-type', 'application/x-www-form-urlencoded');
-  });
+  }
+  return key === false || key === null ? res : null;
+}
+
+function check404(url, callbackFunction) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+        xhr.onreadystatechange = null;
+        callbackFunction(xhr.status);
+    }
+  };
+
+  xhr.send('Content-type', 'application/x-www-form-urlencoded');
+}
+
+function callback404(status) {
+  if (status !== 200) {
+      handleError(status);
+  }
+  else {
+      setURLParameter();
+      handleError('clean');
+      load(manifest.value);
+  }
 }
 
 function handleError(error) {
