@@ -13,3 +13,8 @@
 .codec-image {
     font-size: 1.5em;
 }
+
+body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
+    top: 0;
+    left: 0;
+}
