@@ -53,6 +53,17 @@ An optional section giving information about the code snippets which will be dis
 #### `hide_github_link` (boolean, optional)
   Remove the link to the GitHub repository by setting this to `true`. Defaults to `false`.
 
+### `buttons` (list, optional)
+Add a list of buttons, where each entry should have the following data:
+  - `name`
+    A unique identifier
+  - `text`
+    Display text
+  - `url`
+    Go there on button click
+  - `name`
+    An icon name
+
 ## Minimal YAML File Example
 
 ```yaml
