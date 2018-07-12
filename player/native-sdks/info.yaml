@@ -6,6 +6,18 @@ executable:
   executable: true
   indexfile: index.html
 
+hide_github_link: true
+
+buttons:
+  - name: native-sdks-player-ios-samples
+    text: See iOS Samples
+    url: https://github.com/bitmovin/bitmovin-player-ios-samples
+    icon: apple
+  - name: native-sdks-player-android-samples
+    text: See Android Samples
+    url: https://github.com/bitmovin/bitmovin-player-android-samples
+    icon: android
+
 tags:
   - native
   - sdks
