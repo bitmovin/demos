@@ -42,7 +42,7 @@ const showPath = (stringPath, seperator) => {
     let start = 0;
     let end = array.length - 2;
     end++;
-    return array.slice(start,end).join(seperator);
+    return array.slice(start, end).join(seperator);
 };
 
 const parseTags = (tags) => {
@@ -60,20 +60,33 @@ const parseTags = (tags) => {
 
 const createReadme = (filePath, index) => {
     YAML.load(filePath, (result) => {
-        const readmePath = folderPaths[index] + '/README.md';
-        const content = `# Bitmovin Demo:\r\n${result.title}\r\n\r\n## Demo Description:\r\n${result.description}\r\n\r\n### Detailed Demo Description:\r\n${result.long_description}\r\n\r\n### Tags:\r\n${parseTags(result.tags)}`;
-        fs.writeFile(readmePath, content, (error) => {
-            if (error) throw error;
+        const mapObj = {
+            '{{title}}': result.title,
+            '{{description}}': result.description,
+            '{{long_description}}': result.long_description
+        }
+        
+        fs.readFile('./readmeTemplate.txt', 'utf8', (error, data) => {
+            if (error) {throw error};
+            const readmePath = folderPaths[index] + '/README.md';
+
+            let readmeResult = data.replace(/{{title}}|{{description}}|{{long_description}}/gi, (matched) => {
+                return mapObj[matched];
+            }) + parseTags(result.tags);
+
+            fs.writeFile(readmePath, readmeResult, (error) => {
+                if (error) {throw error};
+            })
         })
     })
 }
 
 const checkAndCreateReadmes = async () => {
 
-await getDirectories();
+    await getDirectories();
 
-console.log('Generated all readmes!');
-filePaths.forEach((filePath, index) => createReadme(filePath, index));
+    filePaths.forEach((filePath, index) => createReadme(filePath, index));
+    console.log('Generated all readmes!');
 }
 
 checkAndCreateReadmes();
