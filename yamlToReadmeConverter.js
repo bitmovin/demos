@@ -8,7 +8,7 @@ let filePaths = [];
 const getDirectories = (filePath = './') => {
     fs.readdirSync(filePath).map(folder => {
         const folderPath = path.join(filePath, folder)
-        if (fs.statSync(folderPath).isDirectory() && folder !== '.git' && folder !== 'node_modules') {
+        if (fs.statSync(folderPath).isDirectory() && folder !== '.git' && folder !== 'node_modules' && folder !== '.travis') {
             folderWalk(folderPath);
         }
     })
