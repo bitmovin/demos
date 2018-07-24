@@ -1,0 +1,20 @@
+title: VR & 360°	
+description: This demo shows the Bitmovin Player displaying a 360° video with VR	
+long_description: The Bitmovin Player was the first player on the market to achieve complete cross browser compatibility, and is still leading the way in features and performance.	
+
+executable:	
+  executable: true	
+  indexfile: index.html	
+
+code:	
+  show_code: true	
+  language: js	
+  files:	
+    - demo.js	
+
+tags:	
+  - VR	
+  - 360	
+  - 3D	
+
+priority: 780
