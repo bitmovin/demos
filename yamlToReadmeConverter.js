@@ -33,7 +33,6 @@ const addFileAndFolderPaths = (folderPath) => {
         folderWalk(folderPath);
     }
     else {
-        process.exit(1);
         throw new Error(`Yaml file does not exist in folder: ${showPath(folderPath, '/')}`);
     }
 }
@@ -69,7 +68,6 @@ const createReadme = (filePath, index) => {
         
         fs.readFile('./readmeTemplate.txt', 'utf8', (error, data) => {
             if (error) {
-                process.exit(1);
                 throw error
                 };
             const readmePath = folderPaths[index] + '/README.md';
@@ -80,7 +78,6 @@ const createReadme = (filePath, index) => {
 
             fs.writeFile(readmePath, readmeResult, (error) => {
                 if (error) {
-                    process.exit(1);
                     throw error
                     };
             })
