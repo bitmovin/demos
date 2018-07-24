@@ -66,12 +66,12 @@ const createReadme = (filePath, index) => {
             '{{description}}': result.description,
             '{{long_description}}': result.long_description
         }
-        
+
         fs.readFile('./readmeTemplate.txt', 'utf8', (error, data) => {
             if (error) {
                 console.error(error);
                 process.exit(1);
-                };
+            };
             const readmePath = folderPaths[index] + '/README.md';
 
             let readmeResult = data.replace(/{{title}}|{{description}}|{{long_description}}/gi, (matched) => {
@@ -82,7 +82,7 @@ const createReadme = (filePath, index) => {
                 if (error) {
                     console.error(error);
                     process.exit(1);
-                    };
+                };
             })
         })
     })
@@ -93,7 +93,26 @@ const checkAndCreateReadmes = async () => {
     await getDirectories();
 
     filePaths.forEach((filePath, index) => createReadme(filePath, index));
-    console.log('Generated all readmes!');
+    console.log('All readmes present!');
 }
 
-checkAndCreateReadmes();
+const checkReadmes = () => {
+    folderPaths.forEach((folderPath) => {
+        if (fs.statSync(folderPath).isDirectory() && fs.existsSync(path.join(folderPath, 'README.md'))) {
+            return;
+        }
+        else {
+            console.log(folderPath);
+            console.error(`Readme file does not exist in folder: ${showPath(folderPath, '/')}!`);
+            process.exit(1);
+        }
+    })
+}
+
+const promise = new Promise(() => {
+    return checkAndCreateReadmes();
+}) 
+
+Promise.resolve(promise).then(() => {
+    checkReadmes();
+})
