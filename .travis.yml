@@ -4,5 +4,3 @@ node_js: 'lts/*'
 install: yarn install
 
 script: node yamlToReadmeConverter.js
-
-after_success: .travis/push.sh
