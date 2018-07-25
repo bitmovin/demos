@@ -12,7 +12,7 @@ const getDirectories = (filePath = './') => {
             folderWalk(folderPath);
         }
     })
-}
+};
 
 const folderWalk = (folderPath) => {
     fs.readdirSync(folderPath).map(subfolder => {
@@ -21,7 +21,7 @@ const folderWalk = (folderPath) => {
             addFileAndFolderPaths(addFolderPath);
         }
     })
-}
+};
 
 const addFileAndFolderPaths = (folderPath) => {
     if (fs.statSync(folderPath).isDirectory() && fs.existsSync(path.join(folderPath, 'info.yaml'))) {
@@ -36,7 +36,7 @@ const addFileAndFolderPaths = (folderPath) => {
         console.error(`Yaml file does not exist in folder: ${showPath(folderPath, '/')}!`);
         process.exit(1);
     }
-}
+};
 
 const showPath = (stringPath, seperator) => {
     let array = stringPath.split('/');
@@ -57,7 +57,7 @@ const parseTags = (tags) => {
         }
     });
     return parsedTags;
-}
+};
 
 const createReadme = (filePath, index) => {
     YAML.load(filePath, (result) => {
@@ -86,7 +86,7 @@ const createReadme = (filePath, index) => {
             })
         })
     })
-}
+};
 
 const checkAndCreateReadmes = async () => {
 
@@ -94,7 +94,7 @@ const checkAndCreateReadmes = async () => {
 
     filePaths.forEach((filePath, index) => createReadme(filePath, index));
     console.log('All readmes present!');
-}
+};
 
 const checkReadmes = () => {
     folderPaths.forEach((folderPath) => {
@@ -107,12 +107,12 @@ const checkReadmes = () => {
             process.exit(1);
         }
     })
-}
+};
 
-const promise = new Promise(() => {
+const createReadmesPromise = new Promise(() => {
     return checkAndCreateReadmes();
-}) 
+})
 
-Promise.resolve(promise).then(() => {
+Promise.resolve(createReadmesPromise).then(() => {
     checkReadmes();
 })
