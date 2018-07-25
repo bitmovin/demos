@@ -2,13 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const YAML = require('yamljs');
 
-let folderPaths = [];
-let filePaths = [];
+const folderPaths = [];
+const filePaths = [];
+const ignoredFolders = ['.git', 'node_modules', '.travis', 'DS_Store'];
 
-const getDirectories = (filePath = './') => {
+const searchDirectories = (filePath = './') => {
     fs.readdirSync(filePath).map(folder => {
         const folderPath = path.join(filePath, folder)
-        if (fs.statSync(folderPath).isDirectory() && folder !== '.git' && folder !== 'node_modules' && folder !== '.travis') {
+        if (fs.statSync(folderPath).isDirectory() && ignoredFolders.indexOf(folder) === -1) {
             folderWalk(folderPath);
         }
     })
@@ -16,7 +17,7 @@ const getDirectories = (filePath = './') => {
 
 const folderWalk = (folderPath) => {
     fs.readdirSync(folderPath).map(subfolder => {
-        if (subfolder !== '.DS_Store') {
+        if (ignoredFolders.indexOf(subfolder) === -1) {
             const addFolderPath = path.join(folderPath, subfolder);
             addFileAndFolderPaths(addFolderPath);
         }
@@ -88,9 +89,8 @@ const createReadme = (filePath, index) => {
     })
 };
 
-const checkAndCreateReadmes = async () => {
-
-    await getDirectories();
+const checkAndCreateReadmes = () => {
+    searchDirectories();
 
     filePaths.forEach((filePath, index) => createReadme(filePath, index));
     console.log('All readmes present!');
