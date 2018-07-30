@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "node ./scripts/yamlToReadmeConverter.js"
+  },
   "dependencies": {
     "file-exists": "^5.0.1",
     "yamljs": "^0.3.0"

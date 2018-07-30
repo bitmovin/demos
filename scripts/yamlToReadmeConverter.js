@@ -4,7 +4,7 @@ const YAML = require('yamljs');
 
 const folderPaths = [];
 const filePaths = [];
-const ignoredFolders = ['.git', 'node_modules', '.travis', 'DS_Store'];
+const ignoredFolders = ['.git', 'node_modules', '.travis', '.DS_Store', 'scripts'];
 
 const searchDirectories = (filePath = './') => {
     fs.readdirSync(filePath).map(folder => {
@@ -93,26 +93,7 @@ const checkAndCreateReadmes = () => {
     searchDirectories();
 
     filePaths.forEach((filePath, index) => createReadme(filePath, index));
-    console.log('All readmes present!');
+    console.log('All readmes generated!');
 };
 
-const checkReadmes = () => {
-    folderPaths.forEach((folderPath) => {
-        if (fs.statSync(folderPath).isDirectory() && fs.existsSync(path.join(folderPath, 'README.md'))) {
-            return;
-        }
-        else {
-            console.log(folderPath);
-            console.error(`Readme file does not exist in folder: ${showPath(folderPath, '/')}!`);
-            process.exit(1);
-        }
-    })
-};
-
-const createReadmesPromise = new Promise(() => {
-    return checkAndCreateReadmes();
-})
-
-Promise.resolve(createReadmesPromise).then(() => {
-    checkReadmes();
-})
+checkAndCreateReadmes();
