@@ -4,7 +4,7 @@ const YAML = require('yamljs');
 
 const folderPaths = [];
 const filePaths = [];
-const ignoredFolders = ['.git', 'node_modules', '.travis', '.DS_Store', 'scripts'];
+const ignoredFolders = ['.git', 'node_modules', '.travis', '.DS_Store', 'scripts', 'css', 'js'];
 
 const searchDirectories = (filePath = './') => {
     fs.readdirSync(filePath).map(folder => {
@@ -34,17 +34,9 @@ const addFileAndFolderPaths = (folderPath) => {
         folderWalk(folderPath);
     }
     else {
-        console.error(`Yaml file does not exist in folder: ${showPath(folderPath, '/')}!`);
+        console.error(`Yaml file does not exist in folder: ${folderPath}!`);
         process.exit(1);
     }
-};
-
-const showPath = (stringPath, seperator) => {
-    let array = stringPath.split('/');
-    let start = 0;
-    let end = array.length - 2;
-    end++;
-    return array.slice(start, end).join(seperator);
 };
 
 const parseTags = (tags) => {
