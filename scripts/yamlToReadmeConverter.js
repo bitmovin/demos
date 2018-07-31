@@ -40,9 +40,9 @@ const addFileAndFolderPaths = (folderPath) => {
 };
 
 const parseTags = (tags) => {
-    let parsedTags;
+    let parsedTags = '';
     tags.forEach((tag) => {
-            parsedTags = !parsedTags ? `\r\n  - ${tag}` : parsedTags + `\r\n  - ${tag}`; 
+            parsedTags += `\r\n  - ${tag}`; 
     });
     return parsedTags;
 };
