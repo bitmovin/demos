@@ -3,7 +3,7 @@
 Deliver High Quality Video Everywhere with Bitmovin's Native Player SDKs
 Bitmovin’s Native SDKs give you everything you need to get your video playing anywhere, any device, any platform.
 
-### Tags:
+### Tags
 
   - native
   - sdks

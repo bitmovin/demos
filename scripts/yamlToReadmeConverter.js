@@ -41,13 +41,8 @@ const addFileAndFolderPaths = (folderPath) => {
 
 const parseTags = (tags) => {
     let parsedTags;
-    tags.forEach((tag, index) => {
-        if (index === 0) {
-            parsedTags = `\r\n  - ${tag}`;
-        }
-        else {
-            parsedTags = parsedTags + `\r\n  - ${tag}`;
-        }
+    tags.forEach((tag) => {
+            parsedTags = !parsedTags ? `\r\n  - ${tag}` : parsedTags + `\r\n  - ${tag}`; 
     });
     return parsedTags;
 };
@@ -67,7 +62,7 @@ const createReadme = (filePath, index) => {
             };
             const readmePath = folderPaths[index] + '/README.md';
 
-            let readmeResult = data.replace(/{{title}}|{{description}}|{{long_description}}/gi, (matched) => {
+            const readmeResult = data.replace(/{{title}}|{{description}}|{{long_description}}/gi, (matched) => {
                 return mapObj[matched];
             }) + parseTags(result.tags);
 
