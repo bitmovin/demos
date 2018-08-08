@@ -17,6 +17,12 @@ body .demo-detail .code-example {
     }
 }
 
+@media (max-width: 991px) {
+    .sdk-wrapper-body {
+        flex-direction: column;
+    }
+}
+
 .detection {
     font-size: 18px;
 }
@@ -75,4 +81,54 @@ body .demo-detail .code-example {
     display: inline-block;
     margin-left: 10px;
     color: rgb(13, 56, 65);
+}
+
+.sdk-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 43px;
+    font-family: "averta";
+}
+
+.sdk-wrapper-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.sdk-wrapper-body {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.sdk-item {
+    margin-top: 54px;
+    display: flex;
+    flex-direction: row;
+}
+
+.sdk-item-content {
+    margin-top: 21px;
+    margin-left: 14px;
+    margin-right: 8px;
+}
+
+.sdk-item-url {
+    margin-top: 47px;
+}
+
+.sdk-wrapper-title {
+    font-size: 20px;
+    line-height: 23px;
+    align-content: left;
+    letter-spacing: -4%;
+    fill: #505f79
+}
+
+.sdk-wrapper-description {
+    margin-top: 8px;
+    font-size: 15px;
+    line-height: 18px;
+    align-content: left;
+    fill: #505f79
 }
