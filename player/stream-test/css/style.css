@@ -25,7 +25,7 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
     display: flex;
     flex-direction: column;
     margin-top: 43px;
-    font-family: "averta";
+    font-family: "averta", sans-serif;
 }
 
 .sdk-wrapper-header {

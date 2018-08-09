@@ -68,13 +68,13 @@ body .demo-detail .code-example {
 .code ul li.supported::before {
     font-family: FontAwesome;
     color: rgb(0, 148, 227);
-    content: "\f14a";
+    content: "\f058";
 }
 
 .code ul li.unsupported::before {
     font-family: FontAwesome;
     color: rgb(160, 160, 160);
-    content: "\f146";
+    content: "\f056";
 }
 
 .code ul li span {
@@ -87,7 +87,7 @@ body .demo-detail .code-example {
     display: flex;
     flex-direction: column;
     margin-top: 43px;
-    font-family: "averta";
+    font-family: "averta", sans-serif;
 }
 
 .sdk-wrapper-header {
