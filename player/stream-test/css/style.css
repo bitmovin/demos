@@ -40,7 +40,7 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
 }
 
 .sdk-item {
-    margin-top: 54px;
+    margin-top: 34px;
     display: flex;
     flex-direction: row;
 }
