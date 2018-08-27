@@ -28,10 +28,18 @@ var conf = {
   }
 };
 
+var analyticsConfig = {
+  key: '0972b1c2-cc94-47f9-a145-43186617c05e',
+  videoId: 'ad-scheduling'
+};
+
 document.querySelector('#scheudle-ad-button').addEventListener('click', loadConfig);
 document.querySelector('#reset-button').addEventListener('click', removeSchedule);
 
+var analytics = bitmovin.analytics(analyticsConfig);
 var player = bitmovin.player('player');
+
+analytics.register(player);
 player.setup(conf).then(function (player) {
   bitmovin.playerui.UIManager.Factory.buildModernSmallScreenUI(player);
 });

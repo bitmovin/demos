@@ -45,7 +45,14 @@
     }
   };
 
+  var analyticsConfig = {
+    key: '0972b1c2-cc94-47f9-a145-43186617c05e',
+    videoId: 'drm'
+  }
+
+  var analytics = bitmovin.analytics(analyticsConfig);
   var player = bitmovin.player('player');
+  analytics.register(player);
 
   document.getElementById('detected-browser').innerHTML = getBrowserImage(getBrowser());
 
@@ -64,6 +71,7 @@
     }
 
     player = bitmovin.player('player');
+    analytics.register(player);
 
     // clone config to avoid leftovers from previous calls
     var conf = JSON.parse(JSON.stringify(config));

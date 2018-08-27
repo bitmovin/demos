@@ -1,4 +1,13 @@
-bitmovin.player('player').setup({
+var analyticsConfig = {
+  key: '0972b1c2-cc94-47f9-a145-43186617c05e',
+  videoId: 'native-sdks'
+};
+
+var analytics = bitmovin.analytics(analyticsConfig);
+var player = bitmovin.player('player');
+
+analytics.register(player);
+player.setup({
   key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
   source: {
     dash: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',

@@ -339,7 +339,16 @@ var loadPerTitlePlayer = function (avBandwidth) {
     }
   };
 
+  var analyticsConfig = {
+    key: '0972b1c2-cc94-47f9-a145-43186617c05e',
+    videoId: 'per-title-encoding'
+  }
+
+  var analytics = bitmovin.analytics(analyticsConfig);
+
   player1 = bitmovin.player('player-container-1');
+  analytics.register(player1);
+  
   if (player1.isSetup()) {
     player1.destroy();
     player1 = bitmovin.player('player-container-1');

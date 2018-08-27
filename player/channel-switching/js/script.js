@@ -1,4 +1,4 @@
-var timerEl, timer, interval, timeout, player, clickTime, switchTime;
+var timerEl, timer, interval, timeout, player, clickTime, switchTime, analytics;
 var delayTime = 0;
 
 var conf = {
@@ -10,6 +10,11 @@ var conf = {
   events: {
     onTimeChanged: onTimeChanged
   }
+};
+
+var analyticsConfig = {
+  key: '0972b1c2-cc94-47f9-a145-43186617c05e',
+  videoId: 'channel-switching'
 };
 
 function resetButtons() {
@@ -128,7 +133,9 @@ function switchChannel(channelID, event) {
 }
 
 (function () {
+  analytics = bitmovin.analytics(analyticsConfig);
   player = bitmovin.player('player');
+  analytics.register(player);
   player.setup(conf).then(function () {
     switchChannel('1');
   });

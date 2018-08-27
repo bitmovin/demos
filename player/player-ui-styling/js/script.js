@@ -10,9 +10,16 @@ var conf = {
   }
 };
 
+var analyticsConfig = {
+  key: '0972b1c2-cc94-47f9-a145-43186617c05e',
+  videoId: 'player-ui-styling'
+};
+
 var currentUiManager, isBigSeekbar = false, isSmallscreen = false;
+var analytics = bitmovin.analytics(analyticsConfig);
 var player = bitmovin.player('player');
 
+analytics.register(player);
 player.setup(conf).then(function (player) {
   currentUiManager = bitmovin.playerui.UIManager.Factory.buildDefaultUI(player);
 });

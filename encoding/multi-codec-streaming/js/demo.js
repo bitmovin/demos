@@ -507,6 +507,11 @@ var multicodec = function () {
     }
   };
 
+  var analyticsConfig = {
+    key: '0972b1c2-cc94-47f9-a145-43186617c05e',
+    videoId: 'multi-codec-streaming'
+  }
+
   if (browser === BROWSER.CHROME || browser === BROWSER.FIREFOX) {
     selectedCodec = CODEC.VP9;
     config.source.dash = '//bitmovin-a.akamaihd.net/webpages/demos/content/multi-codec/vp9/stream.mpd';
@@ -527,7 +532,10 @@ var multicodec = function () {
   document.getElementById('compare-codec').innerHTML = getCodecImage(COMPARE_CODEC);
   document.getElementById('detected-browser').innerHTML = getBrowserImage(browser);
 
+  var analytics = bitmovin.analytics(analyticsConfig);
+
   player = bitmovin.player('player-container');
+  analytics.register(player);
   player.setup(config).then(function () {
     player.preload();
     player.seek = function () {
