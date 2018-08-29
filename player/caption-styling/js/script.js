@@ -7,7 +7,15 @@ var conf = {
   }
 };
 
+var analyticsConfig = {
+  key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+  videoId: 'caption-styling'
+};
+
+var analytics = bitmovin.analytics(analyticsConfig);
 var player = bitmovin.player('player');
+
+analytics.register(player);
 player.setup(conf).then(function (value) {
   console.log('Successfully created bitmovin player instance');
 }, function (reason) {

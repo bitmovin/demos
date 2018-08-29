@@ -394,6 +394,11 @@
       }
     };
 
+    var analyticsConfig = {
+      key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+      videoId: 'per-scene-adaptation'
+    }
+
     function setupInterval() {
       clearInterval(interval);
       interval = setInterval(function () {
@@ -402,7 +407,10 @@
       }, 10);
     }
 
+    var analytics = bitmovin.analytics(analyticsConfig);
+
     player = bitmovin.player('player');
+    analytics.register(player);
     player.setup(conf).then(function (response) {
       console.log('player loaded');
       player.preload();

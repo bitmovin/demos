@@ -23,7 +23,16 @@
     }
   };
 
-  bitmovin.player('player').setup(conf).then(function () {
+  var analyticsConfig = {
+    key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+    videoId: 'picture-in-picture'
+  };
+
+  var analytics = bitmovin.analytics(analyticsConfig);
+  var player = bitmovin.player('player');
+
+  analytics.register(player);
+  player.setup(conf).then(function () {
     var container = $('.player-container');
     var playerHeight = $('#player').height();
 

@@ -6,4 +6,13 @@ var conf = {
   }
 };
 
-bitmovin.player('player').setup(conf);
+var analyticsConfig = {
+  key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+  videoId: 'hls-fmp4'
+};
+
+var analytics = bitmovin.analytics(analyticsConfig);
+var player = bitmovin.player('player');
+
+analytics.register(player);
+player.setup(conf);
