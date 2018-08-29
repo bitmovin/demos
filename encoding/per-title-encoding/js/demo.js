@@ -340,7 +340,7 @@ var loadPerTitlePlayer = function (avBandwidth) {
   };
 
   var analyticsConfig = {
-    key: '0972b1c2-cc94-47f9-a145-43186617c05e',
+    key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
     videoId: 'per-title-encoding'
   }
 
