@@ -10,10 +10,19 @@ var conf = {
   }
 };
 
+var analyticsConfig = {
+  key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+  videoId: 'server-side-ad-insertion'
+};
+
+
 var hidden = false;
 var played = false;
 
 var player = bitmovin.player('player');
+var analytics = bitmovin.analytics(analyticsConfig);
+
+analytics.register(player);
 player.setup(conf).then(function (value) {
   bitmovin.playerui.UIManager.Factory.buildModernSmallScreenUI(player);
 

@@ -17,12 +17,20 @@
     }
   ];
 
+  var analyticsConfig = {
+    key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+    videoId: 'av1'
+  }
+
+  var analytics = bitmovin.analytics(analyticsConfig);
+
   function setPlayer() {
     if (player) {
       player.destroy();
     }
 
     player = bitmovin.player('player');
+    analytics.register(player);
     return player;
   }
 
