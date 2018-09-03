@@ -5,3 +5,8 @@
 #player .bmpui-ui-errormessage-label {
     background: transparent;
 }
+
+.bmpui-ui-skin-modern .bmpui-ui-watermark {
+    left: 0;
+    top: 20px;
+}
