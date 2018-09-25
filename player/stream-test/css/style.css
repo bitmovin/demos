@@ -70,3 +70,22 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
     align-content: left;
     fill: #505f79
 }
+
+[id^="ad-box-"] {
+    display: none;
+}
+
+#logContent {
+    height: 200px;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    color: #000000;
+}

@@ -1,28 +1,31 @@
-<script type="text/javascript"
-        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
-<script type="text/javascript" 
-        src="//bitmovin-a.akamaihd.net/bitmovin-analytics/stable/1/bitmovinanalytics.min.js"></script>
-
-<div class="description">
-    <p>Simply paste the link to your manifest file to test your own stream with the Bitmovin Player.</p>
-</div>
+<script type="text/javascript" src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
+<script type="text/javascript" src="//bitmovin-a.akamaihd.net/bitmovin-analytics/stable/1/bitmovinanalytics.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 
 <div class="demo_form">
+    <div class="col-md-3 adjust-pad-left mt-2">
+        <input id="manifest-load" class="btn btn-success" type="manifest-load" value="Start" onclick="loadPlayerFromControls()">
+    </div>
     <div class="row">
         <div class="col-md-3 adjust-pad-right mt-2">
-            <select id="stream_format" class="form-control">
-                <option selected="selected" value="dash">DASH (.mpd)</option>
-                <option value="hls">HLS (.m3u8)</option>
-                <option value="progressive">Progressive</option>
-                <option value="smooth">Smooth</option>
-            </select>
+            <input id="stream-format" type="radio" name="stream-format" value="dash" checked> DASH
+            <input id="stream-format" type="radio" name="stream-format" value="hls"> HLS
+            <input id="stream-format" type="radio" name="stream-format" value="progressive"> Smooth
+            <input id="stream-format" type="radio" name="stream-format" value="smooth"> Progressive
         </div>
         <div class="col-md-6 adjust-pad-left adjust-pad-right mt-2">
-            <input id="manifest" class="form-control" name="manifest" type="text"
-                   placeholder="//bitmovin-a.akamaihd.net/content/sintel/sintel.mpd">
+            <input id="manifest-input" class="form-control" name="manifest-input" type="text" placeholder="Stream URI">
         </div>
         <div class="col-md-3 adjust-pad-left mt-2">
-            <input id="submit" class="btn btn-success" type="submit" value="Load" onclick="loadManifest()">
+            <input id="default-manifest" class="btn btn-success" type="default-manifest" value="Load" onclick="setDefaultManifest()">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 adjust-pad-right mt-2">
+            <input id="drm-format" type="radio" name="drm-format" value="none" checked> None
+            <input id="drm-format" type="radio" name="drm-format" value="widevine"> Widevine
+            <input id="drm-format" type="radio" name="drm-format" value="playready"> Playready
+            <input id="drm-license" class="form-control" name="drm-license" type="text" placeholder="DRM License URL">
         </div>
     </div>
     <div class="row">
@@ -40,6 +43,85 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-lg-8 col-md-12 m-auto">
+        <div>
+            Schedule Ad
+            <input id="schedule-ad" class="btn btn-success" type="schedule-ad" value="Schedule" onclick="showAd()">
+        </div>
+        <div id="ad-container">
+            <div id="ad-box-1">
+                AD 1
+                <input id="delete-ad1" class="btn btn-success" type="delete-ad" value="Delete" onclick="hideAd()">
+                <div class="col-md-3 adjust-pad-right mt-2">
+                    <input id="ad1-type" type="radio" name="ad1-type" value="vast" checked> VAST
+                    <input id="ad1-type" type="radio" name="ad1-type" value="vpaid"> VPAID
+                    <input id="ad1-type" type="radio" name="ad1-type" value="vmap"> VMAP
+                    <input id="ad1-type" type="radio" name="ad1-type" value="ima"> IMA
+                </div>
+                <div class="col-md-3 adjust-pad-right mt-2">
+                    <input id="ad1-position" type="radio" name="ad1-position" value="pre" checked> Pre-Roll
+                    <input id="ad1-position" type="radio" name="ad1-position" value="50%"> Mid-Roll
+                    <input id="ad1-position" type="radio" name="ad1-position" value="post"> Post-Roll
+                </div>
+                <div class="row">
+                    <input id="ad1-input" class="form-control" name="ad1-input" type="text" placeholder="AD Source URL">
+                </div>
+            </div>
+            <div id="ad-box-2">
+                AD 2
+                <input id="delete-ad2" class="btn btn-success" type="delete-ad" value="Delete" onclick="hideAd()">
+                <div class="col-md-3 adjust-pad-right mt-2">
+                    <input id="ad2-type" type="radio" name="ad2-type" value="vast" checked> VAST
+                    <input id="ad2-type" type="radio" name="ad2-type" value="vpaid"> VPAID
+                    <input id="ad2-type" type="radio" name="ad2-type" value="vmap"> VMAP
+                    <input id="ad2-type" type="radio" name="ad2-type" value="ima"> IMA
+                </div>
+                <div class="col-md-3 adjust-pad-right mt-2">
+                    <input id="ad2-position" type="radio" name="ad2-position" value="pre" checked> Pre-Roll
+                    <input id="ad2-position" type="radio" name="ad2-position" value="50%"> Mid-Roll
+                    <input id="ad2-position" type="radio" name="ad2-position" value="post"> Post-Roll
+                </div>
+                <div class="row">
+                    <input id="ad2-input" class="form-control" name="ad2-input" type="text" placeholder="AD Source URL">
+                </div>
+            </div>
+            <div id="ad-box-3">
+                AD 3
+                <input id="delete-ad3" class="btn btn-success" type="delete-ad" value="Delete" onclick="hideAd()">
+                <div class="col-md-3 adjust-pad-right mt-2">
+                    <input id="ad3-type" type="radio" name="ad3-type" value="vast" checked> VAST
+                    <input id="ad3-type" type="radio" name="ad3-type" value="vpaid"> VPAID
+                    <input id="ad3-type" type="radio" name="ad3-type" value="vmap"> VMAP
+                    <input id="ad3-type" type="radio" name="ad3-type" value="ima"> IMA
+                </div>
+                <div class="col-md-3 adjust-pad-right mt-2">
+                    <input id="ad3-position" type="radio" name="ad3-position" value="pre" checked> Pre-Roll
+                    <input id="ad3-position" type="radio" name="ad3-position" value="50%"> Mid-Roll
+                    <input id="ad3-position" type="radio" name="ad3-position" value="post"> Post-Roll
+                </div>
+                <div class="row">
+                    <input id="ad3-input" class="form-control" name="ad3-input" type="text" placeholder="AD Source URL">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 chart">
+        <canvas class="chart" id="buffer-chart"></canvas>
+    </div>
+    <div class="col-md-6 chart">
+        <canvas class="chart" id="bitrate-chart"></canvas>
+    </div>
+</div>
+
+<div class="row">
+    <h3>Event Log</h3>
+    <div class="logContent" id="logContent"></div>
+</div>
+
 <hr class="mt-5">
 
 <div class="sdk-wrapper">
@@ -49,7 +131,7 @@
     </div>
     <div class="sdk-wrapper-body">
         <div class="sdk-item">
-                <img src="https://bitmovin-a.akamaihd.net/webpages/demo-fw/stream-test/Apple.svg" />
+            <img src="https://bitmovin-a.akamaihd.net/webpages/demo-fw/stream-test/Apple.svg" />
             <div class="sdk-item-content">
                 <div style="padding-bottom: 6px;">iOS/tvOS SDK</div>
                 <a target="_blank" onclick="amp.logSDKSourceCodeClicked('stream-test', 'ios')" href="https://github.com/bitmovin/bitmovin-player-ios-samples">
