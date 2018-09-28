@@ -1,124 +1,91 @@
 <script type="text/javascript" src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
 <script type="text/javascript" src="//bitmovin-a.akamaihd.net/bitmovin-analytics/stable/1/bitmovinanalytics.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 
-<div class="demo_form">
-    <div class="col-md-3 adjust-pad-left mt-2">
-        <input id="manifest-load" class="btn btn-success" type="manifest-load" value="Start" onclick="loadPlayerFromControls()">
-    </div>
-    <div class="row">
-        <div class="col-md-3 adjust-pad-right mt-2">
-            <input id="stream-format" type="radio" name="stream-format" value="dash" checked> DASH
-            <input id="stream-format" type="radio" name="stream-format" value="hls"> HLS
-            <input id="stream-format" type="radio" name="stream-format" value="progressive"> Smooth
-            <input id="stream-format" type="radio" name="stream-format" value="smooth"> Progressive
+<hr class="mt-5">
+
+<div class="demo-row">
+    <div class="demo-video">
+        <div id="player" class="tv-frame">
         </div>
-        <div class="col-md-6 adjust-pad-left adjust-pad-right mt-2">
+    </div>
+
+    <div class="demo-input">
+        <div class="demo-start">
+            <input id="default-manifest" class="btn btn-outline-primary" type="default-manifest" value="Load our test stream"
+                onclick="setDefaultManifest()">
+            <input id="manifest-load" class="btn btn-outline-primary active" type="manifest-load" value="Start" onclick="loadPlayerFromControls()">
+        </div>
+        <div class="demo-input-box">
+            <div class="demo-drm-header">
+                <div>Stream</div>
+            </div>
+            <div class="demo-stream-type">
+                <div class="type-header">Stream type</div>
+                <div class="demo-stream-type-input">
+                    <div class="input-type">
+                        <input id="stream-format" type="radio" name="stream-format" value="dash" checked> DASH
+                    </div>
+                    <div class="input-type">
+                        <input id="stream-format" type="radio" name="stream-format" value="hls"> HLS
+                    </div>
+                    <div class="input-type">
+                        <input id="stream-format" type="radio" name="stream-format" value="smooth"> Smooth
+                    </div>
+                    <div class="input-type">
+                        <input id="stream-format" type="radio" name="stream-format" value="progressive"> Progressive
+                    </div>
+                </div>
+            </div>
             <input id="manifest-input" class="form-control" name="manifest-input" type="text" placeholder="Stream URI">
         </div>
-        <div class="col-md-3 adjust-pad-left mt-2">
-            <input id="default-manifest" class="btn btn-success" type="default-manifest" value="Load" onclick="setDefaultManifest()">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 adjust-pad-right mt-2">
-            <input id="drm-format" type="radio" name="drm-format" value="none" checked> None
-            <input id="drm-format" type="radio" name="drm-format" value="widevine"> Widevine
-            <input id="drm-format" type="radio" name="drm-format" value="playready"> Playready
+        <div class="demo-input-box">
+            <div class="demo-drm-header">
+                <div>Play content protected by DRM</div>
+            </div>
+            <div class="demo-stream-type">
+                <div class="type-header">DRM Type</div>
+                <div class="demo-stream-type-input">
+                    <div class="input-type">
+                        <input id="drm-format" type="radio" name="drm-format" value="none" checked> None
+                    </div>
+                    <div class="input-type">
+                        <input id="drm-format" type="radio" name="drm-format" value="widevine"> Widevine
+                    </div>
+                    <div class="input-type">
+                        <input id="drm-format" type="radio" name="drm-format" value="playready"> Playready
+                    </div>
+                </div>
+            </div>
             <input id="drm-license" class="form-control" name="drm-license" type="text" placeholder="DRM License URL">
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div id="error" style="color: red;"></div>
-        </div>
-    </div>
-    <div class="clear"></div>
 </div>
 
-<div class="row">
-    <div class="col-lg-8 col-md-12 m-auto">
-        <div id="player" class="notebook-frame">
+<div>
+    <div class="ad-description">Schedule up to 3 ads during your playback</div>
+    <div class="demo-ad-row" id="ad-box-wrapper">
+        <div class="demo-input-box schedule-ad">
+            <div class="demo-drm-header">
+                <div>Schedule AD</div>
+            </div>
+            <input id="schedule-ad" class="btn btn-outline-primary" type="schedule-ad" value="Add" onclick="showAd()">
         </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-8 col-md-12 m-auto">
-        <div>
-            Schedule Ad
-            <input id="schedule-ad" class="btn btn-success" type="schedule-ad" value="Schedule" onclick="showAd()">
-        </div>
-        <div id="ad-container">
-            <div id="ad-box-1">
-                AD 1
-                <input id="delete-ad1" class="btn btn-success" type="delete-ad" value="Delete" onclick="hideAd()">
-                <div class="col-md-3 adjust-pad-right mt-2">
-                    <input id="ad1-type" type="radio" name="ad1-type" value="vast" checked> VAST
-                    <input id="ad1-type" type="radio" name="ad1-type" value="vpaid"> VPAID
-                    <input id="ad1-type" type="radio" name="ad1-type" value="vmap"> VMAP
-                    <input id="ad1-type" type="radio" name="ad1-type" value="ima"> IMA
-                </div>
-                <div class="col-md-3 adjust-pad-right mt-2">
-                    <input id="ad1-position" type="radio" name="ad1-position" value="pre" checked> Pre-Roll
-                    <input id="ad1-position" type="radio" name="ad1-position" value="50%"> Mid-Roll
-                    <input id="ad1-position" type="radio" name="ad1-position" value="post"> Post-Roll
-                </div>
-                <div class="row">
-                    <input id="ad1-input" class="form-control" name="ad1-input" type="text" placeholder="AD Source URL">
-                </div>
-            </div>
-            <div id="ad-box-2">
-                AD 2
-                <input id="delete-ad2" class="btn btn-success" type="delete-ad" value="Delete" onclick="hideAd()">
-                <div class="col-md-3 adjust-pad-right mt-2">
-                    <input id="ad2-type" type="radio" name="ad2-type" value="vast" checked> VAST
-                    <input id="ad2-type" type="radio" name="ad2-type" value="vpaid"> VPAID
-                    <input id="ad2-type" type="radio" name="ad2-type" value="vmap"> VMAP
-                    <input id="ad2-type" type="radio" name="ad2-type" value="ima"> IMA
-                </div>
-                <div class="col-md-3 adjust-pad-right mt-2">
-                    <input id="ad2-position" type="radio" name="ad2-position" value="pre" checked> Pre-Roll
-                    <input id="ad2-position" type="radio" name="ad2-position" value="50%"> Mid-Roll
-                    <input id="ad2-position" type="radio" name="ad2-position" value="post"> Post-Roll
-                </div>
-                <div class="row">
-                    <input id="ad2-input" class="form-control" name="ad2-input" type="text" placeholder="AD Source URL">
-                </div>
-            </div>
-            <div id="ad-box-3">
-                AD 3
-                <input id="delete-ad3" class="btn btn-success" type="delete-ad" value="Delete" onclick="hideAd()">
-                <div class="col-md-3 adjust-pad-right mt-2">
-                    <input id="ad3-type" type="radio" name="ad3-type" value="vast" checked> VAST
-                    <input id="ad3-type" type="radio" name="ad3-type" value="vpaid"> VPAID
-                    <input id="ad3-type" type="radio" name="ad3-type" value="vmap"> VMAP
-                    <input id="ad3-type" type="radio" name="ad3-type" value="ima"> IMA
-                </div>
-                <div class="col-md-3 adjust-pad-right mt-2">
-                    <input id="ad3-position" type="radio" name="ad3-position" value="pre" checked> Pre-Roll
-                    <input id="ad3-position" type="radio" name="ad3-position" value="50%"> Mid-Roll
-                    <input id="ad3-position" type="radio" name="ad3-position" value="post"> Post-Roll
-                </div>
-                <div class="row">
-                    <input id="ad3-input" class="form-control" name="ad3-input" type="text" placeholder="AD Source URL">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<hr class="mt-5">
 
 <div class="row">
     <div class="col-md-6 chart">
-        <canvas class="chart" id="buffer-chart"></canvas>
+        <div class="chart" id="buffer-chart"></div>
     </div>
     <div class="col-md-6 chart">
-        <canvas class="chart" id="bitrate-chart"></canvas>
+        <div class="chart" id="bitrate-chart"></div>
     </div>
 </div>
 
-<div class="row">
-    <h3>Event Log</h3>
+<div class="demo-event-box">
+    <div>Event Log</div>
     <div class="logContent" id="logContent"></div>
 </div>
 

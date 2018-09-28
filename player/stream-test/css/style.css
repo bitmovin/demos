@@ -71,13 +71,11 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
     fill: #505f79
 }
 
-[id^="ad-box-"] {
-    display: none;
-}
-
 #logContent {
-    height: 200px;
+    height: 300px;
     width: 100%;
+    font-size: 16px;
+    line-height: 19px;
     overflow-y: scroll;
     overflow-wrap: break-word;
     margin-top: 0px;
@@ -88,4 +86,131 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
     background-color: #fff;
     font-family: 'Courier New', Courier, monospace;
     color: #000000;
+}
+
+.demo-input-box {
+    border: solid 1px #CBE0ED;
+    border-radius: 4px;
+    padding: 15px 20px 10px 20px;
+    margin: 7px;
+    width: 100%;
+}
+
+.demo-input-box > div {
+    padding-bottom: 15px;
+}
+
+.demo-input-box > input {
+    margin-bottom: 10px;
+}
+
+.demo-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.demo-start {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    margin: 7px;
+    right: 0px;
+}
+
+.demo-video {
+    width: 60%;
+    padding-right: 60px;
+}
+
+.demo-input {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    align-items: flex-end;
+}
+
+.demo-stream-type {
+    display: flex;
+    flex-direction: row;
+}
+
+.demo-stream-type-input {
+    display: flex;
+    flex-direction: row;
+    letter-spacing: -0.5px;
+}
+
+.demo-stream-type-input > .input-type {
+    padding: 0px 0px 5px 10px;
+    font-size: 13px;
+    line-height: 22px;
+}
+
+.input-type > input {
+    margin-right: 5px;
+}
+
+.type-header {
+    font-size: 15px;
+    line-height: 22px;
+    padding-right: 50px;
+}
+
+.demo-drm-header {
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 25px;
+    letter-spacing: -0.5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.demo-drm-header > img {
+    width: 33px;
+    height: 33px;
+    margin-right: 10px;
+}
+
+.demo-drm-header > div {
+    padding-top: 5px;
+    flex-grow: 1;
+}
+
+.demo-ad-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.demo-input-box.schedule-ad {
+    width: 211px;
+    height: 20%;
+}
+
+.demo-input-box.ad-box {
+    width: 26.6%;
+}
+
+.demo-input-box.ad-box .type-header {
+    padding-right: 0px;
+}
+
+.ad-description {
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.demo-event-box {
+    padding: 23px;
+    border: solid 1px #CBE0ED;
+    border-radius: 4px;
+}
+
+.demo-event-box > div {
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 23px;
 }
