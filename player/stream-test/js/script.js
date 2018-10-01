@@ -12,7 +12,7 @@ window.onload = function getURLParams() {
     loadPlayerFromControls();
   }
   else {
-    setupPlayer('dash', config.source.dash, null, null);
+    setupPlayer('dash', config.source.dash);
   }
 };
 
@@ -104,15 +104,7 @@ function handleKeyPress(keyEvent) {
   }
 }
 
-function setupPlayer(manifestType, manifestUrl, drm, licenceUrl) {
-  if (!drm) {
-    var  drm = 'none';
-  };
-
-  if (!licenceUrl) {
-    var licenceUrl = '';
-  }
-
+function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '') {
   if (player && player.isSetup()) {
     player.destroy();
     player = null;
@@ -168,7 +160,7 @@ function loadPlayerFromControls() {
     return;
   }
 
-  setupPlayer(manifestType, manifestInput, drmSystem, licenceInput, );
+  setupPlayer(manifestType, manifestInput, drmSystem, licenceInput);
 }
 
 function setDefaultManifest() {
@@ -329,7 +321,7 @@ function updateCharts(player) {
   addNewData(player.getVideoBufferLength(), player.getAudioBufferLength(), player.getDownloadedVideoData().bitrate);
 }
 
-function addChartData (chart, seriesIndex, xAxis, yAxis) {
+function addChartData(chart, seriesIndex, xAxis, yAxis) {
   chart.series[seriesIndex].addPoint([xAxis, yAxis], true, false);
 }
 
@@ -365,7 +357,7 @@ function setupChart() {
     },
     series: [{
       name: 'Video',
-      data: [[0,0]],
+      data: [[0, 0]],
       marker: {
         enabled: true,
         fillColor: '#ffffff',
@@ -376,7 +368,7 @@ function setupChart() {
       color: '#1FAAE2'
     }, {
       name: 'Audio',
-      data: [[0,0]],
+      data: [[0, 0]],
       marker: {
         enabled: true,
         fillColor: '#ffffff',
@@ -432,7 +424,7 @@ function setupChart() {
     },
     series: [{
       name: 'Video',
-      data: [[0,0]],
+      data: [[0, 0]],
       marker: {
         enabled: true,
         fillColor: '#ffffff',
