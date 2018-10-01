@@ -6,15 +6,6 @@ var conf = {
     progressive: '//bitmovin-a.akamaihd.net/content/MI201109210084_1/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4',
     poster: '//bitmovin-a.akamaihd.net/content/art-of-motion_drm/art-of-motion_poster.jpg'
   },
-  advertising: {
-    client: 'vpaid',
-    schedule: {
-      'pre-roll-ad': {
-        offset: 'pre',
-        tag: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/32573358/skippable_ad_unit&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&description_url=[description_url]&correlator=[timestamp]',
-      }
-    }
-  },
   style: {
     ux: false
   },
@@ -82,7 +73,7 @@ function loadConfig() {
     }
     player.scheduleAd(manifestUrl, adType, {
       'timeOffset': document.getElementById('schedule-list').value,
-      'pertistant': true,
+      'persistent': true,
       'adMessage': 'Dynamically scheduled ad'
     });
   }
