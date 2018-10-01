@@ -198,7 +198,7 @@ function createAdConfig() {
       var adPosition = document.querySelector(`[name="ad${i}-position"]:checked`).value;
 
       player.scheduleAd(adManifestUrl, adType, {
-        pertistant: true,
+        persistent: true,
         adMessage: 'Dynamically scheduled ad',
         timeOffset: adPosition
       });
