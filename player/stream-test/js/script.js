@@ -12,7 +12,7 @@ window.onload = function getURLParams() {
     loadPlayerFromControls();
   }
   else {
-    setupPlayer('dash', config.source.dash);
+    setupPlayer('dash', config.source.dash, null, null);
   }
 };
 
@@ -104,7 +104,15 @@ function handleKeyPress(keyEvent) {
   }
 }
 
-function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '') {
+function setupPlayer(manifestType, manifestUrl, drm, licenceUrl) {
+  if (!drm) {
+    var  drm = 'none';
+  };
+
+  if (!licenceUrl) {
+    var licenceUrl = '';
+  }
+
   if (player && player.isSetup()) {
     player.destroy();
     player = null;

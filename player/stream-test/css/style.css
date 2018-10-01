@@ -187,8 +187,12 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
     height: 20%;
 }
 
+.demo-input-box.schedule-ad > input {
+    width: 100%;
+}
+
 .demo-input-box.ad-box {
-    width: 26.6%;
+    width: 26.5%;
 }
 
 .demo-input-box.ad-box .type-header {
