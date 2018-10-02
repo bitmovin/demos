@@ -361,6 +361,12 @@ function showAd() {
 
 function hideAd(elementId) {
   document.getElementById(elementId).remove();
+
+  var adArray = document.getElementsByClassName('demo-input-box ad-box');
+
+  if (adArray && adArray.length < 3) {
+    scheduleAdButton.classList.remove('disabled');
+  }
 }
 
 function createAdBox(number) {
@@ -399,12 +405,18 @@ function createAdBox(number) {
   <input id="ad${number}-input" class="form-control" name="ad${number}-input" type="text" placeholder="AD Source URL">
 </div>`).appendTo('#ad-box-wrapper');
 
+var adArray = document.getElementsByClassName('demo-input-box ad-box');
+
 var adRadioButtons = document.getElementsByName(`ad${number}-type`);
 adRadioButtons.forEach(function (element) {
   element.addEventListener('click', function () {
     setDefaultInput(element, `ad${number}-input`, defaultAdUrl);
   })
 });
+
+if (adArray && adArray.length === 3) {
+  scheduleAdButton.classList.add('disabled');
+}
 }
 
 function clearChart() {
