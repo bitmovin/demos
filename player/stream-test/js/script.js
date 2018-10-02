@@ -1,6 +1,8 @@
 window.onload = function getURLParams() {
   var manifestParam = getParamsQueryString('manifest');
   var streamFormatParam = getParamsQueryString('format');
+  var licenseParam = getParamsQueryString('license');
+  var drmFormatParam = getParamsQueryString('drm');
   if (manifestParam && streamFormatParam) {
     document.getElementsByName('stream-format').forEach(function (element) {
       if (element.value === streamFormatParam) {
@@ -9,24 +11,22 @@ window.onload = function getURLParams() {
     })
     document.getElementById('manifest-input').value = manifestParam;
 
+    if (drmFormatParam && licenseParam) {
+      document.getElementsByName('drm-format').forEach(function (element) {
+        if (element.value === drmFormatParam) {
+          element.checked = true;
+        }
+      })
+
+      document.getElementById('drm-license').value = licenseParam;
+    }
+
     loadPlayerFromControls();
   }
   else {
     setupPlayer('dash', config.source.dash);
   }
 };
-
-var initialTimestamp, bufferChart, bitrateChart;
-var updateCount = 0;
-
-var loadManifestButton = document.getElementById('manifest-load');
-loadManifestButton.onclick = loadPlayerFromControls;
-
-var setDefaultManifestButton = document.getElementById('default-manifest');
-setDefaultManifestButton.onclick = setDefaultManifest;
-
-var scheduleAdButton = document.getElementById('schedule-ad');
-scheduleAdButton.onclick = showAd;
 
 var config = {
   key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
@@ -42,12 +42,9 @@ var config = {
     hls: 'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/m3u8s/11331.m3u8',
     smooth: 'https://test.playready.microsoft.com/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/manifest',
     drm: {
-      widevine: {
-        LA_URL: 'https://widevine-proxy.appspot.com/proxy'
-      },
-      playready: {
-        LA_URL: 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&#038;ContentKey=EAtsIJQPd5pFiRUrV9Layw=='
-      }
+      none: '',
+      widevine: 'https://widevine-proxy.appspot.com/proxy',
+      playready: 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&#038;ContentKey=EAtsIJQPd5pFiRUrV9Layw=='
     }
   },
   cast: {
@@ -70,6 +67,39 @@ var defaultAdUrl = {
   ima: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=[random]'
 };
 
+var initialTimestamp, bufferChart, bitrateChart;
+var updateCount = 0;
+
+var defaultManifest = document.getElementById('default-manifest');
+defaultManifest.addEventListener('click', function () {
+  toggleDefaultButton();
+});
+
+var loadPlayerButton = document.getElementById('manifest-load');
+loadPlayerButton.addEventListener('click', function () {
+  loadPlayerFromControls();
+});
+
+var scheduleAdButton = document.getElementById('schedule-ad');
+scheduleAdButton.addEventListener('click', function () {
+  showAd();
+  toggleInputFields();
+});
+
+var streamRadioButtons = document.getElementsByName('stream-format');
+streamRadioButtons.forEach(function (element) {
+  element.addEventListener('click', function () {
+    setDefaultInput(element, 'manifest-input', config.source);
+  })
+});
+
+var drmRadioButtons = document.getElementsByName('drm-format');
+drmRadioButtons.forEach(function (element) {
+  element.addEventListener('click', function () {
+    setDefaultInput(element, 'drm-license', config.drmSource.drm);
+  })
+});
+
 var analyticsConfig = {
   key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
   videoId: 'stream-test'
@@ -79,10 +109,18 @@ var analytics = bitmovin.analytics(analyticsConfig);
 var player = bitmovin.player('player');
 analytics.register(player);
 
-function setURLParameter(format, manifest) {
+function setURLParameter(format, manifest, drm, license) {
   var manifestValue = encodeURIComponent(manifest);
   var streamFormatValue = encodeURIComponent(format);
+  if (drm) {
+    var drmValue = encodeURIComponent(drm);
+    var licenseValue = encodeURIComponent(license);
+  }
   var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?format=' + streamFormatValue + '&manifest=' + manifestValue;
+
+  if (drmValue && licenseValue) {
+    newURL = newURL + '&drm=' + drmValue + '&license=' + licenseValue;
+  }
   window.history.pushState({ path: newURL }, '', newURL);
 }
 
@@ -142,6 +180,7 @@ function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '') {
 
   player.setup(conf).then(function () {
     createAdConfig();
+    player.play();
   }).catch(function (error) {
     console.log(error);
   });
@@ -170,12 +209,12 @@ function setDefaultManifest() {
   if (drmSystem === 'none') {
     document.querySelector('#manifest-input').value = config.source[manifestType];
     document.querySelector('#drm-license').value = null;
-    setURLParameter(manifestType, config.source[manifestType]);
+    setURLParameter(manifestType, config.source[manifestType], null, null);
   }
   else {
     document.querySelector('#manifest-input').value = config.drmSource[manifestType];
-    document.querySelector('#drm-license').value = config.drmSource.drm[drmSystem].LA_URL;
-    setURLParameter(manifestType, config.drmSource[manifestType]);
+    document.querySelector('#drm-license').value = config.drmSource.drm[drmSystem];
+    setURLParameter(manifestType, config.drmSource[manifestType], drmSystem, config.drmSource.drm[drmSystem]);
   }
 
   for (i = 1; i < 4; i++) {
@@ -247,6 +286,67 @@ function check404(url, callbackFunction) {
   xhr.send('Content-type', 'application/x-www-form-urlencoded');
 }
 
+function toggleDefaultButton() {
+  var defaultCheckbox = document.querySelector('#default-manifest');
+
+  if (!defaultCheckbox.checked) {
+    defaultCheckbox.classList.add('on');
+    defaultCheckbox.checked = true;
+  } else {
+    defaultCheckbox.classList.remove('on');
+    defaultCheckbox.checked = false;
+  }
+
+  toggleInputFields();
+}
+
+function toggleInputFields() {
+  var defaultCheckbox = document.querySelector('#default-manifest');
+  var manifestInput = document.querySelector('#manifest-input');
+  var licenceInput = document.querySelector('#drm-license');
+
+  
+  if (defaultCheckbox.checked) {
+    manifestInput.readOnly = true;
+    licenceInput.readOnly = true;
+    for (i = 1; i < 4; i++) {
+      var adManifest = document.getElementById(`ad${i}-input`);
+
+      if (adManifest) {
+        adManifest.readOnly = true;
+      }
+    }
+    setDefaultManifest();
+    loadPlayerFromControls();
+  }
+  else {
+    defaultCheckbox.classList.remove('on');
+    defaultCheckbox.checked = false;
+    manifestInput.readOnly = false;
+    licenceInput.readOnly = false;
+    for (i = 1; i < 4; i++) {
+      var adManifest = document.getElementById(`ad${i}-input`);
+
+      if (adManifest) {
+        adManifest.readOnly = false;
+      }
+    }
+  }
+}
+
+function setDefaultInput(radioButton, inputTextId, defaultConfig) {
+  
+  var defaultCheckbox = document.querySelector('#default-manifest');
+
+  if (defaultCheckbox.checked) {
+    var inputText = document.getElementById(inputTextId);
+
+      if (radioButton.checked === true) {
+        inputText.value = defaultConfig[radioButton.value];
+      }
+  }
+}
+
 function showAd() {
   var adBox1 = document.getElementById('ad-box-1');
   var adBox2 = document.getElementById('ad-box-2');
@@ -269,39 +369,46 @@ function hideAd(elementId) {
 
 function createAdBox(number) {
   $(`<div class="demo-input-box ad-box" id="ad-box-${number}">
-  <div class="demo-drm-header">
+  <div class="demo-item-header">
       <div>AD ${number}</div>
-      <input id="delete-ad${number}" class="btn btn-outline-primary active" type="delete-ad" value="Delete" onclick="hideAd('ad-box-${number}')">
+      <button id="delete-ad${number}" class="btn btn-outline-primary active demo-button" type="delete-ad" onclick="hideAd('ad-box-${number}')">Delete</button>
   </div>
   <div class="demo-stream-type-input">
       <div class="type-header">AD Type</div>
       <div class="input-type">
-          <input id="ad${number}-type" type="radio" name="ad${number}-type" value="vast" checked> VAST
+        <label><input id="ad${number}-type" type="radio" name="ad${number}-type" value="vast" checked> VAST</label>
       </div>
       <div class="input-type">
-          <input id="ad${number}-type" type="radio" name="ad${number}-type" value="vpaid"> VPAID
+        <label><input id="ad${number}-type" type="radio" name="ad${number}-type" value="vpaid"> VPAID</label>
       </div>
       <div class="input-type">
-          <input id="ad${number}-type" type="radio" name="ad${number}-type" value="vmap"> VMAP
+        <label><input id="ad${number}-type" type="radio" name="ad${number}-type" value="vmap"> VMAP</label>
       </div>
       <div class="input-type">
-          <input id="ad${number}-type" type="radio" name="ad${number}-type" value="ima"> IMA
+        <label><input id="ad${number}-type" type="radio" name="ad${number}-type" value="ima"> IMA</label>
       </div>
   </div>
   <div class="demo-stream-type-input">
       <div class="type-header">AD Position</div>
       <div class="input-type">
-          <input id="ad${number}-position" type="radio" name="ad${number}-position" value="pre" checked> Pre-Roll
+        <label><input id="ad${number}-position" type="radio" name="ad${number}-position" value="pre" checked> Pre-Roll</label>
       </div>
       <div class="input-type">
-          <input id="ad${number}-position" type="radio" name="ad${number}-position" value="50%"> Mid-Roll
+        <label><input id="ad${number}-position" type="radio" name="ad${number}-position" value="50%"> Mid-Roll</label>
       </div>
       <div class="input-type">
-          <input id="ad${number}-position" type="radio" name="ad${number}-position" value="post"> Post-Roll
+        <label><input id="ad${number}-position" type="radio" name="ad${number}-position" value="post"> Post-Roll</label>
       </div>
   </div>
   <input id="ad${number}-input" class="form-control" name="ad${number}-input" type="text" placeholder="AD Source URL">
 </div>`).appendTo('#ad-box-wrapper');
+
+var adRadioButtons = document.getElementsByName(`ad${number}-type`);
+adRadioButtons.forEach(function (element) {
+  element.addEventListener('click', function () {
+    setDefaultInput(element, `ad${number}-input`, defaultAdUrl);
+  })
+});
 }
 
 function clearChart() {
@@ -327,7 +434,6 @@ function addChartData(chart, seriesIndex, xAxis, yAxis) {
 
 function setupChart() {
   initialTimestamp = Date.now();
-
   bufferChart = Highcharts.chart(document.getElementById("buffer-chart"), {
 
     chart: {
@@ -396,13 +502,12 @@ function setupChart() {
   });
 
   bitrateChart = Highcharts.chart(document.getElementById("bitrate-chart"), {
-
     chart: {
       type: 'spline',
       zoomType: 'x'
     },
     title: {
-      text: 'Buffer Levels'
+      text: 'Bitrate Levels'
     },
     xAxis: {
       title: {
@@ -460,7 +565,6 @@ function trimInput(input) {
 }
 
 function setPlayerEvents(player) {
-
   player.addEventHandler(player.EVENT.ON_AUDIO_PLAYBACK_QUALITY_CHANGED, function (data) {
     log("On Audio Playback Quality Changed: " + JSON.stringify(data));
     updateCharts(player);

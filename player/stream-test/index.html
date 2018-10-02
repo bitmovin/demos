@@ -11,48 +11,47 @@
 
     <div class="demo-input">
         <div class="demo-start">
-            <input id="default-manifest" class="btn btn-outline-primary" type="default-manifest" value="Load our test stream"
-                onclick="setDefaultManifest()">
-            <input id="manifest-load" class="btn btn-outline-primary active" type="manifest-load" value="Start" onclick="loadPlayerFromControls()">
+            <label><div id="default-manifest" class="toggle-button"><div class="toggle-button-indicator"></div></div>Use our Defaults</label>
+            <button id="manifest-load" class="btn btn-outline-primary active demo-button" type="manifest-load">Load Settings</button>
         </div>
         <div class="demo-input-box">
-            <div class="demo-drm-header">
+            <div class="demo-item-header">
                 <div>Stream</div>
             </div>
             <div class="demo-stream-type">
                 <div class="type-header">Stream type</div>
                 <div class="demo-stream-type-input">
                     <div class="input-type">
-                        <input id="stream-format" type="radio" name="stream-format" value="dash" checked> DASH
+                        <label><input id="stream-format" type="radio" name="stream-format" value="dash" checked> DASH</label>
                     </div>
                     <div class="input-type">
-                        <input id="stream-format" type="radio" name="stream-format" value="hls"> HLS
+                        <label><input id="stream-format" type="radio" name="stream-format" value="hls"> HLS</label>
                     </div>
                     <div class="input-type">
-                        <input id="stream-format" type="radio" name="stream-format" value="smooth"> Smooth
+                        <label><input id="stream-format" type="radio" name="stream-format" value="smooth"> Smooth</label>
                     </div>
                     <div class="input-type">
-                        <input id="stream-format" type="radio" name="stream-format" value="progressive"> Progressive
+                        <label><input id="stream-format" type="radio" name="stream-format" value="progressive"> Progressive</label>
                     </div>
                 </div>
             </div>
             <input id="manifest-input" class="form-control" name="manifest-input" type="text" placeholder="Stream URI">
         </div>
         <div class="demo-input-box">
-            <div class="demo-drm-header">
+            <div class="demo-item-header">
                 <div>Play content protected by DRM</div>
             </div>
             <div class="demo-stream-type">
                 <div class="type-header">DRM Type</div>
                 <div class="demo-stream-type-input">
                     <div class="input-type">
-                        <input id="drm-format" type="radio" name="drm-format" value="none" checked> None
+                        <label><input id="drm-format" type="radio" name="drm-format" value="none" checked> None</label>
                     </div>
                     <div class="input-type">
-                        <input id="drm-format" type="radio" name="drm-format" value="widevine"> Widevine
+                        <label><input id="drm-format" type="radio" name="drm-format" value="widevine"> Widevine</label>
                     </div>
                     <div class="input-type">
-                        <input id="drm-format" type="radio" name="drm-format" value="playready"> Playready
+                        <label><input id="drm-format" type="radio" name="drm-format" value="playready"> Playready</label>
                     </div>
                 </div>
             </div>
@@ -65,17 +64,17 @@
     <div class="ad-description">Schedule up to 3 ads during your playback</div>
     <div class="demo-ad-row" id="ad-box-wrapper">
         <div class="demo-input-box schedule-ad">
-            <div class="demo-drm-header">
+            <div class="demo-item-header">
                 <div>Schedule AD</div>
             </div>
-            <input id="schedule-ad" class="btn btn-outline-primary" type="schedule-ad" value="Add" onclick="showAd()">
+            <button id="schedule-ad" class="btn btn-outline-primary" type="schedule-ad" value="Add">Add</button>
         </div>
     </div>
 </div>
 
 <hr class="mt-5">
 
-<div class="row">
+<div class="demo-row">
     <div class="col-md-6 chart">
         <div class="chart" id="buffer-chart"></div>
     </div>

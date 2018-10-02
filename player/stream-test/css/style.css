@@ -81,8 +81,6 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
     margin-top: 0px;
     padding-top: 0px;
     padding-left: 0px;
-    margin-right: auto;
-    margin-left: auto;
     background-color: #fff;
     font-family: 'Courier New', Courier, monospace;
     color: #000000;
@@ -144,7 +142,6 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
 .demo-stream-type-input > .input-type {
     padding: 0px 0px 5px 10px;
     font-size: 13px;
-    line-height: 22px;
 }
 
 .input-type > input {
@@ -153,11 +150,15 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
 
 .type-header {
     font-size: 15px;
-    line-height: 22px;
     padding-right: 50px;
 }
 
-.demo-drm-header {
+#schedule-ad {
+    width: 100%;
+    justify-content: center;
+}
+
+.demo-item-header {
     font-weight: 500;
     font-size: 21px;
     line-height: 25px;
@@ -166,13 +167,13 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
     flex-direction: row;
 }
 
-.demo-drm-header > img {
+.demo-item-header > img {
     width: 33px;
     height: 33px;
     margin-right: 10px;
 }
 
-.demo-drm-header > div {
+.demo-item-header > div {
     padding-top: 5px;
     flex-grow: 1;
 }
@@ -185,6 +186,7 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
 .demo-input-box.schedule-ad {
     width: 211px;
     height: 20%;
+    text-align: center;
 }
 
 .demo-input-box.schedule-ad > input {
@@ -217,4 +219,52 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
     font-size: 20px;
     font-weight: 500;
     padding-bottom: 23px;
+}
+
+.demo-button {
+    width: 140px;
+    height: 35px;
+}
+
+.toggle-button {
+    width: 3rem;
+    height: 1.5rem;
+    border-radius: 1.5rem;
+    border: 1px #CBE0ED solid;
+    background-color: #EEF6F9;
+    transition: all 250ms ease-in-out;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-button > .toggle-button-indicator {
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: white;
+    
+    transition: all 250ms ease-in-out;
+    margin: 2px;
+}
+
+.toggle-button.light {
+    background-color: darken(#f1fafe, 15%);
+}
+
+.toggle-button.flex .toggle-button-indicator {
+    margin: 2px calc(
+          3rem - (1.5rem - 2px)
+        ) 2px 2px;
+}
+
+.toggle-button.on {
+    background-color: #0eb1ff; 
+}
+
+.toggle-button.on .toggle-button-indicator {
+    margin-left: 20px;
+}
+
+.toggle-button:hover {
+    cursor: pointer;
 }
