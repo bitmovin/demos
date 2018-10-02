@@ -41,6 +41,7 @@ var config = {
     dash: 'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/mpds/11331.mpd',
     hls: 'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/m3u8s/11331.m3u8',
     smooth: 'https://test.playready.microsoft.com/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/manifest',
+    progressive: '',
     drm: {
       none: '',
       widevine: 'https://widevine-proxy.appspot.com/proxy',
@@ -143,6 +144,16 @@ function handleKeyPress(keyEvent) {
 }
 
 function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '') {
+  // clone config to avoid leftovers from previous calls
+  var conf = JSON.parse(JSON.stringify(config));
+
+  if (manifestUrl == null || manifestUrl === '') {
+      return;
+  } else {
+    conf.source = {};
+    conf.source[manifestType] = manifestUrl;
+  }
+
   if (player && player.isSetup()) {
     player.destroy();
     player = null;
@@ -155,20 +166,6 @@ function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '') {
 
   setPlayerEvents(player);
 
-  // clone config to avoid leftovers from previous calls
-  var conf = JSON.parse(JSON.stringify(config));
-
-  if (manifestUrl == null || manifestUrl === '') {
-    if (drm === 'none') {
-      conf.source = JSON.parse(JSON.stringify(config.source));
-    } else {
-      conf.source = JSON.parse(JSON.stringify(config.drmSource));
-    }
-  } else {
-    conf.source = {};
-    conf.source[manifestType] = manifestUrl;
-  }
-
   if (drm !== 'none') {
     conf.source['drm'] = {};
     conf.source.drm[drm] = { 'LA_URL': licenceUrl };
@@ -177,7 +174,6 @@ function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '') {
   if (!conf.source) {
     conf.source = JSON.parse(JSON.stringify(config.source));
   }
-
   player.setup(conf).then(function () {
     createAdConfig();
     player.play();
@@ -440,6 +436,9 @@ function setupChart() {
       type: 'spline',
       zoomType: 'x'
     },
+    credits: {
+      enabled: false
+    },
     title: {
       text: 'Buffer Levels'
     },
@@ -505,6 +504,9 @@ function setupChart() {
     chart: {
       type: 'spline',
       zoomType: 'x'
+    },
+    credits: {
+      enabled: false
     },
     title: {
       text: 'Bitrate Levels'

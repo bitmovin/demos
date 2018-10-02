@@ -242,19 +242,8 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
     height: 18px;
     border-radius: 100%;
     background-color: white;
-    
     transition: all 250ms ease-in-out;
     margin: 2px;
-}
-
-.toggle-button.light {
-    background-color: darken(#f1fafe, 15%);
-}
-
-.toggle-button.flex .toggle-button-indicator {
-    margin: 2px calc(
-          3rem - (1.5rem - 2px)
-        ) 2px 2px;
 }
 
 .toggle-button.on {
