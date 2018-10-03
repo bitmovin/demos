@@ -1,7 +1,3 @@
-#player {
-    margin-top: 30px;
-}
-
 @media (max-width: 991px) {
     .sdk-wrapper-body {
         flex-direction: column;

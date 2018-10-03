@@ -30,6 +30,10 @@ window.onload = function getURLParams() {
 
 var config = {
   key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
+  analytics: {
+    key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+    videoId: 'stream-test'
+  },
   source: {
     dash: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
     hls: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
@@ -47,6 +51,9 @@ var config = {
       widevine: 'https://widevine-proxy.appspot.com/proxy',
       playready: 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&#038;ContentKey=EAtsIJQPd5pFiRUrV9Layw=='
     }
+  },
+  style: {
+    aspectratio: '16:9'
   },
   cast: {
     enable: true
@@ -70,6 +77,11 @@ var defaultAdUrl = {
 
 var initialTimestamp, bufferChart, bitrateChart;
 var updateCount = 0;
+
+var playerContainer = document.getElementById('player');
+var player = new bitmovin.player.Player(playerContainer, config);
+
+setPlayerEvents(player);
 
 var defaultManifest = document.getElementById('default-manifest');
 defaultManifest.addEventListener('click', function () {
@@ -100,15 +112,6 @@ drmRadioButtons.forEach(function (element) {
     setDefaultInput(element, 'drm-license', config.drmSource.drm);
   })
 });
-
-var analyticsConfig = {
-  key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
-  videoId: 'stream-test'
-};
-
-var analytics = bitmovin.analytics(analyticsConfig);
-var player = bitmovin.player('player');
-analytics.register(player);
 
 function setURLParameter(format, manifest, drm, license) {
   var manifestValue = encodeURIComponent(manifest);
@@ -154,17 +157,12 @@ function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '') {
     conf.source[manifestType] = manifestUrl;
   }
 
-  if (player && player.isSetup()) {
-    player.destroy();
-    player = null;
+  if (player) {
     clearChart();
     setupChart();
   }
 
-  player = bitmovin.player('player');
-  analytics.register(player);
-
-  setPlayerEvents(player);
+  
 
   if (drm !== 'none') {
     conf.source['drm'] = {};
@@ -174,7 +172,8 @@ function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '') {
   if (!conf.source) {
     conf.source = JSON.parse(JSON.stringify(config.source));
   }
-  player.setup(conf).then(function () {
+
+  player.load(conf.source).then(function () {
     createAdConfig();
     player.play();
   }).catch(function (error) {
@@ -532,7 +531,7 @@ function setupChart() {
     },
     yAxis: {
       title: {
-        text: 'sec',
+        text: 'bitrate',
         align: 'high'
       },
       min: 0
@@ -579,78 +578,70 @@ function trimInput(input) {
 }
 
 function setPlayerEvents(player) {
-  player.addEventHandler(player.EVENT.ON_AUDIO_PLAYBACK_QUALITY_CHANGED, function (data) {
+  player.on(bitmovin.player.PlayerEvent.AudioPlaybackQualityChanged, function (data) {
     log("On Audio Playback Quality Changed: " + JSON.stringify(data));
     updateCharts(player);
   });
 
-  player.addEventHandler(player.EVENT.ON_VIDEO_PLAYBACK_QUALITY_CHANGED, function (data) {
+  player.on(bitmovin.player.PlayerEvent.VideoPlaybackQualityChanged, function (data) {
     log("On Video Playback Quality Changed: " + JSON.stringify(data));
     updateCharts(player);
   });
 
-  player.addEventHandler(player.EVENT.ON_STALL_STARTED, function (data) {
+  player.on(bitmovin.player.PlayerEvent.StallStarted, function (data) {
     log("On Buffering Started: " + JSON.stringify(data));
     updateCharts(player);
   });
 
-  player.addEventHandler(player.EVENT.ON_STALL_ENDED, function (data) {
+  player.on(bitmovin.player.PlayerEvent.StallEnded, function (data) {
     log("On Buffering Ended: " + JSON.stringify(data));
     updateCharts(player);
   });
 
-  player.addEventHandler(player.EVENT.ON_PLAYING, function (data) {
+  player.on(bitmovin.player.PlayerEvent.Playing, function (data) {
     log("On Playing: " + JSON.stringify(data))
     updateCharts(player);
   });
 
-  player.addEventHandler(player.EVENT.ON_PAUSE, function (data) {
-    log("On Pause: " + JSON.stringify(data))
-  });
-
-  player.addEventHandler(player.EVENT.ON_PAUSED, function (data) {
+  player.on(bitmovin.player.PlayerEvent.Paused, function (data) {
     log("On Paused: " + JSON.stringify(data));
     updateCharts(player);
   });
 
-  player.addEventHandler(player.EVENT.ON_PLAY, function (data) {
+  player.on(bitmovin.player.PlayerEvent.Play, function (data) {
     log("On Play: " + JSON.stringify(data))
   });
 
-  player.addEventHandler(player.EVENT.ON_METADATA_PARSED, function (data) {
+  player.on(bitmovin.player.PlayerEvent.MetadataParsed, function (data) {
     log("On Metadata Parsed: " + JSON.stringify(data))
   });
 
-  player.addEventHandler(player.EVENT.ON_READY, function (data) {
+  player.on(bitmovin.player.PlayerEvent.Ready, function (data) {
     log("On Ready: " + JSON.stringify(data));
     updateCharts(player);
   });
 
-  player.addEventHandler(player.EVENT.ON_SOURCE_LOADED, function (data) {
+  player.on(bitmovin.player.PlayerEvent.SourceLoaded, function (data) {
     log("On Loaded: " + JSON.stringify(data));
     updateCharts(player);
   });
 
-  player.addEventHandler(player.EVENT.ON_STOPPED, function (data) {
-    log("On Stopped: " + JSON.stringify(data));
-  });
-
-  player.addEventHandler(player.EVENT.ON_ERROR, function (data) {
+  player.on(bitmovin.player.PlayerEvent.Error, function (data) {
     log("On Error: " + JSON.stringify(data));
     updateCharts(player);
   });
 
-  player.addEventHandler(player.EVENT.ON_SEEK, function (data) {
+  player.on(bitmovin.player.PlayerEvent.Seek, function (data) {
     log("On Seek Started: " + JSON.stringify(data));
     updateCharts(player);
   });
 
-  player.addEventHandler(player.EVENT.ON_SEEKED, function (data) {
+  player.on(bitmovin.player.PlayerEvent.Seeked, function (data) {
     log("On Seek Finished: " + JSON.stringify(data));
     updateCharts(player);
   });
 
-  player.addEventHandler('onTimeChanged', function () {
+  player.on(bitmovin.player.PlayerEvent.TimeChanged, function () {
     updateCount++;
 
     if (updateCount % 4 == 1) {
