@@ -38,7 +38,11 @@
     }
 
     .demo-input-box.ad-box {
-        width: 24.1% !important;
+        width: 25% !important;
+    }
+
+    .demo-ad-row {
+        flex-direction: row !important;
     }
 }
 
