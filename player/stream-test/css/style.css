@@ -4,6 +4,64 @@
     }
 }
 
+
+@media (min-width: 1680px) {
+    .demo-row {
+        flex-direction: row;
+    }
+    
+    .demo-video {
+        width: 52% !important;
+        margin-right: 60px;
+    }
+
+    .demo-input {
+        width: 40% !important;
+    }
+
+    .demo-start {
+        padding-top: 0px !important;
+    }
+
+    .demo-ad-row {
+        flex-direction: row !important;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1679px) {
+     .demo-row {
+        align-items: center;
+    }
+
+    .demo-input-box.input {
+        width: 48.7% !important;
+    }
+
+    .demo-input-box.ad-box {
+        width: 24.1% !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .demo-ad-row {
+        align-items: center;
+    }
+
+    .demo-input-box.ad-box {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .demo-ad-row {
+        align-items: center;
+    }
+
+    .demo-input-box.ad-box {
+        width: 100% !important;
+    }
+}
+
 .stream-control {
     width: 100%;
     padding: 5px 5px;
@@ -100,7 +158,6 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
 
 .demo-row {
     display: flex;
-    flex-direction: row;
 }
 
 .demo-start {
@@ -110,18 +167,15 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
     justify-content: space-between;
     margin: 7px;
     right: 0px;
-}
-
-.demo-video {
-    width: 60%;
-    padding-right: 60px;
+    padding-top: 30px;
 }
 
 .demo-input {
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 100%;
     align-items: flex-end;
+    flex-flow: wrap;
 }
 
 .demo-stream-type {
@@ -154,6 +208,10 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
     justify-content: center;
 }
 
+.demo-video {
+    width: 100%;
+}
+
 .demo-item-header {
     font-weight: 500;
     font-size: 21px;
@@ -176,7 +234,7 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
 
 .demo-ad-row {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .demo-input-box.schedule-ad {
@@ -252,4 +310,19 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
 
 .toggle-button:hover {
     cursor: pointer;
+}
+
+.demo-defaults {
+    display: flex;
+    flex-direction: row;
+}
+
+.demo-defaults > .default-text {
+    padding-left: 15px;
+    font-size: 15px;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
 }

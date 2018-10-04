@@ -11,10 +11,10 @@
 
     <div class="demo-input">
         <div class="demo-start">
-            <div><div id="default-manifest" class="toggle-button"><div class="toggle-button-indicator"></div></div>Use our Defaults</div>
+            <div class="demo-defaults"><div id="default-manifest" class="toggle-button"><div class="toggle-button-indicator"></div></div><div class="default-text">Use our Defaults</div></div>
             <button id="manifest-load" class="btn btn-outline-primary active demo-button" type="manifest-load">Load Settings</button>
         </div>
-        <div class="demo-input-box">
+        <div class="demo-input-box input">
             <div class="demo-item-header">
                 <div>Stream</div>
             </div>
@@ -36,8 +36,9 @@
                 </div>
             </div>
             <input id="manifest-input" class="form-control" name="manifest-input" type="text" placeholder="Stream URI">
+            <div id="stream-error" class="error"></div>
         </div>
-        <div class="demo-input-box">
+        <div class="demo-input-box input">
             <div class="demo-item-header">
                 <div>Play content protected by DRM</div>
             </div>
@@ -56,6 +57,7 @@
                 </div>
             </div>
             <input id="drm-license" class="form-control" name="drm-license" type="text" placeholder="DRM License URL">
+            <div id="drm-error" class="error"></div>
         </div>
     </div>
 </div>

@@ -24,7 +24,8 @@ window.onload = function getURLParams() {
     loadPlayerFromControls();
   }
   else {
-    setupPlayer('dash', config.source.dash);
+    setDefaultManifest();
+    loadPlayerFromControls();
   }
 };
 
@@ -34,6 +35,7 @@ var config = {
     key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
     videoId: 'stream-test'
   },
+  advertising: {},
   source: {
     dash: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
     hls: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
@@ -51,9 +53,6 @@ var config = {
       widevine: 'https://widevine-proxy.appspot.com/proxy',
       playready: 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&#038;ContentKey=EAtsIJQPd5pFiRUrV9Layw=='
     }
-  },
-  style: {
-    aspectratio: '16:9'
   },
   cast: {
     enable: true
@@ -151,7 +150,7 @@ function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '') {
   var conf = JSON.parse(JSON.stringify(config));
 
   if (manifestUrl == null || manifestUrl === '') {
-      return;
+    return;
   } else {
     conf.source = {};
     conf.source[manifestType] = manifestUrl;
@@ -162,7 +161,20 @@ function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '') {
     setupChart();
   }
 
-  
+  if (player.ads) {
+    var activeAd = player.ads.getActiveAdBreak();
+    var adArray = player.ads.list();
+
+    if (adArray.length != 0) {
+      adArray.forEach((element) => {
+        player.ads.discardAdBreak(element.id);
+      });
+    }
+
+    if (activeAd) {
+      player.ads.discardAdBreak(activeAd.id);
+    }
+  }
 
   if (drm !== 'none') {
     conf.source['drm'] = {};
@@ -187,12 +199,16 @@ function loadPlayerFromControls() {
   var drmSystem = document.querySelector('[name="drm-format"]:checked').value;
   var manifestType = document.querySelector('[name="stream-format"]:checked').value;
 
-  if (manifestInput && manifestInput !== '' && !checkIsUrlValid(manifestInput, 'Manifest URL')) {
+  if (!checkIsUrlValid(manifestInput, 'stream') && manifestInput) {
     return;
   }
-  if (licenceInput && licenceInput !== '' && !checkIsUrlValid(licenceInput, 'License URL')) {
+  if (drmSystem !== 'none' && !checkIsUrlValid(licenceInput, 'drm')) {
     return;
   }
+  else {
+    handleError('clean', 'drm');
+  }
+
 
   setupPlayer(manifestType, manifestInput, drmSystem, licenceInput);
 }
@@ -231,10 +247,13 @@ function createAdConfig() {
       var adType = document.querySelector(`[name="ad${i}-type"]:checked`).value;
       var adPosition = document.querySelector(`[name="ad${i}-position"]:checked`).value;
 
-      player.scheduleAd(adManifestUrl, adType, {
-        persistent: true,
-        adMessage: 'Dynamically scheduled ad',
-        timeOffset: adPosition
+      player.ads.schedule({
+        tag: {
+          url: adManifestUrl,
+          type: adType
+        },
+        id: `Ad${i}`,
+        position: adPosition
       });
     }
   }
@@ -242,18 +261,23 @@ function createAdConfig() {
 
 function checkIsUrlValid(url, urlPurpose) {
   if (url === null || url == undefined || url === '') {
-    console.error(urlPurpose + ' is not defined.');
+    handleError('emptyField', urlPurpose);
     return false;
   }
   if (typeof url !== 'string') {
-    console.error(urlPurpose + ' is not a string');
+    handleError('invalidUrl', urlPurpose);
     return false;
   }
   // check if url is absolute
   if (!/^https?:\/\/|^\/\//i.test(url)) {
-    console.error(urlPurpose + ' has to be absolute');
+    handleError('invalidUrl', urlPurpose);
     return false;
   }
+  if (window.location.protocol === 'https:' && /^http:\/\/|^\/\//i.test(url)) {
+    handleError('mixedContentError', urlPurpose);
+    return false;
+  }
+  handleError('clean', urlPurpose);
   return true;
 }
 
@@ -300,7 +324,7 @@ function toggleInputFields() {
   var manifestInput = document.querySelector('#manifest-input');
   var licenceInput = document.querySelector('#drm-license');
 
-  
+
   if (defaultCheckbox.checked) {
     manifestInput.readOnly = true;
     licenceInput.readOnly = true;
@@ -330,15 +354,15 @@ function toggleInputFields() {
 }
 
 function setDefaultInput(radioButton, inputTextId, defaultConfig) {
-  
+
   var defaultCheckbox = document.querySelector('#default-manifest');
 
   if (defaultCheckbox.checked) {
     var inputText = document.getElementById(inputTextId);
 
-      if (radioButton.checked === true) {
-        inputText.value = defaultConfig[radioButton.value];
-      }
+    if (radioButton.checked === true) {
+      inputText.value = defaultConfig[radioButton.value];
+    }
   }
 }
 
@@ -404,18 +428,18 @@ function createAdBox(number) {
   <input id="ad${number}-input" class="form-control" name="ad${number}-input" type="text" placeholder="AD Source URL">
 </div>`).appendTo('#ad-box-wrapper');
 
-var adArray = document.getElementsByClassName('demo-input-box ad-box');
+  var adArray = document.getElementsByClassName('demo-input-box ad-box');
 
-var adRadioButtons = document.getElementsByName(`ad${number}-type`);
-adRadioButtons.forEach(function (element) {
-  element.addEventListener('click', function () {
-    setDefaultInput(element, `ad${number}-input`, defaultAdUrl);
-  })
-});
+  var adRadioButtons = document.getElementsByName(`ad${number}-type`);
+  adRadioButtons.forEach(function (element) {
+    element.addEventListener('click', function () {
+      setDefaultInput(element, `ad${number}-input`, defaultAdUrl);
+    })
+  });
 
-if (adArray && adArray.length === 3) {
-  scheduleAdButton.classList.add('disabled');
-}
+  if (adArray && adArray.length === 3) {
+    scheduleAdButton.classList.add('disabled');
+  }
 }
 
 function clearChart() {
@@ -652,7 +676,7 @@ function setPlayerEvents(player) {
 
 
 function log(message) {
-  $('<p class="log-message"></p>').append(getTimestamp() + ' - ').append(message).appendTo('#logContent');
+  $('<p class="log-message"></p>').append(getTimestamp() + ' - ').append(message).prependTo('#logContent');
 }
 function checkTime(i) {
   return (i < 10) ? "0" + i : i;
@@ -666,6 +690,29 @@ function getTimestamp() {
   var mm = checkTime(now.getMilliseconds());
   now = h + ":" + m + ":" + s + ":" + mm;
   return '<span class="timestamp">' + now + '</span>';
+}
+
+function handleError(error, type) {
+  switch (error) {
+    case 'mixedContentError':
+      document.getElementById(type + '-' + 'error').innerHTML = 'Mixed content error.';
+      break;
+    case 'invalidUrl':
+      document.getElementById(type + '-' + 'error').innerHTML = 'Invalid URL';
+      break;
+    case 'clean':
+      document.getElementById(type + '-' + 'error').innerHTML = '';
+      break;
+    case 'emptyField':
+      document.getElementById(type + '-' + 'error').innerHTML = 'No file provided';
+      break;
+    case 0:
+      document.getElementById(type + '-' + 'error').innerHTML = 'The provided url is not reachable';
+      break;
+    default:
+      document.getElementById(type + '-' + 'error').innerHTML = 'HTTP \'' + error + '\' error while requesting the manifest';
+      break;
+  }
 }
 
 setupChart();
