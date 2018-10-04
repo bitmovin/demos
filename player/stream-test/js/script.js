@@ -695,7 +695,7 @@ function getTimestamp() {
 function handleError(error, type) {
   switch (error) {
     case 'mixedContentError':
-      document.getElementById(type + '-' + 'error').innerHTML = 'Mixed content error.';
+      document.getElementById(type + '-' + 'error').innerHTML = 'Mixed content error. Cannot load HTTP sources on HTTPS';
       break;
     case 'invalidUrl':
       document.getElementById(type + '-' + 'error').innerHTML = 'Invalid URL';
