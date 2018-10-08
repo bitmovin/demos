@@ -324,7 +324,6 @@ function toggleInputFields() {
   var manifestInput = document.querySelector('#manifest-input');
   var licenceInput = document.querySelector('#drm-license');
 
-
   if (defaultCheckbox.checked) {
     manifestInput.readOnly = true;
     licenceInput.readOnly = true;
@@ -354,14 +353,17 @@ function toggleInputFields() {
 }
 
 function setDefaultInput(radioButton, inputTextId, defaultConfig) {
-
   var defaultCheckbox = document.querySelector('#default-manifest');
+  var inputText = document.getElementById(inputTextId);
 
   if (defaultCheckbox.checked) {
-    var inputText = document.getElementById(inputTextId);
-
     if (radioButton.checked === true) {
       inputText.value = defaultConfig[radioButton.value];
+    }
+  }
+  else {
+    if (radioButton.checked === true) {
+      inputText.value = null;
     }
   }
 }
@@ -383,9 +385,8 @@ function showAd() {
 }
 
 function hideAd(elementId) {
-  document.getElementById(elementId).remove();
-
   var adArray = document.getElementsByClassName('demo-input-box ad-box');
+  document.getElementById(elementId).remove();
 
   if (adArray && adArray.length < 3) {
     scheduleAdButton.classList.remove('disabled');
@@ -429,7 +430,6 @@ function createAdBox(number) {
 </div>`).appendTo('#ad-box-wrapper');
 
   var adArray = document.getElementsByClassName('demo-input-box ad-box');
-
   var adRadioButtons = document.getElementsByName(`ad${number}-type`);
   adRadioButtons.forEach(function (element) {
     element.addEventListener('click', function () {
@@ -544,7 +544,7 @@ function setupChart() {
       enabled: false
     },
     title: {
-      text: 'Bitrate Levels'
+      text: 'Bitrate'
     },
     xAxis: {
       title: {
@@ -555,7 +555,7 @@ function setupChart() {
     },
     yAxis: {
       title: {
-        text: 'bitrate',
+        text: 'Mbps',
         align: 'high'
       },
       min: 0
