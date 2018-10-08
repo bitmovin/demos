@@ -35,9 +35,6 @@ var config = {
     key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
     videoId: 'stream-test'
   },
-  playback: {
-    muted: true
-  },
   advertising: {},
   source: {
     dash: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
