@@ -1,43 +1,93 @@
-<script type="text/javascript"
-        src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
-<script type="text/javascript" 
-        src="//bitmovin-a.akamaihd.net/bitmovin-analytics/stable/1/bitmovinanalytics.min.js"></script>
+<script type="text/javascript" src="https://cdn.bitmovin.com/player/web/8.0.0/bitmovinplayer.js"></script>
+<script type="text/javascript" src="https://cdn.bitmovin.com/analytics/web/1.7.2/bitmovinanalytics.min.js"></script>
 
-<div class="description">
-    <p>Simply paste the link to your manifest file to test your own stream with the Bitmovin Player.</p>
+<hr class="mt-5">
+
+<div class="demo-row">
+    <div class="demo-video tv-frame">
+        <div id="player">
+        </div>
+    </div>
+
+    <div class="demo-input">
+        <div class="demo-start">
+            <div class="demo-defaults"><div id="default-manifest" class="toggle-button"><div class="toggle-button-indicator"></div></div><div class="default-text">Use our Defaults</div></div>
+            <button id="manifest-load" class="btn btn-outline-primary active demo-button" type="manifest-load">Load Settings</button>
+        </div>
+        <div class="demo-input-box input">
+            <div class="demo-item-header">
+                <div>Stream</div>
+            </div>
+            <div class="demo-stream-type">
+                <div class="type-header">Stream type</div>
+                <div class="demo-stream-type-input">
+                    <div class="input-type">
+                        <label><input id="stream-format" type="radio" name="stream-format" value="dash" checked> DASH</label>
+                    </div>
+                    <div class="input-type">
+                        <label><input id="stream-format" type="radio" name="stream-format" value="hls"> HLS</label>
+                    </div>
+                    <div class="input-type">
+                        <label><input id="stream-format" type="radio" name="stream-format" value="smooth"> Smooth</label>
+                    </div>
+                    <div class="input-type">
+                        <label><input id="stream-format" type="radio" name="stream-format" value="progressive"> Progressive</label>
+                    </div>
+                </div>
+            </div>
+            <input id="manifest-input" class="form-control" name="manifest-input" type="text" placeholder="Stream URI">
+            <div id="stream-error" class="error"></div>
+        </div>
+        <div class="demo-input-box input">
+            <div class="demo-item-header">
+                <div>Play content protected by DRM</div>
+            </div>
+            <div class="demo-stream-type">
+                <div class="type-header">DRM Type</div>
+                <div class="demo-stream-type-input">
+                    <div class="input-type">
+                        <label><input id="drm-format" type="radio" name="drm-format" value="none" checked> None</label>
+                    </div>
+                    <div class="input-type">
+                        <label><input id="drm-format" type="radio" name="drm-format" value="widevine"> Widevine</label>
+                    </div>
+                    <div class="input-type">
+                        <label><input id="drm-format" type="radio" name="drm-format" value="playready"> Playready</label>
+                    </div>
+                </div>
+            </div>
+            <input id="drm-license" class="form-control" name="drm-license" type="text" placeholder="DRM License URL">
+            <div id="drm-error" class="error"></div>
+        </div>
+    </div>
 </div>
 
-<div class="demo_form">
-    <div class="row">
-        <div class="col-md-3 adjust-pad-right mt-2">
-            <select id="stream_format" class="form-control">
-                <option selected="selected" value="dash">DASH (.mpd)</option>
-                <option value="hls">HLS (.m3u8)</option>
-                <option value="progressive">Progressive</option>
-                <option value="smooth">Smooth</option>
-            </select>
-        </div>
-        <div class="col-md-6 adjust-pad-left adjust-pad-right mt-2">
-            <input id="manifest" class="form-control" name="manifest" type="text"
-                   placeholder="//bitmovin-a.akamaihd.net/content/sintel/sintel.mpd">
-        </div>
-        <div class="col-md-3 adjust-pad-left mt-2">
-            <input id="submit" class="btn btn-success" type="submit" value="Load" onclick="loadManifest()">
+<div>
+    <div class="ad-description">Schedule up to 3 ads during your playback</div>
+    <div class="demo-ad-row" id="ad-box-wrapper">
+        <div class="demo-input-box schedule-ad">
+            <div class="demo-item-header">
+                <div>Schedule AD</div>
+            </div>
+            <button id="schedule-ad" class="btn btn-outline-primary" type="schedule-ad" value="Add">Add</button>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div id="error" style="color: red;"></div>
-        </div>
-    </div>
-    <div class="clear"></div>
 </div>
 
-<div class="row">
-    <div class="col-lg-8 col-md-12 m-auto">
-        <div id="player" class="notebook-frame">
-        </div>
+<hr class="mt-5">
+
+<div class="demo-row">
+    <div class="col-md-6 chart">
+        <div class="chart" id="buffer-chart"></div>
     </div>
+    <div class="col-md-6 chart">
+        <div class="chart" id="bitrate-chart"></div>
+    </div>
+</div>
+
+<div class="demo-event-box">
+    <div>Event Log</div>
+    <div class="logContent" id="logContent"></div>
 </div>
 
 <hr class="mt-5">
@@ -49,7 +99,7 @@
     </div>
     <div class="sdk-wrapper-body">
         <div class="sdk-item">
-                <img src="https://bitmovin-a.akamaihd.net/webpages/demo-fw/stream-test/Apple.svg" />
+            <img src="https://bitmovin-a.akamaihd.net/webpages/demo-fw/stream-test/Apple.svg" />
             <div class="sdk-item-content">
                 <div style="padding-bottom: 6px;">iOS/tvOS SDK</div>
                 <a target="_blank" onclick="amp.logSDKSourceCodeClicked('stream-test', 'ios')" href="https://github.com/bitmovin/bitmovin-player-ios-samples">
