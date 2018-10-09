@@ -187,6 +187,7 @@ function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '') {
 
   player.load(conf.source).then(function () {
     createAdConfig();
+    player.setVolumne(0);
     player.play();
   }).catch(function (error) {
     console.log(error);
