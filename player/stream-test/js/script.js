@@ -4,19 +4,24 @@ window.onload = function getURLParams() {
   var licenseParam = getParamsQueryString('license');
   var drmFormatParam = getParamsQueryString('drm');
   if (manifestParam && streamFormatParam) {
-    document.getElementsByName('stream-format').forEach(function (element) {
-      if (element.value === streamFormatParam) {
-        element.checked = true;
+    var streamFormats = document.getElementsByName('stream-format');
+
+    for (var i = 0; i < streamFormats.length; i++) {
+      if (streamFormats[i].value === streamFormatParam) {
+        streamFormats[i].checked = true;
       }
-    })
+    }
+
     document.getElementById('manifest-input').value = manifestParam;
 
     if (drmFormatParam && licenseParam) {
-      document.getElementsByName('drm-format').forEach(function (element) {
-        if (element.value === drmFormatParam) {
-          element.checked = true;
+      var drmFormats = document.getElementsByName('drm-format');
+
+      for (var i = 0; i < drmFormats.length; i++) {
+        if (drmFormats[i].value === drmFormatParam) {
+          drmFormats[i].checked = true;
         }
-      })
+      }
 
       document.getElementById('drm-license').value = licenseParam;
     }
@@ -98,19 +103,26 @@ scheduleAdButton.addEventListener('click', function () {
   toggleInputFields();
 });
 
+
 var streamRadioButtons = document.getElementsByName('stream-format');
-streamRadioButtons.forEach(function (element) {
-  element.addEventListener('click', function () {
-    setDefaultInput(element, 'manifest-input', config.source);
-  })
-});
+for (var i = 0; i < streamRadioButtons.length; i++) {
+  (function (i) {
+    var streamRadioButton = streamRadioButtons[i];
+    streamRadioButton.addEventListener('click', function () {
+      setDefaultInput(streamRadioButton, 'manifest-input', config.source);
+    })
+  }(i));
+}
 
 var drmRadioButtons = document.getElementsByName('drm-format');
-drmRadioButtons.forEach(function (element) {
-  element.addEventListener('click', function () {
-    setDefaultInput(element, 'drm-license', config.drmSource.drm);
-  })
-});
+for (var i = 0; i < drmRadioButtons.length; i++) {
+  (function (i) {
+    var drmRadioButton = drmRadioButtons[i];
+    drmRadioButton.addEventListener('click', function () {
+      setDefaultInput(drmRadioButton, 'drm-license', config.drmSource.drm);
+    })
+  }(i));
+}
 
 function setURLParameter(format, manifest, drm, license) {
   var manifestValue = encodeURIComponent(manifest);
@@ -166,7 +178,7 @@ function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '') {
     var adArray = player.ads.list();
 
     if (adArray.length != 0) {
-      adArray.forEach((element) => {
+      adArray.forEach(function (element) {
         player.ads.discardAdBreak(element.id);
       });
     }
@@ -187,7 +199,7 @@ function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '') {
 
   player.load(conf.source).then(function () {
     createAdConfig();
-    player.setVolumne(0);
+    player.setVolume(0);
     player.play();
   }).catch(function (error) {
     console.log(error);
@@ -432,11 +444,14 @@ function createAdBox(number) {
 
   var adArray = document.getElementsByClassName('demo-input-box ad-box');
   var adRadioButtons = document.getElementsByName(`ad${number}-type`);
-  adRadioButtons.forEach(function (element) {
-    element.addEventListener('click', function () {
-      setDefaultInput(element, `ad${number}-input`, defaultAdUrl);
-    })
-  });
+  for (var i = 0; i < adRadioButtons.length; i++) {
+    (function (i) {
+      var adRadioButton = adRadioButtons[i];
+      adRadioButton.addEventListener('click', function () {
+        setDefaultInput(adRadioButton, `ad${number}-input`, defaultAdUrl);
+      })
+    }(i))
+  };
 
   if (adArray && adArray.length === 3) {
     scheduleAdButton.classList.add('disabled');
