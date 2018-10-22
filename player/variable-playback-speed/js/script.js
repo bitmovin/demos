@@ -20,4 +20,6 @@ var analytics = bitmovin.analytics(analyticsConfig);
 var player = bitmovin.player('player');
 
 analytics.register(player);
-player.setup(conf);
+player.setup(conf).then(function(){
+  bitmovin.playerui.UIManager.Factory.buildDefaultUI(player, {playbackSpeedSelectionEnabled: true})
+});
