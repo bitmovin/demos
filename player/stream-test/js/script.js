@@ -26,11 +26,11 @@ window.onload = function getURLParams() {
       document.getElementById('drm-license').value = licenseParam;
     }
 
-    loadPlayerFromControls();
+    loadPlayerFromControls(false);
   }
   else {
     setDefaultManifest();
-    loadPlayerFromControls();
+    loadPlayerFromControls(false);
   }
 };
 
@@ -157,7 +157,7 @@ function handleKeyPress(keyEvent) {
   }
 }
 
-function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '') {
+function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '', autoplay) {
   // clone config to avoid leftovers from previous calls
   var conf = JSON.parse(JSON.stringify(config));
 
@@ -200,13 +200,15 @@ function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '') {
   player.load(conf.source).then(function () {
     createAdConfig();
     player.setVolume(0);
-    player.play();
+    if (autoplay) {
+      player.play();
+    }
   }).catch(function (error) {
     console.log(error);
   });
 }
 
-function loadPlayerFromControls() {
+function loadPlayerFromControls(autoplay = true) {
   var manifestInput = document.querySelector('#manifest-input').value;
   var licenceInput = document.querySelector('#drm-license').value;
   var drmSystem = document.querySelector('[name="drm-format"]:checked').value;
@@ -222,8 +224,7 @@ function loadPlayerFromControls() {
     handleError('clean', 'drm');
   }
 
-
-  setupPlayer(manifestType, manifestInput, drmSystem, licenceInput);
+  setupPlayer(manifestType, manifestInput, drmSystem, licenceInput, autoplay);
 }
 
 function setDefaultManifest() {
