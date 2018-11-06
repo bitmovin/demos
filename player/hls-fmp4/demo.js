@@ -9,4 +9,4 @@ const conf = {
 var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
 
-player.setup(conf.source);
+player.load(conf.source);

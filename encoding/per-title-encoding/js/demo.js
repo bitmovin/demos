@@ -345,11 +345,6 @@ var loadPerTitlePlayer = function (avBandwidth) {
 
   var playerContainer = document.getElementById('player-container-1');
   player1 = new bitmovin.player.Player(playerContainer, config);
-  
-  if (player1.getSource()) {
-    player1.destroy();
-    player1 = new bitmovin.player.Player(playerContainer, config);
-  }
 
   player1.load(config.source).then(function () {
     player1.preload();

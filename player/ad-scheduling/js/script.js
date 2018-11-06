@@ -11,9 +11,6 @@ var conf = {
     poster: '//bitmovin-a.akamaihd.net/content/art-of-motion_drm/art-of-motion_poster.jpg'
   },
   advertising: {},
-  style: {
-    ux: false
-  },
   events: {
     onAdError: function (err) {
       document.querySelector('#ad-error').innerHTML = 'Ad-Error:' + err.message;
@@ -28,7 +25,7 @@ document.querySelector('#scheudle-ad-button').addEventListener('click', loadConf
 document.querySelector('#reset-button').addEventListener('click', removeSchedule);
 
 var playerContainer = document.getElementById('player-container');
-player = new bitmovin.player.Player(playerContainer, conf);
+var player = new bitmovin.player.Player(playerContainer, conf);
 
 player.load(conf.source);
 

@@ -18,7 +18,7 @@ var hidden = false;
 var played = false;
 
 var playerContainer = document.getElementById('player-container');
-player = new bitmovin.player.Player(playerContainer, conf);
+var player = new bitmovin.player.Player(playerContainer, conf);
 
 player.load(conf.source).then(function (value) {
 

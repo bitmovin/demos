@@ -46,7 +46,7 @@
   };
 
   var playerContainer = document.getElementById('player-container');
-  player = new bitmovin.player.Player(playerContainer, config);
+  var player = new bitmovin.player.Player(playerContainer, config);
 
   document.getElementById('detected-browser').innerHTML = getBrowserImage(getBrowser());
 

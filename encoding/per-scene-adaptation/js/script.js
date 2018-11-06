@@ -193,7 +193,6 @@
     var tmpThumb = player.getThumbnail(0);
     var chartWidth = chartArea.right - chartArea.left;
     var thumbnailWidth = chartWidth / MAX_SEGMENT_VIEW_COUNT;
-    console.warn(tmpThumb);
     var ratio = thumbnailWidth / tmpThumb.w;
 
     var thumbnailBars = Array.from(document.getElementsByClassName('thumbnails'));
