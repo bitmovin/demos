@@ -190,9 +190,10 @@
 
   function updateThumbnails() {
     var chartArea = myLineChart.chartArea;
-    var tmpThumb = player.getThumb(0);
+    var tmpThumb = player.getThumbnail(0);
     var chartWidth = chartArea.right - chartArea.left;
     var thumbnailWidth = chartWidth / MAX_SEGMENT_VIEW_COUNT;
+    console.warn(tmpThumb);
     var ratio = thumbnailWidth / tmpThumb.w;
 
     var thumbnailBars = Array.from(document.getElementsByClassName('thumbnails'));
@@ -312,8 +313,12 @@
   }
 
   function setupPlayer() {
-    var conf = {
+    var config = {
       key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
+      analytics: {
+        key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+        videoId: 'per-scene-adaptation'
+      },
       source: {
         dash: getSource(),
         title: 'Per-Scene Adaptation',
@@ -394,11 +399,6 @@
       }
     };
 
-    var analyticsConfig = {
-      key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
-      videoId: 'per-scene-adaptation'
-    }
-
     function setupInterval() {
       clearInterval(interval);
       interval = setInterval(function () {
@@ -407,11 +407,9 @@
       }, 10);
     }
 
-    var analytics = bitmovin.analytics(analyticsConfig);
-
-    player = bitmovin.player('player');
-    analytics.register(player);
-    player.setup(conf).then(function (response) {
+    var playerContainer = document.getElementById('player-container');
+    player = new bitmovin.player.Player(playerContainer, config);
+    player.load(config.source).then(function (response) {
       console.log('player loaded');
       player.preload();
       player.seek = function () {

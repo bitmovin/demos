@@ -1,4 +1,3 @@
-tracks: [{
-  file: 'https://path/to/thumbnail/vtt/file.vtt',
-  kind: 'thumbnails'
-}]
+thumbnailTrack: {
+  url: 'https://path/to/thumbnail/vtt/file.vtt'
+}

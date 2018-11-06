@@ -94,6 +94,10 @@
 
   var conf = {
     key: '89f6ed6c-ab0e-46c2-ac47-5665e60c3c41',
+    analytics: {
+      key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+      videoId: 'custom-adaptation'
+    },
     source: {
       dash: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
       hls: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
@@ -133,17 +137,10 @@
     },
   };
 
-  var analyticsConfig = {
-    key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
-    videoId: 'custom-adaptation'
-  };
+  var playerContainer = document.getElementById('player-container');
+  player = new bitmovin.player.Player(playerContainer, conf);
 
-  var analytics = bitmovin.analytics(analyticsConfig);
-  var player = bitmovin.player('player');
-
-  analytics.register(player);
-  player.setup(conf).then(function () {
+  player.load(conf.source).then(function () {
     availableRepresentations = player.getAvailableVideoQualities();
-    bitmovin.playerui.UIManager.Factory.buildModernSmallScreenUI(player);
   });
 })();

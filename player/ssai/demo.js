@@ -10,10 +10,11 @@ var conf = {
 var hidden = false;
 var played = false;
 
-var player = bitmovin.player('player');
+var playerContainer = document.getElementById('player-container');
+var player = new bitmovin.player.Player(playerContainer, conf);
 
-player.setup(conf).then(function () {
-  player.addEventHandler(bitmovin.player.EVENT.ON_TIME_CHANGED, function (data) {
+player.load(conf.source).then(function () {
+  player.on(bitmovin.player.PlayerEvent.TimeChanged, function (data) {
     if (player.getCurrentTime() >= 29.081333 && player.getCurrentTime() < 41.138666) {
       document.getElementsByClassName('bmpui-ui-container bmpui-controlbar-top')[0].style.display = 'none';
       hidden = true;
@@ -23,7 +24,7 @@ player.setup(conf).then(function () {
     }
   });
 
-  player.addEventHandler(bitmovin.player.EVENT.ON_SEEK, function (data) {
+  player.on(bitmovin.player.PlayerEvent.Seek, function (data) {
     if (data.seekTarget > 29 && !played
     ) {
       player.seek(29);

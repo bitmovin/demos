@@ -1,35 +1,32 @@
 var conf = {
   key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
+  analytics: {
+    key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+    videoId: 'player-ui-styling'
+  },
   source: {
     dash: 'https://bitmovin-a.akamaihd.net/content/sintel/sintel.mpd',
     hls: 'https://bitmovin-a.akamaihd.net/content/sintel/hls/playlist.m3u8',
     poster: 'https://bitmovin-a.akamaihd.net/content/sintel/poster.png'
   },
-  style: {
-    ux: false
-  }
-};
-
-var analyticsConfig = {
-  key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
-  videoId: 'player-ui-styling'
+  ui: false
 };
 
 var currentUiManager, isBigSeekbar = false, isSmallscreen = false;
-var analytics = bitmovin.analytics(analyticsConfig);
-var player = bitmovin.player('player');
 
-analytics.register(player);
-player.setup(conf).then(function (player) {
-  currentUiManager = bitmovin.playerui.UIManager.Factory.buildDefaultUI(player);
+var playerContainer = document.getElementById('player-container');
+var player = new bitmovin.player.Player(playerContainer, conf);
+
+player.load(conf.source).then(function () {
+  currentUiManager = bitmovin.playerui.UIFactory.buildDefaultUI(player);
 });
 
 function toggleSmallScreenUI() {
   currentUiManager.release();
   if (!isSmallscreen) {
-    currentUiManager = bitmovin.playerui.UIManager.Factory.buildModernSmallScreenUI(player);
+    currentUiManager = bitmovin.playerui.UIFactory.buildModernSmallScreenUI(player);
   } else {
-    currentUiManager = bitmovin.playerui.UIManager.Factory.buildDefaultUI(player);
+    currentUiManager = bitmovin.playerui.UIFactory.buildDefaultUI(player);
   }
   isSmallscreen = !isSmallscreen;
 }

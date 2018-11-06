@@ -1,15 +1,13 @@
 const config = {
   ...,
-  style:
-    {
-      ux: false
-    }
+  ui: false
 };
 
 var currentUiManager, isSmallscreen = false;
-var player = bitmovin.player('player');
+var playerContainer = document.getElementById('player-container');
+var player = new bitmovin.player.Player(playerContainer, conf);
 
-player.setup(conf).then(function () {
+player.load(conf.source).then(function () {
   currentUiManager = bitmovin.playerui.UIManager.Factory.buildDefaultUI(player);
 });
 

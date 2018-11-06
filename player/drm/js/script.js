@@ -35,24 +35,18 @@
   }
 
   var config = {
-    key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
-    style: {
-      width: '100%',
-      aspectratio: '16:9'
+    key: '7d126c0e-dd27-46a7-97f5-d36defcd7124',
+    analytics: {
+      key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+      videoId: 'drm'
     },
     cast: {
       enable: true
     }
   };
 
-  var analyticsConfig = {
-    key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
-    videoId: 'drm'
-  }
-
-  var analytics = bitmovin.analytics(analyticsConfig);
-  var player = bitmovin.player('player');
-  analytics.register(player);
+  var playerContainer = document.getElementById('player-container');
+  player = new bitmovin.player.Player(playerContainer, config);
 
   document.getElementById('detected-browser').innerHTML = getBrowserImage(getBrowser());
 
@@ -65,13 +59,7 @@
    * @param licenceUrl  the URL to the licence server of the DRM System
    */
   function setupPlayer(drm, manifestUrl, licenceUrl, manifestType) {
-    if (player && player.isSetup()) {
-      player.destroy();
-      player = null;
-    }
-
-    player = bitmovin.player('player');
-    analytics.register(player);
+    player = new bitmovin.player.Player(playerContainer, config);
 
     // clone config to avoid leftovers from previous calls
     var conf = JSON.parse(JSON.stringify(config));
@@ -98,7 +86,7 @@
       conf.source = JSON.parse(JSON.stringify(noDrmSource));
     }
 
-    player.setup(conf).catch(function (error) {
+    player.load(conf.source).catch(function (error) {
       console.log(error);
     });
   }

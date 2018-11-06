@@ -471,6 +471,10 @@ var multicodec = function () {
 
   var config = {
     key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
+    analytics: {
+      key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+      videoId: 'multi-codec-streaming'
+    },
     source: {
       dash: '//bitmovin-a.akamaihd.net/webpages/demos/content/multi-codec/h264/stream.mpd',
       poster: 'images/comparison.jpg'
@@ -507,11 +511,6 @@ var multicodec = function () {
     }
   };
 
-  var analyticsConfig = {
-    key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
-    videoId: 'multi-codec-streaming'
-  }
-
   if (browser === BROWSER.CHROME || browser === BROWSER.FIREFOX) {
     selectedCodec = CODEC.VP9;
     config.source.dash = '//bitmovin-a.akamaihd.net/webpages/demos/content/multi-codec/vp9/stream.mpd';
@@ -532,17 +531,16 @@ var multicodec = function () {
   document.getElementById('compare-codec').innerHTML = getCodecImage(COMPARE_CODEC);
   document.getElementById('detected-browser').innerHTML = getBrowserImage(browser);
 
-  var analytics = bitmovin.analytics(analyticsConfig);
+  var playerContainer = document.getElementById('player-container');
+  player = new bitmovin.player.Player(playerContainer, config);
 
-  player = bitmovin.player('player-container');
-  analytics.register(player);
-  player.setup(config).then(function () {
+  player.load(config.source).then(function () {
     player.preload();
     player.seek = function () {
     };
   });
 
-  player.addEventHandler(bitmovin.player.EVENT.ON_SEGMENT_REQUEST_FINISHED, function (segment) {
+  player.on(bitmovin.player.PlayerEvent.SegmentRequestFinished, function (segment) {
     if (segment.mimeType.indexOf('audio') >= 0) {
       return;
     }
@@ -550,7 +548,7 @@ var multicodec = function () {
     updateBandwidthData();
   });
 
-  player.addEventHandler(bitmovin.player.EVENT.ON_TIME_CHANGED, function (event) {
+  player.on(bitmovin.player.PlayerEvent.TimeChanged, function (event) {
     currentTime = event.time;
     shiftSegments();
   });

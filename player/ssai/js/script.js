@@ -1,5 +1,9 @@
 var conf = {
   key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
+  analytics: {
+    key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+    videoId: 'server-side-ad-insertion'
+  },
   source: {
     dash: 'https://bitmovin-a.akamaihd.net/498364_fcb0257026d0bd3ee0ba3aad95674188/manifest.mpd',
     hls: 'https://bitmovin-a.akamaihd.net/498364_fcb0257026d0bd3ee0ba3aad95674188/playlist.m3u8',
@@ -10,23 +14,15 @@ var conf = {
   }
 };
 
-var analyticsConfig = {
-  key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
-  videoId: 'server-side-ad-insertion'
-};
-
-
 var hidden = false;
 var played = false;
 
-var player = bitmovin.player('player');
-var analytics = bitmovin.analytics(analyticsConfig);
+var playerContainer = document.getElementById('player-container');
+player = new bitmovin.player.Player(playerContainer, conf);
 
-analytics.register(player);
-player.setup(conf).then(function (value) {
-  bitmovin.playerui.UIManager.Factory.buildModernSmallScreenUI(player);
+player.load(conf.source).then(function (value) {
 
-  player.addEventHandler(bitmovin.player.EVENT.ON_TIME_CHANGED, function (data) {
+  player.on(bitmovin.player.PlayerEvent.TimeChanged, function (data) {
     if (player.getCurrentTime() >= 29.081333 && player.getCurrentTime() < 41.138666) {
       document.getElementsByClassName('bmpui-ui-container bmpui-controlbar-top')[0].style.display = 'none';
       hidden = true;
@@ -35,7 +31,7 @@ player.setup(conf).then(function (value) {
       document.getElementsByClassName('bmpui-ui-container bmpui-controlbar-top')[0].style.display = 'block';
     }
   });
-  player.addEventHandler(bitmovin.player.EVENT.ON_SEEK, function (data) {
+  player.on(bitmovin.player.PlayerEvent.Seek, function (data) {
     if (data.seekTarget > 29 && !played) {
       player.seek(29);
       played = true;
