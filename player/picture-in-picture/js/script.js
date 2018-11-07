@@ -13,7 +13,7 @@
       poster: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/poster.jpg'
     },
     events: {
-      onPlayerResize: function (ev) {
+      playerresized: function (ev) {
         if (!$('.player-switch').hasClass('fixed-player')) {
           // work with a timeout as the resize event is triggered periodically and when resizing back to the original
           // size, the first few events will have a smaller size as the player is gradually growing.

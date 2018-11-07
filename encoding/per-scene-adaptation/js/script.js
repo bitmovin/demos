@@ -183,8 +183,8 @@
     div.style.backgroundImage = 'url("' + SPRITE_IMAGE + '")';
     div.style.backgroundRepeat = 'no-repeat';
     div.style.backgroundPosition = (-thumb.x) + 'px ' + (-thumb.y) + 'px';
-    div.style.width = thumb.w + 'px';
-    div.style.height = thumb.h + 'px';
+    div.style.width = thumb.width + 'px';
+    div.style.height = thumb.height + 'px';
     return div;
   }
 
@@ -193,12 +193,12 @@
     var tmpThumb = player.getThumbnail(0);
     var chartWidth = chartArea.right - chartArea.left;
     var thumbnailWidth = chartWidth / MAX_SEGMENT_VIEW_COUNT;
-    var ratio = thumbnailWidth / tmpThumb.w;
+    var ratio = thumbnailWidth / tmpThumb.width;
 
     var thumbnailBars = Array.from(document.getElementsByClassName('thumbnails'));
 
     thumbnailBars.forEach(function (thumbnails) {
-      thumbnails.style.height = ratio * tmpThumb.h + 'px';
+      thumbnails.style.height = ratio * tmpThumb.height + 'px';
       thumbnails.style.paddingLeft = chartArea.left + 'px';
 
       // drop old thumbnails
@@ -214,7 +214,7 @@
           nextLabel = digitToTime(timeToDigit(currentLabel) + SEGMENT_LENGTH);
         }
 
-        var thumb = player.getThumb((timeToDigit(currentLabel) + timeToDigit(nextLabel)) / 2);
+        var thumb = player.getThumbnail((timeToDigit(currentLabel) + timeToDigit(nextLabel)) / 2);
 
         if (thumb) {
           var img = thumbToDiv(thumb);
@@ -266,7 +266,6 @@
       datasets[1].data.shift();
       labels.push(digitToTime(timeToDigit(labels[labels.length - 1]) + SEGMENT_LENGTH));
     }
-
     myLineChart.update();
   }
 
@@ -306,8 +305,7 @@
 
     if (!isNaN(dlw + dlwDelta)) {
       dlw += dlwDelta;
-    }
-
+    }    
     playbackStats();
   }
 
@@ -321,10 +319,9 @@
       source: {
         dash: getSource(),
         title: 'Per-Scene Adaptation',
-        tracks: [{
-          file: SPRITE_VTT,
-          kind: 'thumbnails'
-        }],
+        thumbnailTrack: {
+          url: SPRITE_VTT
+        },
         poster: POSTER
       },
       playback: {
@@ -348,7 +345,7 @@
         max_buffer_level: 20
       },
       events: {
-        onSegmentRequestFinished: function (data) {
+        segmentrequestfinished: function (data) {
           if (!data.qualityInformation || !data.success || data.isInit || data.mimeType.indexOf('video') < 0) {
             return;
           }
@@ -369,7 +366,7 @@
             segmentStack.push(obj);
           }
         },
-        onTimeChanged: function (evt) {
+        timechanged: function (evt) {
           currentTime = evt.time;
           update();
           try {
@@ -380,19 +377,19 @@
           } catch (ignore) {
           }
         },
-        onPlay: function () {
+        play: function () {
           setupInterval();
         },
-        onStallStarted: function () {
+        stallstarted: function () {
           clearInterval(interval);
         },
-        onStallEnded: function () {
+        stallended: function () {
           setupInterval();
         },
-        onPaused: function () {
+        paused: function () {
           clearInterval(interval);
         },
-        onPlaybackFinished: function () {
+        playbackFinished: function () {
           clearInterval(interval);
         }
       }

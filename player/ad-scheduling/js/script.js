@@ -12,10 +12,10 @@ var conf = {
   },
   advertising: {},
   events: {
-    onAdError: function (err) {
+    aderror: function (err) {
       document.querySelector('#ad-error').innerHTML = 'Ad-Error:' + err.message;
     },
-    onWarning: function (err) {
+    warning: function (err) {
       document.querySelector('#ad-warning').innerHTML = err.message;
     }
   }

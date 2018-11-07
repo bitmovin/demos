@@ -8,7 +8,7 @@ var conf = {
     poster: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/poster.jpg',
   },
   events: {
-    onPlayerResize: function (ev) {
+    playerresized: function (ev) {
       /**
        * when the player switches from minimized to full size, update the container size to prevent the page
        * from jumping when scrolling up

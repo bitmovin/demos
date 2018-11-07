@@ -12,7 +12,7 @@ var conf = {
     muted: true
   },
   events: {
-    onTimeChanged: onTimeChanged
+    timechanged: onTimeChanged
   }
 };
 

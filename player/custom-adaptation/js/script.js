@@ -104,11 +104,9 @@
       progressive: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4',
       poster: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/poster.jpg',
     },
-    style: {
-      ux: false
-    },
+    ui: false,
     events: {
-      'onDownloadFinished': function (data) {
+      downloadfinished: function (data) {
         if (data.downloadType.indexOf('media') !== -1 && data.mimeType.indexOf('video') !== -1 && data.size > 1000) {
           console.log('Estimated bandwidth: ' + Math.round(((data.size * 8) / data.downloadTime) / 1000) + 'kbps');
           newValue({throughput: Math.round(((data.size * 8) / data.downloadTime) / 1000)});

@@ -325,19 +325,19 @@ var loadPerTitlePlayer = function (avBandwidth) {
       muted: true
     },
     events: {
-      onPlay: function () {
+      play: function () {
         setupInterval();
       },
-      onStallStarted: function () {
+      stallstarted: function () {
         clearInterval(interval);
       },
-      onStallEnded: function () {
+      stallended: function () {
         setupInterval();
       },
-      onPaused: function () {
+      paused: function () {
         clearInterval(interval);
       },
-      onPlaybackFinished: function () {
+      playbackfinished: function () {
         clearInterval(interval);
       }
     }

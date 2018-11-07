@@ -62,7 +62,7 @@
         poster: asset.poster
       },
       events: {
-        onError: function (error) {
+        error: function (error) {
           if (!error || !error.message) {
             onPlayerError('Could not load AV1 stream. Please try to update your browser.');
           }
