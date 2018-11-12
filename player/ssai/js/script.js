@@ -9,8 +9,8 @@ var conf = {
     hls: 'https://bitmovin-a.akamaihd.net/498364_fcb0257026d0bd3ee0ba3aad95674188/playlist.m3u8',
     poster: 'https://bitmovin-a.akamaihd.net/498364_fcb0257026d0bd3ee0ba3aad95674188/poster.jpg',
   },
-  style: {
-    ux: false
+  playback: {
+    muted: true
   }
 };
 

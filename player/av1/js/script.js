@@ -61,6 +61,9 @@
         dash: asset.url,
         poster: asset.poster
       },
+      playback: {
+        muted: true
+      },
       events: {
         error: function (error) {
           if (!error || !error.message) {

@@ -12,6 +12,9 @@
       progressive: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4',
       poster: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/poster.jpg'
     },
+    playback: {
+      muted: true
+    },
     events: {
       playerresized: function (ev) {
         if (!$('.player-switch').hasClass('fixed-player')) {

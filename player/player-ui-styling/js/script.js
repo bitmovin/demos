@@ -9,7 +9,9 @@ var conf = {
     hls: 'https://bitmovin-a.akamaihd.net/content/sintel/hls/playlist.m3u8',
     poster: 'https://bitmovin-a.akamaihd.net/content/sintel/poster.png'
   },
-  ui: false
+  playback: {
+    muted: true
+  }
 };
 
 var currentUiManager, isBigSeekbar = false, isSmallscreen = false;

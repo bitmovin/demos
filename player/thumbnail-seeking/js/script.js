@@ -13,6 +13,9 @@ var conf = {
       url: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/thumbnails/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.vtt'
     }
   },
+  playback: {
+    muted: true
+  }
 };
 
 var playerContainer = document.getElementById('player-container');

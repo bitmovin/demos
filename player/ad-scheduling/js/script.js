@@ -11,6 +11,9 @@ var conf = {
     poster: '//bitmovin-a.akamaihd.net/content/art-of-motion_drm/art-of-motion_poster.jpg'
   },
   advertising: {},
+  playback: {
+    muted: true
+  },
   events: {
     aderror: function (err) {
       document.querySelector('#ad-error').innerHTML = 'Ad-Error:' + err.message;

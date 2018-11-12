@@ -15,8 +15,10 @@ var conf = {
     }
   },
   style: {
-    aspectratio: '2:1',
-    ux: false
+    aspectratio: '2:1'
+  },
+  playback: {
+    muted: true
   }
 };
 

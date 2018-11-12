@@ -12,6 +12,9 @@ var conf = {
   },
   cast: {
     enable: true
+  },
+  playback: {
+    muted: true
   }
 };
 
