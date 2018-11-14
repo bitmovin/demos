@@ -1,39 +1,36 @@
 var conf = {
   key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
+  analytics: {
+    key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+    videoId: 'ad-scheduling'
+  },
   source: {
     dash: '//bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
     hls: '//bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
     progressive: '//bitmovin-a.akamaihd.net/content/MI201109210084_1/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4',
     poster: '//bitmovin-a.akamaihd.net/content/art-of-motion_drm/art-of-motion_poster.jpg'
   },
-  style: {
-    ux: false
+  advertising: {},
+  playback: {
+    muted: true
   },
   events: {
-    onAdError: function (err) {
+    aderror: function (err) {
       document.querySelector('#ad-error').innerHTML = 'Ad-Error:' + err.message;
     },
-    onWarning: function (err) {
+    warning: function (err) {
       document.querySelector('#ad-warning').innerHTML = err.message;
     }
   }
 };
 
-var analyticsConfig = {
-  key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
-  videoId: 'ad-scheduling'
-};
-
 document.querySelector('#scheudle-ad-button').addEventListener('click', loadConfig);
 document.querySelector('#reset-button').addEventListener('click', removeSchedule);
 
-var analytics = bitmovin.analytics(analyticsConfig);
-var player = bitmovin.player('player');
+var playerContainer = document.getElementById('player-container');
+var player = new bitmovin.player.Player(playerContainer, conf);
 
-analytics.register(player);
-player.setup(conf).then(function (player) {
-  bitmovin.playerui.UIManager.Factory.buildModernSmallScreenUI(player);
-});
+player.load(conf.source);
 
 function resetAdError() {
   document.querySelector('#ad-error').innerHTML = '';
@@ -71,10 +68,13 @@ function loadConfig() {
     if (adType === 'vmap') {
       adType = 'ima';
     }
-    player.scheduleAd(manifestUrl, adType, {
-      'timeOffset': document.getElementById('schedule-list').value,
-      'persistent': true,
-      'adMessage': 'Dynamically scheduled ad'
+    player.ads.schedule({
+      tag: {
+        url: manifestUrl,
+        type: adType
+      },
+      id: 'Ad',
+      position: document.getElementById('schedule-list').value
     });
   }
   player.play();
@@ -82,28 +82,32 @@ function loadConfig() {
 
 function removeSchedule() {
   resetAdError();
-  player.destroy();
-  player = bitmovin.player('player');
-  player.setup({
-    key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
-    source: {
-      dash: '//bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
-      hls: '//bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
-      progressive: '//bitmovin-a.akamaihd.net/content/MI201109210084_1/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4',
-      poster: '//bitmovin-a.akamaihd.net/content/art-of-motion_drm/art-of-motion_poster.jpg'
-    },
-    events: {
-      onAdError: function (err) {
-        document.querySelector('#ad-error').innerHTML = 'Ad-Error:' + err.message;
-      },
-      onWarning: function (err) {
-        document.querySelector('#ad-warning').innerHTML = err.message;
-      }
+
+  if (player.ads) {
+    var activeAd = player.ads.getActiveAdBreak();
+    var adArray = player.ads.list();
+
+    if (adArray.length != 0) {
+      adArray.forEach(function (element) {
+        player.ads.discardAdBreak(element.id);
+      });
     }
+
+    if (activeAd) {
+      player.ads.discardAdBreak(activeAd.id);
+    }
+  }
+
+  player = new bitmovin.player.Player(playerContainer, conf);
+  player.load({
+    dash: '//bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
+    hls: '//bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
+    progressive: '//bitmovin-a.akamaihd.net/content/MI201109210084_1/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4',
+    poster: '//bitmovin-a.akamaihd.net/content/art-of-motion_drm/art-of-motion_poster.jpg'
   });
 }
 
-(function() {
+(function () {
   if (isAdblockEnabled) {
     var blockerWrapperEl = document.getElementById('blocker-wrapper');
     var blockerInfoEl = document.getElementById('blocker-info');

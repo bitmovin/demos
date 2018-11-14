@@ -61,8 +61,11 @@
         dash: asset.url,
         poster: asset.poster
       },
+      playback: {
+        muted: true
+      },
       events: {
-        onError: function (error) {
+        error: function (error) {
           if (!error || !error.message) {
             onPlayerError('Could not load AV1 stream. Please try to update your browser.');
           }

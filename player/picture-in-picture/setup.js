@@ -8,7 +8,7 @@ var conf = {
     poster: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/poster.jpg',
   },
   events: {
-    onPlayerResize: function (ev) {
+    playerresized: function (ev) {
       /**
        * when the player switches from minimized to full size, update the container size to prevent the page
        * from jumping when scrolling up
@@ -31,7 +31,10 @@ var conf = {
   }
 };
 
-bitmovin.player('player').setup(conf).then(function () {
+var playerContainer = document.getElementById('player-container');
+var player = new bitmovin.player.Player(playerContainer, conf);
+
+player.load(conf.source).then(function () {
   var container = $('.player-container');
   var playerHeight = $('#player').height();
 

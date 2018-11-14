@@ -303,6 +303,10 @@ function setupInterval() {
 var loadPerTitlePlayer = function (avBandwidth) {
   var config = {
     key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
+    analytics: {
+      key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+      videoId: 'per-title-encoding'
+    },
     source: {
       dash: '//bitmovin-a.akamaihd.net/webpages/demos/content/per-title/pertitle_profile/stream.mpd'
     },
@@ -321,46 +325,34 @@ var loadPerTitlePlayer = function (avBandwidth) {
       muted: true
     },
     events: {
-      onPlay: function () {
+      play: function () {
         setupInterval();
       },
-      onStallStarted: function () {
+      stallstarted: function () {
         clearInterval(interval);
       },
-      onStallEnded: function () {
+      stallended: function () {
         setupInterval();
       },
-      onPaused: function () {
+      paused: function () {
         clearInterval(interval);
       },
-      onPlaybackFinished: function () {
+      playbackfinished: function () {
         clearInterval(interval);
       }
     }
   };
 
-  var analyticsConfig = {
-    key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
-    videoId: 'per-title-encoding'
-  }
+  var playerContainer = document.getElementById('player-container-1');
+  player1 = new bitmovin.player.Player(playerContainer, config);
 
-  var analytics = bitmovin.analytics(analyticsConfig);
-
-  player1 = bitmovin.player('player-container-1');
-  analytics.register(player1);
-  
-  if (player1.isSetup()) {
-    player1.destroy();
-    player1 = bitmovin.player('player-container-1');
-  }
-
-  player1.setup(config).then(function () {
+  player1.load(config.source).then(function () {
     player1.preload();
     player1.seek = function () {
     };
   });
 
-  player1.addEventHandler(bitmovin.player.EVENT.ON_SEGMENT_REQUEST_FINISHED, function (segment) {
+  player1.on(bitmovin.player.PlayerEvent.SegmentRequestFinished, function (segment) {
     if (segment.mimeType.indexOf('audio') >= 0) {
       return;
     }
@@ -368,7 +360,7 @@ var loadPerTitlePlayer = function (avBandwidth) {
     updateBandwidthData();
   });
 
-  player1.addEventHandler(bitmovin.player.EVENT.ON_TIME_CHANGED, function (event) {
+  player1.on(bitmovin.player.PlayerEvent.TimeChanged, function (event) {
     currentTime = event.time;
     shiftSegments();
   });

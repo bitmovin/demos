@@ -7,5 +7,7 @@ var conf = {
   }
 };
 
-var player = bitmovin.player('player');
-player.setup(conf);
+var playerContainer = document.getElementById('player-container');
+var player = new bitmovin.player.Player(playerContainer, conf);
+
+player.load(conf.source);
