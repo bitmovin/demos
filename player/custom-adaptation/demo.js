@@ -25,6 +25,9 @@ const conf = {
   },
 };
 
-bitmovin.player('player').setup(conf).then(function () {
+var playerContainer = document.getElementById('player-container');
+var player = new bitmovin.player.Player(playerContainer, conf);
+
+player.load(conf.source).then(function () {
   availableRepresentations = player.getAvailableVideoQualities();
 });

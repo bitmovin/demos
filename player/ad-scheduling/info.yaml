@@ -10,7 +10,6 @@ code:
   show_code: true
   language: js
   files:
-    - initial-schedule.js
     - dynamic-schedule.js
 
 tags: 
