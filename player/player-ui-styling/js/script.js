@@ -11,7 +11,8 @@ var conf = {
   },
   playback: {
     muted: true
-  }
+  },
+  ui: false
 };
 
 var currentUiManager, isBigSeekbar = false, isSmallscreen = false;
