@@ -41,24 +41,6 @@ var config = {
     videoId: 'stream-test'
   },
   advertising: {},
-  source: {
-    dash: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
-    hls: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
-    progressive: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4',
-    smooth: 'https://test.playready.microsoft.com/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/manifest',
-    poster: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/poster.jpg'
-  },
-  drmSource: {
-    dash: 'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/mpds/11331.mpd',
-    hls: 'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/m3u8s/11331.m3u8',
-    smooth: 'https://test.playready.microsoft.com/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/manifest',
-    progressive: '',
-    drm: {
-      none: '',
-      widevine: 'https://widevine-proxy.appspot.com/proxy',
-      playready: 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&#038;ContentKey=EAtsIJQPd5pFiRUrV9Layw=='
-    }
-  },
   cast: {
     enable: true
   },
@@ -69,6 +51,26 @@ var config = {
     warning: function (err) {
       document.querySelector('#ad-warning').innerHTML = err.message;
     }
+  }
+};
+
+var source = {
+  dash: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
+  hls: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
+  progressive: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4',
+  smooth: 'https://test.playready.microsoft.com/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/manifest',
+  poster: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/poster.jpg'
+};
+
+var drmSource = {
+  dash: 'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/mpds/11331.mpd',
+  hls: 'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/m3u8s/11331.m3u8',
+  smooth: 'https://test.playready.microsoft.com/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/manifest',
+  progressive: '',
+  drm: {
+    none: '',
+    widevine: 'https://widevine-proxy.appspot.com/proxy',
+    playready: 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&#038;ContentKey=EAtsIJQPd5pFiRUrV9Layw=='
   }
 };
 
@@ -109,7 +111,7 @@ for (var i = 0; i < streamRadioButtons.length; i++) {
   (function (i) {
     var streamRadioButton = streamRadioButtons[i];
     streamRadioButton.addEventListener('click', function () {
-      setDefaultInput(streamRadioButton, 'manifest-input', config.source);
+      setDefaultInput(streamRadioButton, 'manifest-input', source);
     })
   }(i));
 }
@@ -119,7 +121,7 @@ for (var i = 0; i < drmRadioButtons.length; i++) {
   (function (i) {
     var drmRadioButton = drmRadioButtons[i];
     drmRadioButton.addEventListener('click', function () {
-      setDefaultInput(drmRadioButton, 'drm-license', config.drmSource.drm);
+      setDefaultInput(drmRadioButton, 'drm-license', drmSource.drm);
     })
   }(i));
 }
@@ -158,14 +160,14 @@ function handleKeyPress(keyEvent) {
 }
 
 function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '', autoplay) {
-  // clone config to avoid leftovers from previous calls
-  var conf = JSON.parse(JSON.stringify(config));
+  // clone source to avoid leftovers from previous calls
+  var tempSource = JSON.parse(JSON.stringify(source));
 
   if (manifestUrl == null || manifestUrl === '') {
     return;
   } else {
-    conf.source = {};
-    conf.source[manifestType] = manifestUrl;
+    tempSource = {};
+    tempSource[manifestType] = manifestUrl;
   }
 
   if (player) {
@@ -189,15 +191,15 @@ function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '', a
   }
 
   if (drm !== 'none') {
-    conf.source['drm'] = {};
-    conf.source.drm[drm] = { 'LA_URL': licenceUrl };
+    tempSource['drm'] = {};
+    tempSource.drm[drm] = { 'LA_URL': licenceUrl };
   }
 
-  if (!conf.source) {
-    conf.source = JSON.parse(JSON.stringify(config.source));
+  if (!tempSource) {
+    tempSource = JSON.parse(JSON.stringify(source));
   }
 
-  player.load(conf.source).then(function () {
+  player.load(tempSource).then(function () {
     createAdConfig();
     player.setVolume(0);
     if (autoplay) {
@@ -232,14 +234,14 @@ function setDefaultManifest() {
   var manifestType = document.querySelector('[name="stream-format"]:checked').value;
 
   if (drmSystem === 'none') {
-    document.querySelector('#manifest-input').value = config.source[manifestType];
+    document.querySelector('#manifest-input').value = source[manifestType];
     document.querySelector('#drm-license').value = null;
-    setURLParameter(manifestType, config.source[manifestType], null, null);
+    setURLParameter(manifestType, source[manifestType], null, null);
   }
   else {
-    document.querySelector('#manifest-input').value = config.drmSource[manifestType];
-    document.querySelector('#drm-license').value = config.drmSource.drm[drmSystem];
-    setURLParameter(manifestType, config.drmSource[manifestType], drmSystem, config.drmSource.drm[drmSystem]);
+    document.querySelector('#manifest-input').value = drmSource[manifestType];
+    document.querySelector('#drm-license').value = drmSource.drm[drmSystem];
+    setURLParameter(manifestType, drmSource[manifestType], drmSystem, drmSource.drm[drmSystem]);
   }
 
   for (i = 1; i < 4; i++) {

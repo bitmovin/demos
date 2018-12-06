@@ -7,7 +7,7 @@ var currentUiManager, isSmallscreen = false;
 var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
 
-player.load(conf.source).then(function () {
+player.load(source).then(function () {
   currentUiManager = bitmovin.playerui.UIManager.Factory.buildDefaultUI(player);
 });
 

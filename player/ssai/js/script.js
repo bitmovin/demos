@@ -4,14 +4,15 @@ var conf = {
     key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
     videoId: 'server-side-ad-insertion'
   },
-  source: {
-    dash: 'https://bitmovin-a.akamaihd.net/498364_fcb0257026d0bd3ee0ba3aad95674188/manifest.mpd',
-    hls: 'https://bitmovin-a.akamaihd.net/498364_fcb0257026d0bd3ee0ba3aad95674188/playlist.m3u8',
-    poster: 'https://bitmovin-a.akamaihd.net/498364_fcb0257026d0bd3ee0ba3aad95674188/poster.jpg',
-  },
   playback: {
     muted: true
   }
+};
+
+var source = {
+  dash: 'https://bitmovin-a.akamaihd.net/498364_fcb0257026d0bd3ee0ba3aad95674188/manifest.mpd',
+  hls: 'https://bitmovin-a.akamaihd.net/498364_fcb0257026d0bd3ee0ba3aad95674188/playlist.m3u8',
+  poster: 'https://bitmovin-a.akamaihd.net/498364_fcb0257026d0bd3ee0ba3aad95674188/poster.jpg',
 };
 
 var hidden = false;
@@ -20,7 +21,7 @@ var played = false;
 var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
 
-player.load(conf.source).then(function (value) {
+player.load(source).then(function (value) {
 
   player.on(bitmovin.player.PlayerEvent.TimeChanged, function (data) {
     if (player.getCurrentTime() >= 29.081333 && player.getCurrentTime() < 41.138666) {
