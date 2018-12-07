@@ -1,6 +1,10 @@
-const config = {
+var config = {
   ...,
   ui: false
+};
+
+var source = {
+  ...
 };
 
 var currentUiManager, isSmallscreen = false;
