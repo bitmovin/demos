@@ -475,10 +475,6 @@ var multicodec = function () {
       key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
       videoId: 'multi-codec-streaming'
     },
-    source: {
-      dash: '//bitmovin-a.akamaihd.net/webpages/demos/content/multi-codec/h264/stream.mpd',
-      poster: 'images/comparison.jpg'
-    },
     adaptation: {
       desktop: {
         qualityThreshold: 0.5,
@@ -511,15 +507,20 @@ var multicodec = function () {
     }
   };
 
+  var source = {
+    dash: '//bitmovin-a.akamaihd.net/webpages/demos/content/multi-codec/h264/stream.mpd',
+    poster: 'images/comparison.jpg'
+  };
+
   if (browser === BROWSER.CHROME || browser === BROWSER.FIREFOX) {
     selectedCodec = CODEC.VP9;
-    config.source.dash = '//bitmovin-a.akamaihd.net/webpages/demos/content/multi-codec/vp9/stream.mpd';
+    source.dash = '//bitmovin-a.akamaihd.net/webpages/demos/content/multi-codec/vp9/stream.mpd';
   } else if (browser === BROWSER.EDGE) {
     selectedCodec = CODEC.H265;
-    config.source.dash = '//bitmovin-a.akamaihd.net/webpages/demos/content/multi-codec/hevc/stream.mpd';
+    source.dash = '//bitmovin-a.akamaihd.net/webpages/demos/content/multi-codec/hevc/stream.mpd';
   } else if (browser === BROWSER.SAFARI) {
     selectedCodec = CODEC.H265;
-    config.source.hls = '//bitmovin-a.akamaihd.net/webpages/demos/content/multi-codec/hevc/stream_fmp4.m3u8';
+    source.hls = '//bitmovin-a.akamaihd.net/webpages/demos/content/multi-codec/hevc/stream_fmp4.m3u8';
     document.getElementById('stats-panels-wrapper').style.display = 'none'; //hiding the performance box as we do not get this data from safari
   }
 
@@ -534,7 +535,7 @@ var multicodec = function () {
   var playerContainer = document.getElementById('player-container');
   player = new bitmovin.player.Player(playerContainer, config);
 
-  player.load(config.source).then(function () {
+  player.load(source).then(function () {
     player.preload();
     player.seek = function () {
     };
