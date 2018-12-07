@@ -1,10 +1,12 @@
 var config = {
-  ...,
+  key: '<YOUR PLAYER KEY HERE>',
   ui: false
 };
 
 var source = {
-  ...
+  dash: 'https://bitmovin-a.akamaihd.net/content/sintel/sintel.mpd',
+  hls: 'https://bitmovin-a.akamaihd.net/content/sintel/hls/playlist.m3u8',
+  poster: 'https://bitmovin-a.akamaihd.net/content/sintel/poster.png'
 };
 
 var currentUiManager, isSmallscreen = false;
