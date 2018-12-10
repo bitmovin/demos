@@ -1,5 +1,6 @@
 var conf = {
-  key: '<YOUR PLAYER KEY HERE>'
+  key: '<YOUR PLAYER KEY HERE>',
+  playbackSpeedSelectionEnabled: true
 };
 
 var source = {
