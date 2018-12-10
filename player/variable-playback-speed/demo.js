@@ -1,6 +1,5 @@
 var conf = {
-  key: '<YOUR PLAYER KEY HERE>',
-  playbackSpeedSelectionEnabled: true
+  key: '<YOUR PLAYER KEY HERE>'
 };
 
 var source = {
@@ -13,3 +12,10 @@ var source = {
   poster:
     'https://bitdash-a.akamaihd.net/content/art-of-motion_drm/art-of-motion_poster.jpg',
 };
+
+var playerContainer = document.getElementById('player-container');
+var player = new bitmovin.player.Player(playerContainer, conf);
+
+player.load(source).then(function(){	
+  bitmovin.playerui.UIFactory.buildDefaultUI(player, {playbackSpeedSelectionEnabled: true})
+});
