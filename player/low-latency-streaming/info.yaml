@@ -1,0 +1,15 @@
+title: Low Latency Streaming
+description: Something
+long_description: Something more.
+
+executable:
+  executable: true
+  indexfile: index.html
+
+tags:
+  - hls
+  - dash
+  - stream
+  - player
+
+priority: 890

@@ -1,0 +1,70 @@
+<script type="text/javascript"
+        src="https://cdn.bitmovin.com/player/web/8.1.0-b2/bitmovinplayer.js"></script>
+<script type="text/javascript"
+        src="//bitmovin-a.akamaihd.net/bitmovin-analytics/stable/1/bitmovinanalytics.min.js"></script>
+
+<hr class="mt-5">
+
+<div>
+    <div class="row mt-5">
+        <div class="col-lg-6 player-col">
+            <div class="demo-video tv-frame">
+                <div id="player-container">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="latency-status">
+                <div class="latency-status-header">Latency Status</div>
+                <div class="latency-status-row thick">
+                    <div>Current Latency</div>
+                    <div>
+                        <span id="latency">-</span>
+                    </div>
+                </div>
+                <div class="latency-status-row">
+                    <div>Wall-clock Time (UTC)</div>
+                    <div>
+                        <span id="time">-</span>
+                    </div>
+                </div>
+                <div class="latency-status-row">
+                    <div>Producer Reference Time</div>
+                    <div>
+                        <span id="prft">-</span>
+                    </div>
+                </div>
+                <div class="latency-status-row">
+                    <div>Video Buffer</div>
+                    <div>
+                        <span id="videoBufferLength">-</span>
+                    </div>
+                </div>
+                <div class="latency-status-row">
+                    <div>Audio Buffer</div>
+                    <div>
+                        <span id="audioBufferLength">-</span>
+                    </div>
+                </div>
+                <div class="latency-status-row">
+                    <div>Playback Rate</div>
+                    <div>
+                        <span id="playbackSpeed">1</span>
+                    </div>
+                </div>
+            </div>
+            <div class="latency-control">
+                <div>
+                    Target Latency: <span id="targetLatency">2</span>
+                </div>
+                <div class="slide-container">
+                    <input type="range" min="0.5" max="5" value="2" step="0.1" class="slider" id="targetLatencySlider">
+                    <div class="latency-status-row">
+                        <div>Low</div>
+                        <div style="text-align: right">High</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
