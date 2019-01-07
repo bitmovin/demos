@@ -15,6 +15,7 @@ var conf = {
 };
 
 var playerContainer = document.getElementById('player-container');
+bitmovin.player.Player.addModule(bitmovin.analytics.PlayerModule);
 var player = new bitmovin.player.Player(playerContainer, conf);
 
 player.load(conf.source).then(function (value) {
