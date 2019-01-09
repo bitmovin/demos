@@ -29,6 +29,7 @@ document.querySelector('#scheudle-ad-button').addEventListener('click', loadConf
 document.querySelector('#reset-button').addEventListener('click', removeSchedule);
 
 var playerContainer = document.getElementById('player-container');
+bitmovin.player.Player.addModule(bitmovin.analytics.PlayerModule);
 var player = new bitmovin.player.Player(playerContainer, conf);
 
 player.load(source);

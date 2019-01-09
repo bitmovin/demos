@@ -345,6 +345,7 @@ var loadPerTitlePlayer = function (avBandwidth) {
   };
 
   var playerContainer = document.getElementById('player-container-1');
+  bitmovin.player.Player.addModule(bitmovin.analytics.PlayerModule);
   player1 = new bitmovin.player.Player(playerContainer, config);
 
   player1.load(source).then(function () {

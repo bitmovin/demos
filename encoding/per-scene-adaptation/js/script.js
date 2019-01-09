@@ -405,6 +405,7 @@
     }
 
     var playerContainer = document.getElementById('player-container');
+    bitmovin.player.Player.addModule(bitmovin.analytics.PlayerModule);
     player = new bitmovin.player.Player(playerContainer, config);
     player.load(source).then(function (response) {
       console.log('player loaded');
