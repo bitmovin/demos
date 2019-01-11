@@ -1,13 +1,8 @@
 # Low Latency Streaming
 
-Something.
+Reduce latency during live streaming events and increase fan engagement.
 
 ### Tags
 
-  - multi codec streaming
-  - h264
-  - h265
-  - vp9
-  - hevc
-  - hls
-  - dash
+  - Cmaf low latency
+  - live latency
