@@ -116,7 +116,7 @@ function loadPlayer() {
     updateTargetLatency();
 
     if (isFirefox) {
-        document.getElementById('firefoxWarning').innerHTML = 'This demo works best on chrome, safari or edge';
+        document.getElementById('firefoxWarning').innerHTML = 'This demo works best on chrome, safari and edge';
     }
 
     setInterval(function() {
