@@ -21,8 +21,8 @@ if (targetLatencyFromUrl && !isNaN(Number(targetLatencyFromUrl))) {
     targetLatency = targetLatencyFromUrl;
 }
 
-if (url.searchParams.get('videoOnly')) {
-    videoOnly = Boolean(url.searchParams.get('videoOnly'));
+if (url.searchParams.get('videoOnly') && url.searchParams.get('videoOnly') === 'true') {
+    videoOnly = true;
 }
 
 if (url.searchParams.get('dashUrl')) {
