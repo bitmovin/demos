@@ -15,6 +15,8 @@ var dashUrl = 'https://akamaibroadcasteruseast.akamaized.net/cmaf/live/657078/ak
 var url = new URL(location.href);
 var targetLatencyFromUrl = url.searchParams.get('latency');
 
+var isFirefox = typeof InstallTrigger !== 'undefined';
+
 if (targetLatencyFromUrl && !isNaN(Number(targetLatencyFromUrl))) {
     targetLatency = targetLatencyFromUrl;
 }
@@ -112,6 +114,10 @@ function loadPlayer() {
     // ABR is not supported yet for low latency
     player.setVideoQuality(player.getAvailableVideoQualities()[0].id);
     updateTargetLatency();
+
+    if (isFirefox) {
+        document.getElementById('firefoxWarning').innerHTML = 'This demo works best on chrome, safari or edge';
+    }
 
     setInterval(function() {
         if (player && !player.isPaused()) {
