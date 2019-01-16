@@ -1,0 +1,21 @@
+title: 4K
+description: Enable users to watch 4K high-definition content
+long_description: Test long description.
+
+executable:
+  executable: true
+  indexfile: index.html
+
+code:
+  show_code: true
+  language: js
+  files:
+    - setup.js
+
+tags:
+  - TestTag
+
+additionalCategories:
+  - encoding
+
+priority: 920
