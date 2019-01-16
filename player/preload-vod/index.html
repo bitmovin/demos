@@ -13,12 +13,19 @@
 </div>
 
 <div class="row">
+    <div class="col-lg-6">
+        <h4>Preload<h4>
+    </div>
+<div class="col-lg-6">
+    <h4>No Preload<h4>
+</div>
+</div>
+
+<div class="row">
         <div class="col-lg-6">
-            <h4>Preload<h4>
             <div id="player-container-preload"></div>
         </div>
     <div class="col-lg-6">
-        <h4>No Preload<h4>
         <div id="player-container"></div>
     </div>
 </div>
@@ -26,12 +33,24 @@
 <div class="row">
     <div class="col-lg-6">
         <p>
+            Start up time: <span id="startup-preload"></span>
+        </p>
+        <p>
+            Buffer rate: <span id="buffer-preload"></span>
+        </p>
+    </div>
+    <div class="col-lg-6">
+        <p>
             Start up time: <span id="startup"></span>
         </p>
         <p>
             Buffer rate: <span id="buffer"></span>
         </p>
-        <br />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
         <ul>
             <li>works with both HLS and DASH streams</li>
             <li>set property&nbsp;<code>preload</code></li>
