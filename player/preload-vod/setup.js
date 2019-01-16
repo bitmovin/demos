@@ -1,6 +1,6 @@
+/* Preload is enabled by default, but it can be enabled explicitly by setting preload to true. */
 const conf = {
   key: '<YOUR PLAYER KEY>',
-  /* Preload is the defalt value */
   adaptation: {
     desktop: {
       preload: true
