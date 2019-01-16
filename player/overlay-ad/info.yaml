@@ -1,0 +1,21 @@
+title: Overlay Ad
+description: Enable static ads in the video player
+long_description: Test long description.
+
+executable:
+  executable: true
+  indexfile: index.html
+
+code:
+  show_code: true
+  language: js
+  files:
+    - setup.js
+
+tags:
+  - TestTag
+
+additionalCategories:
+  - encoding
+
+priority: 920
