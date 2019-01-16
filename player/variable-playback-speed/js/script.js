@@ -22,6 +22,4 @@ var source = {
 var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
 
-player.load(source).then(function(){
-  bitmovin.playerui.UIFactory.buildDefaultUI(player, {playbackSpeedSelectionEnabled: true})
-});
+player.load(source);
