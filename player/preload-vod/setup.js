@@ -1,5 +1,6 @@
 const conf = {
   key: '<YOUR PLAYER KEY>',
+  /* Preload is the defalt value */
   adaptation: {
     desktop: {
       preload: true
