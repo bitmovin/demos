@@ -40,6 +40,10 @@ slider.value = String(targetLatency);
 
 var conf = {
     key: '89f6ed6c-ab0e-46c2-ac47-5665e60c3c41',
+    analytics: {
+        key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+        videoId: 'low-latency-streaming'
+    },
     playback: {
         autoplay: true,
         muted: true,
