@@ -13,4 +13,9 @@ code:
     - setup.js
 
 tags:
-  - To be defined
+  - advertisement
+  - overlay
+  - VAST
+  - VPAID
+
+priority: 850
