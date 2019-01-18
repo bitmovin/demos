@@ -1,4 +1,4 @@
-var pageLoadedTime;
+var preloadPlayTimestamp, playTimestamp;
 
 var preloadConf = {
   key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
@@ -12,6 +12,14 @@ var preloadConf = {
     },
     mobile: {
       preload: true
+    }
+  },
+  events: {
+    play: function(e) {
+      preloadPlayTimestamp = e.timestamp;
+    },
+    playing: function(e) {
+      document.getElementById('startup-preload').innerHTML = e.timestamp - preloadPlayTimestamp + 'ms';
     }
   },
   playback: {
@@ -33,6 +41,14 @@ var conf = {
       preload: false
     }
   },
+  events: {
+    play: function(e) {
+      playTimestamp = e.timestamp;
+    },
+    playing: function(e) {
+      document.getElementById('startup').innerHTML = e.timestamp - playTimestamp + 'ms';
+    }
+  },
   playback: {
     muted: true
   }
@@ -52,7 +68,6 @@ var player = new bitmovin.player.Player(playerContainer, conf);
 
 function loadPlayer() {
   playerPreload.load(source).then(function() {
-    document.getElementById('startup-preload').innerHTML = Date.now() - pageLoadedTime + 'ms';
     var bufferRatePreload = document.getElementById('buffer-preload');
     setInterval(function() {
       if (playerPreload && !playerPreload.isPaused()) {
@@ -62,7 +77,6 @@ function loadPlayer() {
   });
 
   player.load(source).then(function() {
-    document.getElementById('startup').innerHTML = Date.now() - pageLoadedTime + 'ms';
     var bufferRate = document.getElementById('buffer');
     setInterval(function() {
       if (player && !player.isPaused()) {
@@ -73,6 +87,5 @@ function loadPlayer() {
 }
 
 $(document).ready(function() {
-  pageLoadedTime = Date.now();
   loadPlayer();
 });
