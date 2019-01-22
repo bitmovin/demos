@@ -2,7 +2,7 @@
     border: solid 1px #CBE0ED;
     border-radius: 4px;
     width: 100%;
-    padding: 7px;
+    padding: 10px;
     margin: 10px 0;
 }
 
@@ -14,7 +14,7 @@
 }
 
 .key-row > input {
-    margin: 0 10px;
+    margin: 0 20px;
 }
 
 .smpte-display {

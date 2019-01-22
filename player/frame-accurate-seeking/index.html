@@ -9,11 +9,30 @@
     </div>
     <div class="col-xl-4">
         <div class="key-container">
+            <div class="key-row smpte-display">
+                <div>Current SMPTE:</div>
+                <div id="playerTime"></div>
+            </div>
+        </div>
+        <div class="key-row smpte-buttons">
+            <input id="seek_button" class="btn btn-outline-primary" type="button" value="Seek">
+            <span>to SMPTE:</span>
+            <input id="smtpe_input" class="form-control smpte-input" type="text" value="00:00:30:00">
+        </div>
+        <div class="key-row smpte-buttons">
+            <input id="step_back_button" class="btn btn-outline-primary" type="button" value="Back">
+            <input id="step_size_input" class="form-control" type="number" value="1" min="1" max="1096">
+            <input id="step_forward_button" class="btn btn-outline-primary" type="button" value="Forward">
+        </div>
+        <div class="key-row">
+            <div class="smpte-error"></div>
+        </div>
+        <div class="key-container">
             <div class="key-row">
                 <h3>Keyboard controls</h3>
             </div>
             <div class="key-row">
-                <h4>Only active when no input field has the focus</h4>
+                <label>Only active when the player has focus</label>
             </div>
             <div class="key-row">
                 <div>Space</div>
@@ -43,25 +62,6 @@
                     Seek forward <span class="stepSize_x_5">5</span> frames
                 </div>
             </div>
-        </div>
-        <div class="key-container">
-            <div class="key-row smpte-display">
-                <div>Current SMPTE:</div>
-                <div id="playerTime"></div>
-            </div>
-        </div>
-        <div class="key-row smpte-buttons">
-            <input id="step_back_button" class="btn btn-outline-primary" type="button" value="Back">
-            <input id="step_size_input" class="form-control" type="number" value="1" min="1" max="1096">
-            <input id="step_forward_button" class="btn btn-outline-primary" type="button" value="Forward">
-        </div>
-        <div class="key-row smpte-buttons">
-            <input id="seek_button" class="btn btn-outline-primary" type="button" value="Seek">
-            <span>to SMPTE:</span>
-            <input id="smtpe_input" class="form-control smpte-input" type="text" value="00:00:30:00">
-        </div>
-        <div class="key-row">
-            <div class="smpte-error"></div>
         </div>
     </div>
 </div>
