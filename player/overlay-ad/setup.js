@@ -6,7 +6,10 @@ var conf = {
         url: adUrl,
         type: adType
       }
-    }]
+    }],
+    adContainer: function() {
+      return document.getElementById('my-element');
+    }
   }
 };
   
