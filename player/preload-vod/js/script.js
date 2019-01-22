@@ -17,9 +17,13 @@ var preloadConf = {
   events: {
     play: function(e) {
       preloadPlayTimestamp = e.timestamp;
+      player.play();
     },
     playing: function(e) {
       document.getElementById('startup-preload').innerHTML = e.timestamp - preloadPlayTimestamp + 'ms';
+    },
+    paused: function(e) {
+      player.pause();
     }
   },
   playback: {
@@ -44,9 +48,13 @@ var conf = {
   events: {
     play: function(e) {
       playTimestamp = e.timestamp;
+      playerPreload.play();
     },
     playing: function(e) {
       document.getElementById('startup').innerHTML = e.timestamp - playTimestamp + 'ms';
+    },
+    paused: function(e) {
+      playerPreload.pause();
     }
   },
   playback: {
