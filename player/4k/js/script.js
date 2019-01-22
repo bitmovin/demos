@@ -1,7 +1,23 @@
 var playTimestamp;
 
-var getQualityLabels = function(data) {
-  console.warn(data);
+var getQualityLabels = function (data) {
+    if (data.height <= 144) {
+      return '144p';
+    } else if (data.height <= 240) {
+      return '240p';
+    } else if (data.height <= 360) {
+      return '360p';
+    } else if (data.height <= 480) {
+      return '480p';
+    } else if (data.height <= 720) {
+      return '720p HD';
+    } else if (data.height <= 1080) {
+      return '1080p HD';
+    } else if (data.height <= 1440) {
+      return '1440p HD';
+    } else if (data.height <= 2160) {
+      return '2160p 4K';
+    }
 }
 
 var conf = {
@@ -11,10 +27,10 @@ var conf = {
     videoId: '4k'
   },
   events: {
-    play: function(e) {
+    play: function (e) {
       playTimestamp = e.timestamp;
     },
-    playing: function(e) {
+    playing: function (e) {
       document.getElementById('startup').innerHTML = e.timestamp - playTimestamp + 'ms';
     }
   },
@@ -42,6 +58,6 @@ function loadPlayer() {
   });
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   loadPlayer();
 });
