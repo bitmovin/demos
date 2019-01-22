@@ -1,5 +1,9 @@
 var playTimestamp;
 
+var getQualityLabels = function(data) {
+  console.warn(data);
+}
+
 var conf = {
   key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
   analytics: {
@@ -21,7 +25,12 @@ var conf = {
 
 var source = {
   hls: 'http://cdn.bitmovin.com/content/demos/4k/38e843e0-1998-11e9-8a92-c734cd79b4dc/manifest.m3u8',
-  poster: 'https://bitmovin-a.akamaihd.net/content/sintel/poster.png'
+  poster: 'https://bitmovin-a.akamaihd.net/content/sintel/poster.png',
+  labeling: {
+    hls: {
+      qualities: getQualityLabels
+    }
+  }
 };
 
 var playerContainer = document.getElementById('player-container');
