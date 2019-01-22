@@ -1,0 +1,109 @@
+<script type="text/javascript"
+        src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
+<script type="text/javascript"
+        src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.js"></script>
+<script type="text/javascript"
+        src="//bitmovin-a.akamaihd.net/bitmovin-analytics/stable/1/bitmovinanalytics.min.js"></script>
+
+<div class="container-fluid">
+    <div class="content">
+
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+                <div id="player-container"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 text-center" id="bottom-container">
+                <div id="seekingWrapper">
+                    <div class="commandWrapper">
+                        <div class="row">
+                            <div class="col-md-4 smpte-control">
+                                <input id="step_back_button" type="button" value="<">
+                                <label for="step_size_input">step</label>
+                                <input id="step_size_input" type="number" value="1" min="1" max="1096">
+                                <span id="frame_string">frame</span>
+                                <input id="step_forward_button" type="button" value=">">
+                            </div>
+                            <div class="col-md-4 smpte-control">
+                                <input id="seek_button" type="button" value="seek">
+                                    <label for="smtpe_input">to SMPTE:</label>
+                                <input id="smtpe_input" type="text" value="00:00:30:00">
+                            </div>
+                            <div class="col-md-4 smpte-control smpte-display">
+                                Current SMPTE: <span id="playerTime"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="smpte-error"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+                <div class="controls-wrapper">
+                    <div class="row">
+                        <div class="col-xs-12 controls-header">
+                            <h3>Keyboard controls</h3>
+                            <h4>Only active when no input field has the focus</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-xs-4">
+                                <div class="keyboard-button">SPACE</div>
+                            </div>
+                            <div class="col-xs-8 button-description">
+                                Play / Pause
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-xs-4">
+                                <div class="keyboard-button">LEFT</div>
+                            </div>
+                            <div class="col-xs-8 button-description">
+                                Seek back <span class="stepSize">1</span> frame
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-xs-4">
+                                <div class="keyboard-button">ALT / Option</div>
+                                <div class="keyboard-button">LEFT</div>
+                            </div>
+                            <div class="col-xs-8 button-description">
+                                Seek back <span class="stepSize_x_5">5</span> frames
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-xs-4">
+                                <div class="keyboard-button">RIGHT</div>
+                            </div>
+                            <div class="col-xs-8 button-description">
+                                Seek forward <span class="stepSize">1</span> frame
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-xs-4">
+                                <div class="keyboard-button">ALT / Option</div>
+                                <div class="keyboard-button">RIGHT</div>
+                            </div>
+                            <div class="col-xs-8 button-description">
+                                Seek forward <span class="stepSize_x_5">5</span> frames
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
