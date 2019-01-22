@@ -1,22 +1,22 @@
 var playTimestamp;
 
 var getQualityLabels = function (data) {
-    if (data.height <= 144) {
-      return '144p';
+    if (data.bitrate <= 144) {
+      return `144p (${data.bitrate/1000000} Mbit)`;
     } else if (data.height <= 240) {
-      return '240p';
+      return `240p (${data.bitrate/1000000} Mbit)`;
     } else if (data.height <= 360) {
-      return '360p';
+      return `360p (${data.bitrate/1000000} Mbit)`;
     } else if (data.height <= 480) {
-      return '480p';
+      return `480p (${data.bitrate/1000000} Mbit)`;
     } else if (data.height <= 720) {
-      return '720p HD';
+      return `720p HD (${data.bitrate/1000000} Mbit)`;
     } else if (data.height <= 1080) {
-      return '1080p HD';
+      return `1080p HD (${data.bitrate/1000000} Mbit)`;
     } else if (data.height <= 1440) {
-      return '1440p HD';
+      return `1440p HD (${data.bitrate/1000000} Mbit)`;
     } else if (data.height <= 2160) {
-      return '2160p 4K';
+      return `2160p 4K (${data.bitrate/1000000} Mbit)`;
     }
 }
 
