@@ -126,8 +126,11 @@ function loadPlayer() {
     setInterval(function() {
         if (player && !player.isPaused()) {
         var currentLatency = player.lowlatency.getLatency();
+        var utcTime = new Date().getUTCHours();
+        var estTime = new Date();
+        estTime.setHours(utcTime-4);
         latencyDisplay.innerText = Math.round(currentLatency * 1000) / 1000 + 's';
-        timeDisplay.innerText = (new Date()).toISOString().substr(11,10);
+        timeDisplay.innerText = estTime.toISOString().substr(11,10);
         printBufferLevels();
         }
     }, 50);
