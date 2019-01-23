@@ -1,24 +1,30 @@
 var playTimestamp;
 
+var humanizeBitrate = function(bitrate){
+    var mbit = bitrate / 1000000;
+    var rounded = mbit < 3 ? Math.round(mbit * 10) / 10 : Math.round(mbit);
+    return `${rounded} Mbit`;
+};
+
 var getQualityLabels = function (data) {
-    if (data.bitrate <= 144) {
-      return `144p (${data.bitrate/1000000} Mbit)`;
+    if (data.height <= 144) {
+      return `144p (${humanizeBitrate(data.bitrate)})`;
     } else if (data.height <= 240) {
-      return `240p (${data.bitrate/1000000} Mbit)`;
+      return `240p (${humanizeBitrate(data.bitrate)})`;
     } else if (data.height <= 360) {
-      return `360p (${data.bitrate/1000000} Mbit)`;
+      return `360p (${humanizeBitrate(data.bitrate)})`;
     } else if (data.height <= 480) {
-      return `480p (${data.bitrate/1000000} Mbit)`;
+      return `SD 480p (${humanizeBitrate(data.bitrate)})`;
     } else if (data.height <= 720) {
-      return `720p HD (${data.bitrate/1000000} Mbit)`;
+      return `HD 720p (${humanizeBitrate(data.bitrate)})`;
     } else if (data.height <= 1080) {
-      return `1080p HD (${data.bitrate/1000000} Mbit)`;
+      return `HD 1080p (${humanizeBitrate(data.bitrate)})`;
     } else if (data.height <= 1440) {
-      return `1440p HD (${data.bitrate/1000000} Mbit)`;
+      return `HD 1440p (${humanizeBitrate(data.bitrate)})`;
     } else if (data.height <= 2160) {
-      return `2160p 4K (${data.bitrate/1000000} Mbit)`;
+      return `4K 2160p (${humanizeBitrate(data.bitrate)})`;
     }
-}
+};
 
 var conf = {
   key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
