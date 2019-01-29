@@ -128,7 +128,7 @@ function loadPlayer() {
         var currentLatency = player.lowlatency.getLatency();
         var utcTime = new Date().getUTCHours();
         var estTime = new Date();
-        estTime.setHours(utcTime-4);
+        estTime.setHours(utcTime+2);
         latencyDisplay.innerText = Math.round(currentLatency * 1000) / 1000 + 's';
         timeDisplay.innerText = estTime.toISOString().substr(11,10);
         printBufferLevels();
