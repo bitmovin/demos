@@ -7,6 +7,7 @@ var timeDisplay = document.querySelector('#time');
 var latencyDisplay = document.querySelector('#latency');
 var slider = document.querySelector('#targetLatencySlider');
 var targetLatencyDisplay = document.querySelector('#targetLatency');
+var chart;
 
 var targetLatency = 3;
 var videoOnly = false;
@@ -134,7 +135,90 @@ function loadPlayer() {
         printBufferLevels();
         }
     }, 50);
+
+    setInterval(function() {
+        if (chart && player && !player.isPaused()) {
+        var currentLatency = player.lowlatency.getLatency();
+        var utcTime = new Date().getUTCHours();
+        var estTime = new Date();
+        estTime.setHours(utcTime+2);
+        updateChart(estTime.toISOString().substr(11,10), Math.round(currentLatency * 1000) / 1000);
+        printBufferLevels();
+        }
+    }, 500);
     });
 }
 
-$(document).ready(loadPlayer);
+function setupChart(){
+    var colors = {
+        blue: '#2c83b9',
+        blueTint: 'rgba(179,223,241,0.5)'
+    };
+    
+    Chart.defaults.global.responsive = true;
+    Chart.defaults.global.animation = false;
+    Chart.defaults.global.showTooltips = false;
+
+    var options = {
+        scaleBeginAtZero: true,
+        scaleShowGridLines: true,
+        scaleGridLineColor: "#F3F3F3",
+        scaleGridLineWidth: 1,
+        scaleShowHorizontcaleBeginAtZerolLines: true,
+        scaleShowVerticalLines: true,
+        bezierCurve: false,
+        bezierCurveTension: 0.4,
+        pointDot: true,
+        pointDotRadius: 4,
+        pointDotStrokeWidth: 1,
+        pointHitDetectionRadius: 20,
+        datasetStroke: true,
+        datasetStrokeWidth: 2,
+        datasetFill: true,
+        scales: {
+            yAxes: [{
+                type: "user-defined"
+            }]
+        },
+        elements: {
+            point: {
+                radius: 0
+            }
+        }
+    };
+
+    var data = {
+        labels: [],
+        datasets: [
+            {
+                label: "Latency",
+                data: [],
+                backgroundColor: colors.blueTint,
+                borderColor: colors.blue,
+                pointBackgroundColor: colors.blue,
+                borderWidth: 2
+            }
+        ]
+    };
+    
+    chart = new Chart(document.getElementById('chart-container').getContext('2d'), {
+        type: 'line',
+        data: data,
+        options: options
+    });
+}
+
+function updateChart(currentTime, latency){
+    var labels = chart.data.labels;
+    var data = chart.data.datasets[0].data;
+    
+    labels.push(currentTime);
+    data.push(latency);
+    
+    chart.update();
+}
+
+$(document).ready(function() {
+    loadPlayer();
+    setupChart();
+});
