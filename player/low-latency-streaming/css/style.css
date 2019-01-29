@@ -153,3 +153,11 @@
     text-align: center;
     color: red;
 }
+
+.company-icon {
+    height: 2em;
+}
+
+.company-icon-right {
+    margin-left: 7px;;
+}
