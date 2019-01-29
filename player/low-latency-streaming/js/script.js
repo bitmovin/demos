@@ -154,10 +154,9 @@ function setupChart(){
         blue: '#2c83b9',
         blueTint: 'rgba(179,223,241,0.5)'
     };
-    
+
     Chart.defaults.global.responsive = true;
     Chart.defaults.global.animation = false;
-    Chart.defaults.global.showTooltips = false;
 
     var options = {
         scaleBeginAtZero: true,
@@ -175,11 +174,6 @@ function setupChart(){
         datasetStroke: true,
         datasetStrokeWidth: 2,
         datasetFill: true,
-        scales: {
-            yAxes: [{
-                type: "user-defined"
-            }]
-        },
         elements: {
             point: {
                 radius: 0
@@ -200,7 +194,7 @@ function setupChart(){
             }
         ]
     };
-    
+
     chart = new Chart(document.getElementById('chart-container').getContext('2d'), {
         type: 'line',
         data: data,
@@ -209,12 +203,16 @@ function setupChart(){
 }
 
 function updateChart(currentTime, latency){
+    if (latency < 0 || latency > 10) {
+        return;
+    }
+
     var labels = chart.data.labels;
     var data = chart.data.datasets[0].data;
-    
+
     labels.push(currentTime);
     data.push(latency);
-    
+
     chart.update();
 }
 
