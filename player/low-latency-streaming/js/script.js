@@ -10,7 +10,7 @@ var targetLatencyDisplay = document.querySelector('#targetLatency');
 
 var targetLatency = 3;
 var videoOnly = false;
-var dashUrl = 'https://lowlatency.global.ssl.fastly.net/ULLTIME_MBR/manifest.mpd';
+var dashUrl = 'https://akamaibroadcasteruseast.akamaized.net/cmaf/live/657078/akasource/out.mpd';
 
 var url = new URL(location.href);
 var targetLatencyFromUrl = url.searchParams.get('latency');
