@@ -154,10 +154,12 @@
     color: red;
 }
 
-.company-icon {
-    height: 2em;
+.companies {
+    display: flex;
+    align-items: center;
 }
 
-.company-icon-right {
-    margin-left: 7px;;
+.companies > img {
+    margin-left: 1em;
+    height: 2em;
 }
