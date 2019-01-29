@@ -10,7 +10,7 @@ var targetLatencyDisplay = document.querySelector('#targetLatency');
 
 var targetLatency = 3;
 var videoOnly = false;
-var dashUrl = 'https://akamaibroadcasteruseast.akamaized.net/cmaf/live/657078/akasource/out.mpd';
+var dashUrl = 'https://lowlatency.global.ssl.fastly.net/ULLTIME_MBR/manifest.mpd';
 
 var url = new URL(location.href);
 var targetLatencyFromUrl = url.searchParams.get('latency');
@@ -128,7 +128,7 @@ function loadPlayer() {
         var currentLatency = player.lowlatency.getLatency();
         var utcTime = new Date().getUTCHours();
         var estTime = new Date();
-        estTime.setHours(utcTime-4);
+        estTime.setHours(utcTime+2);
         latencyDisplay.innerText = Math.round(currentLatency * 1000) / 1000 + 's';
         timeDisplay.innerText = estTime.toISOString().substr(11,10);
         printBufferLevels();
