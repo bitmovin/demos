@@ -58,7 +58,7 @@ var conf = {
     style: {},
     events: {
         playbackspeedchanged: function(e) {
-        playbackSpeedDisplay.innerText = e.to;
+            playbackSpeedDisplay.innerText = e.to;
         },
     },
     tweaks: {
@@ -70,6 +70,7 @@ var conf = {
         LIVE_EDGE_DISTANCE: 0.5,
         LOW_LATENCY_BUFFER_GUARD: 0.8,
         CHUNKED_CMAF_STREAMING: true,
+        MINIMUM_ALLOWED_UPDATE_PERIOD: 1
     },
     live: {
         lowLatency: {
@@ -86,7 +87,7 @@ var conf = {
         },
         },
     },
-    nonetwork: {
+    network: {
         preprocessHttpResponse: function(type, response) {
         if (type === 'manifest/dash') {
             if (videoOnly) {
