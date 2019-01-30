@@ -163,3 +163,7 @@
     margin-left: 3em;
     height: 2em;
 }
+
+.audio-buffer.hidden {
+    display: none;
+}

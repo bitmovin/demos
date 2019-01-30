@@ -24,6 +24,8 @@ if (targetLatencyFromUrl && !isNaN(Number(targetLatencyFromUrl))) {
 
 if (url.searchParams.get('videoOnly') && url.searchParams.get('videoOnly') !== 'false') {
     videoOnly = true;
+    var audioBufferDiv = document.querySelector('.latency-status-row.audio-buffer');
+    audioBufferDiv.classList.add('hidden');
 }
 
 if (url.searchParams.get('dashUrl')) {
