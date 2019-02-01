@@ -160,11 +160,11 @@ function handleKeyPress(keyEvent) {
 }
 
 function setupPlayer(manifestType, manifestUrl, drm, licenceUrl, autoplay) {
-  if (!drm) {
+  if (drm === undefined) {
     drm = 'none';
   }
 
-  if (!licenceUrl) {
+  if (licenceUrl === undefined) {
     licenceUrl = '';
   }
 
@@ -219,7 +219,7 @@ function setupPlayer(manifestType, manifestUrl, drm, licenceUrl, autoplay) {
 }
 
 function loadPlayerFromControls(autoplay) {
-  if (!autoplay) {
+  if (autoplay === undefined) {
     autoplay = true;
   }
 
