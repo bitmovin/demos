@@ -3,26 +3,26 @@ var playTimestamp;
 var humanizeBitrate = function(bitrate){
     var mbit = bitrate / 1000000;
     var rounded = mbit < 3 ? Math.round(mbit * 10) / 10 : Math.round(mbit);
-    return `${rounded} Mbit`;
+    return rounded + 'Mbit';
 };
 
 var getQualityLabels = function (data) {
     if (data.height <= 144) {
-      return `144p (${humanizeBitrate(data.bitrate)})`;
+      return '144p (' + humanizeBitrate(data.bitrate) + ')';
     } else if (data.height <= 240) {
-      return `240p (${humanizeBitrate(data.bitrate)})`;
+      return '240p (' + humanizeBitrate(data.bitrate) + ')';
     } else if (data.height <= 360) {
-      return `360p (${humanizeBitrate(data.bitrate)})`;
+      return '360p (' + humanizeBitrate(data.bitrate) + ')';
     } else if (data.height <= 480) {
-      return `SD 480p (${humanizeBitrate(data.bitrate)})`;
+      return 'SD 480p (' + humanizeBitrate(data.bitrate) + ')';
     } else if (data.height <= 720) {
-      return `HD 720p (${humanizeBitrate(data.bitrate)})`;
+      return 'HD 720p (' + humanizeBitrate(data.bitrate) + ')';
     } else if (data.height <= 1080) {
-      return `HD 1080p (${humanizeBitrate(data.bitrate)})`;
+      return 'HD 1080p (' + humanizeBitrate(data.bitrate) + ')';
     } else if (data.height <= 1440) {
-      return `HD 1440p (${humanizeBitrate(data.bitrate)})`;
+      return 'HD 1440p (' + humanizeBitrate(data.bitrate) + ')';
     } else if (data.height <= 2160) {
-      return `4K 2160p (${humanizeBitrate(data.bitrate)})`;
+      return '4K 2160p (' + humanizeBitrate(data.bitrate) + ')';
     }
 };
 
@@ -59,7 +59,7 @@ var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
 
 function loadPlayer() {
-  player.load(source).then(() => {
+  player.load(source).then(function() {
     player.setVideoQuality('1600_50128000');
   });
 }

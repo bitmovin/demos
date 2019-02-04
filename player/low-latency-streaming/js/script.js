@@ -12,8 +12,9 @@ var targetLatency = 3;
 var videoOnly = false;
 var dashUrl = 'https://akamaibroadcasteruseast.akamaized.net/cmaf/live/657078/akasource/out.mpd';
 
-var url = new URL(location.href);
-var targetLatencyFromUrl = url.searchParams.get('latency');
+var queryString = getQueryParams();
+
+var targetLatencyFromUrl = queryString.latency;
 
 var isFirefox = typeof InstallTrigger !== 'undefined';
 
@@ -21,12 +22,12 @@ if (targetLatencyFromUrl && !isNaN(Number(targetLatencyFromUrl))) {
     targetLatency = targetLatencyFromUrl;
 }
 
-if (url.searchParams.get('videoOnly') && url.searchParams.get('videoOnly') !== 'false') {
+if (queryString.videoOnly && queryString.videoOnly !== 'false') {
     videoOnly = true;
 }
 
-if (url.searchParams.get('dashUrl')) {
-    dashUrl = url.searchParams.get('dashUrl');
+if (queryString.dashUrl) {
+    dashUrl = queryString.dashUrl;
 }
 
 var updateTargetLatency = function() {
@@ -135,6 +136,20 @@ function loadPlayer() {
         }
     }, 50);
     });
+}
+
+function getQueryParams() {
+    var queryParams = {};
+
+    var queryString = location.search.substring(1).split('&');
+
+    queryString.forEach(function(queryParam) {
+        var splitQueryParam = queryParam.split('=');
+
+        queryParams[decodeURIComponent(splitQueryParam[0])] = decodeURIComponent(splitQueryParam[1]);
+    });
+
+    return queryParams;
 }
 
 $(document).ready(loadPlayer);

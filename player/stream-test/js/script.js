@@ -159,7 +159,15 @@ function handleKeyPress(keyEvent) {
   }
 }
 
-function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '', autoplay) {
+function setupPlayer(manifestType, manifestUrl, drm, licenceUrl, autoplay) {
+  if (drm === undefined) {
+    drm = 'none';
+  }
+
+  if (licenceUrl === undefined) {
+    licenceUrl = '';
+  }
+
   // clone source to avoid leftovers from previous calls
   var tempSource = JSON.parse(JSON.stringify(source));
 
@@ -206,11 +214,15 @@ function setupPlayer(manifestType, manifestUrl, drm = 'none', licenceUrl = '', a
       player.play();
     }
   }).catch(function (error) {
-    console.log(error);
+    console.error(error);
   });
 }
 
-function loadPlayerFromControls(autoplay = true) {
+function loadPlayerFromControls(autoplay) {
+  if (autoplay === undefined) {
+    autoplay = true;
+  }
+
   var manifestInput = document.querySelector('#manifest-input').value;
   var licenceInput = document.querySelector('#drm-license').value;
   var drmSystem = document.querySelector('[name="drm-format"]:checked').value;
@@ -245,10 +257,10 @@ function setDefaultManifest() {
   }
 
   for (i = 1; i < 4; i++) {
-    var adType = document.querySelector(`[name="ad${i}-type"]:checked`);
+    var adType = document.querySelector('[name="ad' + i + '-type"]:checked');
 
     if (adType) {
-      document.querySelector(`#ad${i}-input`).value = defaultAdUrl[adType.value];
+      document.querySelector('#ad' + i + '-input').value = defaultAdUrl[adType.value];
     }
   }
 
@@ -256,19 +268,19 @@ function setDefaultManifest() {
 
 function createAdConfig() {
   for (i = 1; i < 4; i++) {
-    var adBox = document.getElementById(`ad-box-${i}`);
+    var adBox = document.getElementById('ad-box-' + i);
 
     if (adBox) {
-      var adManifestUrl = document.getElementById(`ad${i}-input`).value;
-      var adType = document.querySelector(`[name="ad${i}-type"]:checked`).value;
-      var adPosition = document.querySelector(`[name="ad${i}-position"]:checked`).value;
+      var adManifestUrl = document.getElementById('ad' + i + '-input').value;
+      var adType = document.querySelector('[name="ad' + i + '-type"]:checked').value;
+      var adPosition = document.querySelector('[name="ad' + i + '-position"]:checked').value;
 
       player.ads.schedule({
         tag: {
           url: adManifestUrl,
           type: adType
         },
-        id: `Ad${i}`,
+        id: 'Ad$' + i,
         position: adPosition
       });
     }
@@ -344,7 +356,7 @@ function toggleInputFields() {
     manifestInput.readOnly = true;
     licenceInput.readOnly = true;
     for (i = 1; i < 4; i++) {
-      var adManifest = document.getElementById(`ad${i}-input`);
+      var adManifest = document.getElementById('ad' + i + '-input');
 
       if (adManifest) {
         adManifest.readOnly = true;
@@ -359,7 +371,7 @@ function toggleInputFields() {
     manifestInput.readOnly = false;
     licenceInput.readOnly = false;
     for (i = 1; i < 4; i++) {
-      var adManifest = document.getElementById(`ad${i}-input`);
+      var adManifest = document.getElementById('ad' + i + '-input');
 
       if (adManifest) {
         adManifest.readOnly = false;
@@ -402,7 +414,8 @@ function showAd() {
 
 function hideAd(elementId) {
   var adArray = document.getElementsByClassName('demo-input-box ad-box');
-  document.getElementById(elementId).remove();
+  var child = document.getElementById(elementId);
+  child.parentNode.removeChild(child);
 
   if (adArray && adArray.length < 3) {
     scheduleAdButton.classList.remove('disabled');
@@ -410,48 +423,48 @@ function hideAd(elementId) {
 }
 
 function createAdBox(number) {
-  $(`<div class="demo-input-box ad-box" id="ad-box-${number}">
-  <div class="demo-item-header">
-      <div>AD ${number}</div>
-      <button id="delete-ad${number}" class="btn btn-outline-primary active demo-button" type="delete-ad" onclick="hideAd('ad-box-${number}')">Delete</button>
-  </div>
-  <div class="demo-stream-type-input">
-      <div class="type-header">AD Type</div>
-      <div class="input-type">
-        <label><input id="ad${number}-type" type="radio" name="ad${number}-type" value="vast" checked> VAST</label>
-      </div>
-      <div class="input-type">
-        <label><input id="ad${number}-type" type="radio" name="ad${number}-type" value="vpaid"> VPAID</label>
-      </div>
-      <div class="input-type">
-        <label><input id="ad${number}-type" type="radio" name="ad${number}-type" value="vmap"> VMAP</label>
-      </div>
-      <div class="input-type">
-        <label><input id="ad${number}-type" type="radio" name="ad${number}-type" value="ima"> IMA</label>
-      </div>
-  </div>
-  <div class="demo-stream-type-input">
-      <div class="type-header">AD Position</div>
-      <div class="input-type">
-        <label><input id="ad${number}-position" type="radio" name="ad${number}-position" value="pre" checked> Pre-Roll</label>
-      </div>
-      <div class="input-type">
-        <label><input id="ad${number}-position" type="radio" name="ad${number}-position" value="50%"> Mid-Roll</label>
-      </div>
-      <div class="input-type">
-        <label><input id="ad${number}-position" type="radio" name="ad${number}-position" value="post"> Post-Roll</label>
-      </div>
-  </div>
-  <input id="ad${number}-input" class="form-control" name="ad${number}-input" type="text" placeholder="AD Source URL">
-</div>`).appendTo('#ad-box-wrapper');
+  $('<div class="demo-input-box ad-box" id="ad-box-' + number + '"> \
+  <div class="demo-item-header"> \
+      <div>AD' + number + ' </div> \
+      <button id="delete-ad' + number + '" class="btn btn-outline-primary active demo-button" type="delete-ad" onclick=hideAd("ad-box-' + number + '")>Delete</button> \
+  </div> \
+  <div class="demo-stream-type-input"> \
+      <div class="type-header">AD Type</div> \
+      <div class="input-type"> \
+        <label><input id="ad' + number + '-type" type="radio" name="ad' + number + '-type" value="vast" checked> VAST</label> \
+      </div> \
+      <div class="input-type"> \
+        <label><input id="ad' + number + '-type" type="radio" name="ad' + number + '-type" value="vpaid"> VPAID</label> \
+      </div> \
+      <div class="input-type"> \
+        <label><input id="ad' + number + '-type" type="radio" name="ad' + number + '-type" value="vmap"> VMAP</label> \
+      </div> \
+      <div class="input-type"> \
+        <label><input id="ad' + number + '-type" type="radio" name="ad' + number +'-type" value="ima"> IMA</label> \
+      </div> \
+  </div> \
+  <div class="demo-stream-type-input"> \
+      <div class="type-header">AD Position</div> \
+      <div class="input-type"> \
+        <label><input id="ad' + number + '-position" type="radio" name="ad' + number + '-position" value="pre" checked> Pre-Roll</label> \
+      </div> \
+      <div class="input-type"> \
+        <label><input id="ad' + number + '-position" type="radio" name="ad' + number + '-position" value="50%"> Mid-Roll</label> \
+      </div> \
+      <div class="input-type"> \
+        <label><input id="ad' + number + '-position" type="radio" name="ad' + number + '-position" value="post"> Post-Roll</label> \
+      </div> \
+  </div> \
+  <input id="ad' + number + '-input" class="form-control" name="ad' + number + '-input" type="text" placeholder="AD Source URL"> \
+</div>').appendTo('#ad-box-wrapper');
 
   var adArray = document.getElementsByClassName('demo-input-box ad-box');
-  var adRadioButtons = document.getElementsByName(`ad${number}-type`);
+  var adRadioButtons = document.getElementsByName('ad' + number + '-type');
   for (var i = 0; i < adRadioButtons.length; i++) {
     (function (i) {
       var adRadioButton = adRadioButtons[i];
       adRadioButton.addEventListener('click', function () {
-        setDefaultInput(adRadioButton, `ad${number}-input`, defaultAdUrl);
+        setDefaultInput(adRadioButton, 'ad' + number + '-input', defaultAdUrl);
       })
     }(i))
   };
