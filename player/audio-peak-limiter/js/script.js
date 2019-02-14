@@ -1,4 +1,3 @@
-var volumeButton = document.getElementById('volume-button');
 var volumeInput = document.getElementById('volume-input');
 var inputWarning = document.getElementById('input-warning');
 
@@ -14,8 +13,10 @@ var conf = {
 };
 
 var source = {
-  hls: 'https://cdn.bitmovin.com/content/demos/4k/38e843e0-1998-11e9-8a92-c734cd79b4dc/manifest.m3u8',
-  poster: 'https://bitmovin-a.akamaihd.net/content/sintel/poster.png'
+  dash: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
+  hls: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
+  progressive: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4',
+  poster: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/poster.jpg'
 };
 
 var playerContainer = document.getElementById('player-container');
@@ -25,7 +26,7 @@ function loadPlayer() {
   player.load(source);
 }
 
-volumeButton.addEventListener('click', function () {
+volumeInput.addEventListener('keyup', function () {
   if (volumeInput.value <= 100 && volumeInput.value >= 0 && volumeInput.value != "") {
     inputWarning.style.display = 'none';
     player.setVolume(volumeInput.value);
