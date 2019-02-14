@@ -1,0 +1,38 @@
+<script type="text/javascript" src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
+<script type="text/javascript" src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.js"></script>
+<script type="text/javascript"
+    src="//bitmovin-a.akamaihd.net/bitmovin-analytics/stable/1/bitmovinanalytics.min.js"></script>
+
+<div class="description">
+    <p>
+        This demo showcases how to set volume thresholds for videos or ads with variable audio encodings.
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div id="player" class="tv-frame">
+            <div id="player-container"></div>
+        </div>
+        <div class="input-container">
+            <input min="0" max="100" id="volume-input" class="form-control" name="volume-input" type="number"
+                placeholder="100">
+            <button id='volume-button' class="btn btn-outline-primary active demo-button" type="set-volume">Set Volume</button>
+        </div>
+        <p id="input-warning">Input value must be between 0 and 100!</p>
+    </div>
+    <div class="col-lg-6 code-col">
+        <div class="setup-code">
+            ${code:setup.js}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <ul>
+            <li>Set max audio threshold to fixed value or based on volume selected by end user</li>
+            <li>Player respects the setting for video and ad content</li>
+        </ul>
+    </div>
+</div>
