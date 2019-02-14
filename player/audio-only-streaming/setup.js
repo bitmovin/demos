@@ -1,27 +1,10 @@
-var getQualityLabels = function (data) {
-  if (data.height <= 1440) {
-    return '1440p HD';
-  } else if (data.height <= 2160) {
-    return '2160p 4K';
-  }
-}
-
 var conf = {
     key: '<YOUR PLAYER KEY>'
   };
   
 var source = {
-  dash: 'https://bitmovin-a.akamaihd.net/content/sintel/sintel.mpd',
-  hls: 'https://bitmovin-a.akamaihd.net/content/sintel/hls/playlist.m3u8',
-  poster: 'https://bitmovin-a.akamaihd.net/content/sintel/poster.png',
-  labeling: {
-    dash: {
-      qualities: getQualityLabels
-    },
-    hls: {
-      qualities: getQualityLabels
-    }
-  }
+  hls: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa-audio-only.m3u8',
+  poster: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/poster.jpg'
 };
 
 var playerContainer = document.getElementById('player-container');
