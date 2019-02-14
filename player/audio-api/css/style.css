@@ -1,0 +1,6 @@
+@media (min-width: 992px) {
+    .player-col {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
