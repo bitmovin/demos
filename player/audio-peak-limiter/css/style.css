@@ -1,0 +1,20 @@
+#volume-input {
+    width: 70px;
+    margin-left: 25px;
+}
+
+#input-warning {
+    display: none;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    color: red;
+    text-align: center;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
