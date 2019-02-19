@@ -24,3 +24,10 @@
     font-family: 'Courier New', Courier, monospace;
     color: #000000;
 }
+
+.log-message {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: unset !important;
+    flex-wrap: wrap;
+}
