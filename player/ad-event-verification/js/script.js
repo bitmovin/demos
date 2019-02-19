@@ -47,44 +47,46 @@ function checkTime(i) {
   return (i < 10) ? "0" + i : i;
 }
 
-function log(message) {
-  $('<p class="log-message"></p>').append(getTimestamp() + ' - ').append(message).prependTo('#logContent');
+function log(message, data) {
+  $('<p class="log-message"></p>').append(getTimestamp() + ' - ').append(message, '&nbsp;', renderjson(data)).prependTo('#logContent');
 }
 
 function setPlayerEvents(player) {
   player.on(bitmovin.player.PlayerEvent.AdBreakFinished, function (data) {
-    log("On Ad Break Finished: " + JSON.stringify(data));
+    log("Ad Break Finished:", data);
   });
 
   player.on(bitmovin.player.PlayerEvent.AdBreakStarted, function (data) {
-    log("On Ad Break Started: " + JSON.stringify(data));
+    log("Ad Break Started:", data);
   });
 
   player.on(bitmovin.player.PlayerEvent.AdClicked, function (data) {
-    log("On Ad Clicked: " + JSON.stringify(data));
+    log("Ad Clicked:", data);
   });
 
   player.on(bitmovin.player.PlayerEvent.AdError, function (data) {
-    log("On Ad Error: " + JSON.stringify(data));
+    log("Ad Error:", data);
   });
 
   player.on(bitmovin.player.PlayerEvent.AdManifestLoaded, function (data) {
-    log("On Ad Manifest Loaded: " + JSON.stringify(data));
+    log("Ad Manifest Loaded:", data);
   });
 
   player.on(bitmovin.player.PlayerEvent.AdQuartile, function (data) {
-    log("On Ad Quartile: " + JSON.stringify(data));
+    log("Ad Quartile:", data);
   });
 
   player.on(bitmovin.player.PlayerEvent.AdSkipped, function (data) {
-    log("On Ad Skipped: " + JSON.stringify(data));
+    log("Ad Skipped:", data);
   });
 
   player.on(bitmovin.player.PlayerEvent.AdStarted, function (data) {
-    log("On Ad Started: " + JSON.stringify(data));
+    log("Ad Started:", data);
   });
 }
 
 $(document).ready(function () {
+  renderjson.set_icons('+ ', '- ');
+
   loadPlayer();
 });
