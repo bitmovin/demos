@@ -1,10 +1,5 @@
-var volume = 20;
-
 var conf = {
-  key: '<YOUR PLAYER KEY>',
-  playback: {
-    volume: volume
-  }
+  key: '<YOUR PLAYER KEY>'
 };
 
 var source = {
@@ -16,7 +11,5 @@ var source = {
 
 var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
-
-player.setVolume(volume);
 
 player.load(source);

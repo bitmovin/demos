@@ -14,14 +14,23 @@
         <div id="player" class="tv-frame">
             <div id="player-container"></div>
         </div>
-        <div class="input-container">
-            <div>Set volume:</div>
-            <input min="0" max="100" id="volume-input" class="form-control" name="volume-input" type="number"
-                placeholder="100">
-        </div>
-        <p id="input-warning">Input value must be between 0 and 100!</p>
     </div>
     <div class="col-lg-6 code-col">
+        <div class="limiter-container">
+            <div id="toggle-limiter" class="toggle-button">
+                <div class="toggle-button-indicator">
+                </div>
+            </div>
+            <div class="limiter-text">
+                Toggle Limiter
+            </div>
+            <div class="slide-container">
+                <input type="range" min="-50" max="50" value="-15" step="1" class="slider" id="targetDecibelsSlider">
+            </div>
+            <div class="decibel-control">
+                Target Decibels: <span id="targetDecibels">-15dB</span>
+            </div>
+        </div>
         <div class="setup-code">
             ${code:setup.js}
         </div>

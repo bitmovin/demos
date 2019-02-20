@@ -1,20 +1,126 @@
-#volume-input {
-    width: 70px;
-    margin-left: 25px;
+#targetDecibelsSlider:disabled {
+    opacity: 0.2;
 }
 
-#input-warning {
-    display: none;
-    margin-top: 10px;
-    margin-bottom: 0px;
-    color: red;
-    text-align: center;
+.decibel-control {
+    font-size: 15px;
+    width: 160px;
 }
 
-.input-container {
+.slide-container {
+    width: 20%;
+    margin-top: 7px;
+    margin-left: 45px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    border-radius: 5px;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    padding-bottom: 8px;
+}
+
+.slider::-ms-track {
+    height: 14px;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+.slider::-ms-fill-lower {
+    height: 8px;
+    border-radius: 5px;
+    background: #DDECF4;
+}
+.slider::-ms-fill-upper {
+    height: 8px;
+    border-radius: 5px;
+    background: #DDECF4;
+}
+
+.slider::-ms-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    border: 3px solid #1FAAE2;
+    margin-top: 0 !important;
+}
+
+.slider::-webkit-slider-runnable-track {
+    height: 8px;
+    background: #DDECF4;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    border: 3px solid #1FAAE2;
+    margin-top: -7px;
+}
+
+.slider::-moz-range-track {
+    height: 8px;
+    background: #DDECF4;
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    border: 3px solid #1FAAE2;
+}
+
+.limiter-container {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
+}
+
+.limiter-container > .limiter-text {
+    font-size: 15px;
+}
+
+.toggle-button {
+    width: 3rem;
+    height: 1.5rem;
+    border-radius: 1.5rem;
+    border: 1px #CBE0ED solid;
+    background-color: #EEF6F9;
+    transition: all 250ms ease-in-out;
+    display: flex;
     align-items: center;
-    font-size: 18px;
+}
+
+.toggle-button > .toggle-button-indicator {
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: white;
+    transition: all 250ms ease-in-out;
+    margin: 2px;
+}
+
+.toggle-button.on {
+    background-color: #0eb1ff; 
+}
+
+.toggle-button.on .toggle-button-indicator {
+    margin-left: 20px;
+}
+
+.toggle-button:hover {
+    cursor: pointer;
 }
