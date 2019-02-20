@@ -62,10 +62,7 @@
    * @param licenceUrl  the URL to the licence server of the DRM System
    */
   function setupPlayer(drm, manifestUrl, licenceUrl, manifestType) {
-    player = new bitmovin.player.Player(playerContainer, config);
-
     // clone config to avoid leftovers from previous calls
-    var conf = JSON.parse(JSON.stringify(config));
     var source;
 
     if (manifestUrl == null || manifestUrl === '') {
