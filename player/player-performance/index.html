@@ -1,0 +1,61 @@
+<script type="text/javascript" src="https://cdn.bitmovin.com/player/web/8.2.1/bitmovinplayer.js"></script>
+<script>var bitmovinV8 = jQuery.extend(true, {}, window.bitmovin); window.bitmovin = undefined;</script>
+<script type="text/javascript" src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/7.7/bitmovinplayer.js"></script>
+<script>var bitmovinV7 = jQuery.extend(true, {}, window.bitmovin); window.bitmovin = undefined;</script>
+
+
+<script type="text/javascript"
+src="//bitmovin-a.akamaihd.net/bitmovin-analytics/stable/1/bitmovinanalytics.min.js"></script>
+
+<div class="description">
+    <p>
+        This demo showcases side by side comparison of improvements to player performance between v7 and v8.
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <h4>v8 Player</h4>
+    </div>
+    <div class="col-lg-6">
+        <h4>v7 Player</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div id="player-container-v8"></div>
+    </div>
+    <div class="col-lg-6">
+        <div id="player-container-v7"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <p>
+            Player ready: <span id="ready-v8">0ms</span>
+        </p>
+        <p>
+            Start up time: <span id="startup-v8">0ms</span>
+        </p>
+    </div>
+    <div class="col-lg-6">
+        <p>
+            Player ready: <span id="ready-v7">0ms</span>
+        </p>
+        <p>
+            Start up time: <span id="startup-v7">0ms</span>
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <ul>
+            <li>Player size</li>
+            <li>Player load time</li>
+            <li>Content start time</li>
+        </ul>
+    </div>
+</div>

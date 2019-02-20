@@ -1,0 +1,11 @@
+title: Player performance
+description: Compare v7 and v8 performance gains
+long_description: To be defined.
+
+executable:
+  executable: true
+  indexfile: index.html
+
+tags:
+  - preload
+  - vod
