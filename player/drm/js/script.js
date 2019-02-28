@@ -62,17 +62,15 @@
    * @param licenceUrl  the URL to the licence server of the DRM System
    */
   function setupPlayer(drm, manifestUrl, licenceUrl, manifestType) {
-    player = new bitmovin.player.Player(playerContainer, config);
-
     // clone config to avoid leftovers from previous calls
-    var conf = JSON.parse(JSON.stringify(config));
-    var source;
+    var source = {};
 
     if (manifestUrl == null || manifestUrl === '') {
       if (drm == null || drm == '') {
-        source = JSON.parse(JSON.stringify(noDrmSource));
+        source[manifestType] = noDrmSource[manifestType];
       } else {
-        source = JSON.parse(JSON.stringify(defaultSource));
+        source[manifestType] = defaultSource[manifestType];
+        source[drm] = defaultSource.drm;
       }
     } else {
       source = {};
@@ -83,11 +81,11 @@
       // If no licenceURL is provided use the one from the defaultSource for the given drm type
       licenceUrl = (licenceUrl !== '') ? licenceUrl : defaultSource.drm[drm]['LA_URL'];
       source['drm'] = {};
-      source.drm[drm] = {'LA_URL': licenceUrl};
+      source.drm[drm] = { 'LA_URL': licenceUrl };
     }
 
     if (!source) {
-      source = JSON.parse(JSON.stringify(noDrmSource));
+      source[manifestType] = noDrmSource[manifestType];
     }
 
     player.load(source).catch(function (error) {
@@ -304,9 +302,17 @@
     });
   }
 
+  function setManifestType() {
+    var browser = getBrowser();
+    
+    if (browser === BROWSER.IE || browser === BROWSER.EDGE) {
+      document.querySelector('#available-manifest-type').selectedIndex = 2;
+    }
+  }
 
-  getSupportedDRMSystem(true).then(function() {
-
+  getSupportedDRMSystem(true).then(function () {
+    
+    setManifestType();
     insertMseSupportList();
     insertEmeSupportList();
     loadPlayerFromControls();
