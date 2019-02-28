@@ -63,18 +63,14 @@
    */
   function setupPlayer(drm, manifestUrl, licenceUrl, manifestType) {
     // clone config to avoid leftovers from previous calls
-    var source;
+    var source = {};
 
     if (manifestUrl == null || manifestUrl === '') {
       if (drm == null || drm == '') {
-        source = {
-          [manifestType]: noDrmSource[manifestType]
-        };
+        source[manifestType] = noDrmSource[manifestType];
       } else {
-        source = {
-          [manifestType]: defaultSource[manifestType],
-          drm: defaultSource.drm
-        };
+        source[manifestType] = defaultSource[manifestType];
+        source[drm] = defaultSource.drm;
       }
     } else {
       source = {};
@@ -89,9 +85,7 @@
     }
 
     if (!source) {
-      source = {
-        [manifestType]: noDrmSource[manifestType]
-      };
+      source[manifestType] = noDrmSource[manifestType];
     }
 
     player.load(source).catch(function (error) {
