@@ -67,9 +67,14 @@
 
     if (manifestUrl == null || manifestUrl === '') {
       if (drm == null || drm == '') {
-        source = JSON.parse(JSON.stringify(noDrmSource));
+        source = {
+          [manifestType]: noDrmSource[manifestType]
+        };
       } else {
-        source = JSON.parse(JSON.stringify(defaultSource));
+        source = {
+          [manifestType]: defaultSource[manifestType],
+          drm: defaultSource.drm
+        };
       }
     } else {
       source = {};
@@ -80,11 +85,13 @@
       // If no licenceURL is provided use the one from the defaultSource for the given drm type
       licenceUrl = (licenceUrl !== '') ? licenceUrl : defaultSource.drm[drm]['LA_URL'];
       source['drm'] = {};
-      source.drm[drm] = {'LA_URL': licenceUrl};
+      source.drm[drm] = { 'LA_URL': licenceUrl };
     }
 
     if (!source) {
-      source = JSON.parse(JSON.stringify(noDrmSource));
+      source = {
+        [manifestType]: noDrmSource[manifestType]
+      };
     }
 
     player.load(source).catch(function (error) {
@@ -302,7 +309,7 @@
   }
 
 
-  getSupportedDRMSystem(true).then(function() {
+  getSupportedDRMSystem(true).then(function () {
 
     insertMseSupportList();
     insertEmeSupportList();
