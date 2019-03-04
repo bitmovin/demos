@@ -1,5 +1,3 @@
-var playTimestamp;
-
 var humanizeBitrate = function(bitrate){
     var mbit = bitrate / 1000000;
     var rounded = mbit < 3 ? Math.round(mbit * 10) / 10 : Math.round(mbit);
@@ -30,15 +28,7 @@ var conf = {
   key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
   analytics: {
     key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
-    videoId: '4k'
-  },
-  events: {
-    play: function (e) {
-      playTimestamp = e.timestamp;
-    },
-    playing: function (e) {
-      document.getElementById('startup').innerHTML = e.timestamp - playTimestamp + 'ms';
-    }
+    videoId: 'custom-quality-labels'
   },
   playback: {
     muted: true
