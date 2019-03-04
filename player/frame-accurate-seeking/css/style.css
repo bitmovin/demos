@@ -1,0 +1,45 @@
+.key-container {
+    border: solid 1px #CBE0ED;
+    border-radius: 4px;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.key-row {
+    display: flex;
+    flex-direction: row;
+    font-size: 15px;
+    padding-bottom: 10px;
+}
+
+.key-row > input {
+    margin: 0 20px;
+}
+
+.smpte-display {
+    font-weight: bold;
+    padding: 10px;
+}
+
+.smpte-buttons {
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.smpte-input {
+    width: 120px;
+}
+
+.key-row > div {
+    width: 50%;
+}
+
+#step_size_input {
+    width: 75px;
+}
+
+.smpte-buttons > .btn {
+    width: 75px;
+}

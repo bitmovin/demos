@@ -307,9 +307,6 @@ var loadPerTitlePlayer = function (avBandwidth) {
       key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
       videoId: 'per-title-encoding'
     },
-    source: {
-      dash: '//bitmovin-a.akamaihd.net/webpages/demos/content/per-title/pertitle_profile/stream.mpd'
-    },
     adaptation: {
       desktop: {
         qualityThreshold: 0.5,
@@ -343,11 +340,15 @@ var loadPerTitlePlayer = function (avBandwidth) {
     }
   };
 
+  var source = {
+    dash: '//bitmovin-a.akamaihd.net/webpages/demos/content/per-title/pertitle_profile/stream.mpd'
+  };
+
   var playerContainer = document.getElementById('player-container-1');
   bitmovin.player.Player.addModule(bitmovin.analytics.PlayerModule);
   player1 = new bitmovin.player.Player(playerContainer, config);
 
-  player1.load(config.source).then(function () {
+  player1.load(source).then(function () {
     player1.preload();
     player1.seek = function () {
     };

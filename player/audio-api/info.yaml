@@ -1,0 +1,17 @@
+title: Audio API
+description: Enable users to stream video as they scroll on the page
+long_description: To be defined.
+
+executable:
+  executable: true
+  indexfile: index.html
+
+code:
+  show_code: true
+  language: js
+  files:
+    - setup.js
+    - scrollListener.js
+
+tags:
+  - to be defined

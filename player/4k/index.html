@@ -1,0 +1,39 @@
+<script type="text/javascript"
+        src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
+<script type="text/javascript"
+        src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.js"></script>
+<script type="text/javascript"
+        src="//bitmovin-a.akamaihd.net/bitmovin-analytics/stable/1/bitmovinanalytics.min.js"></script>
+
+<div class="description">
+    <p>
+        This demo showcases how you can enable 4K streaming on the video player.
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 player-col">
+        <div id="player" class="tv-frame">
+            <div id="player-container"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <p>
+            Start up time: <span id="startup">0ms</span>
+        </p>
+        <br />
+        <ul>
+            <li>Works with both HLS and DASH streams</li>
+            <li>Supports all player features like CC, DRM, Ads, Analytics etc.</li>
+            <li>Requires 4k monitor or screen for best viewing experience</li>
+        </ul>
+    </div>
+    <div class="col-lg-6 code-col">
+        <div class="setup-code">
+            ${code:setup.js}
+        </div>
+    </div>
+</div>

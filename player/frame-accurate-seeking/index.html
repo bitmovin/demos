@@ -1,0 +1,67 @@
+<script type="text/javascript" src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
+<script type="text/javascript" src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.js"></script>
+<script type="text/javascript" src="//bitmovin-a.akamaihd.net/bitmovin-analytics/stable/1/bitmovinanalytics.min.js"></script>
+
+<hr class="mt-5" />
+<div class="row mt-5">
+    <div class="col-xl-8">
+        <div id="player-container"></div>
+    </div>
+    <div class="col-xl-4">
+        <div class="key-container">
+            <div class="key-row smpte-display">
+                <div>Current SMPTE:</div>
+                <div id="playerTime"></div>
+            </div>
+        </div>
+        <div class="key-row smpte-buttons">
+            <input id="seek_button" class="btn btn-outline-primary" type="button" value="Seek">
+            <span>to SMPTE:</span>
+            <input id="smtpe_input" class="form-control smpte-input" type="text" value="00:00:30:00">
+        </div>
+        <div class="key-row smpte-buttons">
+            <input id="step_back_button" class="btn btn-outline-primary" type="button" value="Back">
+            <input id="step_size_input" class="form-control" type="number" value="1" min="1" max="1096">
+            <input id="step_forward_button" class="btn btn-outline-primary" type="button" value="Forward">
+        </div>
+        <div class="key-row">
+            <div class="smpte-error"></div>
+        </div>
+        <div class="key-container">
+            <div class="key-row">
+                <h3>Keyboard controls</h3>
+            </div>
+            <div class="key-row">
+                <label>Only active when the player has focus</label>
+            </div>
+            <div class="key-row">
+                <div>Space</div>
+                <div>Play / Pause </div>
+            </div>
+            <div class="key-row">
+                <div>Left</div>
+                <div>
+                    Seek back <span class="stepSize">1</span> frame
+                </div>
+            </div>
+            <div class="key-row">
+                <div>Right</div>
+                <div>
+                    Seek forward <span class="stepSize">1</span> frame
+                </div>
+            </div>
+            <div class="key-row">
+                <div>Alt / Option Left</div>
+                <div>
+                    Seek back <span class="stepSize_x_5">5</span> frames
+                </div>
+            </div>
+            <div class="key-row">
+                <div>Alt / Option Right</div>
+                <div>
+                    Seek forward <span class="stepSize_x_5">5</span> frames
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

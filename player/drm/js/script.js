@@ -62,34 +62,33 @@
    * @param licenceUrl  the URL to the licence server of the DRM System
    */
   function setupPlayer(drm, manifestUrl, licenceUrl, manifestType) {
-    player = new bitmovin.player.Player(playerContainer, config);
-
     // clone config to avoid leftovers from previous calls
-    var conf = JSON.parse(JSON.stringify(config));
+    var source = {};
 
     if (manifestUrl == null || manifestUrl === '') {
       if (drm == null || drm == '') {
-        conf.source = JSON.parse(JSON.stringify(noDrmSource));
+        source[manifestType] = noDrmSource[manifestType];
       } else {
-        conf.source = JSON.parse(JSON.stringify(defaultSource));
+        source[manifestType] = defaultSource[manifestType];
+        source[drm] = defaultSource.drm;
       }
     } else {
-      conf.source = {};
-      conf.source[manifestType] = manifestUrl;
+      source = {};
+      source[manifestType] = manifestUrl;
     }
 
     if (drm != null && drm !== '' && defaultSource.drm[drm]) {
       // If no licenceURL is provided use the one from the defaultSource for the given drm type
       licenceUrl = (licenceUrl !== '') ? licenceUrl : defaultSource.drm[drm]['LA_URL'];
-      conf.source['drm'] = {};
-      conf.source.drm[drm] = {'LA_URL': licenceUrl};
+      source['drm'] = {};
+      source.drm[drm] = { 'LA_URL': licenceUrl };
     }
 
-    if (!conf.source) {
-      conf.source = JSON.parse(JSON.stringify(noDrmSource));
+    if (!source) {
+      source[manifestType] = noDrmSource[manifestType];
     }
 
-    player.load(conf.source).catch(function (error) {
+    player.load(source).catch(function (error) {
       console.log(error);
     });
   }
@@ -303,9 +302,17 @@
     });
   }
 
+  function setManifestType() {
+    var browser = getBrowser();
+    
+    if (browser === BROWSER.IE || browser === BROWSER.EDGE) {
+      document.querySelector('#available-manifest-type').selectedIndex = 2;
+    }
+  }
 
-  getSupportedDRMSystem(true).then(function() {
-
+  getSupportedDRMSystem(true).then(function () {
+    
+    setManifestType();
     insertMseSupportList();
     insertEmeSupportList();
     loadPlayerFromControls();

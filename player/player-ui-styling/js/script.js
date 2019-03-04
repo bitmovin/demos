@@ -4,14 +4,16 @@ var conf = {
     key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
     videoId: 'player-ui-styling'
   },
-  source: {
-    dash: 'https://bitmovin-a.akamaihd.net/content/sintel/sintel.mpd',
-    hls: 'https://bitmovin-a.akamaihd.net/content/sintel/hls/playlist.m3u8',
-    poster: 'https://bitmovin-a.akamaihd.net/content/sintel/poster.png'
-  },
   playback: {
     muted: true
-  }
+  },
+  ui: false
+};
+
+var source = {
+  dash: 'https://bitmovin-a.akamaihd.net/content/sintel/sintel.mpd',
+  hls: 'https://bitmovin-a.akamaihd.net/content/sintel/hls/playlist.m3u8',
+  poster: 'https://bitmovin-a.akamaihd.net/content/sintel/poster.png'
 };
 
 var currentUiManager, isBigSeekbar = false, isSmallscreen = false;
@@ -19,7 +21,7 @@ var currentUiManager, isBigSeekbar = false, isSmallscreen = false;
 var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
 
-player.load(conf.source).then(function () {
+player.load(source).then(function () {
   currentUiManager = bitmovin.playerui.UIFactory.buildDefaultUI(player);
 });
 
