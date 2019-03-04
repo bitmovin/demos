@@ -15,7 +15,9 @@ var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
 
 function loadPlayer() {
-  player.load(source);
+  player.load(source).then(function() {
+    bitmovin.playerui.UIFactory.buildModernSmallScreenUI(player);
+  });
 }
 
 $(document).ready(function () {
