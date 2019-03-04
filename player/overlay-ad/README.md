@@ -1,7 +1,11 @@
 # Overlay Ad
 
-Enable static ads in the video player.
+Enable static ads in the video player
+To be defined.
 
 ### Tags
 
-  - TestTag
+  - advertisement
+  - overlay
+  - VAST
+  - VPAID
