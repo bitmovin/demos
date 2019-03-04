@@ -47,7 +47,7 @@ var conf = {
 
 var source = {
   hls: 'https://cdn.bitmovin.com/content/demos/4k/38e843e0-1998-11e9-8a92-c734cd79b4dc/manifest.m3u8',
-  poster: 'https://bitmovin-a.akamaihd.net/content/sintel/poster.png',
+  poster: 'https://bitmovin-a.akamaihd.net/webpages/demos/content/av1/poster_tos.jpg',
   labeling: {
     hls: {
       qualities: getQualityLabels
