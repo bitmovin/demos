@@ -1,7 +1,9 @@
 # Preload VoD
 
-Enable users to instantly start watching their content without buffering or waiting.
+Enable users to instantly start watching their content without buffering or waiting
+To be defined.
 
 ### Tags
 
-  - TestTag
+  - preload
+  - vod

@@ -1,7 +1,8 @@
 # 4K
 
 Enable users to watch 4K high-definition content
+To be defined.
 
 ### Tags
 
-  - TestTag
+  - To be defined
