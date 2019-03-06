@@ -8,7 +8,7 @@ var v8Conf = {
     videoId: 'player-performance-v8'
   },
   events: {
-    ready: function (e) {
+    sourceloaded: function (e) {
       document.getElementById('ready-v8').innerHTML = e.timestamp - pageLoadedTimestamp + 'ms';
     },
     play: function (e) {
