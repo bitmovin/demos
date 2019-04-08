@@ -32,6 +32,8 @@ window.onload = function getURLParams() {
     setDefaultManifest();
     loadPlayerFromControls(false);
   }
+
+  toggleInputFields();
 };
 
 var config = {
@@ -105,6 +107,29 @@ scheduleAdButton.addEventListener('click', function () {
   toggleInputFields();
 });
 
+var streamFormatButtons = document.getElementsByName('stream-format');
+streamFormatButtons.forEach(function(button) {
+  button.addEventListener('change', function () {
+    setURLParameterFromSelection();
+  });
+});
+
+var drmFormatButtons = document.getElementsByName('drm-format');
+drmFormatButtons.forEach(function(button) {
+  button.addEventListener('change', function () {
+    setURLParameterFromSelection();
+  });
+});
+
+var manifestInputField = document.getElementById('manifest-input');
+manifestInputField.addEventListener('keyup', function () {
+  setURLParameterFromSelection();
+});
+
+var drmInputField = document.getElementById('drm-license');
+drmInputField.addEventListener('keyup', function () {
+  setURLParameterFromSelection();
+});
 
 var streamRadioButtons = document.getElementsByName('stream-format');
 for (var i = 0; i < streamRadioButtons.length; i++) {
@@ -135,10 +160,20 @@ function setURLParameter(format, manifest, drm, license) {
   }
   var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?format=' + streamFormatValue + '&manifest=' + manifestValue;
 
-  if (drmValue && licenseValue) {
+  if (drmValue && drmValue !== 'none' && licenseValue) {
     newURL = newURL + '&drm=' + drmValue + '&license=' + licenseValue;
   }
   window.history.pushState({ path: newURL }, '', newURL);
+}
+
+function setURLParameterFromSelection() {
+  var manifestInput = document.querySelector('#manifest-input').value;
+  var licenceInput = document.querySelector('#drm-license').value;
+  var drmSystem = document.querySelector('[name="drm-format"]:checked').value;
+  var manifestType = document.querySelector('[name="stream-format"]:checked').value;
+
+  setURLParameter(manifestType, manifestInput, drmSystem, licenceInput);
+  toggleInputFields();
 }
 
 function handleKeyPress(keyEvent) {
@@ -351,6 +386,7 @@ function toggleInputFields() {
   var defaultCheckbox = document.querySelector('#default-manifest');
   var manifestInput = document.querySelector('#manifest-input');
   var licenceInput = document.querySelector('#drm-license');
+  var drmSystem = document.querySelector('[name="drm-format"]:checked').value;
 
   if (defaultCheckbox.checked) {
     manifestInput.readOnly = true;
@@ -377,6 +413,12 @@ function toggleInputFields() {
         adManifest.readOnly = false;
       }
     }
+  }
+
+  if (drmSystem === 'none') {
+    licenceInput.readOnly = true;
+  } else if (!defaultCheckbox.checked) {
+    licenceInput.readOnly = false;
   }
 }
 
