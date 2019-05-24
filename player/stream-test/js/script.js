@@ -107,14 +107,14 @@ scheduleAdButton.addEventListener('click', function () {
   toggleInputFields();
 });
 
-var streamFormatButtons = document.getElementsByName('stream-format');
+var streamFormatButtons = document.querySelectorAll("[name=stream-format]");
 streamFormatButtons.forEach(function(button) {
   button.addEventListener('change', function () {
     setURLParameterFromSelection();
   });
 });
 
-var drmFormatButtons = document.getElementsByName('drm-format');
+var drmFormatButtons = document.querySelectorAll("[name=drm-format]");
 drmFormatButtons.forEach(function(button) {
   button.addEventListener('change', function () {
     setURLParameterFromSelection();
