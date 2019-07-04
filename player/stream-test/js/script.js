@@ -72,7 +72,7 @@ var drmSource = {
   drm: {
     none: '',
     widevine: 'https://widevine-proxy.appspot.com/proxy',
-    playready: 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&#038;ContentKey=EAtsIJQPd5pFiRUrV9Layw=='
+    playready: 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&ContentKey=EAtsIJQPd5pFiRUrV9Layw=='
   }
 };
 
