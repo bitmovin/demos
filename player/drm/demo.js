@@ -14,7 +14,7 @@ var source = {
       LA_URL: 'https://widevine-proxy.appspot.com/proxy'
     },
     playready: {
-      LA_URL: 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&#038;ContentKey=EAtsIJQPd5pFiRUrV9Layw=='
+      LA_URL: 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&ContentKey=EAtsIJQPd5pFiRUrV9Layw=='
     }
   }
 };
