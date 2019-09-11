@@ -1,8 +1,25 @@
 (function () {
-  var player, timeout;
+  var bitmovinPlayer;
 
-  var playerKey = '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30';
   var poster = 'https://bitmovin-a.akamaihd.net/webpages/demos/content/av1/poster_tos.jpg';
+
+  var config = {
+    key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
+    analytics: {
+      key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+      videoId: 'av1'
+    },
+    events: {
+      error: function (error) {
+        if (error == null || error.message == null) {
+          $('<div> This browser does not seem to support (this version of) AV1, please try ' + getBrowserLink() + '.</div>').appendTo('#player-wrapper');
+        }
+      }
+    },
+    playback: {
+      muted: true
+    }
+  };
 
   var assets = [
     {
@@ -17,21 +34,14 @@
     }
   ];
 
-  var analyticsConfig = {
-    key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
-    videoId: 'av1'
-  }
-
-  var analytics = bitmovin.analytics(analyticsConfig);
-
   function setPlayer() {
-    if (player) {
-      player.destroy();
+    if (bitmovinPlayer != null) {
+      bitmovinPlayer.destroy();
     }
 
-    player = bitmovin.player('player');
-    analytics.register(player);
-    return player;
+    var playerContainer = document.getElementById('player-container');
+    bitmovinPlayer = new bitmovin.player.Player(playerContainer, config);
+    return bitmovinPlayer;
   }
 
   function isChrome() {
@@ -52,25 +62,12 @@
     return {};
   }
 
-  function getConfig() {
+  function getSource() {
     var asset = getAsset();
 
     return {
-      key: playerKey,
-      source: {
         dash: asset.url,
         poster: asset.poster
-      },
-      playback: {
-        muted: true
-      },
-      events: {
-        error: function (error) {
-          if (!error || !error.message) {
-            onPlayerError('Could not load AV1 stream. Please try to update your browser.');
-          }
-        }
-      }
     };
   }
 
@@ -90,31 +87,5 @@
     return firefoxNightly + ' or ' + chromeCanary;
   }
 
-  function firePlayerError(customMessage) {
-    player.fireEvent('onError', {
-      message: customMessage || 'This browser does not seem to support (this version of) AV1, please try ' + getBrowserLink() + '.'
-    });
-  }
-
-  function onPlayerCreated(player) {
-    var config = player.getConfig();
-    if (!config.source || !config.source.dash) {
-      onPlayerError();
-    }
-  }
-
-  function onPlayerError(customMessage) {
-    setPlayer().setup({
-      key: playerKey
-    }).then(function () {
-      clearTimeout(timeout);
-      timeout = setTimeout(function () {
-        firePlayerError(customMessage);
-      }, 500)
-    });
-  }
-
-  setPlayer().setup(getConfig())
-    .then(onPlayerCreated, onPlayerError)
-    .catch(onPlayerError);
+  setPlayer().load(getSource());
 })();
