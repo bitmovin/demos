@@ -289,9 +289,9 @@ var assets = [
    * Add your own assets here
    */
   {
-    name: '24 FPS',
+    name: 'Sintel SMTPE timestamps, 24 FPS',
     source: {
-      progressive: '//bitdash-a.akamaihd.net/content/art-of-motion-frame-numbers/artofmotion_24fps_framenumbers.mp4'
+      progressive: 'https://s3-eu-west-1.amazonaws.com/bitmovin-api-eu-west1-ci-input/audio_tests/expected_files/dynamicFontSizeExpression_withInput720p_from_1080p_20191025.mp4'
     },
     frameRate: 24,
   },
