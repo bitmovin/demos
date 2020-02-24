@@ -14,10 +14,7 @@ var source = {
 var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
 
-function loadPlayer() {
-  player.load(source);
-}
 
 $(document).ready(function () {
-  loadPlayer();
+  player.load(source);
 });
