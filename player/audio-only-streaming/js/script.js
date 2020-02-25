@@ -3,7 +3,8 @@ var conf = {
   analytics: {
     key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
     videoId: 'audio-only-streaming'
-  }
+  },
+  ui: false
 };
 
 var source = {
@@ -13,7 +14,7 @@ var source = {
 
 var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
-
+bitmovin.playerui.UIFactory.buildModernSmallScreenUI(player);
 
 $(document).ready(function () {
   player.load(source);
