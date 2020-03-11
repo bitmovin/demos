@@ -1,3 +1,5 @@
+**Don't create PRs for this project, demos are not in [demo-framework](https://github.com/bitmovin/demo-framework)**
+
 # Bitmovin Demos
 [![bitmovin](http://bitmovin-a.akamaihd.net/webpages/bitmovin-logo-github.png)](http://www.bitmovin.com)
 
