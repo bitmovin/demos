@@ -67,4 +67,28 @@
             </p>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-lg-6 info-column">
+            <h2>Cast to a Cast Application Framework (CAF) compatible receiver</h2>
+
+            <p>
+                By setting <code>receiverVersion</code> to <code>v3</code> the player is able to cast to CAF receivers.
+                The <code>receiverApplicationId</code> must belong to a valid CAF receiver, like the <a href="https://github.com/bitmovin/bitmovin-player-caf-receiver">bitmovin CAF receiver</a>.
+            </p>
+
+            <p>
+                By utilizing the <a href="https://cdn.bitmovin.com/player/web/8/docs/interfaces/core.playerapi.html#addmetadata">addmetadata</a> player API 
+                it is possible to send custom messages from the player to the cast receiver. 
+                When sending custom messages, <code>messageNamespace</code> must be the same value as registered on the receiver side.
+            </p>
+
+            <p>
+                When casting to a CAF receiver, the current DRM configuration is automatically taken from the players source.
+            </p>
+        </div>
+        <div class="col-lg-6 code-col">
+            ${code:caf.js}
+        </div>
+      </div>
 </div>
