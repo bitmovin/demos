@@ -11,10 +11,12 @@ code:
   language: js
   files:
     - demo.js
+    - caf.js
 
 tags:
   - chromecast
   - television
   - cast
+  - caf
 
 priority: 820

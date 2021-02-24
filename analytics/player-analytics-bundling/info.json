@@ -1,0 +1,20 @@
+{
+  "title": "Player and Analytics Bundling",
+  "description": "Optimize every play with no additional setup",
+  "long_description": "See how the new bundling of the player and analytics works. You get analytics data points instantly, without additional setup. Start analyzing your impressions right away.",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "tags": [
+    "player",
+    "analytics",
+    "bundling",
+    "no setup",
+    "insights"
+  ],
+  "additionalCategories": [
+    "player"
+  ],
+  "hide_github_link": true
+}

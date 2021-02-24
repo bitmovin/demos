@@ -1,0 +1,12 @@
+{
+  "title": "Frame Accurate Seeking",
+  "description": "Enable users to quickly scan and find the exact scene or frame they're looking for",
+  "long_description": "Test long description.",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "tags": [
+    "TestTag"
+  ]
+}

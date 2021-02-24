@@ -14,6 +14,10 @@ body .demo-detail .code-example {
     margin-top: 0;
 }
 
+a {
+    font-size: 18px;
+}
+
 @media (max-width: 1200px) {
     .lgImg {
         display: none;

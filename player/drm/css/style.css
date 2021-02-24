@@ -52,10 +52,12 @@ body .demo-detail .code-example {
 
 .code ul li.supported, .yes {
     color: rgb(0, 148, 227);
+    font-size: 18px;
 }
 
 .code ul li.unsupported, .no {
     color: rgb(160, 160, 160);
+    font-size: 18px;
 }
 
 .code ul li::before {

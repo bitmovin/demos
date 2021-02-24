@@ -1,0 +1,25 @@
+{
+  "title": "Picture in Picture",
+  "description": "Showcases the ability to keep a minimized player in the corner of your screen when you scroll too far",
+  "long_description": "Picture in picture is a great feature for screens with more content than just the video, or screens with multiple videos. See it in action here.",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "code": {
+    "show_code": true,
+    "language": "js",
+    "files": [
+      "setup.js",
+      "scrollListener.js",
+      "magic.css"
+    ]
+  },
+  "tags": [
+    "picture",
+    "mini",
+    "advanced",
+    "PiP",
+    "sticky"
+  ]
+}

@@ -1,3 +1,6 @@
+a {
+    font-size: 18px;
+}
 @media (min-width: 1200px) {
     body .demo-detail .code-example {
         margin-top: 0;

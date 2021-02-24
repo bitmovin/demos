@@ -12,7 +12,7 @@ code:
   files:
     - setup.js
     - scrollListener.js
-    - magic.css:css
+    - magic.css
 
 tags:
   - picture

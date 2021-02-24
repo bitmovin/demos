@@ -1,29 +1,37 @@
 var playTimestamp;
 
-var humanizeBitrate = function(bitrate){
-    var mbit = bitrate / 1000000;
-    var rounded = mbit < 3 ? Math.round(mbit * 10) / 10 : Math.round(mbit);
-    return rounded + 'Mbit';
+var humanizeBitrate = function(bitrate) {
+  var mbit = bitrate / 1000000;
+  var rounded = mbit < 3 ? Math.round(mbit * 10) / 10 : Math.round(mbit);
+  return rounded + 'Mbit';
 };
 
-var getQualityLabels = function (data) {
-    if (data.height <= 144) {
-      return '144p (' + humanizeBitrate(data.bitrate) + ')';
-    } else if (data.height <= 240) {
-      return '240p (' + humanizeBitrate(data.bitrate) + ')';
-    } else if (data.height <= 360) {
-      return '360p (' + humanizeBitrate(data.bitrate) + ')';
-    } else if (data.height <= 480) {
-      return 'SD 480p (' + humanizeBitrate(data.bitrate) + ')';
-    } else if (data.height <= 720) {
-      return 'HD 720p (' + humanizeBitrate(data.bitrate) + ')';
-    } else if (data.height <= 1080) {
-      return 'HD 1080p (' + humanizeBitrate(data.bitrate) + ')';
-    } else if (data.height <= 1440) {
-      return 'HD 1440p (' + humanizeBitrate(data.bitrate) + ')';
-    } else if (data.height <= 2160) {
-      return '4K 2160p (' + humanizeBitrate(data.bitrate) + ')';
-    }
+var formatBitrate = function(bitrate) {
+  return '(' + humanizeBitrate(bitrate) + ')';
+};
+
+var getQualityLabels = function(data) {
+  var label;
+  if (data.height <= 144) {
+    label = '144p';
+  } else if (data.height <= 240) {
+    label = '240p';
+  } else if (data.height <= 360) {
+    label = '360p';
+  } else if (data.height <= 480) {
+    label = 'SD 480p';
+  } else if (data.height <= 720) {
+    label = 'HD 720p';
+  } else if (data.height <= 1080) {
+    label = 'HD 1080p';
+  } else if (data.height <= 1440) {
+    label = 'HD 1440p';
+  } else if (data.height <= 2160) {
+    label = '4K 2160p';
+  } else {
+    return '';
+  }
+  return label + ' ' + formatBitrate(data.bitrate);
 };
 
 var conf = {
@@ -33,15 +41,12 @@ var conf = {
     videoId: '4k'
   },
   events: {
-    play: function (e) {
+    play: function(e) {
       playTimestamp = e.timestamp;
     },
-    playing: function (e) {
+    playing: function(e) {
       document.getElementById('startup').innerHTML = e.timestamp - playTimestamp + 'ms';
     }
-  },
-  playback: {
-    muted: true
   }
 };
 
@@ -58,12 +63,6 @@ var source = {
 var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
 
-function loadPlayer() {
-  player.load(source).then(function() {
-    player.setVideoQuality('1600_50128000');
-  });
-}
-
-$(document).ready(function () {
-  loadPlayer();
+player.load(source).then(function() {
+  player.setVideoQuality('1600_50128000');
 });

@@ -74,6 +74,19 @@ function resetDiff() {
   switchTime = null;
 }
 
+document.getElementById('ch1').addEventListener('click', function(event) {
+     switchChannel('1', event);
+});
+
+document.getElementById('ch2').addEventListener('click', function(event) {
+  switchChannel('2', event);
+});
+
+document.getElementById('ch3').addEventListener('click', function(event) {
+  switchChannel('3', event);
+});
+
+
 function switchChannel(channelID, event) {
   var delay = 0;
 

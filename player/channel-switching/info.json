@@ -1,0 +1,22 @@
+{
+  "title": "Fast Channel Switching",
+  "description": "Switch between two channels without destroying the player and speeding up the process",
+  "long_description": "This interactive video demo showcases the Bitmovin Player’s ability to switch between channels, quickly and seamlessly. Try this three channel demo.",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "code": {
+    "show_code": true,
+    "language": "js",
+    "files": [
+      "setup.js",
+      "switchChannel.js"
+    ]
+  },
+  "tags": [
+    "switch",
+    "load",
+    "channel"
+  ]
+}

@@ -6,6 +6,10 @@ body .demo-detail .code-example {
     margin-top: 0;
 }
 
+a {
+    font-size: 18px;
+}
+
 @media (min-width: 1200px) {
     .player-col {
         float: left;

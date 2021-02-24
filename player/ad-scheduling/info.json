@@ -1,0 +1,23 @@
+{
+  "title": "Ad Scheduling",
+  "description": "Schedule VAST / IMA / VPAID ads at your desired time",
+  "long_description": "This demo showcases the Bitmovin Player’s ad insertion capabilities. The player can be used with different advertising standards, namely VAST, VPAID, IMA and VMAP.",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "code": {
+    "show_code": true,
+    "language": "js",
+    "files": [
+      "dynamic-schedule.js"
+    ]
+  },
+  "tags": [
+    "advertisement",
+    "VAST",
+    "IMA",
+    "VPAID"
+  ],
+  "priority": 860
+}

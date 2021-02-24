@@ -2,6 +2,10 @@
     margin-bottom: 20px;
 }
 
+a {
+    font-size: 18px;
+}
+
 @media (min-width: 1200px) {
     .code-col {
         float: right;

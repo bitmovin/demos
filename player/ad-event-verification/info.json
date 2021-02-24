@@ -1,0 +1,20 @@
+{
+  "title": "Ad Event Verification",
+  "description": "Enable ad event reporting",
+  "long_description": "To be defined.",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "code": {
+    "show_code": true,
+    "language": "js",
+    "files": [
+      "setup.js",
+      "adEvents.js"
+    ]
+  },
+  "tags": [
+    "To be defined"
+  ]
+}

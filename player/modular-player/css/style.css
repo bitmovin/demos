@@ -15,6 +15,16 @@
     color: black;
 }
 
+
+.image-swap .btn {
+    white-space: nowrap;
+}
+
+.accordion>.card:not(:last-of-type){
+    border-bottom: 1px solid rgba(0,0,0,.125) !important;
+    margin-bottom: .5rem !important;
+}
+
 @media (min-width: 1200px) {
     .size-small {
         display: none !important;
