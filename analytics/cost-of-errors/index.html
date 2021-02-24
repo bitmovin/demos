@@ -1,0 +1,166 @@
+<p class="text-justify">
+  Errors and any other interruptions are one of the major sources of frustration for customers.
+  Vimeo recently released data that says that 6% of SVOD users churn due to technical reasons. So in
+  essence there is a real cost to every error that a viewer on your platform experiences. We made
+  the effort to calculate how costly an error is.
+</p>
+
+
+<h2 class="my-3">AVOD<a href="#avodFootnote" target="_self" class="btm-footnote"></a></h2>
+<p class="text-justify">
+  <a
+    href="https://www.researchgate.net/publication/261045256_Video_Stream_Quality_Impacts_Viewer_Behavior_Inferring_Causality_Using_Quasi-Experimental_Designs"
+    target="_blank" style="font-size: 18px">S. Shunmuga Krishnan and Ramesh K. Sitaraman</a> have
+  calculated that “a viewer
+  who experienced failure is 2.32% less likely to revisit the same site within a week”. Based on
+  this research we created the following calculator:
+</p>
+<div class="container">
+  <div class="row align-items-end">
+    <div class="col-md-5">
+      <form id="avod-form" novalidate>
+        <div class="form-group">
+          <label class="form-control-label" for="averageCPMInput">Average CPM</label>
+          <div class="input-group mb-3">
+            <input id="averageCPMInput"
+                   class="form-control"
+                   type="number"
+                   min="0"
+                   step="0.01"
+                   disabled
+                   aria-label="Average CPM">
+            <div class="input-group-append"><span class="input-group-text">$</span></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="weeklyRecurringViewersInput">Weekly recurring viewers</label>
+          <div class="input-group mb-3">
+            <input id="weeklyRecurringViewersInput"
+                   class="form-control"
+                   type="number"
+                   min="0"
+                   step="0.01"
+                   disabled
+                   aria-label="Weekly recurring viewers">
+            <div class="input-group-append"><span class="input-group-text">%</span></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="playsPerUniquePerWeekInput">Plays per unique per week</label>
+          <input id="playsPerUniquePerWeekInput"
+                 class="form-control"
+                 type="number"
+                 min="0"
+                 step="0.01"
+                 disabled
+                 aria-label="Plays per unique per week">
+        </div>
+
+        <div class="form-group">
+          <label for="adsPerPlayInput">Ads per play</label>
+          <input id="adsPerPlayInput"
+                 class="form-control"
+                 type="number"
+                 min="0"
+                 step="0.01"
+                 disabled
+                 aria-label="Ads per play">
+        </div>
+      </form>
+    </div> <!--col-->
+    <div class="col-md-7">
+      <div class="p-3 mb-2 bg-light">
+        <div>The cost of 1000 errors based on your inputs is</div>
+        <div id="avod-costs" class="font-weight-bold" style="font-size: 24px">--</div>
+      </div>
+    </div> <!--col-->
+  </div><!--row-->
+</div><!--container-->
+
+
+<h2 class="my-3">SVOD<a href="#svodFootnote" target="_self" class="btm-footnote"></a></h2>
+<p class="text-justify">
+  Using Vimeo’s “Technical Churn Rate” of 6% we calculate how much a decrease in errors can prolong
+  the customer lifetime value for this particular churn reason.
+</p>
+<div class="container">
+  <div class="row align-items-end">
+    <div class="col-md-5">
+      <form id="svod-form" novalidate>
+        <div class="form-group">
+          <label class="form-control-label" for="playsPerSubscriberInput">Plays per
+            subscriber</label>
+          <input id="playsPerSubscriberInput"
+                 class="form-control"
+                 type="number"
+                 min="0"
+                 step="0.01"
+                 disabled
+                 aria-label="Plays per subscriber">
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="currentErrorPercentageInput">Current error
+            percentage</label>
+          <div class="input-group mb-3">
+            <input id="currentErrorPercentageInput"
+                   class="form-control"
+                   type="number"
+                   min="0"
+                   step="0.01"
+                   disabled
+                   aria-label="Current error percentage">
+            <div class="input-group-append"><span class="input-group-text">%</span></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="targetErrorDecreaseInput">Target error
+            decrease</label>
+          <div class="input-group mb-3">
+            <input id="targetErrorDecreaseInput"
+                   class="form-control"
+                   type="number"
+                   min="0"
+                   step="0.01"
+                   disabled
+                   aria-label="Target error decrease">
+            <div class="input-group-append"><span class="input-group-text">%</span></div>
+          </div>
+        </div>
+      </form>
+    </div><!--col-->
+    <div class="col-md-7">
+      <div class="p-3 mb-2 bg-light">
+        <div>Based on the inputs you provided, the lifetime value for the technical churn reason viewer segment can be prolonged by</div>
+        <div id="svod-rate" class="font-weight-bold" style="font-size: 24px">--</div>
+      </div>
+    </div><!--col-->
+  </div><!--row-->
+</div><!--container-->
+
+
+<div class="mt-5">
+  <ol>
+    <li class="mb-2" style="font-size: 12px;">
+      <span id="avodFootnote">Formula Cost per AVOD Error: [Plays per Unique] x [CPM] x [Ads per play] x [Recurring viewers] x [% less likely to return]</span>
+    </li>
+    <li class="mb-2" style="font-size: 12px;">
+      <span id="svodFootnote">Formula SVOD rate: ( [# of errors over LTV] - ( [# of errors over LTV] x (1 - [Target error decrease] ))) x [Errors per day] / [LTV]</span>
+    </li>
+  </ol>
+</div>
+
+
+<div class="mt-5">
+  <small class="d-inline-block font-weight-bold">Disclaimer</small>
+  <small class="d-inline-block text-justify">The Bitmovin Analytics Demo is provided on an ‘AS IS’
+    and ‘AS AVAILABLE’ basis, and to the fullest extent permitted by mandatory law, Bitmovin will
+    not be liable for any damages whatsoever, including and not limited to, loss of business or
+    profits or any direct, indirect or consequential loss arising from reliance and use of these
+    models where any action taken on such basis is strictly at the user's own risk.</small>
+</div>
+
+
