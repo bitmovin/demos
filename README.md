@@ -1,7 +1,19 @@
 # Bitmovin Demos
 [![bitmovin](http://bitmovin-a.akamaihd.net/webpages/bitmovin-logo-github.png)](http://www.bitmovin.com)
 
-### Creating a demo
+# Introduction
+Welcome to Bitmovin demos. Our demo page is hosted at [bitmovin.com/demos](https://bitmovin.com/demos/).
+This repository is used as a reference to integrating our player into your products.
+
+## Testing a demo
+
+If you wish to test a demo, you can either browse one of our demos hosted on our [demo page](https://bitmovin.com/demos/) or 
+navigate to a demo inside one of our products, for example [player/4k](./player/4k) and follow these steps:
+  1. Copy the `index.html`
+  1. Replace the`${code:setup.js}` (depending on the demo name may vary) with the contents, wrapping it with a `<script>` tag
+  1. Open your custom webpage
+
+## Creating a demo
 In order to create a new demo, you need to create a new folder (with new demo name) in either the
 [demos/encoding](./demos/analytics), [demos/encoding](./demos/encoding) or [demos/player](./demos/player) folder,
 depends on demo category, with the following contents:
@@ -11,12 +23,6 @@ depends on demo category, with the following contents:
 - `icon.svg` (optional) - The demo icon
 - `css/` (optional) - Add custom `.css` files withing this folder
 - `js/` (optional) - Add custom `.js` files within this folder
-
-## How to publish / deploy a new demo into production
-
-Once a feature branch with your new demo is merged to `develop`, your changes will be built and published automatically to production by Netlify.
-
----
 
 ## Demo `yaml.info` file structure
 
