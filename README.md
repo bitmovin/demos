@@ -3,7 +3,7 @@
 
 # Introduction
 Welcome to Bitmovin demos. Our demo page is hosted at [bitmovin.com/demos](https://bitmovin.com/demos/).
-This repository is used as a reference to integrating our player into your products.
+This repository is meant to be used as a reference when integrating our player into your products.
 
 ## Testing a demo
 
@@ -16,7 +16,7 @@ navigate to a demo inside one of our products, for example [player/4k](./player/
 ## Creating a demo
 In order to create a new demo, you need to create a new folder (with new demo name) in either the
 [demos/encoding](./demos/analytics), [demos/encoding](./demos/encoding) or [demos/player](./demos/player) folder,
-depends on demo category, with the following contents:
+depending on the category of the demo, with the following contents:
 
 - `info.yaml` (required) - Demo configuration
 - `index.html` (optional) - Entry point of the demo
@@ -55,7 +55,7 @@ A mandatory section defining the contents of the demo detail page
 - `executable`: `true` or `false`  
   Specifies if the files should be rendered in native html and contain code that will be replaced during compilation
 - `indexfile`: e.g. `index.html`  
-  Sets the root file which is used to be rendered as the content of the demo
+  Sets the root file which is rendered as the content of the demo
 
 #### `code` (list, optional)
 
