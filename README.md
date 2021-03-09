@@ -53,7 +53,7 @@ An optional short description which will be displayed in the overview. In the de
 A mandatory section defining the contents of the demo detail page
 
 - `executable`: `true` or `false`  
-  Specifies if the files should be rendered in native html and contain code
+  Specifies if the files should be rendered in native html and contain code that will be replaced during compilation
 - `indexfile`: e.g. `index.html`  
   Sets the root file which is used to be rendered as the content of the demo
 
