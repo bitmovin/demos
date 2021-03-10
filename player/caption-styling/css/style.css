@@ -8,6 +8,10 @@
     font-size: 18px;
 }
 
+.cc-demo p a {
+    font-size: 18px;
+}
+
 #player {
     margin-bottom: 20px;
 }

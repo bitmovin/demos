@@ -2,6 +2,10 @@ body .vr-demo p {
     font-size: 18px;
 }
 
+body .vr-demo p a {
+    font-size: 18px;
+}
+
 div.input-hint {
     display: none;
 }

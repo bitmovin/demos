@@ -1,4 +1,4 @@
-window.onload = function getURLParams() {
+function getURLParams() {
   var manifestParam = getParamsQueryString('manifest');
   var streamFormatParam = getParamsQueryString('format');
   var licenseParam = getParamsQueryString('license');
@@ -790,3 +790,4 @@ function handleError(error, type) {
 }
 
 setupChart();
+getURLParams();

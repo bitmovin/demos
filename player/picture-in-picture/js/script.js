@@ -51,6 +51,10 @@
   function adjustPlayer() {
     var container = $('.player-container');
 
+    if(container.length === 0) {
+      return;
+    }
+
     // extract constants for better readabilty
     var lowerEdge = container.offset().top + container.height();
     var switchToMinPlayerPos = lowerEdge - (window.innerHeight / 3);

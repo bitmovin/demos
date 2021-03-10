@@ -1,0 +1,14 @@
+{
+  "title": "Cost of errors",
+  "description": "Calculate the cost impact of errors",
+  "long_description": "Calculate the cost impact of errors using custom inputs from your video platform",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "tags": [
+    "analytics",
+    "cost of errors"
+  ],
+  "hide_github_link": true
+}

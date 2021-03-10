@@ -25,7 +25,8 @@ player.load(source).then(function () {
   currentUiManager = bitmovin.playerui.UIFactory.buildDefaultUI(player);
 });
 
-function toggleSmallScreenUI() {
+
+document.getElementById('smallscreen').addEventListener('click', function() {
   currentUiManager.release();
   if (!isSmallscreen) {
     currentUiManager = bitmovin.playerui.UIFactory.buildModernSmallScreenUI(player);
@@ -33,28 +34,30 @@ function toggleSmallScreenUI() {
     currentUiManager = bitmovin.playerui.UIFactory.buildDefaultUI(player);
   }
   isSmallscreen = !isSmallscreen;
-}
+});
 
-function toggleWatermark() {
+
+document.getElementById('watermark').addEventListener('click', function() {
   $('.bmpui-ui-watermark').toggle();
-}
+});
 
-function giantSeekBar() {
+
+document.getElementById('bigseek').addEventListener('click', function() {
   $('.bmpui-ui-seekbar').css('font-size', isBigSeekbar ? '1em' : '3em');
   isBigSeekbar = !isBigSeekbar;
-}
+});
 
-function toGreen() {
-  toggleColorClass('green', '.bmpui-seekbar-backdrop')
-}
+document.getElementById('color2').addEventListener('click', function() {
+  toggleColorClass('green', '.bmpui-seekbar-backdrop');
+});
 
-function toOrange() {
-  toggleColorClass('orange', '.bmpui-seekbar-backdrop')
-}
+document.getElementById('color1').addEventListener('click', function() {
+  toggleColorClass('orange', '.bmpui-seekbar-backdrop');
+});
 
-function toggleRedBufferLevel() {
+document.getElementById('redbuffer').addEventListener('click', function() {
   toggleColorClass('red', '.bmpui-seekbar-bufferlevel')
-}
+});
 
 function toggleColorClass(colorClassName, elementClass) {
   var allElements = document.querySelectorAll(elementClass);

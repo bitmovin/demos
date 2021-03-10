@@ -191,6 +191,9 @@
   function updateThumbnails() {
     var chartArea = myLineChart.chartArea;
     var tmpThumb = player.getThumbnail(0);
+    if (tmpThumb == null) {
+      return;
+    }
     var chartWidth = chartArea.right - chartArea.left;
     var thumbnailWidth = chartWidth / MAX_SEGMENT_VIEW_COUNT;
     var ratio = thumbnailWidth / tmpThumb.width;

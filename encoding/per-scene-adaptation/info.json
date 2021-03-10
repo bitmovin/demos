@@ -1,0 +1,19 @@
+{
+  "title": "Per-Scene Adaptation",
+  "description": "Save up to 30% on CDN costs and improve QoE with Per-Scene Adaptation",
+  "long_description": "Per-Scene offers another method to improve quality and or reduce bandwidth consumption by enabling the player to anticipate content complexity.",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "tags": [
+    "experimental",
+    "adaptation",
+    "scene",
+    "encoding"
+  ],
+  "additionalCategories": [
+    "player"
+  ],
+  "priority": 950
+}
