@@ -2,7 +2,7 @@ function isIOS() {
   return /iPad|iPhone|iPod/.test(navigator.platform);
 };
 
-if (!isIOS()) {
+if (isIOS()) {
   showNotSupportedMessage();
 } else {
   setupPlayer();
