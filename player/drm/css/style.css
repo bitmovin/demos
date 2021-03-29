@@ -119,7 +119,7 @@ body .demo-detail .code-example {
     margin-top: 47px;
 }
 
-#bitmovinplayer-video-player-container{
+#bitmovinplayer-video-player-container, #player-container {
     border-radius: 0 !important;
 }
 
