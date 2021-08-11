@@ -7,4 +7,4 @@ executable:
   indexfile: index.html
 
 tags:
-  - TestTag
+  - seek
