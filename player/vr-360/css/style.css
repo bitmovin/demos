@@ -10,23 +10,6 @@ div.input-hint {
     display: none;
 }
 
-#player.is-unsupported {
-    height: 100%;
-    margin: 15px 0;
-}
-
-#player.is-unsupported #player-container {
-    min-height: 150px;
-    min-width: 260px;
-    display: flex;
-    align-items: center;
-}
-
-.message-not-supported {
-    padding: 0 60px;
-    font-size: 18px;
-}
-
 @media (min-width: 991px) {
     div.input-hint {
         margin-top: 30px;
@@ -98,11 +81,4 @@ body .demo-detail .description {
 body:not(.fullscreen) :not(.no-frame).phone-frame::before {
     top: 0;
     left: 0;
-}
-
-@media (max-width: 767px) {
-    .message-not-supported {
-        border: 1px solid #dee2e6;
-        padding: 20px;
-    }
 }
