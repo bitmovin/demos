@@ -1,0 +1,62 @@
+.map-legend{
+    height: 16px;
+    width: 20px; 
+    margin-left: 2px;
+}
+
+.map-legend-text-size{
+    font-size: 13px !important;
+}
+
+.country{
+    font-weight: 600;
+    font-size: 18px; 
+    display: inline-block;
+    margin-bottom: 0px !important;
+    vertical-align: bottom;
+    color: #0D3841;
+}
+
+.metric-text{
+    font-size: 13px !important;
+    margin-bottom: 0px !important;
+    margin-top: 8px;
+}
+
+.metric-value{
+    font-weight: 600;
+    font-size: 24px !important; 
+    margin-bottom: 16px !important;
+    color: #0D3841;
+}
+
+.box-border{
+    box-shadow: inset 1px 0px 0px #CBE0ED;
+}
+
+.text-label {
+    margin-left: 8px;
+}
+
+.chart-legend-extra-dark{
+    background-color: rgb(0, 107, 255);
+}
+.chart-legend-dark{
+    background-color: rgba(0, 107, 255, 0.8);
+}
+.chart-legend-medium{
+    background-color: rgba(0, 107, 255, 0.6);
+}
+.chart-legend-neutral{
+    background-color: rgba(0, 107, 255, 0.4);
+}
+.chart-legend-light{
+    background-color: rgba(0, 107, 255, 0.2);
+}
+.chart-legend-extra-light{
+    background-color: rgba(0, 107, 255, 0.05);
+}
+.chart-legend-no-data{
+    background-color: #DCDFE4; 
+    margin-left: 24px;
+}

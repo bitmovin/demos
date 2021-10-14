@@ -1,0 +1,14 @@
+{
+    "title": "Industry Insights Demo",
+    "description": "Industry Insights",
+    "executable": {
+      "executable": false,
+      "indexfile": "index.html"
+    },
+    "tags": [
+      "analytics",
+      "industry insights"
+    ],
+    "hide_github_link": true
+  }
+  
