@@ -37,30 +37,30 @@ function getIndustryInsightsData(url, callbackFunction) {
 }
 
 function showMedianStartupTimeChart() {
-       // todo check real ranges
+    // todo check real ranges
     const dataClasses = [
         {
             from: 10
         },
         {
+            to: 10,
             from: 7.5,
-            to: 10
         },
         {
+            to: 7.5,
             from: 6,
-            to: 7.5
         },
         {
+            to: 6,
             from: 4.5,
-            to: 6
         },
         {
+            to: 4.5,
             from: 3,
-            to: 4.5
         },
         {
+            to: 3,
             from: 1.5,
-            to: 3
         },
         {
             to: 1.5
@@ -78,7 +78,6 @@ function showMedianStartupTimeChart() {
             name: res.countryCode,
         }));
 
-      
         drawChart(data, 'Median video startup time', 'Seconds', 's', dataClasses);
     });
 }
@@ -87,36 +86,36 @@ function showErrorPercentageChart() {
     // todo check real ranges
     const dataClasses = [
         {
-            from: 2.8
+            from: 2.4
         },
         {
+            to: 2.4,
             from: 2.0,
-            to: 2.4
         },
         {
+            to: 2.0,
             from: 1.6,
-            to: 2.0
         },
         {
+            to: 1.6,
             from: 1.2,
-            to: 1.6
         },
         {
+            to: 1.2,
             from: 0.8,
-            to: 1.2
         },
         {
+            to: 0.8,
             from: 0.4,
-            to: 0.8
         },
         {
             to: 0.4
         }];
-        $('#startupTimeContent').hide();
-        $('#errorPercentageContent').show();
-        $('#rebufferPercentageContent').hide();
-        $('#metricLegend').html('Error percentage (%)');
-        $('#legend_max_value').html('3');
+    $('#startupTimeContent').hide();
+    $('#errorPercentageContent').show();
+    $('#rebufferPercentageContent').hide();
+    $('#metricLegend').html('Error percentage (%)');
+    $('#legend_max_value').html('3');
     getIndustryInsightsData(INDUSTRY_INSIGHT_ERROR_PERCENTAGE_URL, (response) => {
         const data = response.map((res, i) => ({
             code: res.countryCode.toUpperCase(),
@@ -129,51 +128,125 @@ function showErrorPercentageChart() {
 }
 
 function showRebufferPercentageChart() {
-       // todo check real ranges
+    // todo check real ranges
     const dataClasses = [
         {
-            from: 2.8
+            from: 2.4
         },
         {
+            to: 2.4,
             from: 2.0,
-            to: 2.4
         },
         {
+            to: 2.0,
             from: 1.6,
-            to: 2.0
         },
         {
+            to: 1.6,
             from: 1.2,
-            to: 1.6
         },
         {
+            to: 1.2,
             from: 0.8,
-            to: 1.2
         },
         {
+            to: 0.8,
             from: 0.4,
-            to: 0.8
         },
         {
             to: 0.4
         }];
 
-        $('#startupTimeContent').hide();
-        $('#errorPercentageContent').hide();
-        $('#rebufferPercentageContent').show();
-        $('#metricLegend').html('Rebuffer percentage (%)');
-        $('#legend_max_value').html('3');
+    $('#startupTimeContent').hide();
+    $('#errorPercentageContent').hide();
+    $('#rebufferPercentageContent').show();
+    $('#metricLegend').html('Rebuffer percentage (%)');
+    $('#legend_max_value').html('3');
     getIndustryInsightsData(INDUSTRY_INSIGHT_REBUFFER_PERCENTAGE_URL, (response) => {
         const data = response.map((res, i) => ({
             code: res.countryCode.toUpperCase(),
             value: parseFloat(res.value).toFixed(2),
             name: res.countryCode
         }));
+
         drawChart(data, 'Rebuffer Percentage', 'Percentage', '%', dataClasses);
     })
 }
 
 function drawChart(data, metric, unit, unitAbb, dataClasses) {
+    if ($.isEmptyObject(mapChart)) {
+        mapChart = Highcharts
+            .mapChart('container', {
+                title: {
+                    text: ''
+                },
+                chart: {
+                    map: map,
+                },
+                colors: ['rgba(0, 107, 255, 1)',
+                    'rgba(0, 107, 255, 0.8)',
+                    'rgba(0, 107, 255, 0.6)',
+                    'rgba(0, 107, 255, 0.4)',
+                    'rgba(0, 107, 255, 0.2)',
+                    'rgba(0, 107, 255, 0.05)'
+                ],
+                mapNavigation: {
+                    enabled: true
+                },
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    backgroundColor: 'rgb(255, 255, 255)',
+                    borderWidth: 1,
+                    borderColor: 'rgb(203, 224, 237)',
+                    borderRadius: 16,
+                    useHTML: true,
+                    pointFormat: '<div> <b> {point.name}:</b> {point.value} ' + unitAbb + ' <br/>' +
+                        '<small>(click for details) </small></div>'
+                },
+                colorAxis: [{
+                    maxColor: 'rgba(0, 107, 255, 1)',
+                    minColor: 'rgba(0, 107, 255, 0.2)',
+                    dataClasses: dataClasses
+                }],
+                series: [{
+                    data: data,
+                    allowPointSelect: true,
+                    joinBy: ['iso-a2', 'code'],
+                    animation: true,
+                    name: metric,
+                    states: {
+                        hover: {
+                            color: 'rgb(67, 200, 120)'
+                        },
+                        select: {
+                            color: 'rgb(105, 211, 147)'
+                        }
+                    },
+                    colorAxis: 0,
+                    nullColor: 'rgb(220, 223, 228)',
+                    shadow: false
+                }],
+                credits: {
+                    enabled: false
+                },
+            });
+    }
+    else {
+        mapChart.tooltip.update({
+            pointFormat: '<div> <b> {point.name}:</b> {point.value} ' + unitAbb + ' <br/>' +
+                '<small>(click for details) </small></div>'
+        });
+        mapChart.colorAxis[0].update({
+            dataClasses: dataClasses
+        });
+        mapChart.series[0].update({
+            data: data,
+            name: metric
+        });
+        mapChart.redraw();
+    }
 
     Highcharts.wrap(Highcharts.Point.prototype, 'select', function (proceed) {
         proceed.apply(this, Array.prototype.slice.call(arguments, 1));
@@ -186,7 +259,7 @@ function drawChart(data, metric, unit, unitAbb, dataClasses) {
             if (!$.isEmptyObject(countriesChart)) {
                 countriesChart = countriesChart.destroy();
             }
-            setValues(points[0], metric, unit);
+            setValues(points[0], metric, unitAbb);
             $('#info').show();
             $('#instructions').show();
             $('#additionalData').show();
@@ -203,75 +276,11 @@ function drawChart(data, metric, unit, unitAbb, dataClasses) {
 
             compareCharts(categories, seriesData, metric, unit, unitAbb);
         }
-
     });
-
-    mapChart = Highcharts
-        .mapChart('container', {
-            title: {
-                text: ''
-            },
-            chart: {
-                map: map,
-            },
-
-            colors: ['rgba(0, 107, 255, 1)',
-                'rgba(0, 107, 255, 0.8)',
-                'rgba(0, 107, 255, 0.6)',
-                'rgba(0, 107, 255, 0.4)',
-                'rgba(0, 107, 255, 0.2)',
-                'rgba(0, 107, 255, 0.05)'
-            ],
-
-            mapNavigation: {
-                enabled: true
-            },
-
-            legend: {
-                enabled: false
-            },
-            tooltip: {
-                backgroundColor: '#FFFFFF',
-                borderWidth: 1,
-                borderColor: '#CBE0ED',
-                borderRadius: 16,
-                useHTML: true,
-                pointFormat: '<div> <b> {point.name}:</b> {point.value} ' + unitAbb + ' <br/>' +
-                    '<small>(click for details) </small></div>'
-            },
-            colorAxis: [{
-                maxColor: 'rgba(0, 107, 255, 1)',
-                minColor: 'rgba(0, 107, 255, 0.2)',
-                dataClasses: dataClasses
-            }],
-            series: [{
-                data: data,
-                allowPointSelect: true,
-                joinBy: ['iso-a2', 'code'],
-                animation: true,
-                name: metric,
-                states: {
-                    hover: {
-                        color: '#43C878'
-                    },
-                    select: {
-                        color: '#69D393'
-                    }
-                },
-                colorAxis: 0,
-                nullColor: '#DCDFE4',
-                shadow: false
-            }],
-            credits: {
-                enabled: false
-            },
-        });
 }
 
 function compareCharts(categories, series, metric, unit, unitAbb) {
-
     if ($.isEmptyObject(countriesChart)) {
-
         countriesChart = Highcharts.chart('country-chart', {
             chart: {
                 type: 'column'
@@ -285,21 +294,21 @@ function compareCharts(categories, series, metric, unit, unitAbb) {
                     enabled: false
                 }
             },
-            colors: ['#1278E1',
-                '#3dd9bb',
-                '#f3d236',
-                '#d2347f',
-                '#ad5536',
-                '#2f66f2',
-                '#bd37d1',
-                '#32e0bf',
-                '#670CE8',
-                '#FF0000',
-                '#E8900C',
-                '#9A0DFF',
-                '#100CE8',
-                '#E8B00C',
-                '#0DFF1A'],
+            colors: ['rgb(18, 120, 225)',
+                'rgb(61, 217, 187)',
+                'rgb(243, 210, 54)',
+                'rgb(210, 52, 127)',
+                'rgb(173, 85, 54)',
+                'rgb(47, 102, 242)',
+                'rgb(189, 55, 209)',
+                'rgb(50, 224, 191)',
+                'rgb(103, 12, 232)',
+                'rgb(255, 0, 0)',
+                'rgb(232, 144, 12)',
+                'rgb(154, 13, 255)',
+                'rgb(16, 12, 232)',
+                'rgb(232, 176, 12)',
+                'rgb(13, 255, 26)'],
             yAxis: {
                 min: 0,
                 title: {
@@ -328,6 +337,16 @@ function compareCharts(categories, series, metric, unit, unitAbb) {
     }
     else {
         countriesChart.categories = categories;
+        countriesChart.yAxis[0].update({
+            title: {
+                text: unit
+            }
+        });
+        countriesChart.tooltip.update({
+            headerFormat: '<span style="font-size:10px">' + metric + '</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} ' + unitAbb + '</b></td></tr>',
+        });
         $.each(series, function (i) {
             if (countriesChart.series[i]) {
                 countriesChart.series[i].update({
@@ -359,7 +378,6 @@ function setValues(point, metric, unit) {
 
 function reset() {
     $('#additionalData').hide();
-
     if (!$.isEmptyObject(countriesChart)) {
         countriesChart = countriesChart.destroy();
     }

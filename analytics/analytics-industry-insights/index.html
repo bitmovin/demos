@@ -14,6 +14,26 @@
 <div class="row">
     <div class="col-md-8">
         <div id="container"></div>
+        <div style="display: flex;">
+            <div>
+                <div class="map-legend chart-legend-extra-light"></div>
+                <p class="map-legend-text-size" id="legend_max_value"></p>
+            </div>
+        
+            <div class="map-legend chart-legend-light"></div>
+            <div class="map-legend chart-legend-neutral"></div>
+            <div class="map-legend chart-legend-medium"></div>
+            <div class="map-legend chart-legend-dark"></div>
+        
+            <div>
+                <div class="map-legend chart-legend-extra-dark"></div>
+                <p class="map-legend-text-size" style="float: right;">0</p>
+            </div>
+        
+            <div class="text-label" id="metricLegend"> Median video startup time (s)</div>
+            <div class="map-legend chart-legend-no-data"></div>
+            <div class="text-label"> No data available</div>
+        </div>
     </div>
 
     <div class="col-md-4 box-border" id="additionalData">
@@ -23,38 +43,17 @@
                 <span class="f32"><span id="flag"></span></span>
                 <p class="country" id="country"></p>
             </div>
-
             <p class="metric-text" id="metricName"></p>
             <p class="metric-value" id="metricValue"></p>
         </div>
-        <!-- todo  colors and tooltip for this chart-->
+
         <div id="country-chart"></div>
+
         <p class="metric-text" id="instructions">Shift + Click on map to compare countries</p>
     </div>
 
 </div>
 
-
-<div style="display: flex;">
-    <div>
-        <div class="map-legend chart-legend-extra-light"></div>
-        <p class="map-legend-text-size" id="legend_max_value"></p>
-    </div>
-
-    <div class="map-legend chart-legend-light"></div>
-    <div class="map-legend chart-legend-neutral"></div>
-    <div class="map-legend chart-legend-medium"></div>
-    <div class="map-legend chart-legend-dark"></div>
-
-    <div>
-        <div class="map-legend chart-legend-extra-dark"></div>
-        <p class="map-legend-text-size" style="float: right;">0</p>
-    </div>
-
-    <div class="text-label" id="metricLegend"> Median video startup time (s)</div>
-    <div class="map-legend chart-legend-no-data"></div>
-    <div class="text-label"> No data available</div>
-</div>
 <br />
 
 <div id="startupTimeContent">
@@ -104,7 +103,6 @@
         Example: If a user watches a video with a length of 9 seconds and has to wait 1 second for video segment downloads, it would take him 10 seconds in total to watch the video, so you'd get a 10% rebuffering percentage.
     </p>
 </div>
-
 
 <div class="mt-5">
     <small class="d-inline-block font-weight-bold">Disclaimer</small>
