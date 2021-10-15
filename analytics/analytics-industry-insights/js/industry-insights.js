@@ -253,12 +253,13 @@ function drawChart(data, metric, unit, unitAbb, dataClasses) {
                 states: {
                     hover: {
                         color: '#43C878'
+                    },
+                    select: {
+                        color: '#69D393'
                     }
                 },
                 colorAxis: 0,
-
                 nullColor: '#DCDFE4',
-
                 shadow: false
             }],
             credits: {
