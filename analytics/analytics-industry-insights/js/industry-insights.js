@@ -73,10 +73,9 @@ function showMedianStartupTimeChart() {
     getIndustryInsightsData(INDUSTRY_INSIGHT_MEDIAN_STARTUP_TIME_URL, (response) => {
         const data = response.map((res, i) => ({
             code: res.countryCode.toUpperCase(),
-            value: (parseFloat(res.value) / 1000).toFixed(2),
+            value: parseFloat(res.value).toFixed(2),
             name: res.countryCode,
         }));
-
         drawChart(data, 'Median video startup time', 'Seconds', 's', dataClasses);
     });
 }
@@ -120,7 +119,6 @@ function showErrorPercentageChart() {
             value: parseFloat(res.value).toFixed(2),
             name: res.countryCode,
         }));
-
         drawChart(data, 'Error Percentage', 'Percentage', '%', dataClasses);
     });
 }
@@ -164,7 +162,6 @@ function showRebufferPercentageChart() {
             value: parseFloat(res.value).toFixed(2),
             name: res.countryCode
         }));
-
         drawChart(data, 'Rebuffer Percentage', 'Percentage', '%', dataClasses);
     })
 }
