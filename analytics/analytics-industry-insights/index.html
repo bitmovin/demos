@@ -1,0 +1,119 @@
+<p class="text-justify">
+    For selected metrics, industry insights display the median of all data points we collect for this metric.
+    Choose the metric below to get industry insights across the world:
+</p>
+
+<div class="row">
+    <select id="available-industry-insight-metrics" class="form-control col-md-3">
+        <option value='medianStartupTime'>Median video startup time</option>
+        <option value='errorPercentage'>Error percentage</option>
+        <option value='rebufferPercentage'>Rebuffer percentage</option>
+    </select>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div id="container"></div>
+        <div style="display: flex;">
+            <div>
+                <div class="map-legend chart-legend-extra-light"></div>
+                <p class="map-legend-text-size" id="legend_max_value"></p>
+            </div>
+        
+            <div class="map-legend chart-legend-light"></div>
+            <div class="map-legend chart-legend-neutral"></div>
+            <div class="map-legend chart-legend-medium"></div>
+            <div class="map-legend chart-legend-dark"></div>
+        
+            <div>
+                <div class="map-legend chart-legend-extra-dark"></div>
+                <p class="map-legend-text-size" style="float: right;">0</p>
+            </div>
+        
+            <div class="text-label" id="metricLegend"> Median video startup time (s)</div>
+            <div class="map-legend chart-legend-no-data"></div>
+            <div class="text-label"> No data available</div>
+        </div>
+    </div>
+
+    <div class="col-md-4 box-border" id="additionalData">
+        <h2 id="chartTitle">Comparing countries</h2>
+        <div id="info">
+            <div>
+                <span class="f32"><span id="flag"></span></span>
+                <p class="country" id="country"></p>
+            </div>
+            <p class="metric-text" id="metricName"></p>
+            <p class="metric-value" id="metricValue"></p>
+        </div>
+
+        <div id="country-chart"></div>
+
+        <p class="metric-text" id="instructions">Shift + Click on map to compare countries</p>
+    </div>
+
+</div>
+
+<br />
+
+<div id="startupTimeContent">
+    <h2>About Median Startup Time</h2>
+    <br/>
+    <p class="text-justify">
+        The total startup time represents the amount of time it takes from starting to load the player until the video
+        playback can commence. This includes all the initializations the player has to perform as well as downloading
+        and parsing the manifests, downloading the content segments and initiating playback.
+    </p>
+
+    <h5> Good to know:</h5>
+    <p class="text-justify">
+        <a style="font-size: 18px;" href="https://dl.acm.org/doi/10.1145/2398776.2398799" target="_blank">Studies</a> have shown that after 10 seconds of startup delay, more than half of your audience has usually left and
+        only 8% of users will return to your website within 24 hours after experiencing a video failure.
+    </p>
+    <p class="text-justify">
+        Specifically, if it takes longer than 2 seconds to load the video, viewers will start to leave. After 5 seconds,
+        more than 20% of your users abandon, and with each additional second of delay, 6% of your users leave and the
+        majority will never come back.
+    </p>
+</div>
+
+<div id="errorPercentageContent">
+    <h2>About Error Percentage</h2>
+    <br/>
+    <p class="text-justify">
+        The error percentage shows the number of errors in relation to the number of play attempts on a video platform.
+    </p>
+   
+    <p class="text-justify">
+        The error percentage includes errors that disrupted a user's playback as well as errors from which the player was able to recover.
+    </p>
+</div>
+
+<div id="rebufferPercentageContent">
+    <h2>About Rebuffer Percentage</h2>
+    <br/>
+    <p class="text-justify">
+        Rebuffering occurs when the player buffer runs out of video data to display to the user. The player pauses and has to wait for ongoing video segment downloads to finish before it can resume playback.
+    </p>
+   
+    <p class="text-justify">
+        Rebuffering percentage is the average time a user had to wait for video segment downloads in relation to the total time a user spent watching a video.
+    </p>
+    <p class="text-justify">
+        Example: If a user watches a video with a length of 9 seconds and has to wait 1 second for video segment downloads, it would take him 10 seconds in total to watch the video, so you'd get a 10% rebuffering percentage.
+    </p>
+</div>
+
+<div class="mt-5">
+    <small class="d-inline-block font-weight-bold">Disclaimer</small>
+    <small class="d-inline-block text-justify">
+        The information presented in the Bitmovin Industry Insights Demo is for demonstration purposes only and not for
+        research or any other purposes.
+        Bitmovin makes no representations or warranties express or implied in relation to the Industry Insights Demo as
+        to the currency, accuracy, validity,
+        reliability, fitness or completeness of the information provided.
+    </small>
+</div>
+
+
+<link rel="stylesheet" type="text/css" href="//github.com/downloads/lafeber/world-flags-sprite/flags32.css" />
