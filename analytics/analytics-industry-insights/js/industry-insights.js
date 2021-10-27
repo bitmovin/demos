@@ -1,8 +1,8 @@
 var countriesChart = {};
 var mapChart = {};
-const INDUSTRY_INSIGHT_MEDIAN_STARTUP_TIME_URL = 'https://storage.googleapis.com/bitmovin-frontend-cdn-origin/frontend/demos/analytics/median_video_startup_time_test.json'
-const INDUSTRY_INSIGHT_ERROR_PERCENTAGE_URL = 'https://storage.googleapis.com/bitmovin-frontend-cdn-origin/frontend/demos/analytics/error_percentage_test.json'
-const INDUSTRY_INSIGHT_REBUFFER_PERCENTAGE_URL = 'https://storage.googleapis.com/bitmovin-frontend-cdn-origin/frontend/demos/analytics/rebuffer_percentage_test.json'
+const INDUSTRY_INSIGHT_MEDIAN_STARTUP_TIME_URL = 'https://storage.googleapis.com/bitmovin-frontend-cdn-origin/frontend/demos/analytics/median_video_startup_time.json'
+const INDUSTRY_INSIGHT_ERROR_PERCENTAGE_URL = 'https://storage.googleapis.com/bitmovin-frontend-cdn-origin/frontend/demos/analytics/error_percentage.json'
+const INDUSTRY_INSIGHT_REBUFFER_PERCENTAGE_URL = 'https://storage.googleapis.com/bitmovin-frontend-cdn-origin/frontend/demos/analytics/rebuffer_percentage.json'
 
 $(function () {
     reset();
@@ -37,36 +37,35 @@ function getIndustryInsightsData(url, callbackFunction) {
 }
 
 function showMedianStartupTimeChart() {
-    // todo check real ranges
     const dataClasses = [
         {
-            from: 10
+            from: 4.2
         },
         {
-            to: 10,
-            from: 7.5,
+            from: 3.5,
+            to: 4.2
         },
         {
-            to: 7.5,
-            from: 6,
+            from: 2.8,
+            to: 3.5
         },
         {
-            to: 6,
-            from: 4.5,
+            from: 2.1,
+            to: 2.8
         },
         {
-            to: 4.5,
-            from: 3,
+            from: 1.4,
+            to: 2.1
         },
         {
-            to: 3,
-            from: 1.5,
+            from: 0.7,
+            to: 1.4
         },
         {
-            to: 1.5
+            to: 0.7
         }];
     $('#metricLegend').html('Median video startup time (s)');
-    $('#legend_max_value').html('10');
+    $('#legend_max_value').html('4');
     $('#startupTimeContent').show();
     $('#errorPercentageContent').hide();
     $('#rebufferPercentageContent').hide();
@@ -83,39 +82,38 @@ function showMedianStartupTimeChart() {
 }
 
 function showErrorPercentageChart() {
-    // todo check real ranges
     const dataClasses = [
         {
-            from: 2.4
+            from: 4.2
         },
         {
-            to: 2.4,
-            from: 2.0,
+            from: 3.5,
+            to: 4.2
         },
         {
-            to: 2.0,
-            from: 1.6,
+            from: 2.8,
+            to: 3.5
         },
         {
-            to: 1.6,
-            from: 1.2,
+            from: 2.1,
+            to: 2.8
         },
         {
-            to: 1.2,
-            from: 0.8,
+            from: 1.4,
+            to: 2.1
         },
         {
-            to: 0.8,
-            from: 0.4,
+            from: 0.7,
+            to: 1.4
         },
         {
-            to: 0.4
+            to: 0.7
         }];
     $('#startupTimeContent').hide();
     $('#errorPercentageContent').show();
     $('#rebufferPercentageContent').hide();
     $('#metricLegend').html('Error percentage (%)');
-    $('#legend_max_value').html('3');
+    $('#legend_max_value').html('4');
     getIndustryInsightsData(INDUSTRY_INSIGHT_ERROR_PERCENTAGE_URL, (response) => {
         const data = response.map((res, i) => ({
             code: res.countryCode.toUpperCase(),
@@ -128,40 +126,38 @@ function showErrorPercentageChart() {
 }
 
 function showRebufferPercentageChart() {
-    // todo check real ranges
     const dataClasses = [
         {
-            from: 2.4
+            from: 1.2
         },
         {
-            to: 2.4,
-            from: 2.0,
+            from: 1.0,
+            to: 1.2
         },
         {
-            to: 2.0,
-            from: 1.6,
-        },
-        {
-            to: 1.6,
-            from: 1.2,
-        },
-        {
-            to: 1.2,
             from: 0.8,
+            to: 1.0
         },
         {
-            to: 0.8,
+            from: 0.6,
+            to: 0.8
+        },
+        {
             from: 0.4,
+            to: 0.6
         },
         {
+            from: 0.2,
             to: 0.4
+        },
+        {
+            to: 0.2
         }];
-
     $('#startupTimeContent').hide();
     $('#errorPercentageContent').hide();
     $('#rebufferPercentageContent').show();
     $('#metricLegend').html('Rebuffer percentage (%)');
-    $('#legend_max_value').html('3');
+    $('#legend_max_value').html('1');
     getIndustryInsightsData(INDUSTRY_INSIGHT_REBUFFER_PERCENTAGE_URL, (response) => {
         const data = response.map((res, i) => ({
             code: res.countryCode.toUpperCase(),

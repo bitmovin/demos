@@ -1,6 +1,6 @@
 {
     "title": "Industry Insights Demo",
-    "description": "Industry Insights",
+    "description": "Gain insights into video performance across the globe provided by Bitmovin Analytics",
     "executable": {
       "executable": false,
       "indexfile": "index.html"
