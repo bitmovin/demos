@@ -1,0 +1,129 @@
+<script src="https://cdn.bitmovin.com/content/player-web/lib/omsdk/omweb-js-1.3.25/Service/omweb-v1.js" type="text/javascript"></script>
+<script src="https://cdn.bitmovin.com/content/player-web/lib/omsdk/omweb-js-1.3.25/Session-Client/omid-session-client-v1.js" type="text/javascript"></script>
+<script src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js" type="text/javascript"></script>
+<script src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.js" type="text/javascript"></script>
+<script src="https://cdn.bitmovin.com/analytics/web/beta/2/bitmovinanalytics.min.js" type="text/javascript"></script>
+<script src="https://cdn.rawgit.com/caldwell/renderjson/master/renderjson.js" type="text/javascript"></script>
+<div class="description">
+    <p>
+        This demo showcases how to enable ad event reporting using the Open Measurement SDK for viewability measurement and tracking.
+    </p>
+</div>
+<div class="demo-row">
+    <div class="demo-video tv-frame">
+        <div id="player-container">
+        </div>
+    </div>
+    <div class="demo-input">
+        <div class="demo-input-box input mx-0">
+            <div class="demo-item-header">
+                <div class="font-weight-bold">
+                    OM SDK Tracker Configuration
+                </div>
+            </div>
+            <div>
+                <label for="partnername-input">
+                    Partner Name
+                </label>
+                <input class="form-control" id="partnername-input" name="manifest-input" placeholder="awesome-company" type="text">
+                </input>
+            </div>
+            <div>
+                <label for="partnerversion-input">
+                    Partner Version
+                </label>
+                <input class="form-control" id="partnerversion-input" name="manifest-input" placeholder="1.3.25" type="text">
+                </input>
+            </div>
+            <div class="demo-input-box input mx-0">
+                <div class="demo-item-header">
+                    <div class="font-weight-bold">
+                        Verification Resource
+                    </div>
+                </div>
+                <input class="form-control" id="validationscripturl-input" name="manifest-input" placeholder="Validation Script URL (using demo script if empty)" type="text">
+                    <input class="form-control" id="vendorkey-input" name="manifest-input" placeholder="Vendor Key (optional)" type="text">
+                        <input class="form-control" id="params-input" name="manifest-input" placeholder="Params (optional)" type="text">
+                        </input>
+                    </input>
+                </input>
+            </div>
+            <div class="error" id="error">
+            </div>
+            <div class="demo-start m-0">
+                <button class="btn btn-outline-primary active demo-button" id="apply-settings-btn" type="apply-settings">
+                    Apply Custom Settings
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="demo-row">
+    <div class="col-lg-12 demo-event-box" id="event-log">
+        <div>
+            Event Log
+        </div>
+        <div class="logContent" id="logContent">
+        </div>
+    </div>
+</div>
+<hr class="mb-3">
+    <div class="demo-row">
+        <div class="w-100 my-2">
+            <h2>
+                Getting Started Guide
+            </h2>
+        </div>
+        <div class="w-100 my-4">
+            <p>
+                1. Aquire the OM SDK files from the
+                <a href="https://tools.iabtechlab.com/omsdk">
+                    IAB Tech Lab Tools Portal
+                </a>
+            </p>
+            <p class="mb-3">
+                2. Include the following scripts in your page
+            </p>
+            <ul class="ml-4">
+                <li>
+                    OM SDK Scripts: Service Script and JS Session Client
+                </li>
+                <li>
+                    Bitmovin Player Scripts including the Bitmovin Advertising module (BAM) and the Advertising OM SDK module
+                </li>
+            </ul>
+        </div>
+        <div class="setup-code w-100">
+            ${code:page.html}
+        </div>
+        <div class="w-100 my-4">
+            <p class="mb-3">
+                3. Set up the player instance for ad verification using OM SDK
+            </p>
+            <ol class="ml-4" type="a">
+                <li>
+                    Add player modules to player core
+                </li>
+                <li>
+                    Create a player configuration including a
+                    <a href="https://bitmovin.com/docs/player/api-reference/web/web-sdk-api-reference-v8#/player/web/8/docs/interfaces/advertising.verificationresource.html">
+                        OM SDK Tracker configuration
+                    </a>
+                </li>
+                <li>
+                    Instantiate the player with above configuration, load a source & play
+                </li>
+            </ol>
+            <p class="my-4">
+                Note: The configured
+                <code>
+                    validationScriptUrl
+                </code>
+                , among other things, defines which ad tracking events should subscribed to and the location of the verification server to report to.
+            </p>
+        </div>
+        <div class="setup-code w-100">
+            ${code:page.js}
+        </div>
+    </div>
+</hr>

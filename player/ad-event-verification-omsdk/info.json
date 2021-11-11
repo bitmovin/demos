@@ -1,0 +1,20 @@
+{
+  "title": "Ad Verification with OM SDK",
+  "description": "Ad Verification using Open Measurement SDK",
+  "long_description": "To be defined.",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "code": {
+    "show_code": true,
+    "language": "js",
+    "files": [
+      "page.js",
+      "page.html"
+    ]
+  },
+  "tags": [
+    "To be defined"
+  ]
+}
