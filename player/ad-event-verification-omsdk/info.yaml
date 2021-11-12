@@ -1,6 +1,6 @@
 title: Ad Verification with OM SDK
 description: Ad Verification using Open Measurement SDK
-long_description: To be defined.
+long_description: Ad viewability and verification measurement using the IAB Tech Lab's Open Measurement SDK.
 
 executable:
   executable: true
