@@ -147,6 +147,11 @@ function setupPlayer(conf, source) {
         displayError(`Error: ${e.code}/${e.name}`);
     });
 
+    player.on('aderror', function(e) {
+        displayError(`Ad Error: ${e.message} (potentially caused by ad blocker)`);
+        console.warn(e);
+    });
+
     player.load(source);
     return player;
 }
