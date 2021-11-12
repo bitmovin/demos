@@ -1,8 +1,11 @@
-# Ad Event Verification
+# Ad Event Verification using Open Measurement SDK
 
-Enable ad event reporting
-To be defined.
+Ad viewability and verification measurement using the IAB Tech Lab's [Open Measurement SDK](https://iabtechlab.com/standards/open-measurement-sdk/).
 
 ### Tags
 
-  - To be defined
+  - advertisement
+  - tracking
+  - verification
+  - om sdk
+  - open measurement
