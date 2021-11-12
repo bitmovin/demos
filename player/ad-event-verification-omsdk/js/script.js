@@ -55,10 +55,12 @@ function clearEventLog() {
 }
 
 function displayError(message) {
+  document.querySelector('#error-wrapper').classList.remove('d-none');
   document.querySelector('#error').innerHTML = message;
 }
 
 function clearError(message) {
+  document.querySelector('#error-wrapper').classList.add('d-none');
   document.querySelector('#error').innerHTML = '';
 }
 
