@@ -1,7 +1,7 @@
 {
   "scripts": {
     "generate-readmes": "node ./scripts/yamlToReadmeConverter.js",
-    "check-readmes": "node ./scripts/checkYamlAndReadme.js"
+    "check-readmes": "node ./scripts/checkJsonAndReadme.js"
   },
   "dependencies": {
     "file-exists": "^5.0.1",
