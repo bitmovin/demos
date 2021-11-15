@@ -1,0 +1,10 @@
+title: Industry Insights Demo
+description: Gain insights into video performance across the globe provided by Bitmovin
+  Analytics
+executable:
+  executable: false
+  indexfile: index.html
+tags:
+- analytics
+- industry insights
+hide_github_link: true
