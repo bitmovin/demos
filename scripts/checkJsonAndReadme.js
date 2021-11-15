@@ -22,12 +22,12 @@ const folderWalk = (folderPath) => {
 };
 
 const addFileAndFolderPaths = (folderPath) => {
-    if (fs.statSync(folderPath).isDirectory() && fs.existsSync(path.join(folderPath, 'info.yaml')) && !fs.existsSync(path.join(folderPath, 'README.md'))) {
+    if (fs.statSync(folderPath).isDirectory() && fs.existsSync(path.join(folderPath, 'info.json')) && !fs.existsSync(path.join(folderPath, 'README.md'))) {
         console.error(`README file does not exist in folder: ${folderPath}!`);
         process.exit(1);
     }
-    else if (fs.statSync(folderPath).isDirectory() && !fs.existsSync(path.join(folderPath, 'info.yaml')) && fs.existsSync(path.join(folderPath, 'README.md'))) {
-        console.error(`Yaml file does not exist in folder: ${folderPath}!`);
+    else if (fs.statSync(folderPath).isDirectory() && !fs.existsSync(path.join(folderPath, 'info.json')) && fs.existsSync(path.join(folderPath, 'README.md'))) {
+        console.error(`info.json file does not exist in folder: ${folderPath}!`);
         process.exit(1);
     }
     else if (fs.statSync(folderPath).isDirectory()) {
