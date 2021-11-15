@@ -8,3 +8,4 @@ The Chromecast Player allows you to cast directly from your device to your telev
   - chromecast
   - television
   - cast
+  - caf

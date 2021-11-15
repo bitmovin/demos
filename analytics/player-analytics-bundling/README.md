@@ -1,16 +1,12 @@
-# Bitrate Ladder Validator
+# Player and Analytics Bundling
 
-Build and customize graphs exactly the way your team needs it
-Build and customize graphs exactly the way your team needs it to help troubleshoot, optimize and plan your development efforts.
+Optimize every play with no additional setup
+See how the new bundling of the player and analytics works. You get analytics data points instantly, without additional setup. Start analyzing your impressions right away.
 
 ### Tags
 
-  - dashboard
+  - player
   - analytics
-  - bitrate
-  - ladder validator
-  - monitor
-  - REST
-  - AB
-  - testing
-  - QOE
+  - bundling
+  - no setup
+  - insights
