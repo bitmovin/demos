@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "generate-readmes": "node ./scripts/yamlToReadmeConverter.js",
+    "generate-readmes": "node ./scripts/jsonToReadmeConverter.js",
     "check-readmes": "node ./scripts/checkJsonAndReadme.js"
   },
   "dependencies": {
