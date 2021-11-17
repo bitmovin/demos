@@ -167,8 +167,21 @@ function injectScript(src) {
   });
 }
 
+function isIe() {
+  return /MSIE|Trident/.test(navigator.userAgent);
+}
+
+function isEdgeLegacy() {
+  return /Edge\/18/.test(navigator.userAgent);
+}
+
 $(document).ready(function() {
     renderjson.set_icons('+ ', '- ');
+
+    if (isIe() || isEdgeLegacy()) {
+      displayError('Sorry! This demo is not supported on Internet Explorer and Microsoft Edge 18');
+      return;
+    }
 
     Promise.all([
         injectScript('https://cdn.bitmovin.com/player/web/8/modules/bitmovinplayer-advertising-bitmovin.js'),
