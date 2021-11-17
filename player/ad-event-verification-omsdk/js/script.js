@@ -67,9 +67,9 @@ function clearError(message) {
 
 $('#validationscripturl-input').on('input', function(e) {
     if (e.target.value) {
-        $('#event-log').hide();
+        $('#event-log-row').hide();
     } else {
-        $('#event-log').show();
+        $('#event-log-row').show();
     }
 });
 
@@ -180,6 +180,8 @@ $(document).ready(function() {
 
     if (isIe() || isEdgeLegacy()) {
       displayError('Sorry! This demo is not supported on Internet Explorer and Microsoft Edge 18');
+      document.querySelector('#player-row').classList.add('d-none')
+      document.querySelector('#event-log-row').classList.add('d-none')
       return;
     }
 
