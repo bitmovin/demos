@@ -70,62 +70,61 @@
     </div>
 </div>
 <hr class="mb-3">
-    <div class="demo-row">
-        <div class="w-100 my-2">
-            <h2>
-                Getting Started Guide
-            </h2>
-        </div>
-        <div class="w-100 my-4">
-            <p>
-                1. Acquire the OM SDK files from the
-                <a href="https://tools.iabtechlab.com/omsdk">
-                    IAB Tech Lab Tools Portal
-                </a>
-            </p>
-            <p class="mb-3">
-                2. Include the following scripts in your page
-            </p>
-            <ul class="ml-4">
-                <li>
-                    OM SDK Scripts: Service Script and JS Session Client
-                </li>
-                <li>
-                    Bitmovin Player Scripts including the Bitmovin Advertising module (BAM) and the Advertising OM SDK module
-                </li>
-            </ul>
-        </div>
-        <div class="setup-code w-100">
-            ${code:page.html}
-        </div>
-        <div class="w-100 my-4">
-            <p class="mb-3">
-                3. Set up the player instance for ad verification using OM SDK
-            </p>
-            <ol class="ml-4" type="a">
-                <li>
-                    Add player modules to player core
-                </li>
-                <li>
-                    Create a player configuration including a
-                    <a href="https://bitmovin.com/docs/player/api-reference/web/web-sdk-api-reference-v8#/player/web/8/docs/interfaces/advertising.verificationresource.html">
-                        OM SDK Tracker configuration
-                    </a>
-                </li>
-                <li>
-                    Instantiate the player with above configuration, load a source & play
-                </li>
-            </ol>
-            <p class="my-4">
-                Note: The configured
-                <code>
-                    validationScriptUrl
-                </code>
-                , among other things, defines which ad tracking events should subscribed to and the location of the verification server to report to.
-            </p>
-        </div>
-        <div class="setup-code w-100">
-            ${code:page.js}
-        </div>
+<div class="demo-row">
+    <div class="w-100 my-2">
+        <h2>
+            Getting Started Guide
+        </h2>
     </div>
-</hr>
+    <div class="w-100 my-4">
+        <p>
+            1. Acquire the OM SDK files from the
+            <a href="https://tools.iabtechlab.com/omsdk">
+                IAB Tech Lab Tools Portal
+            </a>
+        </p>
+        <p class="mb-3">
+            2. Include the following scripts in your page
+        </p>
+        <ul class="ml-4">
+            <li>
+                OM SDK Scripts: Service Script and JS Session Client
+            </li>
+            <li>
+                Bitmovin Player Scripts including the Bitmovin Advertising module (BAM) and the Advertising OM SDK module
+            </li>
+        </ul>
+    </div>
+    <div class="setup-code w-100">
+        ${code:page.html}
+    </div>
+    <div class="w-100 my-4">
+        <p class="mb-3">
+            3. Set up the player instance for ad verification using OM SDK
+        </p>
+        <ol class="ml-4" type="a">
+            <li>
+                Add player modules to player core
+            </li>
+            <li>
+                Create a player configuration including a
+                <a href="https://bitmovin.com/docs/player/api-reference/web/web-sdk-api-reference-v8#/player/web/8/docs/interfaces/advertising.verificationresource.html">
+                    OM SDK Tracker configuration
+                </a>
+            </li>
+            <li>
+                Instantiate the player with above configuration, load a source & play
+            </li>
+        </ol>
+        <p class="my-4">
+            Note: The configured
+            <code>
+                validationScriptUrl
+            </code>
+            , among other things, defines which ad tracking events should subscribed to and the location of the verification server to report to.
+        </p>
+    </div>
+    <div class="setup-code w-100">
+        ${code:page.js}
+    </div>
+</div>
