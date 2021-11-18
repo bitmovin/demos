@@ -145,11 +145,11 @@ function setupPlayer(conf, source) {
     var player = new bitmovin.player.Player(playerContainer, conf);
 
     player.on('error', function(e) {
-        displayError(`Error: ${e.code}/${e.name}`);
+        displayError('Error: ' + e.code + '/' + e.name);
     });
 
     player.on('aderror', function(e) {
-        displayError(`Ad Error: ${e.message} (potentially caused by ad blocker)`);
+        displayError('Ad Error: ' + e.message + ' (potentially caused by ad blocker)');
         console.warn(e);
     });
 
