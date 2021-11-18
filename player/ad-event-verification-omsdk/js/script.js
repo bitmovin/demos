@@ -179,7 +179,7 @@ $(document).ready(function() {
     renderjson.set_icons('+ ', '- ');
 
     if (isIe() || isEdgeLegacy()) {
-      displayError('Sorry! This demo is not supported on Internet Explorer and Microsoft Edge 18');
+      displayError('Sorry! This demo is not supported on Internet Explorer and Edge Legacy web browsers.');
       document.querySelector('#player-row').classList.add('d-none')
       document.querySelector('#event-log-row').classList.add('d-none')
       return;
