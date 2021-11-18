@@ -158,11 +158,13 @@ function setupPlayer(conf, source) {
 }
 
 function injectScript(src) {
-  return new Promise((resolve, reject) => {
+  return new Promise(function(resolve, reject) {
       const script = document.createElement('script');
       script.src = src;
       script.addEventListener('load', resolve);
-      script.addEventListener('error', e => reject(e.error));
+      script.addEventListener('error', function(e) {
+        reject(e.error)
+      });
       document.head.appendChild(script);
   });
 }
@@ -188,7 +190,7 @@ $(document).ready(function() {
     Promise.all([
         injectScript('https://cdn.bitmovin.com/player/web/8/modules/bitmovinplayer-advertising-bitmovin.js'),
         injectScript('https://cdn.bitmovin.com/player/web/8/modules/bitmovinplayer-advertising-omsdk.js')
-    ]).then(() => {
+    ]).then(function() {
         bitmovin.player.Player.addModule(bitmovin.player['advertising-bitmovin'].default);
         bitmovin.player.Player.addModule(bitmovin.player['advertising-omsdk'].default);
         player = setupPlayer(conf, source);
