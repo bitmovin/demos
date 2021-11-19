@@ -13,7 +13,7 @@
     <div id="error" class="alert alert-danger" role="alert">
     </div>
 </div>
-<div class="demo-row">
+<div id='player-row' class="demo-row">
     <div class="demo-video tv-frame">
         <div id="player-container">
         </div>
@@ -30,14 +30,12 @@
                     Partner Name
                 </label>
                 <input class="form-control" id="partnername-input" name="manifest-input" placeholder="awesome-company" type="text">
-                </input>
             </div>
             <div>
                 <label for="partnerversion-input">
                     Partner Version
                 </label>
                 <input class="form-control" id="partnerversion-input" name="manifest-input" placeholder="1.3.25" type="text">
-                </input>
             </div>
             <div class="demo-input-box input mx-0">
                 <div class="demo-item-header">
@@ -46,21 +44,18 @@
                     </div>
                 </div>
                 <input class="form-control" id="validationscripturl-input" name="manifest-input" placeholder="Validation Script URL (using demo script if empty)" type="text">
-                    <input class="form-control" id="vendorkey-input" name="manifest-input" placeholder="Vendor Key (optional)" type="text">
-                        <input class="form-control" id="params-input" name="manifest-input" placeholder="Params (optional)" type="text">
-                        </input>
-                    </input>
-                </input>
+                <input class="form-control" id="vendorkey-input" name="manifest-input" placeholder="Vendor Key (optional)" type="text">
+                <input class="form-control" id="params-input" name="manifest-input" placeholder="Params (optional)" type="text">
             </div>
             <div class="demo-start m-0">
-                <button class="btn btn-outline-primary active demo-button" id="apply-settings-btn" type="apply-settings">
+                <button class="btn btn-outline-primary active demo-button" id="apply-settings-btn" type="button">
                     Apply Custom Settings
                 </button>
             </div>
         </div>
     </div>
 </div>
-<div id="event-log" class="demo-row">
+<div id="event-log-row" class="demo-row">
     <div class="col-lg-12 demo-event-box">
         <div>
             Event Log
@@ -70,62 +65,61 @@
     </div>
 </div>
 <hr class="mb-3">
-    <div class="demo-row">
-        <div class="w-100 my-2">
-            <h2>
-                Getting Started Guide
-            </h2>
-        </div>
-        <div class="w-100 my-4">
-            <p>
-                1. Acquire the OM SDK files from the
-                <a href="https://tools.iabtechlab.com/omsdk">
-                    IAB Tech Lab Tools Portal
-                </a>
-            </p>
-            <p class="mb-3">
-                2. Include the following scripts in your page
-            </p>
-            <ul class="ml-4">
-                <li>
-                    OM SDK Scripts: Service Script and JS Session Client
-                </li>
-                <li>
-                    Bitmovin Player Scripts including the Bitmovin Advertising module (BAM) and the Advertising OM SDK module
-                </li>
-            </ul>
-        </div>
-        <div class="setup-code w-100">
-            ${code:page.html}
-        </div>
-        <div class="w-100 my-4">
-            <p class="mb-3">
-                3. Set up the player instance for ad verification using OM SDK
-            </p>
-            <ol class="ml-4" type="a">
-                <li>
-                    Add player modules to player core
-                </li>
-                <li>
-                    Create a player configuration including a
-                    <a href="https://bitmovin.com/docs/player/api-reference/web/web-sdk-api-reference-v8#/player/web/8/docs/interfaces/advertising.verificationresource.html">
-                        OM SDK Tracker configuration
-                    </a>
-                </li>
-                <li>
-                    Instantiate the player with above configuration, load a source & play
-                </li>
-            </ol>
-            <p class="my-4">
-                Note: The configured
-                <code>
-                    validationScriptUrl
-                </code>
-                , among other things, defines which ad tracking events should subscribed to and the location of the verification server to report to.
-            </p>
-        </div>
-        <div class="setup-code w-100">
-            ${code:page.js}
-        </div>
+<div class="demo-row">
+    <div class="w-100 my-2">
+        <h2>
+            Getting Started Guide
+        </h2>
     </div>
-</hr>
+    <div class="w-100 my-4">
+        <p>
+            1. Acquire the OM SDK files from the
+            <a href="https://tools.iabtechlab.com/omsdk">
+                IAB Tech Lab Tools Portal
+            </a>
+        </p>
+        <p class="mb-3">
+            2. Include the following scripts in your page
+        </p>
+        <ul class="ml-4">
+            <li>
+                OM SDK Scripts: Service Script and JS Session Client
+            </li>
+            <li>
+                Bitmovin Player Scripts including the Bitmovin Advertising module (BAM) and the Advertising OM SDK module
+            </li>
+        </ul>
+    </div>
+    <div class="setup-code w-100">
+        ${code:page.html}
+    </div>
+    <div class="w-100 my-4">
+        <p class="mb-3">
+            3. Set up the player instance for ad verification using OM SDK
+        </p>
+        <ol class="ml-4" type="a">
+            <li>
+                Add player modules to player core
+            </li>
+            <li>
+                Create a player configuration including a
+                <a href="https://bitmovin.com/docs/player/api-reference/web/web-sdk-api-reference-v8#/player/web/8/docs/interfaces/advertising.verificationresource.html">
+                    OM SDK Tracker configuration
+                </a>
+            </li>
+            <li>
+                Instantiate the player with above configuration, load a source & play
+            </li>
+        </ol>
+        <p class="my-4">
+            Note: The configured
+            <code>
+                validationScriptUrl
+            </code>
+            , among other things, defines which ad tracking events should subscribed to and the location of the verification server to report to.
+        </p>
+    </div>
+    <div class="setup-code w-100">
+        ${code:page.js}
+    </div>
+</div>
