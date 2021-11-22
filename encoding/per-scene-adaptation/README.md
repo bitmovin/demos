@@ -5,6 +5,7 @@ Per-Scene offers another method to improve quality and or reduce bandwidth consu
 
 ### Tags
 
+  - experimental
   - adaptation
   - scene
   - encoding
