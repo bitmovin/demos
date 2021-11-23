@@ -41,6 +41,8 @@ function resetAdError() {
 function loadConfig() {
   resetAdError();
   var adType = document.getElementById('adType').value || 'vast';
+  var adTagType = adType;
+
   var schedule = document.getElementById('schedule-list').value;
   if (schedule) {
     var manifestUrl = document.getElementById('ad-server-url').value;
@@ -48,15 +50,18 @@ function loadConfig() {
       switch (adType) {
         case 'vmap': {
           manifestUrl = '//pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpreonly&cmsid=496&vid=short_onecue&correlator=[random]';
+          adTagType = 'vmap';
           break;
         }
         case 'vpaid': {
           manifestUrl = '//pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinearvpaid2js&correlator=[random]';
+          adTagType = 'vast';
           break;
         }
         default: {
           // reset to VAST
           manifestUrl = '//pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=[random]';
+          adTagType = 'vast';
           document.getElementById('adType').value = 'vast';
         }
       }
@@ -65,7 +70,7 @@ function loadConfig() {
     player.ads.schedule({
       tag: {
         url: manifestUrl,
-        type: adType
+        type: adTagType
       },
       id: 'Ad',
       position: document.getElementById('schedule-list').value
