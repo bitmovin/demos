@@ -10,7 +10,11 @@ var conf = {
   },
   events: {
     aderror: function (err) {
-      document.querySelector('#ad-error').innerHTML = 'Ad-Error:' + err.message;
+      var errorMessage = 'Ad-Error: ' + err.message;
+      if (err.data && err.data.message) {
+        errorMessage = errorMessage + ': ' + err.data.message;
+      }
+      document.querySelector('#ad-error').innerHTML = errorMessage;
     },
     warning: function (err) {
       document.querySelector('#ad-warning').innerHTML = err.message;
