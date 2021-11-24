@@ -10,7 +10,11 @@ var conf = {
   },
   events: {
     aderror: function (err) {
-      document.querySelector('#ad-error').innerHTML = 'Ad-Error:' + err.message;
+      var errorMessage = 'Ad-Error: ' + err.message;
+      if (err.data && err.data.message) {
+        errorMessage = errorMessage + ': ' + err.data.message;
+      }
+      document.querySelector('#ad-error').innerHTML = errorMessage;
     },
     warning: function (err) {
       document.querySelector('#ad-warning').innerHTML = err.message;
@@ -41,39 +45,36 @@ function resetAdError() {
 function loadConfig() {
   resetAdError();
   var adType = document.getElementById('adType').value || 'vast';
+  var adTagType = adType;
+
   var schedule = document.getElementById('schedule-list').value;
   if (schedule) {
     var manifestUrl = document.getElementById('ad-server-url').value;
     if (!manifestUrl) {
       switch (adType) {
-        case 'ima': {
-          manifestUrl = '//pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=[random]';
-          break;
-        }
         case 'vmap': {
           manifestUrl = '//pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpreonly&cmsid=496&vid=short_onecue&correlator=[random]';
+          adTagType = 'vmap';
           break;
         }
         case 'vpaid': {
-          // same as VAST
-          manifestUrl = '//pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/32573358/skippable_ad_unit&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=http%3A%2F%2Freleasetest.dash-player.com%2Fads%2F&description_url=[description_url]&correlator=[random]';
+          manifestUrl = '//pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinearvpaid2js&correlator=[random]';
+          adTagType = 'vast';
           break;
         }
         default: {
           // reset to VAST
-          manifestUrl = '//pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/32573358/skippable_ad_unit&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=http%3A%2F%2Freleasetest.dash-player.com%2Fads%2F&description_url=[description_url]&correlator=[random]';
+          manifestUrl = '//pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=[random]';
+          adTagType = 'vast';
           document.getElementById('adType').value = 'vast';
         }
       }
     }
-    // vmap is handled as ima tag
-    if (adType === 'vmap') {
-      adType = 'ima';
-    }
+
     player.ads.schedule({
       tag: {
         url: manifestUrl,
-        type: adType
+        type: adTagType
       },
       id: 'Ad',
       position: document.getElementById('schedule-list').value
