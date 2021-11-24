@@ -733,6 +733,11 @@ function setPlayerEvents(player) {
     updateCharts(player);
   });
 
+  player.on(bitmovin.player.PlayerEvent.AdError, function (data) {
+    log("On Ad Error: " + JSON.stringify(data));
+    updateCharts(player);
+  });
+
   player.on(bitmovin.player.PlayerEvent.Seek, function (data) {
     log("On Seek Started: " + JSON.stringify(data));
     updateCharts(player);
