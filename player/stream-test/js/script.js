@@ -77,10 +77,9 @@ var drmSource = {
 };
 
 var defaultAdUrl = {
-  vast: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/32573358/skippable_ad_unit&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=http%3A%2F%2Freleasetest.dash-player.com%2Fads%2F&description_url=[description_url]&correlator=[random]',
-  vpaid: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/32573358/skippable_ad_unit&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=http%3A%2F%2Freleasetest.dash-player.com%2Fads%2F&description_url=[description_url]&correlator=[random]',
-  vmap: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpreonly&cmsid=496&vid=short_onecue&correlator=[random]',
-  ima: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=[random]'
+  vast: '//pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=[random]',
+  vpaid: '//pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinearvpaid2js&correlator=[random]',
+  vmap: '//pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpreonly&cmsid=496&vid=short_onecue&correlator=[random]',
 };
 
 var initialTimestamp, bufferChart, bitrateChart;
@@ -307,13 +306,13 @@ function createAdConfig() {
 
     if (adBox) {
       var adManifestUrl = document.getElementById('ad' + i + '-input').value;
-      var adType = document.querySelector('[name="ad' + i + '-type"]:checked').value;
+      var adTagType = document.querySelector('[name="ad' + i + '-type"]:checked').getAttribute('data-tag-type');
       var adPosition = document.querySelector('[name="ad' + i + '-position"]:checked').value;
 
       player.ads.schedule({
         tag: {
           url: adManifestUrl,
-          type: adType
+          type: adTagType
         },
         id: 'Ad$' + i,
         position: adPosition
@@ -468,21 +467,18 @@ function createAdBox(number) {
   $('<div class="demo-input-box ad-box" id="ad-box-' + number + '"> \
   <div class="demo-item-header"> \
       <div>AD' + number + ' </div> \
-      <button id="delete-ad' + number + '" class="btn btn-outline-primary active demo-button" type="delete-ad" onclick=hideAd("ad-box-' + number + '")>Delete</button> \
+      <button id="delete-ad' + number + '" class="btn btn-outline-primary active demo-button" type="delete-ad">Delete</button> \
   </div> \
   <div class="demo-stream-type-input"> \
       <div class="type-header">AD Type</div> \
       <div class="input-type"> \
-        <label><input id="ad' + number + '-type" type="radio" name="ad' + number + '-type" value="vast" checked> VAST</label> \
+        <label><input id="ad' + number + '-type" type="radio" name="ad' + number + '-type" value="vast" data-tag-type="vast" checked> VAST</label> \
       </div> \
       <div class="input-type"> \
-        <label><input id="ad' + number + '-type" type="radio" name="ad' + number + '-type" value="vpaid"> VPAID</label> \
+        <label><input id="ad' + number + '-type" type="radio" name="ad' + number + '-type" value="vpaid" data-tag-type="vast"> VPAID</label> \
       </div> \
       <div class="input-type"> \
-        <label><input id="ad' + number + '-type" type="radio" name="ad' + number + '-type" value="vmap"> VMAP</label> \
-      </div> \
-      <div class="input-type"> \
-        <label><input id="ad' + number + '-type" type="radio" name="ad' + number +'-type" value="ima"> IMA</label> \
+        <label><input id="ad' + number + '-type" type="radio" name="ad' + number + '-type" value="vmap" data-tag-type="vmap"> VMAP</label> \
       </div> \
   </div> \
   <div class="demo-stream-type-input"> \
@@ -509,7 +505,11 @@ function createAdBox(number) {
         setDefaultInput(adRadioButton, 'ad' + number + '-input', defaultAdUrl);
       })
     }(i))
-  };
+  }
+
+  document.getElementById('delete-ad' + number).addEventListener('click', function() {
+    hideAd('ad-box-' + number);
+  });
 
   if (adArray && adArray.length === 3) {
     scheduleAdButton.classList.add('disabled');
@@ -726,6 +726,11 @@ function setPlayerEvents(player) {
 
   player.on(bitmovin.player.PlayerEvent.Error, function (data) {
     log("On Error: " + JSON.stringify(data));
+    updateCharts(player);
+  });
+
+  player.on(bitmovin.player.PlayerEvent.AdError, function (data) {
+    log("On Ad Error: " + JSON.stringify(data));
     updateCharts(player);
   });
 
