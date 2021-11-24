@@ -306,13 +306,13 @@ function createAdConfig() {
 
     if (adBox) {
       var adManifestUrl = document.getElementById('ad' + i + '-input').value;
-      var adType = document.querySelector('[name="ad' + i + '-type"]:checked').value;
+      var adTagType = document.querySelector('[name="ad' + i + '-type"]:checked').getAttribute('data-tag-type');
       var adPosition = document.querySelector('[name="ad' + i + '-position"]:checked').value;
 
       player.ads.schedule({
         tag: {
           url: adManifestUrl,
-          type: adType
+          type: adTagType
         },
         id: 'Ad$' + i,
         position: adPosition
@@ -472,13 +472,13 @@ function createAdBox(number) {
   <div class="demo-stream-type-input"> \
       <div class="type-header">AD Type</div> \
       <div class="input-type"> \
-        <label><input id="ad' + number + '-type" type="radio" name="ad' + number + '-type" value="vast" checked> VAST</label> \
+        <label><input id="ad' + number + '-type" type="radio" name="ad' + number + '-type" value="vast" data-tag-type="vast" checked> VAST</label> \
       </div> \
       <div class="input-type"> \
-        <label><input id="ad' + number + '-type" type="radio" name="ad' + number + '-type" value="vpaid"> VPAID</label> \
+        <label><input id="ad' + number + '-type" type="radio" name="ad' + number + '-type" value="vpaid" data-tag-type="vast"> VPAID</label> \
       </div> \
       <div class="input-type"> \
-        <label><input id="ad' + number + '-type" type="radio" name="ad' + number + '-type" value="vmap"> VMAP</label> \
+        <label><input id="ad' + number + '-type" type="radio" name="ad' + number + '-type" value="vmap" data-tag-type="vmap"> VMAP</label> \
       </div> \
   </div> \
   <div class="demo-stream-type-input"> \
