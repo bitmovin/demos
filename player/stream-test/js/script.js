@@ -468,7 +468,7 @@ function createAdBox(number) {
   $('<div class="demo-input-box ad-box" id="ad-box-' + number + '"> \
   <div class="demo-item-header"> \
       <div>AD' + number + ' </div> \
-      <button id="delete-ad' + number + '" class="btn btn-outline-primary active demo-button" type="delete-ad" onclick=hideAd("ad-box-' + number + '")>Delete</button> \
+      <button id="delete-ad' + number + '" class="btn btn-outline-primary active demo-button" type="delete-ad">Delete</button> \
   </div> \
   <div class="demo-stream-type-input"> \
       <div class="type-header">AD Type</div> \
@@ -509,7 +509,11 @@ function createAdBox(number) {
         setDefaultInput(adRadioButton, 'ad' + number + '-input', defaultAdUrl);
       })
     }(i))
-  };
+  }
+
+  document.getElementById('delete-ad' + number).addEventListener('click', function() {
+    hideAd('ad-box-' + number);
+  });
 
   if (adArray && adArray.length === 3) {
     scheduleAdButton.classList.add('disabled');
