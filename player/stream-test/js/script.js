@@ -80,7 +80,6 @@ var defaultAdUrl = {
   vast: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/32573358/skippable_ad_unit&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=http%3A%2F%2Freleasetest.dash-player.com%2Fads%2F&description_url=[description_url]&correlator=[random]',
   vpaid: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/32573358/skippable_ad_unit&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=http%3A%2F%2Freleasetest.dash-player.com%2Fads%2F&description_url=[description_url]&correlator=[random]',
   vmap: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpreonly&cmsid=496&vid=short_onecue&correlator=[random]',
-  ima: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=[random]'
 };
 
 var initialTimestamp, bufferChart, bitrateChart;
@@ -480,9 +479,6 @@ function createAdBox(number) {
       </div> \
       <div class="input-type"> \
         <label><input id="ad' + number + '-type" type="radio" name="ad' + number + '-type" value="vmap"> VMAP</label> \
-      </div> \
-      <div class="input-type"> \
-        <label><input id="ad' + number + '-type" type="radio" name="ad' + number +'-type" value="ima"> IMA</label> \
       </div> \
   </div> \
   <div class="demo-stream-type-input"> \
