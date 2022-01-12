@@ -19,5 +19,9 @@
     "MP4",
     "HLS",
     "basic"
-  ]
+  ],
+  "headerData":{
+    "title":"Fragmented MP4 in HLS » Supported by Bitmovin Player | Bitmovin",
+    "description": "Test a fragmented MP4 in HLS using Bitmovin's HTML5 Video Player with the advantage of reducing storage cost"
+  }
 }

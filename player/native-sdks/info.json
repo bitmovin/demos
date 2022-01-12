@@ -21,6 +21,10 @@
       "icon": "android"
     }
   ],
+  "headerData":{
+    "title":"Delivery High Quality Video with Bitmovin's Native Player SDKs | Bitmovin",
+    "description": "Set up image thumbnails over a video seek bar to show previews in this HTML5 player demo"
+  },
   "tags": [
     "native",
     "sdks",

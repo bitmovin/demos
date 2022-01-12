@@ -14,6 +14,10 @@
       "switchChannel.js"
     ]
   },
+  "headerData":{
+    "title":"Improve Stream Switching Speeds in this Bitmovin Player Demo | Bitmovin",
+    "description": "Use live code to test audio only content on Bitmovin's HTML5 Video Player ➜ MP4 & MPEG-2 TS with AAC supported ✅"
+  },
   "tags": [
     "switch",
     "load",

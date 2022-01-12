@@ -21,5 +21,9 @@
     "advanced",
     "PiP",
     "sticky"
-  ]
+  ],
+  "headerData":{
+    "title":"Picture in Picture Video Player » Demo | Bitmovin",
+    "description": "Reduce bandwidth expenditure and CDN costs by factor of 10 with this AV1 Video Player Demo"
+  }
 }

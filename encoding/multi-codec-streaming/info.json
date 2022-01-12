@@ -15,6 +15,10 @@
     "hls",
     "dash"
   ],
+  "headerData":{
+    "title":"Multi Codec Streaming » Video Encoding Demo | Bitmovin",
+    "description": "Learn how to enable 4K streaming on the Bitmovin Video Player in this demo showcase | HLS & DASH Streams ✅ | DRM ✅ | CC ✅ | Ads ✅"
+  },
   "additionalCategories": [
     "player"
   ],

@@ -13,6 +13,10 @@
       "demo.js"
     ]
   },
+  "headerData":{
+    "title":"Chromeless Player » Open Source & Customizable UI demo| Bitmovin",
+    "description": "How to calculate the cost impact of errors for AVOD & SVOD streaming models. Find out how costly errors can be for your platform or service"
+  },
   "tags": [
     "UI",
     "chromeless",

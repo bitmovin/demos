@@ -14,6 +14,10 @@
       "adEvents.js"
     ]
   },
+  "headerData":{
+    "title":"Enable Ad Event Reporting » Video Player Analytics | Bitmovin",
+    "description": "See how the Bitmovin Player switches automatically between bitrates to avoid re-buffering, minimize startup time & maximize quality"
+  },
   "tags": [
     "To be defined"
   ]

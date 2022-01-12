@@ -13,6 +13,10 @@
       "demo.js"
     ]
   },
+  "headerData":{
+    "title":"DRM Secure Stream Test using HTML5 Video Player | Bitmovin",
+    "description": "Test DRM protected streams with Bitmovin's Video Player using live code | Including MSE Support  ✅ and EME Support  ✅"
+  },
   "tags": [
     "drm",
     "widevine",

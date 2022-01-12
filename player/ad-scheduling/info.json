@@ -19,5 +19,9 @@
     "IMA",
     "VPAID"
   ],
+  "headerData":{
+    "title":"Schedule a test ad insertation in Bitmovin's HTML5 Video Player | Bitmovin",
+    "description": "Support your AVOD service with Bitmovin's ad insertion supported video player during any video position | VAST, VPAID, IMA & VMAP Supported ✅"
+  },
   "priority": 860
 }
