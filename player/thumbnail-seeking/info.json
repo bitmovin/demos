@@ -14,7 +14,7 @@
       "tracks.js"
     ]
   },
-  "headerData":{
+  "metadata":{
     "title":"Video Player With Thumbnail Preview » Display in HTML5 | Bitmovin",
     "description": "Set up image thumbnails over a video seek bar to show previews in this HTML5 player demo"
   },

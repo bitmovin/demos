@@ -14,7 +14,7 @@
       "caf.js"
     ]
   },
-  "headerData":{
+  "metadata":{
     "title":"Bitmovin Player & Chromecast » HTML5 Video Player Stream Test",
     "description": "Set up chromecast or Cast Application Framework (CAF) capable stream test on Bitmovin's Video Player"
   },

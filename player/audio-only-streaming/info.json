@@ -13,7 +13,7 @@
       "setup.js"
     ]
   },
-  "headerData":{
+  "metadata":{
     "title":"HLS Audio Only Live Stream » Bitmovin Player Demo | Bitmovin",
     "description": "Use live code to test audio only content on Bitmovin's HTML5 Video Player ➜ MP4 & MPEG-2 TS with AAC supported ✅"
   },

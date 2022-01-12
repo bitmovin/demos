@@ -16,7 +16,7 @@
     "Nightly",
     "Canary"
   ],
-  "headerData":{
+  "metadata":{
     "title":"AV1 Video Sample » The next-gen Codec in Bitmovin's HTML5 Video Player",
     "description": "Reduce bandwidth expenditure and CDN costs by factor of 10 with this AV1 Video Player Demo"
   },

@@ -13,7 +13,7 @@
     "basic",
     "impression"
   ],
-  "headerData":{
+  "metadata":{
     "title":"How to Query Video Impression Count from Bitmovin Analytics » Demo | Bitmovin",
     "description": ""
   }

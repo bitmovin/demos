@@ -14,7 +14,7 @@
     "Cmaf low latency",
     "live latency"
   ],
-  "headerData":{
+  "metadata":{
     "title":"Low latency live stream demo on Bitmovin's HTML5 Video Player | Bitmovin",
     "description": "Configure your target low latency with a live stream in this demo | chunked CMAF MPEG-DASH compatible ✅ | Available on Web & Mobile ✅"
   },

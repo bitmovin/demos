@@ -15,7 +15,7 @@
       "playback-bitrate.js"
     ]
   },
-  "headerData":{
+  "metadata":{
     "title":"Bitrate Graphs & Bitrate Ladder Validator » Demo | Bitmovin",
     "description": "See how Bitmovin's Player can preload content for users instantly start watching their content without buffering"
   },

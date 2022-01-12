@@ -19,7 +19,7 @@
     "VAST",
     "VPAID"
   ],
-  "headerData":{
+  "metadata":{
     "title":"Static Overlay Ads in Bitmovin's Video Player » Demo | Bitmovin",
     "description": "View the Bitmovin Video Player Demo with captions that provides all of the neccesary controls for CEA-708 compliance here"
   },

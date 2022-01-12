@@ -13,7 +13,7 @@
       "demo.js"
     ]
   },
-  "headerData":{
+  "metadata":{
     "title":"Adaptive Bitrate Supported Player » Demo | Bitmovin",
     "description": "Support your AVOD service with Bitmovin's ad insertion supported video player during any video position | VAST, VPAID, IMA & VMAP Supported ✅"
   },

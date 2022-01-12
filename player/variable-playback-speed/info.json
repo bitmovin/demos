@@ -13,7 +13,7 @@
       "demo.js"
     ]
   },
-  "headerData":{
+  "metadata":{
     "title":"Video Player With Playback Speed Control » Demo | Bitmovin",
     "description": "Set up chromecast or Cast Application Framework (CAF) capable stream test on Bitmovin's Video Player"
   },

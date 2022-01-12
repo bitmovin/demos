@@ -10,7 +10,7 @@
     "modular",
     "reduce size"
   ],
-  "headerData":{
+  "metadata":{
     "title":"Modular Video Player Demo » Reduced CDN Costs & Customizable Features | Bitmovin",
     "description": "See how Bitmovin's Player maintains a single audio/video stream as users scroll on a page"
   },

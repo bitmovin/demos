@@ -13,7 +13,7 @@
       "demo.js"
     ]
   },
-  "headerData":{
+  "metadata":{
     "title":"Bitmovin Video Player CEA-708 Captions Compliance Demo | Bitmovin",
     "description": "Test out Bitmovin's HTML5 player ▷ using live code with multiple audio and subtitle tracks without video duplication."
   },
