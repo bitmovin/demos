@@ -15,5 +15,9 @@
   "additionalCategories": [
     "player"
   ],
+  "metadata":{
+    "title":"Per-Scene Adaptation » Video Encoding Demo | Bitmovin",
+    "description": "This demo showcases ➜ how you can test your DLS, HLS or Progressive stream with the Bitmovin Player showing buffer levels & bitrate data!"
+  },
   "priority": 950
 }

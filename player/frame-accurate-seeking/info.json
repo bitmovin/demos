@@ -6,6 +6,10 @@
     "executable": true,
     "indexfile": "index.html"
   },
+  "metadata":{
+    "title":"Accurate Player Frame or Scene Seeking »  Video Player Demo | Bitmovin",
+    "description": "Configure your target low latency with a live stream in this demo | chunked CMAF MPEG-DASH compatible ✅ | Available on Web & Mobile ✅"
+  },
   "tags": [
     "seek"
   ]

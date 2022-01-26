@@ -9,5 +9,9 @@
   "tags": [
     "per title encoding"
   ],
+  "metadata":{
+    "title":"Per Title Encoding » Adjust The Bitrate Ladder | Bitmovin",
+    "description": "Enable Picture in Picture (PIP) in this Bitmovin Player Demo to keep a video in the corner of your screen while you scroll ➜ Learn More"
+  },
   "priority": 1000
 }

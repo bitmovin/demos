@@ -13,6 +13,10 @@
     "no setup",
     "insights"
   ],
+  "metadata":{
+    "title":"Bitmovin Video Player & Analytics Bundle » Demo | Bitmovin",
+    "description": "See how Bitmovin's Player can customize video quality labels to A/B test labels for optimal performance | Bitrate Mapping ✅ | HD vs SD Labels ✅"
+  },
   "additionalCategories": [
     "player"
   ],

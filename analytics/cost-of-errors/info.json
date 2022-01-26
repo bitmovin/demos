@@ -10,5 +10,9 @@
     "analytics",
     "cost of errors"
   ],
+  "metadata":{
+    "title":"Video Analytics Cost of Error Calculator » Demo | Bitmovin",
+    "description": "Find out how to control the styling of the Bitmovin Player UI. The UI is independent of the Core Player API & is easy to customize"
+  },
   "hide_github_link": true
 }

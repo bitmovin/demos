@@ -10,6 +10,10 @@
     "show_code": false,
     "language": "js"
   },
+  "metadata":{
+    "title":"Bitmovin's Test Player » Try our HTML 5 Video Player Demo",
+    "description": "Try any stream type on Bitmovin's HTML5 Video Player ➜ DASH, HLS, Smooth, or Progressive. Schedule up to 3 Ads & apply DRM"
+  },
   "tags": [
     "dash",
     "hls",

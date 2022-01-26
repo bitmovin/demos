@@ -13,6 +13,10 @@
       "setup.js"
     ]
   },
+  "metadata":{
+    "title":"Video Quality Labels Customization » Player Demo | Bitmovin",
+    "description": "See how Bitmovin's Player's can quickly scan and find the exact scene or frame that a user is seeking in this SMPTE supported demo"
+  },
   "tags": [
     "To be defined"
   ]

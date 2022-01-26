@@ -13,6 +13,10 @@
       "setup.js"
     ]
   },
+  "metadata":{
+    "title":"How to Preload VoD » Video Player Demo | Bitmovin",
+    "description": "Bitmovin's Native Video Player SDKs ➜ Flexible & extensive APIs | MPEG-DASH, HLS, Smooth Streaming & Progressive MP4 playback"
+  },
   "tags": [
     "preload",
     "vod"
