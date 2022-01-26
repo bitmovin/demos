@@ -14,6 +14,10 @@
       "scrollListener.js"
     ]
   },
+  "metadata":{
+    "title":"Single Video Audio API Support » Demo | Bitmovin",
+    "description": "Test a fragmented MP4 in HLS using Bitmovin's HTML5 Video Player with the advantage of reducing storage cost"
+  },
   "tags": [
     "experimental"
   ]

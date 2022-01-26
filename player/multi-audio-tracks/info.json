@@ -13,6 +13,10 @@
       "setup.js"
     ]
   },
+  "metadata":{
+    "title":"HLS Multiple Audio Tracks » Live Stream Examples | Bitmovin",
+    "description": "Test out Bitmovin's HTML5 player ▷ using live code with multiple audio and subtitle tracks without video duplication."
+  },
   "tags": [
     "multi",
     "audio",

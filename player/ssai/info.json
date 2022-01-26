@@ -19,5 +19,9 @@
     "ssai",
     "ads"
   ],
+  "metadata":{
+    "title":"Server Side Ad Insertion » Demo | Bitmovin",
+    "description": "Experience Bitmovin's HTML5 VR and 360 adaptive video player in this interactive demo"
+  },
   "priority": 840
 }

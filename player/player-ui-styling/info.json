@@ -15,6 +15,10 @@
       "cssOverloading.js"
     ]
   },
+  "metadata":{
+    "title":"Bitmovin Player UI » Custom UI Styling | Bitmovin",
+    "description": "Try any stream type on Bitmovin's HTML5 Video Player ➜ DASH, HLS, Smooth, or Progressive. Schedule up to 3 Ads & apply DRM"
+  },
   "tags": [
     "styling",
     "css",
