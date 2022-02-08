@@ -31,5 +31,6 @@
     "testing",
     "QOE"
   ],
-  "hide_github_link": true
+  "hide_github_link": true,
+  "priority": 1020
 }
