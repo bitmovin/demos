@@ -113,6 +113,10 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
     margin-top: 47px;
 }
 
+#player, #player > * {
+  border-radius: 0 !important;
+}
+
 .sdk-wrapper-title {
     font-size: 20px;
     line-height: 23px;
