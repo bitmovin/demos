@@ -16,7 +16,7 @@ var source = {
   poster: 'https://bitmovin-a.akamaihd.net/content/sintel/poster.png'
 };
 
-var currentUiManager, isBigSeekbar = false, isSmallscreen = false;
+var currentUiManager, isSmallscreen = false;
 
 var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
@@ -43,8 +43,6 @@ document.getElementById('watermark').addEventListener('click', function() {
 
 
 document.getElementById('bigseek').addEventListener('click', function() {
-  isBigSeekbar = !isBigSeekbar;
-
   var seekbar = $('.bmpui-seekbar')[0];
   seekbar.classList.toggle('bigseek');
 });
