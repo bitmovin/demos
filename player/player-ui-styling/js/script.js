@@ -43,8 +43,10 @@ document.getElementById('watermark').addEventListener('click', function() {
 
 
 document.getElementById('bigseek').addEventListener('click', function() {
-  $('.bmpui-ui-seekbar').css('font-size', isBigSeekbar ? '1em' : '3em');
   isBigSeekbar = !isBigSeekbar;
+
+  var seekbar = $('.bmpui-seekbar')[0];
+  seekbar.classList.toggle('bigseek');
 });
 
 document.getElementById('color2').addEventListener('click', function() {
