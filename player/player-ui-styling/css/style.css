@@ -52,6 +52,10 @@ a {
 /*background-color: #ff1237;*/
 /*}*/
 
+.bmpui-seekbar.bigseek > * {
+    font-size: 3em;
+}
+
 .bmpui-seekbar-backdrop.orange {
     background-color: #ff931e !important;
 }
