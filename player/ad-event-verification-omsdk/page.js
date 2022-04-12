@@ -20,7 +20,7 @@ var conf = {
     trackers: {
       omSdk: {
         partnerName: 'awesome-company',
-        partnerVersion: '1.3.25',
+        partnerVersion: '1.0.0',
         verificationResources: [{
           validationScriptUrl: 'https://somewhere.com/validation-script.js',
         }]
