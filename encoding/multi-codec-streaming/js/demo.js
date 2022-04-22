@@ -290,25 +290,33 @@ var getCodecImage = function (selectedCodec) {
   }
 };
 
-var getBrowserImage = function (selectedBrowser) {
+function getBrowserImage(selectedBrowser) {
   switch (selectedBrowser) {
     case BROWSER.CHROME:
-      return '<i class="fa fa-chrome browser-icon" aria-hidden="true"></i>';
+      return '<i class="fa-brands fa-chrome" aria-hidden="true"></i>';
     case BROWSER.EDGE:
-      return '<i class="fa fa-edge browser-icon" aria-hidden="true"></i>';
+      return '<i class="fa-brands fa-edge" aria-hidden="true"></i>';
     case BROWSER.FIREFOX:
-      return '<i class="fa fa-firefox browser-icon" aria-hidden="true"></i>';
+      return '<i class="fa-brands fa-firefox" aria-hidden="true"></i>';
     case BROWSER.IE:
-      return '<i class="fa fa-internet-explorer browser-icon" aria-hidden="true"></i>';
+      return '<i class="fa-brands fa-internet-explorer" aria-hidden="true"></i>';
     case BROWSER.OPERA:
-      return '<i class="fa fa-opera browser-icon" aria-hidden="true"></i>';
+      return '<i class="fa-brands fa-opera" aria-hidden="true"></i>';
     case BROWSER.SAFARI:
-      return '<i class="fa fa-safari browser-icon" aria-hidden="true"></i>';
+      return '<i class="fa-brands fa-safari" aria-hidden="true"></i>';
     case BROWSER.UNKNOWN:
     default:
-      return '<i class="fa fa-question browser-icon" aria-hidden="true"></i>';
+      return '<i class="fa-solid fa-circle-question" aria-hidden="true"></i>';
   }
 };
+
+function isTypeSupported(mimeType)
+{
+  if ('MediaSource' in window && MediaSource.isTypeSupported(mimeType)) {
+    return true;
+  }
+  return false;
+}
 
 function digitToTime(digit) {
   var minutes = Math.floor(digit / 60);
@@ -515,9 +523,12 @@ var multicodec = function () {
   if (browser === BROWSER.CHROME || browser === BROWSER.FIREFOX) {
     selectedCodec = CODEC.VP9;
     source.dash = '//bitmovin-a.akamaihd.net/webpages/demos/content/multi-codec/vp9/stream.mpd';
-  } else if (browser === BROWSER.EDGE) {
+  } else if (browser === BROWSER.EDGE && isTypeSupported('video/mp4; codecs="hvc1"')) {
     selectedCodec = CODEC.H265;
     source.dash = '//bitmovin-a.akamaihd.net/webpages/demos/content/multi-codec/hevc/stream.mpd';
+  } else if (browser === BROWSER.EDGE && !isTypeSupported('video/mp4; codecs="hvc1"')) {
+    selectedCodec = CODEC.VP9;
+    source.dash = '//bitmovin-a.akamaihd.net/webpages/demos/content/multi-codec/vp9/stream.mpd';
   } else if (browser === BROWSER.SAFARI) {
     selectedCodec = CODEC.H265;
     source.hls = '//bitmovin-a.akamaihd.net/webpages/demos/content/multi-codec/hevc/stream_fmp4.m3u8';
