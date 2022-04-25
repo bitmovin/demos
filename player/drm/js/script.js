@@ -168,20 +168,20 @@
   function getBrowserImage(selectedBrowser) {
     switch (selectedBrowser) {
       case BROWSER.CHROME:
-        return '<i class="fa fa-chrome browser-icon" aria-hidden="true"></i>';
+        return '<i class="fa-brands fa-chrome" aria-hidden="true"></i>';
       case BROWSER.EDGE:
-        return '<i class="fa fa-edge browser-icon" aria-hidden="true"></i>';
+        return '<i class="fa-brands fa-edge" aria-hidden="true"></i>';
       case BROWSER.FIREFOX:
-        return '<i class="fa fa-firefox browser-icon" aria-hidden="true"></i>';
+        return '<i class="fa-brands fa-firefox" aria-hidden="true"></i>';
       case BROWSER.IE:
-        return '<i class="fa fa-internet-explorer browser-icon" aria-hidden="true"></i>';
+        return '<i class="fa-brands fa-internet-explorer" aria-hidden="true"></i>';
       case BROWSER.OPERA:
-        return '<i class="fa fa-opera browser-icon" aria-hidden="true"></i>';
+        return '<i class="fa-brands fa-opera" aria-hidden="true"></i>';
       case BROWSER.SAFARI:
-        return '<i class="fa fa-safari browser-icon" aria-hidden="true"></i>';
+        return '<i class="fa-brands fa-safari" aria-hidden="true"></i>';
       case BROWSER.UNKNOWN:
       default:
-        return '<i class="fa fa-question browser-icon" aria-hidden="true"></i>';
+        return '<i class="fa-solid fa-circle-question" aria-hidden="true"></i>';
     }
   }
 
