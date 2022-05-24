@@ -1,0 +1,108 @@
+@media (max-width: 991px) {
+    .sdk-wrapper-body {
+        flex-direction: column;
+    }
+}
+
+.defaults {
+    text-indent: 0 !important;
+}
+
+a {
+    z-index: 100;
+}
+
+.sdk-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 43px;
+    font-family: "averta", sans-serif;
+}
+
+.sdk-wrapper-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.sdk-wrapper-body {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.sdk-item {
+    margin-top: 34px;
+    display: flex;
+    flex-direction: row;
+}
+
+.sdk-item-content {
+    margin-top: 21px;
+    margin-left: 14px;
+    margin-right: 8px;
+}
+
+.sdk-item-url {
+    margin-top: 47px;
+}
+
+.sdk-wrapper-title {
+    font-size: 20px;
+    line-height: 23px;
+    align-content: left;
+    letter-spacing: -4%;
+    fill: #505f79
+}
+
+.sdk-wrapper-description {
+    margin-top: 8px;
+    font-size: 15px;
+    line-height: 18px;
+    align-content: left;
+    fill: #505f79
+}
+
+@media (min-width: 1200px) {
+    .player-col {
+        float: left;
+    }
+
+    .code-col {
+        float: right;
+    }
+}
+
+.ace_editor * {
+    font-family: monospace !important;
+    font-size: 16px !important;
+    direction: ltr !important;
+    text-align: left !important;
+}
+
+body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
+    top: 0;
+    left: 0;
+}
+
+#player, #player > * {
+    border-radius: 0 !important;
+}
+
+.editor-section {
+    border: solid 1px #CBE0ED;
+    border-radius: 4px;
+    padding: 15px 20px 10px 20px;
+    margin: 7px;
+    width: 100%;
+}
+
+.editor {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
