@@ -169,7 +169,7 @@ function setObjectProperty(object, path, value) {
     object[key] = value;
 }
 
-function intialize() {
+function initialize() {
 
     loadDefaultSources();
     document.getElementById("error-div-player").innerHTML = "";
@@ -2547,4 +2547,4 @@ function getSourceSchema() {
 }
 
 loadEditors();
-intialize();
+initialize();
