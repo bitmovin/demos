@@ -1,0 +1,164 @@
+<script type="text/javascript" src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
+<script type="text/javascript" src="https://cdn.bitmovin.com/analytics/web/2/bitmovinanalytics.min.js"></script>
+
+<hr class="mt-5">
+<div class="row">
+    <div class="col-lg-6 player-col">
+        <div id="player" class="tv-frame">
+            <div id="player-container"></div>
+        </div>
+    </div>
+    <div class="col-lg-6 code-col">
+        ${code:demo.js}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="editor-section">
+            <div>Player Configuration</div>
+            <div class="float-right p-2">Note : Key is optional for demo</div>
+            <div class="editor" id="editor1"></div>
+            <div id="error-div-player" class="error"></div>
+            <div class="demo-item-header">
+                <div class="p-2">Need help with configuration? <a id="player-config-link" href="#player-configuration">Player
+                    Configuration
+                    Generator</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="editor-section">
+            <div>Source Configuration</div>
+            <div class="float-right mt-n3 p-2"><select id="source_defaults" class="form-control defaults">
+                <option value="" selected>Choose from defaults</option>
+            </select></div>
+            <div class="editor" id="editor2"></div>
+            <div id="error-div-source" class="error"></div>
+            <div class="demo-item-header">
+                <div class="p-2"> Need help with configuration? <a id="source-config-link" href="#source-configuration">Source
+                    Configuration
+                    Generator</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-3">
+        <input class="btn btn-success form-control" id="load-btn" value="Load" type="button"></input>
+    </div>
+</div>
+<hr class="mt-5">
+
+<div class="row">
+    <div class="col-md-6 chart">
+        <div class="chart" id="buffer-chart"></div>
+    </div>
+    <div class="col-md-6 chart">
+        <div class="chart" id="bitrate-chart"></div>
+    </div>
+</div>
+<hr class="mt-5">
+<div class="row">
+    <div class="col-md-7" id="player-configuration">
+        <div id="form1"></div>
+    </div>
+    <div class="col-md-5 mt-5">
+        <div class="editor" id="editorPlayerConfig"></div>
+        <div class="mt-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <input class="btn btn-success form-control" id="player-config-generate" value="Generate"
+                           type="button">
+                </div>
+                <div class="col-md-6">
+                    <input class="btn btn-success form-control" id="player-config-copy" value="Copy" type="button">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                <ul class="mb-4">
+                    <li>To generate player configuration, enter the values and click the generate button.</li>
+                    <li>To expand and explore all possible player configurations, use the arrow buttons on each
+                        section.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="mt-5">
+<div class="row">
+    <div class="col-md-6" id="source-configuration">
+        <div id="form2"></div>
+    </div>
+    <div class="col-md-6 mt-5">
+        <div class="editor" id="editorSourceConfig"></div>
+        <div class="mt-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <input class="btn btn-success form-control" id="source-config-generate" value="Generate"
+                           type="button">
+                </div>
+                <div class="col-md-6">
+                    <input class="btn btn-success form-control" id="source-config-copy" value="Copy" type="button">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                <ul class="mb-4">
+                    <li>To generate source configuration, enter the values and click the generate button.</li>
+                    <li>To expand and explore all possible source configurations, use the arrow buttons on each
+                        section.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sdk-wrapper">
+    <div class="sdk-wrapper-header">
+        <h4 class="sdk-wrapper-title">Try our SDKs</h4>
+        <p class="sdk-wrapper-description">Bitmovin iOS SDK | Bitmovin Android SDK</p>
+    </div>
+    <div class="sdk-wrapper-body">
+        <div class="sdk-item">
+            <img src="https://bitmovin-a.akamaihd.net/webpages/demo-fw/stream-test/Apple.svg"/>
+            <div class="sdk-item-content">
+                <div style="padding-bottom: 6px;">iOS/tvOS SDK</div>
+                <a target="_blank" onclick="amp.logSDKSourceCodeClicked('stream-test', 'ios')"
+                   href="https://github.com/bitmovin/bitmovin-player-ios-samples">
+                    <div style="height: 28px;" class="btn btn-sm btn-outline-dark">
+                        <i class="fa-brands fa-github"></i>
+                        <span class="pl-1">Check out the SDK</span>
+                    </div>
+                </a>
+            </div>
+            <a target="_blank" class="sdk-item-url" href="https://itunes.apple.com/us/app/bitmovin-player/id1245174386">
+                <img src="https://bitmovin-a.akamaihd.net/webpages/demo-fw/stream-test/Appstore.svg"/>
+            </a>
+        </div>
+        <div class="sdk-item">
+            <img src="https://bitmovin-a.akamaihd.net/webpages/demo-fw/stream-test/Android.svg"/>
+            <div class="sdk-item-content">
+                <div style="padding-bottom: 6px;">Android SDK</div>
+                <a target="_blank" onclick="amp.logSDKSourceCodeClicked('stream-test', 'android')"
+                   href="https://github.com/bitmovin/bitmovin-player-android-samples">
+                    <div style="height: 28px;" class="btn btn-sm btn-outline-dark">
+                        <i class="fa-brands fa-github"></i>
+                        <span class="pl-1">Check out the SDK</span>
+                    </div>
+                </a>
+            </div>
+            <a target="_blank" class="sdk-item-url"
+               href="https://play.google.com/store/apps/details?id=com.bitmovin.demo.player">
+                <img src="https://bitmovin-a.akamaihd.net/webpages/demo-fw/stream-test/GooglePlay.svg"/>
+            </a>
+        </div>
+    </div>
+</div>
