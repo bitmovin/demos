@@ -11,7 +11,7 @@ var source = {
   smooth: 'https://test.playready.microsoft.com/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/manifest',
   drm: {
     widevine: {
-      LA_URL: 'https://widevine-proxy.appspot.com/proxy'
+      LA_URL: 'https://cwip-shaka-proxy.appspot.com/no_auth'
     },
     playready: {
       LA_URL: 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&ContentKey=EAtsIJQPd5pFiRUrV9Layw=='

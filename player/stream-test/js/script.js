@@ -71,7 +71,7 @@ var drmSource = {
   progressive: '',
   drm: {
     none: '',
-    widevine: 'https://widevine-proxy.appspot.com/proxy',
+    widevine: 'https://cwip-shaka-proxy.appspot.com/no_auth',
     playready: 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&ContentKey=EAtsIJQPd5pFiRUrV9Layw=='
   }
 };
