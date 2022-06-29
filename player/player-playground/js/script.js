@@ -53,7 +53,7 @@ var sources = [
     }
 ];
 
-ace.config.setModuleUrl('ace/mode/javascript_worker', "https://pagecdn.io/lib/ace/1.4.14/worker-javascript.min.js");
+ace.config.setModuleUrl('ace/mode/javascript_worker', "https://cdn.bitmovin.com/content/player-playground/worker.js");
 
 function loadEditors() {
     playerConfigEditor = ace.edit("editor1");
@@ -285,9 +285,9 @@ function setupPlayer() {
     document.getElementById("error-div-source").innerHTML = "";
 
     if (playerConfigEditor.getValue() && Object.keys(playerConfigEditor.getValue()).length !== 0) {
-        insertUrlParam("pConfig", btoa(playerConfigEditor.getValue()));
         try {
             playerConfig = eval("(" + playerConfigEditor.getValue() + ")");
+            insertUrlParam("pConfig", btoa(playerConfigEditor.getValue()));
         } catch (e) {
             if (e instanceof SyntaxError) {
                 document.getElementById("error-div-player").innerHTML = "Error while parsing :  " + e.message + " ";
@@ -295,9 +295,9 @@ function setupPlayer() {
         }
     }
     if (sourceConfigEditor.getValue() && Object.keys(sourceConfigEditor.getValue()).length !== 0) {
-        insertUrlParam("sConfig", btoa(sourceConfigEditor.getValue()));
         try {
             sourceConfig = eval("(" + sourceConfigEditor.getValue() + ")");
+            insertUrlParam("sConfig", btoa(sourceConfigEditor.getValue()));
         } catch (e) {
             if (e instanceof SyntaxError) {
                 document.getElementById("error-div-source").innerHTML = "Error while parsing : " + e.message;
@@ -311,8 +311,8 @@ function setupPlayer() {
     var playerContainer = document.getElementById("player-container");
 
     if (player) {
-        player.unload().then(() => {
-            player.destroy().then(() => {
+        player.unload().then(function () {
+            player.destroy().then(function () {
                 player = new bitmovin.player.Player(playerContainer, playerConfig);
                 player.load(sourceConfig).then(function () {
                     playerOnloadSetups();
