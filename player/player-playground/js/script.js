@@ -311,8 +311,8 @@ function setupPlayer() {
     var playerContainer = document.getElementById("player-container");
 
     if (player) {
-        player.unload().then(() => {
-            player.destroy().then(() => {
+        player.unload().then(function () {
+            player.destroy().then(function () {
                 player = new bitmovin.player.Player(playerContainer, playerConfig);
                 player.load(sourceConfig).then(function () {
                     playerOnloadSetups();
