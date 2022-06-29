@@ -53,7 +53,7 @@ var sources = [
     }
 ];
 
-ace.config.setModuleUrl('ace/mode/javascript_worker', "https://pagecdn.io/lib/ace/1.4.14/worker-javascript.min.js");
+ace.config.setModuleUrl('ace/mode/javascript_worker', "https://cdn.bitmovin.com/content/player-playground/worker.js");
 
 function loadEditors() {
     playerConfigEditor = ace.edit("editor1");
