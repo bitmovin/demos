@@ -285,9 +285,9 @@ function setupPlayer() {
     document.getElementById("error-div-source").innerHTML = "";
 
     if (playerConfigEditor.getValue() && Object.keys(playerConfigEditor.getValue()).length !== 0) {
-        insertUrlParam("pConfig", btoa(playerConfigEditor.getValue()));
         try {
             playerConfig = eval("(" + playerConfigEditor.getValue() + ")");
+            insertUrlParam("pConfig", btoa(playerConfigEditor.getValue()));
         } catch (e) {
             if (e instanceof SyntaxError) {
                 document.getElementById("error-div-player").innerHTML = "Error while parsing :  " + e.message + " ";
@@ -295,9 +295,9 @@ function setupPlayer() {
         }
     }
     if (sourceConfigEditor.getValue() && Object.keys(sourceConfigEditor.getValue()).length !== 0) {
-        insertUrlParam("sConfig", btoa(sourceConfigEditor.getValue()));
         try {
             sourceConfig = eval("(" + sourceConfigEditor.getValue() + ")");
+            insertUrlParam("sConfig", btoa(sourceConfigEditor.getValue()));
         } catch (e) {
             if (e instanceof SyntaxError) {
                 document.getElementById("error-div-source").innerHTML = "Error while parsing : " + e.message;
