@@ -1,0 +1,19 @@
+{
+  "title": "AV1 ROI Calculator",
+  "description": "Calculate the Return on Investment (ROI) for AV1 encoding",
+  "long_description": "Calculate the breakeven point (ROI) of AV1 versus H264 encoding for our customers",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "tags": [
+    "calculator",
+    "encoding",
+    "return on investment"
+  ],
+  "metadata":{
+    "title":"AV1 ROI Calculator » Demo | Bitmovin",
+    "description": "Calculate the breakeven point (ROI) of AV1 versus H264 encoding"
+  },
+  "hide_github_link": true
+}
