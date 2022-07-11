@@ -67,8 +67,8 @@ $(function() {
 
       var avodCostsRoundValue = roundDecimals(avodCostsValue, 3);
       avodCostsEl.text(avodCostsRoundValue + ' $');
-      console.debug('avodCostsValue=%d, avodCostsRoundValue=%d',
-        avodCostsValue, avodCostsRoundValue);
+      // console.debug('avodCostsValue=%d, avodCostsRoundValue=%d',
+      //   avodCostsValue, avodCostsRoundValue);
     }
 
     // disable submit event
@@ -138,8 +138,8 @@ $(function() {
 
       var svodRateRoundValue = roundDecimals(svodRateValue, 3);
       svodRateEl.text(svodRateRoundValue + ' %');
-      console.debug('svodRateValue=%d, svodRateRoundValue=%d',
-        svodRateValue, svodRateRoundValue);
+      // console.debug('svodRateValue=%d, svodRateRoundValue=%d',
+      //   svodRateValue, svodRateRoundValue);
     }
 
     // disable submit event
