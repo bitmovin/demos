@@ -47,73 +47,95 @@ $(function() {
 
   (function initAv1Form() {
     // form values for calculation
-    var averageCPMValue = 60;
-    var weeklyRecurringViewersValue = 30;
-    var playsPerUniquePerWeekValue = 1.5;
-    var adsPerPlayValue = 2;
+    let encodingCostPerMinute = 0.02;
+    let ingressCostPerGb = 0.00;
+    let egressCostPerGb = 0.04;
 
-    function calculateAvodCosts() {
-      var avodCostsValue = averageCPMValue
-        * (weeklyRecurringViewersValue / 100)
-        * playsPerUniquePerWeekValue
-        * adsPerPlayValue
-        * 0.0232;
+    let numberOfStreamsUhd = 2;
+    let numberOfStreamsHd = 3;
+    let numberOfStreamsSd = 4;
 
-      var avodCostsEl = $('#av1-h264');
-      if (isNaN(avodCostsValue)) {
-        avodCostsEl.text('--');
-        return;
+    const multiplierStreamUHD = 4;
+    const multiplierStreamHD = 2;
+    const multiplierStreamSD = 1;
+    const multiplierTechPerTitle = 1.1;
+    const multiplierTech2Pass = 1.25;
+    const multiplierTech3Pass = 2;
+    const multiplierCodecH264 = 1;
+    const multiplierCodecH265 = 2;
+    const multiplierCodecAv1 = 10;
+
+    const improvementsAv1H264 = 0.5; // 50%
+    const improvementsAv1H265 = 0.7; // 30%
+
+    const UhdRenditionGbPerMinH264 = 0.09;
+    const UhdRenditionGbPerMinH265 = 0.06428571429;
+    const UhdRenditionGbPerMinAv1 = 0.045;
+
+    const av1H264Element = $('#av1-h264');
+    const av1H265Element = $('#av1-h265');
+
+    const calculateBreakEvenPoints = () => {
+
+      const encodingCostPerMinuteAv1 = 7.92;
+
+      const av1H264BreakEven = encodingCostPerMinuteAv1 / (egressCostPerGb * (UhdRenditionGbPerMinH264 - UhdRenditionGbPerMinAv1));
+      const av1H265BreakEven = encodingCostPerMinuteAv1 / (egressCostPerGb * (UhdRenditionGbPerMinH265 - UhdRenditionGbPerMinAv1));
+
+      if (isNaN(av1H264BreakEven) || isNaN(av1H265BreakEven)) {
+        av1H264Element.text('--');
+        av1H265Element.text('--');
+      } else  {
+        av1H264Element.text(`${roundDecimals(av1H264BreakEven, 0)} views`);
+        av1H265Element.text(`${roundDecimals(av1H265BreakEven, 0)} views`);
       }
-
-      var avodCostsRoundValue = roundDecimals(avodCostsValue, 3);
-      avodCostsEl.text(avodCostsRoundValue + ' $');
-      // console.debug('avodCostsValue=%d, avodCostsRoundValue=%d',
-      //   avodCostsValue, avodCostsRoundValue);
     }
 
     // disable submit event
-    var formComponent = $('#av1-form');
-    formComponent.on('submit', function(e) {
+    const formElement = $('#av1-form');
+    formElement.on('submit', function(e) {
       e.preventDefault();
       e.stopPropagation();
     });
 
-    var averageCPMInputEl = $('input#averageCPMInput', formComponent);
-    averageCPMInputEl.val(averageCPMValue);
-    averageCPMInputEl.prop('disabled', false);
-    averageCPMInputEl.on('input', inputEventHandler(function(value) {
-      averageCPMValue = value;
-      calculateAvodCosts();
-    }));
-
-    var weeklyRecurringViewersInputEl = $('input#weeklyRecurringViewersInput',
-      formComponent);
-    weeklyRecurringViewersInputEl.val(weeklyRecurringViewersValue);
-    weeklyRecurringViewersInputEl.prop('disabled', false);
-    weeklyRecurringViewersInputEl.on('input',
-      inputEventHandler(function(value) {
-        weeklyRecurringViewersValue = value;
-        calculateAvodCosts();
+    // handle input fields
+    $('input#encodingCostPerMinute', formElement).val(encodingCostPerMinute)
+      .on('input', inputEventHandler((value) => {
+        encodingCostPerMinute = value;
+        calculateBreakEvenPoints();
+      }));
+    
+    $('input#ingressCostPerGb', formElement).val(ingressCostPerGb)
+      .on('input', inputEventHandler((value) => {
+        ingressCostPerGb = value;
+        calculateBreakEvenPoints();
+      }));
+    
+    $('input#egressCostPerGb', formElement).val(egressCostPerGb)
+      .on('input', inputEventHandler((value) => {
+        egressCostPerGb = value;
+        calculateBreakEvenPoints();
       }));
 
-    var playsPerUniquePerWeekInputEl = $('input#playsPerUniquePerWeekInput',
-      formComponent);
-    playsPerUniquePerWeekInputEl.val(playsPerUniquePerWeekValue);
-    playsPerUniquePerWeekInputEl.prop('disabled', false);
-    playsPerUniquePerWeekInputEl.on('input', inputEventHandler(function(value) {
-      playsPerUniquePerWeekValue = value;
-      calculateAvodCosts();
-    }));
+    $('input#numberOfStreamsUhd', formElement).val(numberOfStreamsUhd)
+      .on('input', inputEventHandler((value) => {
+        numberOfStreamsUhd = value;
+        calculateBreakEvenPoints();
+      }));
 
-    var adsPerPlayInputEl = $('input#adsPerPlayInput', formComponent);
-    adsPerPlayInputEl.val(adsPerPlayValue);
-    adsPerPlayInputEl.prop('disabled', false);
-    adsPerPlayInputEl.on('input', inputEventHandler(function(value) {
-      adsPerPlayValue = value;
-      calculateAvodCosts();
-    }));
+    $('input#numberOfStreamsHd', formElement).val(numberOfStreamsHd)
+      .on('input', inputEventHandler((value) => {
+        numberOfStreamsHd = value;
+        calculateBreakEvenPoints();
+      }));
 
-    calculateAvodCosts();
+    $('input#numberOfStreamsSd', formElement).val(numberOfStreamsSd)
+      .on('input', inputEventHandler((value) => {
+        numberOfStreamsSd = value;
+        calculateBreakEvenPoints();
+      }));
+
+    calculateBreakEvenPoints();
   })();
 
 });

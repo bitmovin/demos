@@ -9,7 +9,7 @@
   for the defaults on the right of the actual values. If you wish to experiment with the calculation
   using different inputs, feel free to adjust to your liking.
 </p>
-<form class="container" id="av1-form" novalidate>
+<form class="container" id="av1-form">
   <div class="row">
 
     <div class="col-md-6">
@@ -63,7 +63,7 @@
     <div class="col-md-6">
       
       <div class="form-group">
-        <label for="numberOfUhdStreams">Amount of UHD streams</label>
+        <label for="numberOfStreamsUhd">Amount of UHD streams</label>
         <input class="form-control"
               id="numberOfUhdStreams"
               min="0"
@@ -75,7 +75,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="numberOfHdStreams">Amount of HD streams</label>
+        <label for="numberOfStreamsHd">Amount of HD streams</label>
         <input class="form-control"
               id="numberOfHdStreams"
               min="0"
@@ -87,7 +87,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="numberOfSdStreams">Amount of SD streams</label>
+        <label for="numberOfStreamsSd">Amount of SD streams</label>
         <input class="form-control"
               id="numberOfSdStreams"
               min="0"
@@ -103,11 +103,6 @@
   </div>
 </form>
 
-<h2 class="my-3">Break-even points</h2>
-<p class="text-justify">
-  Starting from these numbers of views/impressions, supplementing encodings with AV1 becomes more
-  profitable than the respective codec alone. 
-</p>
 <div class="container">
   <div class="row">
 
@@ -123,6 +118,10 @@
 
   </div>
 </div>
+<p class="text-justify">
+  Starting from these numbers of views/impressions, supplementing encodings with AV1 becomes more
+  profitable than the respective codec alone. 
+</p>
 
 <h3 class="my-3">Calculation multipliers</h3>
 <p class="text-justify">
@@ -158,9 +157,9 @@
           <td>2</td>
         </tr>
         <tr class="table-secondary">
-          <th>H264 Multiplier</th>
-          <th>H265 Multiplier</th>
-          <th>AV1 Multiplier</th>
+          <th>H264</th>
+          <th>H265</th>
+          <th>AV1</th>
         </tr>
         <tr>
           <td>1</td>
