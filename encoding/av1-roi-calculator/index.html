@@ -1,97 +1,190 @@
 <p class="text-justify">
-  Errors and any other interruptions are one of the major sources of frustration to viewers. 
-  The correlation between technical streaming issues and viewers abandoning playback has been well studied. 
-  In essence, there is a real cost to every error that a viewer experiences on your platform. 
-  The below models for AVOD and SVOD let you calculate how costly an error is.
+  The purpose of this calculator is to estimate the AV1 break-even point: after how many views is it
+  worth to re-encode using AV1, supplementing your existing encoding.
 </p>
 
-<h2 class="my-3">AV1</h2>
+<h2 class="my-3">Inputs</h2>
 <p class="text-justify">
-  <a
-    href="https://www.researchgate.net/publication/261045256_Video_Stream_Quality_Impacts_Viewer_Behavior_Inferring_Causality_Using_Quasi-Experimental_Designs"
-    target="_blank" style="font-size: 18px">In a research paper Krishnan and Sitaraman</a> calculated that “a viewer
-  who experienced failure is 2.32% less likely to revisit the same site within a week”. Based on
-  this research we created the following calculator:
+  These are price points values that may be different for different customers. Please see the reasoning
+  for the defaults on the right of the actual values. If you wish to experiment with the calculation
+  using different inputs, feel free to adjust to your liking.
+</p>
+<form class="container" id="av1-form" novalidate>
+  <div class="row">
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="encodingCostPerMinute">Encoding cost per minute</label>
+        <div class="input-group">
+          <input class="form-control"
+                id="encodingCostPerMinute"
+                min="0"
+                step="0.01"
+                type="number"
+                value="0.02" />
+          <div class="input-group-append"><span class="input-group-text">$</span></div>
+        </div>
+        <div>
+          <small>Based on <a href="https://bitmovin.com/pricing/" rel="noreferrer" target="_blank" style="font-size: inherit;">Bitmovin flexible pricing</a></small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="ingressCostPerGb">Ingress cost per GB</label>
+        <div class="input-group">
+          <input class="form-control"
+                id="ingressCostPerGb"
+                min="0"
+                step="0.01"
+                type="number"
+                value="0" />
+          <div class="input-group-append"><span class="input-group-text">$</span></div>
+        </div>
+        <div>
+          <small>&nbsp;</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="egressCostPerGb">Egress cost per GB</label>
+        <div class="input-group">
+          <input class="form-control"
+                id="egressCostPerGb"
+                min="0"
+                step="0.01"
+                type="number"
+                value="0.04" />
+          <div class="input-group-append"><span class="input-group-text">$</span></div>  
+        </div>
+        <div>
+          <small>Based on <a href="https://sales-demos.bitmovin.com/demos/b57de324-980a-11e9-b128-42010a840215" rel="noreferrer" target="_blank" style="font-size: inherit;">Bitmovin sales demo</a></small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      
+      <div class="form-group">
+        <label for="numberOfUhdStreams">Amount of UHD streams</label>
+        <input class="form-control"
+              id="numberOfUhdStreams"
+              min="0"
+              step="1"
+              type="number"
+              value="2" />
+        <div>
+          <small>&nbsp;</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="numberOfHdStreams">Amount of HD streams</label>
+        <input class="form-control"
+              id="numberOfHdStreams"
+              min="0"
+              step="1"
+              type="number"
+              value="3" />
+        <div>
+          <small>&nbsp;</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="numberOfSdStreams">Amount of SD streams</label>
+        <input class="form-control"
+              id="numberOfSdStreams"
+              min="0"
+              step="1"
+              type="number"
+              value="4" />
+        <div>
+          <small>&nbsp;</small>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</form>
+
+<h2 class="my-3">Break-even points</h2>
+<p class="text-justify">
+  Starting from these numbers of views/impressions, supplementing encodings with AV1 becomes more
+  profitable than the respective codec alone. 
 </p>
 <div class="container">
-  <div class="row align-items-end">
-    <div class="col-md-5">
-      <form id="avod-form" novalidate>
-        <div class="form-group">
-          <label class="form-control-label" for="averageCPMInput">Encoding minutes</label>
-          <div class="input-group mb-3">
-            <input id="averageCPMInput"
-                   class="form-control"
-                   type="number"
-                   min="0"
-                   step="1"
-                   disabled
-                   aria-label="Average CPM">
-            <div class="input-group-append"><span class="input-group-text">minutes</span></div>
-          </div>
-        </div>
+  <div class="row">
 
-        <div class="form-group">
-          <label for="weeklyRecurringViewersInput">Encoding cost per minute</label>
-          <div class="input-group mb-3">
-            <input id="weeklyRecurringViewersInput"
-                   class="form-control"
-                   type="number"
-                   min="0"
-                   step="0.01"
-                   disabled
-                   aria-label="Weekly recurring viewers">
-            <div class="input-group-append"><span class="input-group-text">$</span></div>
-          </div>
-        </div>
+    <div class="col-md-6 my-2">
+      <div>Break-even point - AV1 vs H264</div>
+      <div id="avod-costs" class="font-weight-bold" style="font-size: 24px">--</div>
+    </div>
+     
+    <div class="col-md-6 my-2">
+      <div>Break-even point - AV1 vs H265</div>
+      <div id="avod-costs" class="font-weight-bold" style="font-size: 24px">--</div>
+    </div>
 
-        <div class="form-group">
-          <label for="playsPerUniquePerWeekInput">Ingress cost per GB</label>
-          <div class="input-group mb-3">
-            <input id="playsPerUniquePerWeekInput"
-                 class="form-control"
-                 type="number"
-                 min="0"
-                 step="0.01"
-                 disabled
-                 aria-label="Plays per unique per week">
-            <div class="input-group-append"><span class="input-group-text">$</span></div>
-          </div>
-        </div>
+  </div>
+</div>
 
-        <div class="form-group">
-          <label for="adsPerPlayInput">Egress cost per GB</label>
-          <div class="input-group mb-3">
-            <input id="adsPerPlayInput"
-                 class="form-control"
-                 type="number"
-                 min="0"
-                 step="0.01"
-                 disabled
-                 aria-label="Ads per play">
-            <div class="input-group-append"><span class="input-group-text">$</span></div>
-          </div>
-        </div>
-      </form>
-    </div> <!--col-->
-    <div class="col-md-7">
-      <div class="p-3 mb-2 bg-light">
-        <div>Break-even point - AV1 vs H264</div>
-        <div id="avod-costs" class="font-weight-bold" style="font-size: 24px">--</div>
-      </div>
-      <div class="p-3 mb-2 bg-light">
-        <div>Break-even point - AV1 vs H265</div>
-        <div id="avod-costs-h265" class="font-weight-bold" style="font-size: 24px">--</div>
-      </div>
-    </div> <!--col-->
-  </div><!--row-->
-</div><!--container-->
+<h3 class="my-3">Calculation multipliers</h3>
+<p class="text-justify">
+  These are the multipliers and factors used in our calculation<a href="#formulaFootnote" target="_self" class="btm-footnote"></a>
+  , based on encoding minutes in pricing. 
+</p>
+<div class="container">
+  <div class="row">
 
-<div class="mt-5">
-  <small class="d-inline-block font-weight-bold">Disclaimer</small>
-  <small class="d-inline-block text-justify">The Bitmovin Analytics Demo is provided on an ‘AS IS’
-    and ‘AS AVAILABLE’ basis, and to the fullest extent permitted by mandatory law, Bitmovin will
-    not be liable for any damages whatsoever, including and not limited to, loss of business or
-    profits or any direct, indirect or consequential loss arising from reliance and use of these
-    models where any action taken on such basis is strictly at the user's own risk.</small>
+    <table class="table">
+      <thead>
+        <th colspan="3">Multipliers</th>
+      </thead>
+      <tbody>
+        <tr class="table-secondary">
+          <th>SD</th>
+          <th>HD</th>
+          <th>UHD</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>2</td>
+          <td>4</td>
+        </tr>
+        <tr class="table-secondary">
+          <th>PerTitle</th>
+          <th>2-Pass</th>
+          <th>3-Pass</th>
+        </tr>
+        <tr>
+          <td>1.1</td>
+          <td>1.25</td>
+          <td>2</td>
+        </tr>
+        <tr class="table-secondary">
+          <th>H264 Multiplier</th>
+          <th>H265 Multiplier</th>
+          <th>AV1 Multiplier</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>2</td>
+          <td>10</td>
+        </tr>
+        <tr class="table-secondary">
+          <th>AV1 improvements over H264</th>
+          <th colspan="2">AV1 improvements over H265</th>
+        </tr>
+        <tr>
+          <td>50%</td>
+          <td colspan="2">30%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ol>
+      <li class="mb-2" style="font-size: 12px;">
+        <span id="formulaFootnote">
+          Formula break-even point: ( [AV1 encoding cost] + [AV1 ingress cost] ) / ( [CODEC egress cost] - [AV1 egress cost] )
+        </span>
+      </li>
+    </ol>
+
+  </div>
 </div>
