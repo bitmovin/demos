@@ -45,7 +45,7 @@ $(function() {
     };
   }
 
-  (function initAvodForm() {
+  (function initAv1Form() {
     // form values for calculation
     var averageCPMValue = 60;
     var weeklyRecurringViewersValue = 30;
@@ -59,7 +59,7 @@ $(function() {
         * adsPerPlayValue
         * 0.0232;
 
-      var avodCostsEl = $('#avod-costs');
+      var avodCostsEl = $('#av1-h264');
       if (isNaN(avodCostsValue)) {
         avodCostsEl.text('--');
         return;
@@ -72,13 +72,13 @@ $(function() {
     }
 
     // disable submit event
-    var avodFormEl = $('#avod-form');
-    avodFormEl.on('submit', function(e) {
+    var formComponent = $('#av1-form');
+    formComponent.on('submit', function(e) {
       e.preventDefault();
       e.stopPropagation();
     });
 
-    var averageCPMInputEl = $('input#averageCPMInput', avodFormEl);
+    var averageCPMInputEl = $('input#averageCPMInput', formComponent);
     averageCPMInputEl.val(averageCPMValue);
     averageCPMInputEl.prop('disabled', false);
     averageCPMInputEl.on('input', inputEventHandler(function(value) {
@@ -87,7 +87,7 @@ $(function() {
     }));
 
     var weeklyRecurringViewersInputEl = $('input#weeklyRecurringViewersInput',
-      avodFormEl);
+      formComponent);
     weeklyRecurringViewersInputEl.val(weeklyRecurringViewersValue);
     weeklyRecurringViewersInputEl.prop('disabled', false);
     weeklyRecurringViewersInputEl.on('input',
@@ -97,7 +97,7 @@ $(function() {
       }));
 
     var playsPerUniquePerWeekInputEl = $('input#playsPerUniquePerWeekInput',
-      avodFormEl);
+      formComponent);
     playsPerUniquePerWeekInputEl.val(playsPerUniquePerWeekValue);
     playsPerUniquePerWeekInputEl.prop('disabled', false);
     playsPerUniquePerWeekInputEl.on('input', inputEventHandler(function(value) {
@@ -105,7 +105,7 @@ $(function() {
       calculateAvodCosts();
     }));
 
-    var adsPerPlayInputEl = $('input#adsPerPlayInput', avodFormEl);
+    var adsPerPlayInputEl = $('input#adsPerPlayInput', formComponent);
     adsPerPlayInputEl.val(adsPerPlayValue);
     adsPerPlayInputEl.prop('disabled', false);
     adsPerPlayInputEl.on('input', inputEventHandler(function(value) {
@@ -114,70 +114,6 @@ $(function() {
     }));
 
     calculateAvodCosts();
-  })();
-
-  (function initSvodForm() {
-    // for values for calculation
-    var playsPerSubscriberValue = 150;
-    var currentErrorPercentageValue = 6.6;
-    var targetErrorDecreaseValue = 10;
-
-    function calculateSvodRate() {
-      var subscriptionPriceValue = 10;
-      var averageRevenuePerUserValue = 10;
-      var days = averageRevenuePerUserValue / 0.06 / subscriptionPriceValue * 30;
-      var errorsPerDay = playsPerSubscriberValue * (currentErrorPercentageValue / 100) / 30;
-
-      var svodRateValue = ((days * errorsPerDay) - (days * errorsPerDay * (1 - (targetErrorDecreaseValue / 100)))) * errorsPerDay / days * 100;
-
-      var svodRateEl = $('#svod-rate');
-      if (isNaN(svodRateValue)) {
-        svodRateEl.text('--');
-        return;
-      }
-
-      var svodRateRoundValue = roundDecimals(svodRateValue, 3);
-      svodRateEl.text(svodRateRoundValue + ' %');
-      // console.debug('svodRateValue=%d, svodRateRoundValue=%d',
-      //   svodRateValue, svodRateRoundValue);
-    }
-
-    // disable submit event
-    var svodFormEl = $('#svod-form');
-    svodFormEl.on('submit', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-    });
-
-    var playsPerSubscriberInputEl = $('input#playsPerSubscriberInput',
-      svodFormEl);
-    playsPerSubscriberInputEl.val(playsPerSubscriberValue);
-    playsPerSubscriberInputEl.prop('disabled', false);
-    playsPerSubscriberInputEl.on('input', inputEventHandler(function(value) {
-      playsPerSubscriberValue = value;
-      calculateSvodRate();
-    }));
-
-    var currentErrorPercentageInputEl = $('input#currentErrorPercentageInput',
-      svodFormEl);
-    currentErrorPercentageInputEl.val(currentErrorPercentageValue);
-    currentErrorPercentageInputEl.prop('disabled', false);
-    currentErrorPercentageInputEl.on('input',
-      inputEventHandler(function(value) {
-        currentErrorPercentageValue = value;
-        calculateSvodRate();
-      }));
-
-    var targetErrorDecreaseInputEl = $('input#targetErrorDecreaseInput',
-      svodFormEl);
-    targetErrorDecreaseInputEl.val(targetErrorDecreaseValue);
-    targetErrorDecreaseInputEl.prop('disabled', false);
-    targetErrorDecreaseInputEl.on('input', inputEventHandler(function(value) {
-      targetErrorDecreaseValue = value;
-      calculateSvodRate();
-    }));
-
-    calculateSvodRate();
   })();
 
 });
