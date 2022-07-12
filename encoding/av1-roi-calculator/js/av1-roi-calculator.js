@@ -55,32 +55,47 @@ $(function() {
     let numberOfStreamsHd = 3;
     let numberOfStreamsSd = 4;
 
-    const multiplierStreamUHD = 4;
-    const multiplierStreamHD = 2;
-    const multiplierStreamSD = 1;
+    const multiplierStreamUhd = 4;
+    const multiplierStreamHd = 2;
+    const multiplierStreamSd = 1;
     const multiplierTechPerTitle = 1.1;
-    const multiplierTech2Pass = 1.25;
-    const multiplierTech3Pass = 2;
-    const multiplierCodecH264 = 1;
-    const multiplierCodecH265 = 2;
+    const multiplierTech3Pass = 2; // Multipass
     const multiplierCodecAv1 = 10;
 
+    // streams/renditions
     const improvementsAv1H264 = 0.5; // 50%
     const improvementsAv1H265 = 0.7; // 30%
-
-    const UhdRenditionGbPerMinH264 = 0.09;
-    const UhdRenditionGbPerMinH265 = 0.06428571429;
-    const UhdRenditionGbPerMinAv1 = 0.045;
-
+    const mbpsH264Uhd = 12;
+    const mbpsH264Hd = 5;
+    const mbpsH264Sd = 1;
+    const uhdRenditionGbPerMinH264 = (mbpsH264Uhd * 60) / (8 * 1000); // GB (8 * 1000) per min (60 seconds)
+    const uhdRenditionGbPerMinH265 = uhdRenditionGbPerMinH264 * improvementsAv1H264 / improvementsAv1H265;
+    const uhdRenditionGbPerMinAv1 = uhdRenditionGbPerMinH264 * improvementsAv1H264;
+    
+    // result elements
     const av1H264Element = $('#av1-h264');
     const av1H265Element = $('#av1-h265');
 
     const calculateBreakEvenPoints = () => {
+      // stream composition
+      const multiplierStreamComposition = numberOfStreamsUhd * multiplierStreamUhd
+        + numberOfStreamsHd * multiplierStreamHd
+        + numberOfStreamsSd * multiplierStreamSd;
+      const encodingCostPerMinuteAv1 = encodingCostPerMinute * multiplierStreamComposition
+        * multiplierTech3Pass * multiplierTechPerTitle * multiplierCodecAv1;
 
-      const encodingCostPerMinuteAv1 = 7.92;
-
-      const av1H264BreakEven = encodingCostPerMinuteAv1 / (egressCostPerGb * (UhdRenditionGbPerMinH264 - UhdRenditionGbPerMinAv1));
-      const av1H265BreakEven = encodingCostPerMinuteAv1 / (egressCostPerGb * (UhdRenditionGbPerMinH265 - UhdRenditionGbPerMinAv1));
+      // all stream bandwidth
+      const multiplierStreamCompositionMbps = numberOfStreamsUhd * mbpsH264Uhd
+        + numberOfStreamsHd * mbpsH264Hd
+        + numberOfStreamsSd * mbpsH264Sd;
+      const allRenditionsGbPerMinH264 = (multiplierStreamCompositionMbps * 60) / (8 * 1000); // GB (8 * 1000) per min (60 seconds)
+      const allRenditionsGbPerMinAv1 = allRenditionsGbPerMinH264 * improvementsAv1H264;
+      
+      // final result
+      const av1H264BreakEven = (encodingCostPerMinuteAv1 + allRenditionsGbPerMinAv1 * ingressCostPerGb)
+        / (egressCostPerGb * (uhdRenditionGbPerMinH264 - uhdRenditionGbPerMinAv1));
+      const av1H265BreakEven = (encodingCostPerMinuteAv1 + allRenditionsGbPerMinAv1 * ingressCostPerGb)
+        / (egressCostPerGb * (uhdRenditionGbPerMinH265 - uhdRenditionGbPerMinAv1));
 
       if (isNaN(av1H264BreakEven) || isNaN(av1H265BreakEven)) {
         av1H264Element.text('--');

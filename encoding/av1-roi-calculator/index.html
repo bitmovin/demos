@@ -1,6 +1,6 @@
 <p class="text-justify">
   The purpose of this calculator is to estimate the AV1 break-even point: after how many views is it
-  worth to re-encode using AV1, supplementing your existing encoding.
+  worth to encode using AV1, supplementing your existing encoding.
 </p>
 
 <h2 class="my-3">Inputs</h2>
@@ -65,7 +65,7 @@
       <div class="form-group">
         <label for="numberOfStreamsUhd">Amount of UHD streams</label>
         <input class="form-control"
-              id="numberOfUhdStreams"
+              id="numberOfStreamsUhd"
               min="0"
               step="1"
               type="number"
@@ -77,7 +77,7 @@
       <div class="form-group">
         <label for="numberOfStreamsHd">Amount of HD streams</label>
         <input class="form-control"
-              id="numberOfHdStreams"
+              id="numberOfStreamsHd"
               min="0"
               step="1"
               type="number"
@@ -89,7 +89,7 @@
       <div class="form-group">
         <label for="numberOfStreamsSd">Amount of SD streams</label>
         <input class="form-control"
-              id="numberOfSdStreams"
+              id="numberOfStreamsSd"
               min="0"
               step="1"
               type="number"
@@ -119,14 +119,15 @@
   </div>
 </div>
 <p class="text-justify">
-  Starting from these numbers of views/impressions, supplementing encodings with AV1 becomes more
+  Starting from these numbers of views, supplementing encodings with AV1 becomes more
   profitable than the respective codec alone. 
 </p>
 
 <h3 class="my-3">Calculation multipliers</h3>
 <p class="text-justify">
-  These are the multipliers and factors used in our calculation<a href="#formulaFootnote" target="_self" class="btm-footnote"></a>
-  , based on encoding minutes in pricing. 
+  These are the multipliers and factors used in our calculation
+  <a href="#formulaFootnote" target="_self" class="btm-footnote"></a>,
+  based on encoding minutes in pricing. 
 </p>
 <div class="container">
   <div class="row">
@@ -137,9 +138,9 @@
       </thead>
       <tbody>
         <tr class="table-secondary">
-          <th>SD</th>
-          <th>HD</th>
-          <th>UHD</th>
+          <th class="col-3">SD</th>
+          <th class="col-3">HD</th>
+          <th class="col-3">UHD</th>
         </tr>
         <tr>
           <td>1</td>
