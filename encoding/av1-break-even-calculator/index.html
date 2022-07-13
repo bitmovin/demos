@@ -12,7 +12,7 @@
 
     <div class="col-md-6">
       <div class="form-group">
-        <label for="encodingCostPerMinute">Encoding cost per minute</label>
+        <label for="encodingCostPerMinute">Encoding cost per billing minute</label>
         <div class="input-group">
           <input class="form-control"
                 id="encodingCostPerMinute"
@@ -58,7 +58,7 @@
     <div class="col-md-6">
       
       <div class="form-group">
-        <label for="numberOfStreamsUhd">Amount of UHD streams</label>
+        <label for="numberOfStreamsUhd">Number of 4K UHD streams (H.264 bitrate: 12 Mbps; billing multiplier: 4)</label>
         <input class="form-control"
               id="numberOfStreamsUhd"
               min="1"
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="numberOfStreamsHd">Amount of HD streams</label>
+        <label for="numberOfStreamsHd">Number of HD streams (H.264 bitrate: 5 Mbps; billing multiplier: 2)</label>
         <input class="form-control"
               id="numberOfStreamsHd"
               min="1"
@@ -82,7 +82,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="numberOfStreamsSd">Amount of SD streams</label>
+        <label for="numberOfStreamsSd">Number of SD streams (H.264 bitrate: 1 Mbps; billing multiplier: 1)</label>
         <input class="form-control"
               id="numberOfStreamsSd"
               min="1"
@@ -99,12 +99,12 @@
   <div class="row">
 
     <div class="col-md-6 my-2">
-      <div>Break-even point - AV1 vs H.264</div>
+      <div>Break-even point - H.264+AV1 vs H.264 only</div>
       <div id="av1-h264" class="font-weight-bold" style="font-size: 24px">--</div>
     </div>
      
     <div class="col-md-6 my-2">
-      <div>Break-even point - AV1 vs H.265</div>
+      <div>Break-even point - H.265+AV1 vs H.265 only</div>
       <div id="av1-h265" class="font-weight-bold" style="font-size: 24px">--</div>
     </div>
 
@@ -159,8 +159,8 @@
           <td>10</td>
         </tr>
         <tr class="table-secondary">
-          <th>AV1 improvements over H.264</th>
-          <th colspan="2">AV1 improvements over H.265</th>
+          <th>AV1 efficiency improvement over H.264</th>
+          <th colspan="2">AV1 efficiency improvement over H.265</th>
         </tr>
         <tr>
           <td>50%</td>

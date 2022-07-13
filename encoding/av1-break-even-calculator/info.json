@@ -1,5 +1,5 @@
 {
-  "title": "AV1 break-even point calculator",
+  "title": "AV1 break-even calculator",
   "description": "Calculate the break-even point for AV1 encoding",
   "long_description": "Calculate the break-even point for AV1 encoding, supplementing the existing encoding.",
   "executable": {
