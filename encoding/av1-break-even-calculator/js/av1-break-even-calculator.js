@@ -90,12 +90,13 @@ $(function() {
         + numberOfStreamsSd * mbpsH264Sd;
       const allRenditionsGbPerMinH264 = (multiplierStreamCompositionMbps * 60) / (8 * 1000); // GB (8 * 1000) per min (60 seconds)
       const allRenditionsGbPerMinAv1 = allRenditionsGbPerMinH264 * improvementsAv1H264;
-      
-      // final result
-      const av1H264BreakEven = (encodingCostPerMinuteAv1 + allRenditionsGbPerMinAv1 * ingressCostPerGb)
-        / (egressCostPerGb * (uhdRenditionGbPerMinH264 - uhdRenditionGbPerMinAv1));
-      const av1H265BreakEven = (encodingCostPerMinuteAv1 + allRenditionsGbPerMinAv1 * ingressCostPerGb)
-        / (egressCostPerGb * (uhdRenditionGbPerMinH265 - uhdRenditionGbPerMinAv1));
+
+      const oneTimeCosts = encodingCostPerMinuteAv1 + allRenditionsGbPerMinAv1 * ingressCostPerGb;
+      const savingsPerViewH264 = egressCostPerGb * (uhdRenditionGbPerMinH264 - uhdRenditionGbPerMinAv1);
+      const savingsPerViewH265 = egressCostPerGb * (uhdRenditionGbPerMinH265 - uhdRenditionGbPerMinAv1);
+
+      const av1H264BreakEven = oneTimeCosts / savingsPerViewH264;
+      const av1H265BreakEven = oneTimeCosts / savingsPerViewH265;
 
       if (isNaN(av1H264BreakEven) || isNaN(av1H265BreakEven)) {
         av1H264Element.text('--');
