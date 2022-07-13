@@ -1,13 +1,11 @@
 <p class="text-justify">
-  The purpose of this calculator is to estimate the AV1 break-even point: after how many views is it
-  worth to encode using AV1, supplementing your existing encoding.
+  The purpose of this calculator is to estimate the AV1 break-even point:
+  How many views does it take to make up for the cost of using AV1 in addition to H.264 or H.265?
 </p>
 
 <h2 class="my-3">Inputs</h2>
 <p class="text-justify">
-  These are price points values that may be different for different customers. Please see the reasoning
-  for the defaults on the right of the actual values. If you wish to experiment with the calculation
-  using different inputs, feel free to adjust to your liking.
+  Note: These are price point values that may be different for different customers.
 </p>
 <form class="container" id="av1-form">
   <div class="row">
@@ -101,12 +99,12 @@
   <div class="row">
 
     <div class="col-md-6 my-2">
-      <div>Break-even point - AV1 vs H264</div>
+      <div>Break-even point - AV1 vs H.264</div>
       <div id="av1-h264" class="font-weight-bold" style="font-size: 24px">--</div>
     </div>
      
     <div class="col-md-6 my-2">
-      <div>Break-even point - AV1 vs H265</div>
+      <div>Break-even point - AV1 vs H.265</div>
       <div id="av1-h265" class="font-weight-bold" style="font-size: 24px">--</div>
     </div>
 
@@ -125,7 +123,6 @@
 </p>
 <div class="container">
   <div class="row">
-
     <table class="table">
       <thead>
         <th colspan="3">Multipliers</th>
@@ -162,8 +159,8 @@
           <td>10</td>
         </tr>
         <tr class="table-secondary">
-          <th>AV1 improvements over H264</th>
-          <th colspan="2">AV1 improvements over H265</th>
+          <th>AV1 improvements over H.264</th>
+          <th colspan="2">AV1 improvements over H.265</th>
         </tr>
         <tr>
           <td>50%</td>
@@ -171,14 +168,16 @@
         </tr>
       </tbody>
     </table>
-
-    <ol>
-      <li class="mb-2" style="font-size: 12px;">
-        <span id="formulaFootnote">
-          Formula break-even point: ( [AV1 encoding cost] + [AV1 ingress cost] ) / ( [CODEC egress cost] - [AV1 egress cost] )
-        </span>
-      </li>
-    </ol>
-
   </div>
+
+</div>
+
+<div class="mt-5">
+  <ol>
+    <li class="mb-2" style="font-size: 12px;">
+      <span id="formulaFootnote">
+        Simplified formula break-even point: ( [AV1 encoding cost] + [AV1 ingress cost] ) / ( [CODEC egress cost per view] - [AV1 egress cost per view] )
+      </span>
+    </li>
+  </ol>
 </div>
