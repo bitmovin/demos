@@ -15,7 +15,7 @@ navigate to a demo inside one of our products, for example [player/4k](./player/
 
 ## Creating a demo
 In order to create a new demo, you need to create a new folder (with new demo name) in either the
-[demos/encoding](./demos/analytics), [demos/encoding](./demos/encoding) or [demos/player](./demos/player) folder,
+[demos/analytics](./demos/analytics), [demos/encoding](./demos/encoding) or [demos/player](./demos/player) folder,
 depending on the category of the demo, with the following contents:
 
 - `info.yaml` (required) - Demo configuration

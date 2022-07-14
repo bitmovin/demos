@@ -1,0 +1,30 @@
+{
+  "title": "Player Playground",
+  "description": "Try out different source and Bitmovin player configurations",
+  "long_description": "To be defined.",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "code": {
+    "show_code": false,
+    "language": "js",
+    "files": [
+      "demo.js"
+    ]
+  },
+  "metadata":{
+    "title":"Bitmovin Player Playground » Try our HTML 5 Video Player Demo",
+    "description": "Try any stream type on Bitmovin player with different configurations ➜ DASH, HLS, Smooth, or Progressive."
+  },
+  "tags": [
+    "dash",
+    "hls",
+    "stream",
+    "test",
+    "player",
+    "playground"
+  ],
+  "hide_github_link": true,
+  "priority": 1050
+}
