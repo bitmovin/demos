@@ -35,7 +35,7 @@ $(function() {
 
       var numberValue = Number(e.target.value);
       if (isNaN(numberValue) || numberValue < 0
-        || countDecimals(numberValue) > 2) {
+        || countDecimals(numberValue) > 4) {
         inputEl.addClass('is-invalid');
         onInputValue(NaN);
         return;
