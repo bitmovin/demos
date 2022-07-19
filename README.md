@@ -1,9 +1,15 @@
+</br>
+
+> :warning: **This repository is not meant to be used for local development but serves as source for the code samples shown at [bitmovin.com/demos](https://bitmovin.com/demos/).**
+
+</br>
+</br>
+
 # Bitmovin Demos
 [![bitmovin](http://bitmovin-a.akamaihd.net/webpages/bitmovin-logo-github.png)](http://www.bitmovin.com)
 
 # Introduction
 Welcome to Bitmovin demos. Our demo page is hosted at [bitmovin.com/demos](https://bitmovin.com/demos/).
-This repository is meant to be used as a reference when integrating our player into your products.
 
 ## Testing a demo
 
