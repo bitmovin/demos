@@ -27,21 +27,6 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="ingressCostPerGb">Ingress cost per GB</label>
-        <div class="input-group">
-          <input class="form-control"
-                id="ingressCostPerGb"
-                min="0"
-                step="0.01"
-                type="number"
-                value="0" />
-          <div class="input-group-append"><span class="input-group-text">$</span></div>
-        </div>
-        <div>
-          <small>&nbsp;</small>
-        </div>
-      </div>
-      <div class="form-group">
         <label for="egressCostPerGb">CDN delivery cost per GB</label>
         <div class="input-group">
           <input class="form-control"
@@ -93,11 +78,8 @@
     </div>
 
   </div>
-</form>
-
-<div class="container">
+  
   <div class="row">
-
     <div class="col-md-6 my-2">
       <div>Break-even point - H.264+AV1 vs H.264 only</div>
       <div id="av1-h264" class="font-weight-bold" style="font-size: 24px">--</div>
@@ -107,9 +89,9 @@
       <div>Break-even point - H.265+AV1 vs H.265 only</div>
       <div id="av1-h265" class="font-weight-bold" style="font-size: 24px">--</div>
     </div>
-
   </div>
-</div>
+</form>
+
 <p class="text-justify">
   Starting from these numbers of views, supplementing encodings with AV1 becomes more
   profitable than the respective codec alone. 
