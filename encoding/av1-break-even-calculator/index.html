@@ -163,7 +163,10 @@
   <ol>
     <li class="mb-2" style="font-size: 12px;">
       <span id="formulaFootnote">
-        Simplified formula break-even point: ( [AV1 encoding cost] + [AV1 ingress cost] ) / ( [H.26X CDN delivery cost] - [AV1 CDN delivery cost] )
+        For the break-even point calculation we calculated the number of views such as:
+        [H.26X encoding cost] + ( [views] * [H.26X CDN delivery cost] )
+        is equal to
+        [H.26X encoding cost] + [AV1 encoding cost] + ( [views] * [AV1 CDN delivery cost] )
       </span>
     </li>
   </ol>
