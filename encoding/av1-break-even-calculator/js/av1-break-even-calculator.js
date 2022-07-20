@@ -35,7 +35,7 @@ $(function() {
 
       var numberValue = Number(e.target.value);
       if (isNaN(numberValue) || numberValue < 0
-        || countDecimals(numberValue) > 2) {
+        || countDecimals(numberValue) > 4) {
         inputEl.addClass('is-invalid');
         onInputValue(NaN);
         return;
@@ -48,21 +48,20 @@ $(function() {
   (function initAv1Form() {
     // form values for calculation
     let encodingCostPerMinute = 0.02;
-    let ingressCostPerGb = 0.00;
     let egressCostPerGb = 0.04;
-
+    
     let numberOfStreamsUhd = 2;
     let numberOfStreamsHd = 3;
     let numberOfStreamsSd = 4;
-
+    
     const multiplierStreamUhd = 4;
     const multiplierStreamHd = 2;
     const multiplierStreamSd = 1;
-    const multiplierTechPerTitle = 1.1;
     const multiplierTech3Pass = 2; // Multipass
     const multiplierCodecAv1 = 10;
-
+    
     // streams/renditions
+    const ingressCostPerGb = 0.00;
     const improvementsAv1H264 = 0.5; // 50%
     const improvementsAv1H265 = 0.7; // 30%
     const mbpsH264Uhd = 12;
@@ -82,7 +81,7 @@ $(function() {
         + numberOfStreamsHd * multiplierStreamHd
         + numberOfStreamsSd * multiplierStreamSd;
       const encodingCostPerMinuteAv1 = encodingCostPerMinute * multiplierStreamComposition
-        * multiplierTech3Pass * multiplierTechPerTitle * multiplierCodecAv1;
+        * multiplierTech3Pass * multiplierCodecAv1;
 
       // all stream bandwidth
       const multiplierStreamCompositionMbps = numberOfStreamsUhd * mbpsH264Uhd
@@ -118,12 +117,6 @@ $(function() {
     $('input#encodingCostPerMinute', formElement).val(encodingCostPerMinute)
       .on('input', inputEventHandler((value) => {
         encodingCostPerMinute = value;
-        calculateBreakEvenPoints();
-      }));
-    
-    $('input#ingressCostPerGb', formElement).val(ingressCostPerGb)
-      .on('input', inputEventHandler((value) => {
-        ingressCostPerGb = value;
         calculateBreakEvenPoints();
       }));
     

@@ -16,8 +16,8 @@
         <div class="input-group">
           <input class="form-control"
                 id="encodingCostPerMinute"
-                min="0"
-                step="0.01"
+                min="0.00"
+                step="0.0001"
                 type="number"
                 value="0.02" />
           <div class="input-group-append"><span class="input-group-text">$</span></div>
@@ -27,27 +27,12 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="ingressCostPerGb">Ingress cost per GB</label>
-        <div class="input-group">
-          <input class="form-control"
-                id="ingressCostPerGb"
-                min="0"
-                step="0.01"
-                type="number"
-                value="0" />
-          <div class="input-group-append"><span class="input-group-text">$</span></div>
-        </div>
-        <div>
-          <small>&nbsp;</small>
-        </div>
-      </div>
-      <div class="form-group">
         <label for="egressCostPerGb">CDN delivery cost per GB</label>
         <div class="input-group">
           <input class="form-control"
                 id="egressCostPerGb"
-                min="0"
-                step="0.01"
+                min="0.00"
+                step="0.0001"
                 type="number"
                 value="0.04" />
           <div class="input-group-append"><span class="input-group-text">$</span></div>  
@@ -58,7 +43,7 @@
     <div class="col-md-6">
       
       <div class="form-group">
-        <label for="numberOfStreamsUhd">Number of 4K UHD streams (H.264 bitrate: 12 Mbps; billing multiplier: 4)</label>
+        <label for="numberOfStreamsUhd">Number of 4k UHD streams (H.264 bitrate: 12 Mbps; billing multiplier: 4)</label>
         <input class="form-control"
               id="numberOfStreamsUhd"
               min="1"
@@ -93,11 +78,8 @@
     </div>
 
   </div>
-</form>
-
-<div class="container">
+  
   <div class="row">
-
     <div class="col-md-6 my-2">
       <div>Break-even point - H.264+AV1 vs H.264 only</div>
       <div id="av1-h264" class="font-weight-bold" style="font-size: 24px">--</div>
@@ -107,12 +89,22 @@
       <div>Break-even point - H.265+AV1 vs H.265 only</div>
       <div id="av1-h265" class="font-weight-bold" style="font-size: 24px">--</div>
     </div>
-
   </div>
-</div>
+</form>
+
 <p class="text-justify">
   Starting from these numbers of views, supplementing encodings with AV1 becomes more
   profitable than the respective codec alone. 
+</p>
+
+<p class="text-justify">
+  For ease of comparison this calculator uses a fixed ladder.
+  We recommend to use
+  <a href="https://bitmovin.com/per-title-encoding/" rel="noreferrer" target="_blank" style="font-size: inherit;">Per-Title</a>
+  as it can help reduce the break-even point further.
+  It will optimize each ladder individually, usually resulting in a reduced number of
+  renditions for more advanced codecs, hence reduced encoding and storage costs
+  compared to a fixed ladder.
 </p>
 
 <h3 class="my-3">Calculation multipliers</h3>
@@ -124,14 +116,14 @@
 <div class="container">
   <div class="row">
     <table class="table">
-      <thead>
-        <th colspan="3">Multipliers</th>
-      </thead>
       <tbody>
         <tr class="table-secondary">
+          <th colspan="3">Resolution factors</th>
+        </tr>
+        <tr>
           <th class="col-3">SD</th>
           <th class="col-3">HD</th>
-          <th class="col-3">UHD</th>
+          <th class="col-3">4k UHD</th>
         </tr>
         <tr>
           <td>1</td>
@@ -139,16 +131,22 @@
           <td>4</td>
         </tr>
         <tr class="table-secondary">
-          <th>PerTitle</th>
-          <th colspan="2">3-Pass</th>
+          <th colspan="3">Feature factors</th>
         </tr>
         <tr>
-          <td>1.1</td>
-          <td colspan="2">2</td>
+          <th>3-Pass</th>
+          <th colspan="2"></th>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td colspan="2"></td>
         </tr>
         <tr class="table-secondary">
-          <th>H264</th>
-          <th>H265</th>
+          <th colspan="3">Codec factors</th>
+        </tr>
+        <tr>
+          <th>H.264</th>
+          <th>H.265</th>
           <th>AV1</th>
         </tr>
         <tr>
@@ -157,12 +155,17 @@
           <td>10</td>
         </tr>
         <tr class="table-secondary">
-          <th>AV1 efficiency improvement over H.264</th>
-          <th colspan="2">AV1 efficiency improvement over H.265</th>
+          <th colspan="3">Efficiency improvements</th>
+        </tr>
+        <tr>
+          <th>AV1 over H.264</th>
+          <th>AV1 over H.265</th>
+          <th></th>
         </tr>
         <tr>
           <td>50%</td>
-          <td colspan="2">30%</td>
+          <td>30%</td>
+          <td></td>
         </tr>
       </tbody>
     </table>
@@ -173,7 +176,10 @@
   <ol>
     <li class="mb-2" style="font-size: 12px;">
       <span id="formulaFootnote">
-        Simplified formula break-even point: ( [AV1 encoding cost] + [AV1 ingress cost] ) / ( [H.26X CDN delivery cost] - [AV1 CDN delivery cost] )
+        For the break-even point calculation we calculated the number of views such as:
+        ([views] * [H.26X CDN delivery cost]) + [H.26X encoding cost]
+        is equal to
+        ([views] * [AV1 CDN delivery cost]) + [H.26X encoding cost] + [AV1 encoding cost]
       </span>
     </li>
   </ol>
