@@ -57,7 +57,6 @@ $(function() {
     const multiplierStreamUhd = 4;
     const multiplierStreamHd = 2;
     const multiplierStreamSd = 1;
-    const multiplierTechPerTitle = 1.1;
     const multiplierTech3Pass = 2; // Multipass
     const multiplierCodecAv1 = 10;
     
@@ -82,7 +81,7 @@ $(function() {
         + numberOfStreamsHd * multiplierStreamHd
         + numberOfStreamsSd * multiplierStreamSd;
       const encodingCostPerMinuteAv1 = encodingCostPerMinute * multiplierStreamComposition
-        * multiplierTech3Pass * multiplierTechPerTitle * multiplierCodecAv1;
+        * multiplierTech3Pass * multiplierCodecAv1;
 
       // all stream bandwidth
       const multiplierStreamCompositionMbps = numberOfStreamsUhd * mbpsH264Uhd
