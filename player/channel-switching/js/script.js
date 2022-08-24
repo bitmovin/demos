@@ -128,15 +128,16 @@ function switchChannel(channelID, event) {
       source = {
         title: 'Big Buck Bunny',
         description: 'A day in the life of Big Buck Bunny.',
-        dash: 'https://bitmovin-a.akamaihd.net/content/bbb/stream.mpd',
-        hls: 'https://bitmovin-a.akamaihd.net/content/bbb/stream.m3u8'
+        dash: 'https://cdn.bitmovin.com/content/assets/bbb/stream.mpd',
+        hls: 'https://cdn.bitmovin.com/content/assets/bbb/stream.m3u8'
       };
     } else {
       source = {
         title: 'Sintel',
         description: 'The main character, Sintel, is attacked while traveling through a wintry mountainside.',
-        dash: 'https://bitmovin-a.akamaihd.net/content/sintel/sintel.mpd',
-        hls: 'https://bitmovin-a.akamaihd.net/content/sintel/hls/playlist.m3u8'
+        dash: 'https://cdn.bitmovin.com/content/assets/sintel/sintel.mpd',
+        hls: 'https://cdn.bitmovin.com/content/assets/sintel/hls/sintel.mpd',
+        poster: 'https://cdn.bitmovin.com/content/assets/sintel/poster.png'
       }
     }
 

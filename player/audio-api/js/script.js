@@ -22,8 +22,7 @@ var conf = {
 };
 
 var source1 = {
-  hls: 'https://cdn.bitmovin.com/content/demos/4k/38e843e0-1998-11e9-8a92-c734cd79b4dc/manifest.m3u8',
-  poster: 'https://bitmovin-a.akamaihd.net/content/sintel/poster.png'
+ hls: 'https://cdn.bitmovin.com/content/assets/blender-4k/38e843e0-1998-11e9-8a92-c734cd79b4dc/manifest.m3u8'
 };
 
 var source2 = {
