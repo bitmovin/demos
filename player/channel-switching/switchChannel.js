@@ -19,7 +19,7 @@ function switchChannel(channelID) {
       title: 'Sintel',
       description: 'The main character, Sintel, is attacked while traveling through a wintry mountainside.',
       dash: 'https://cdn.bitmovin.com/content/assets/sintel/sintel.mpd',
-      hls: 'https://cdn.bitmovin.com/content/assets/sintel/hls/sintel.mpd',
+      hls: 'https://cdn.bitmovin.com/content/assets/sintel/hls/playlist.m3u8',
       poster: 'https://cdn.bitmovin.com/content/assets/sintel/poster.png'
     }
   }
