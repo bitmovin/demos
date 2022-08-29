@@ -34,5 +34,5 @@ var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.core.Player(playerContainer, conf);
 
 player.load({
-  dash: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
+  dash: 'https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
 });

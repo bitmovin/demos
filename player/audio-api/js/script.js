@@ -22,13 +22,12 @@ var conf = {
 };
 
 var source1 = {
-  hls: 'https://cdn.bitmovin.com/content/demos/4k/38e843e0-1998-11e9-8a92-c734cd79b4dc/manifest.m3u8',
-  poster: 'https://bitmovin-a.akamaihd.net/content/sintel/poster.png'
+ hls: 'https://cdn.bitmovin.com/content/assets/blender-4k/38e843e0-1998-11e9-8a92-c734cd79b4dc/manifest.m3u8'
 };
 
 var source2 = {
-  hls: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
-  poster: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/poster.jpg'
+  hls: 'https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
+  poster: 'https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg'
 };
 
 var playerContainer1 = document.getElementById('player-container-1');

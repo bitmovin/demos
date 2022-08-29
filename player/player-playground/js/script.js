@@ -14,41 +14,41 @@ var tempKeyHolder = {
 }
 
 var sourceConfig = {
-    dash: "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd",
-    hls: "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8",
-    progressive: "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4",
+    dash: "https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd",
+    hls: "https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8",
+    progressive: "https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4",
     smooth: "https://test.playready.microsoft.com/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/manifest",
-    poster: "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/poster.jpg"
+    poster: "https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg"
 };
 
 var sources = [
     {
         title: "DASH",
         url: {
-            dash: "https://bitdash-a.akamaihd.net/content/MI201109210084_1/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd",
-            poster: "https://bitdash-a.akamaihd.net/content/MI201109210084_1/poster.jpg",
+            dash: "https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd",
+            poster: "https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg",
         }
     },
     {
         title: "HLS",
         url: {
-            hls: "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8",
-            poster: "https://bitdash-a.akamaihd.net/content/MI201109210084_1/poster.jpg",
+            hls: "https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8",
+            poster: "https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg",
         }
     },
     {
         title: "Smooth",
         url: {
             smooth: "https://test.playready.microsoft.com/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/manifest",
-            poster: "https://bitdash-a.akamaihd.net/content/MI201109210084_1/poster.jpg",
+            poster: "https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg",
         }
 
     },
     {
         title: "Progressive",
         url: {
-            progressive: "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4",
-            poster: "https://bitdash-a.akamaihd.net/content/MI201109210084_1/poster.jpg",
+            progressive: "https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4",
+            poster: "https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg",
         }
     }
 ];

@@ -4,9 +4,9 @@ var config = {
 };
 
 var source = {
-  dash: 'https://bitmovin-a.akamaihd.net/content/sintel/sintel.mpd',
-  hls: 'https://bitmovin-a.akamaihd.net/content/sintel/hls/playlist.m3u8',
-  poster: 'https://bitmovin-a.akamaihd.net/content/sintel/poster.png'
+  dash: 'https://cdn.bitmovin.com/content/assets/sintel/sintel.mpd',
+  hls: 'https://cdn.bitmovin.com/content/assets/sintel/hls/playlist.m3u8',
+  poster: 'https://cdn.bitmovin.com/content/assets/sintel/poster.png'
 };
 
 var currentUiManager, isSmallscreen = false;
