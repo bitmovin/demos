@@ -139,7 +139,7 @@
   };
 
   var playerContainer = document.getElementById('player-container');
-  player = new bitmovin.player.Player(playerContainer, conf);
+  var player = new bitmovin.player.Player(playerContainer, conf);
 
   player.load(source).then(function () {
     availableRepresentations = player.getAvailableVideoQualities();
