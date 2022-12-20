@@ -1,0 +1,27 @@
+{
+  "title": "WISH ABR Algorithm",
+  "description": "Showcasing the player's ability to implement custom WISH ABR algorithm as own adaptation logic",
+  "long_descripition": "The adaptation logic in the player is the key to avoiding buffering and minimizing startup time. Custom adaptation gives you complete control over your player.",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "code": {
+    "show_code": true,
+    "language": "js",
+    "files": [
+      "demo.js"
+    ]
+  },
+  "metadata":{
+    "title":"Adaptive Bitrate Supported Player » Demo | Bitmovin",
+    "description": "Support your AVOD service with Bitmovin's ad insertion supported video player during any video position | VAST, VPAID, IMA & VMAP Supported ✅"
+  },
+  "tags": [
+    "adaptation logic",
+    "adaption",
+    "bitrate",
+    "quality-switching"
+  ],
+  "priority": 800
+}
