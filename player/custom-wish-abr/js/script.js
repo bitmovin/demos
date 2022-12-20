@@ -227,13 +227,14 @@
     }
 
     // Data for graph rendering
+    console.log("Download finished");
     if (
-      data.downloadType.indexOf("media") !== -1 &&
-      data.mimeType.indexOf("video") !== -1 &&
-      data.size > 1000
+      event.downloadType.indexOf("media") !== -1 &&
+      event.mimeType.indexOf("video") !== -1 &&
+      event.size > 1000
     ) {
       newValue({
-        throughput: Math.round((data.size * 8) / data.downloadTime / 1000),
+        throughput: Math.round((event.size * 8) / event.downloadTime / 1000),
       });
     }
   }
