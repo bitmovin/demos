@@ -35,6 +35,7 @@
 
   var data;
   var chart;
+  var segmentNumber = 0;
   var dataset = [
     [
       "segmentNumber",
@@ -74,7 +75,8 @@
   }
 
   var container = document.getElementById("player-container");
-  var applyButton = document.getElementById("applyWishConfig");
+  var qfSelect = document.getElementById("quality_function");
+  var preferencesSelect = document.getElementById("preferences");
   var player = new bitmovin.player.Player(container, playerConfig);
 
   var sourceConfig = {
@@ -111,7 +113,8 @@
       });
   }
 
-  applyButton.addEventListener("click", getUserConfiguration);
+  preferencesSelect.addEventListener("change", getUserConfiguration);
+  qfSelect.addEventListener("change", getUserConfiguration);
   window.addEventListener("load", getUserConfiguration);
   availableVideoQualities = player.getAvailableVideoQualities();
   currentBufferS = player.getVideoBufferLength();
@@ -228,9 +231,9 @@
 
     // Data for graph rendering
     console.log("Download finished");
-      newValue({
-        throughput: Math.round((event.size * 8) / event.downloadTime / 1000),
-      });
+    newValue({
+      throughput: Math.round((event.size * 8) / event.downloadTime / 1000),
+    });
     // if (
     //   event.downloadType.indexOf("media") !== -1 &&
     //   event.mimeType.indexOf("video") !== -1 &&
@@ -484,7 +487,7 @@
 
   function drawLineChart() {
     data = google.visualization.arrayToDataTable(dataset);
-    console.log("Drawing chart", data, chart);
+    console.log("Drawing chart", data, dataset);
     var options = {
       title: "",
       chartArea: {
