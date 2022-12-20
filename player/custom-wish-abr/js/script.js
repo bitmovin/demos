@@ -2,7 +2,7 @@
   console.log("Starting WISH ABR");
 
   var qualitySwitches = 0;
-  var buffer_size = 20;
+  var buffer_size = 40;
   var throughputHistory = [];
   var currentQuality = null;
   var sameRepCount = 0;
@@ -63,7 +63,7 @@
     tweaks: {
       file_protocol: true,
       app_id: "ANY_ID",
-      max_buffer_level: buffer_size,
+      // max_buffer_level: buffer_size,
     },
     adaptation: {
       onVideoAdaptation: wishmmsp,
