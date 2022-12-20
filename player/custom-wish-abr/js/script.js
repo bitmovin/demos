@@ -84,7 +84,9 @@
   function getUserConfiguration() {
     var preference = document.getElementById("preferences");
 
-    switch (preference.value) {
+    var value = preference.value || "balance";
+
+    switch (value) {
       case "save_data":
         m_xi = 1;
         m_delta = 1;
@@ -110,6 +112,7 @@
   }
 
   applyButton.addEventListener("click", getUserConfiguration);
+  window.addEventListener("load", getUserConfiguration);
   availableVideoQualities = player.getAvailableVideoQualities();
   currentBufferS = player.getVideoBufferLength();
 
