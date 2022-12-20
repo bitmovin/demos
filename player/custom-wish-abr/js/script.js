@@ -484,6 +484,7 @@
 
   function drawLineChart() {
     data = google.visualization.arrayToDataTable(dataset);
+    console.log("Drawing chart", data, chart);
     var options = {
       title: "",
       chartArea: {
