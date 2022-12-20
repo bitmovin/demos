@@ -1,4 +1,6 @@
 (function () {
+  console.log("Starting WISH ABR");
+
   var qualitySwitches = 0;
   var buffer_size = 20;
   var throughputHistory = [];
@@ -66,6 +68,10 @@
       onVideoAdaptation: wishmmsp,
     },
   };
+
+  if (location.protocol === "file:") {
+    document.getElementById("webserver-warning").style.display = "block";
+  }
 
   var container = document.getElementById("my-player");
   var applyButton = document.getElementById("applyWishConfig");
