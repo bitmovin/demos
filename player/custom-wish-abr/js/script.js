@@ -228,15 +228,15 @@
 
     // Data for graph rendering
     console.log("Download finished");
-    if (
-      event.downloadType.indexOf("media") !== -1 &&
-      event.mimeType.indexOf("video") !== -1 &&
-      event.size > 1000
-    ) {
       newValue({
         throughput: Math.round((event.size * 8) / event.downloadTime / 1000),
       });
-    }
+    // if (
+    //   event.downloadType.indexOf("media") !== -1 &&
+    //   event.mimeType.indexOf("video") !== -1 &&
+    //   event.size > 1000
+    // ) {
+    // }
   }
 
   function getSmoothThroughput(
