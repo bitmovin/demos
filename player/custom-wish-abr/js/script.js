@@ -73,7 +73,7 @@
     document.getElementById("webserver-warning").style.display = "block";
   }
 
-  var container = document.getElementById("my-player");
+  var container = document.getElementById("player-container");
   var applyButton = document.getElementById("applyWishConfig");
   var player = new bitmovin.player.Player(container, playerConfig);
 
@@ -113,7 +113,11 @@
   availableVideoQualities = player.getAvailableVideoQualities();
   currentBufferS = player.getVideoBufferLength();
 
-  function wishmmsp() {
+  function wishmmsp(bitmovinABRSuggestion) {
+    console.log(
+      "Quality switch suggested by Bitmovin player: ",
+      bitmovinABRSuggestion
+    );
     next_selected_quality = 0;
     bitratesKbps = availableVideoQualities.map(function (quality) {
       return quality.bitrate / 1000;
