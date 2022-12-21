@@ -210,7 +210,7 @@
       segmentNumber,
       throughput / 1000,
       parseInt(chosenQuality) / 1000000,
-      player.getVideoBufferLength() / 10,
+      player.getVideoBufferLength(),
     ]);
 
     drawLineChart();
@@ -231,9 +231,11 @@
 
     // Data for graph rendering
     console.log("Download finished");
-    newValue({
-      throughput: Math.round((event.size * 8) / event.downloadTime / 1000),
-    });
+    if (event.mimeType.includes("video")) {
+      newValue({
+        throughput: Math.round((event.size * 8) / event.downloadTime / 1000),
+      });
+    }
     // if (
     //   event.downloadType.indexOf("media") !== -1 &&
     //   event.mimeType.indexOf("video") !== -1 &&
