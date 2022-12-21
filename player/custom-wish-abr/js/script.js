@@ -39,9 +39,9 @@
   var dataset = [
     [
       "segmentNumber",
-      "Estimated throughput (Mbps)",
+      "Est. throughput (Mbps)",
       "Chosen quality (Mbps)",
-      "Buffer Length (x10s)",
+      "Buffer Length (sec)",
     ],
     [0, 0, 0, 0],
   ];
@@ -56,17 +56,18 @@
       muted: true,
       autoplay: true,
     },
-    style: {
-      width: "640px",
-      height: "480px",
-    },
     tweaks: {
       file_protocol: true,
       app_id: "ANY_ID",
       // max_buffer_level: buffer_size,
     },
     adaptation: {
-      onVideoAdaptation: wishmmsp,
+      desktop: {
+        onVideoAdaptation: wishmmsp,
+      },
+      mobile: {
+        onVideoAdaptation: wishmmsp,
+      },
     },
   };
 
@@ -191,12 +192,7 @@
   });
 
   function newValue(metrics) {
-    var throughput;
-    if (metrics.throughput > 5000) {
-      throughput = 5000;
-    } else {
-      throughput = metrics.throughput;
-    }
+    var throughput = metrics.throughput;
 
     var chosenQuality = player.getDownloadedVideoData().bitrate;
 
