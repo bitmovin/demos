@@ -334,3 +334,11 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
     color: red;
     font-weight: bold;
 }
+
+.demo-select-target {
+    display: flex;
+}
+
+.demo-select-target select {
+    margin-right: 10px;
+}
