@@ -72,7 +72,7 @@ var drmSource = {
   drm: {
     none: '',
     widevine: 'https://cwip-shaka-proxy.appspot.com/no_auth',
-    playready: 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&ContentKey=EAtsIJQPd5pFiRUrV9Layw=='
+    playready: 'https://test.playready.microsoft.com/service/rightsmanager.asmx?PlayRight=1&ContentKey=EAtsIJQPd5pFiRUrV9Layw=='
   }
 };
 
