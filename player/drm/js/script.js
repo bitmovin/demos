@@ -15,7 +15,7 @@
         'LA_URL': 'https://cwip-shaka-proxy.appspot.com/no_auth'
       },
       'playready': {
-        'LA_URL': 'https://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&ContentKey=EAtsIJQPd5pFiRUrV9Layw=='
+        'LA_URL': 'https://test.playready.microsoft.com/service/rightsmanager.asmx?PlayRight=1&ContentKey=EAtsIJQPd5pFiRUrV9Layw=='
       }
     }
   };
