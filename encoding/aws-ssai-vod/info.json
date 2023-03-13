@@ -1,0 +1,20 @@
+{
+  "title": "AWS NAB Bitmovin demo",
+  "description": "SSAI VOD Encoding Workflow with AWS MediaTailor",
+  "long_description": "demo description",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "tags": [
+    "ssai",
+    "ads",
+    "advertisement",
+    "vod"
+  ],
+  "metadata":{
+    "title":"AWS MediaTailor VOD SSAI Encoding Workflow",
+    "description": "AWS MediaTailor VOD SSAI Encoding Workflow"
+  },
+  "priority": 1000
+}
