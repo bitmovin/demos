@@ -1,5 +1,5 @@
 {
-  "title": "AWS NAB Bitmovin Live demo",
+  "title": "AWS NAB Bitmovin Live Encoding",
   "description": "SSAI Live Encoding Workflow with AWS MediaTailor",
   "long_description": "demo description",
   "executable": {
