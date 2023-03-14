@@ -8,20 +8,15 @@
     <div class="row">
         <div class="col-lg-7">
             <ul class="mb-4">
-	            <li>Step 1: Triggering VOD Encoding with Bitmovin Encoder</li>
+	            <li>Step 1: List source/input VOD mezzanine files from S3 bucket</li>
 	            <p>
-		            To initiate the encoding process, we will trigger an AWS Lambda function in this
-		            demo, which will spawn encoding instances and upload the encoded output to an S3
-		            bucket.
+					List the available input mezzanine files copied into a source S3 bucket. User can select one
+					of the available files as encoding/transcoding input.
 	            </p>
 				<div id="assets-selector" class="asset-selector">
-					<label id="selector-label">Encoding asset:</label>
-					<select id="select-asset" onchange="onSelectionChange()"></select>
-					<input type="button" id="encoding-start" value="Start Encoding" onclick="startEncoding()"/>
-					<input type="button" id="playback-start" value="Start Play" onclick="startPlayback()"/>
-					<a id="encoding-status" href="javascript: void(0)" target=”_blank”>Encoding Dashboard</a>
+					<label id="selector-label">Source assets:</label>
+					<select id="select-asset"></select>
 				</div>
-	            <p id="encoding-start-result"></p>
             </ul>
         </div>
         <div class="col-lg-4">
@@ -36,12 +31,22 @@
 	<div class="row">
 	    <div class="col-lg-7">
 		    <ul class="mp-4">
-			    <li>Step 2: Monitoring Encoding Progress</li>
+			    <li>Step 2: Start VOD Encoding and Monitoring Progress</li>
 			    <p>
-				    Once the encoding process has started, you can monitor the progress on our dashboard
+					To initiate the encoding process, we will trigger an AWS Lambda function through REST APIs
+					deployed using AWS API Gateway. The lambda function will use Bitmovin encoding APIs to create,
+					start and monitor VOD encoding. Bitmovin API will spawn EC2 instances to perform encoding, which
+					will copy the input mezzanine file from S3 bucket, transcode, package as per input required by
+					AWS Mediatailor and upload the encoded output to an S3 bucket. The lambda function will also use
+					AWS MediaTailor to stitch an Ad or bumper into the packaged VOD content as pre-roll.
+					Detailed encoding progress can also be monitored on Bitmovin dashboard
 				    <a href="https://bitmovin.com/dashboard">(https://bitmovin.com/dashboard)</a>.
 				    Please wait until the encoding status is displayed as "FINISHED."
 			    </p>
+				<div>
+					<input type="button" id="start-encoding-button" value="Start (Re)Encoding"/>
+					<a id="encoding-status" href="https://bitmovin.com/dashboard/encoding/home" target=”_blank”>Encoding Dashboard</a>
+				</div>
 		    </ul>
 	    </div>
     </div>
@@ -50,9 +55,9 @@
 			<ul class="mp-4">
 				<li>Step 3: Configuring Automated Workflow for SSAI Manifest</li>
 				<p>
-					After the encoding process is complete, an automated workflow is configured to place
-					the encoded output in AWS MediaTailor. This allows us to obtain an SSAI VOD manifest
-					from AWS MediaTailor.
+					The encoding process is complete, and packaged HLS/DASH content including pre-roll Advertisement
+					stitched using AWS MediaTailor is available in S3 bucket now. The content can be streamed to
+					viewers across the world using AWS cloudfront CDN.
 				</p>
 			</ul>
 		</div>
@@ -62,8 +67,9 @@
 	    <p>
 		    It is now time to play the SSAI manifest, which can be done using Bitmovin Player.
 		    The left column of the web application will display the player screen while the
-		    right column will showcase the player log, which demonstrates how we extract events
-		    from the SSAI stream via metadata.
+		    right column will showcase the player log, which demonstrates the events related
+			to Advertisement extracted from the SSAI stream via metadata added to the stream
+			by Bitmovin encoder/packager and AWS Mediatailor.
 	    </p>
         <div class="col-lg-6 player-col">
             <div id="player-wrapper">
