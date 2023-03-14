@@ -1,6 +1,8 @@
 <script type="text/javascript"
         src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
-<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1333.0.min.js"></script>
+<!--<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1333.0.min.js"></script>-->
+<script type="text/javascript" src="js/demo.js"></script>
+<script src="js/aws-sdk.js"></script>
 
 <div>
     <div class="row">
@@ -12,11 +14,13 @@
 		            demo, which will spawn encoding instances and upload the encoded output to an S3
 		            bucket.
 	            </p>
-	            <button id=encoding-start
-	                    class="btn btn-outline-primary"
-	                    data-featherlight="image">
-		            Start Encoding
-	            </button>
+				<div id="assets-selector" class="asset-selector">
+					<label id="selector-label">Encoding asset:</label>
+					<select id="select-asset" onchange="onSelectionChange()"></select>
+					<input type="button" id="encoding-start" value="Start Encoding" onclick="startEncoding()"/>
+					<input type="button" id="playback-start" value="Start Play" onclick="startPlayback()"/>
+					<a id="encoding-status" href="javascript: void(0)" target=”_blank”>Encoding Dashboard</a>
+				</div>
 	            <p id="encoding-start-result"></p>
             </ul>
         </div>
