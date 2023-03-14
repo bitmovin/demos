@@ -1,6 +1,6 @@
 const AWS_S3_INPUT_BUCKET_NAME = 'nab-demo-input-test';
-const AWS_USER_ACCESS_KEY = 'AKIARQ4JSVAMNNHA45FQ';
-const AWS_USER_ACCESS_SECRET = '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';
+const AWS_USER_ACCESS_KEY = '';
+const AWS_USER_ACCESS_SECRET = '';
 
 var player;
 var controlLog = document.getElementById('control-log');
@@ -152,18 +152,24 @@ function checkAndUpdateEncodingStatus(asset, encoding_id, intervalId=null) {
           // enable back start encoding button
           toggleStartEncodingButton(false);
           toggleStartPlaybackButton(false);
-          updateEncodingDashboardLink(result.status_url)
+          updateEncodingDashboardLink(result.status_url);
           document.getElementById("encoding-start").value = "Start Encoding";
-          if (intervalId) {
-            clearInterval(intervalId);
-          }
           loadPlayer(result);
+        } else if (result.status == "ERROR") {
+          toggleStartEncodingButton(false);
+          toggleStartPlaybackButton(true);
+          updateEncodingDashboardLink(result.status_url);
+          document.getElementById("encoding-start").value = "Start Encoding";
         } else {
           document.getElementById("encoding-start").value = result.status  + ": " + result.progress + "%";
-          updateEncodingDashboardLink(result.status_url)
+          updateEncodingDashboardLink(result.status_url);
         }
       } else {
         console.log(`Error: ${xhr.status}`);
+      }
+
+      if (intervalId && (result.status == "FINISHED" || result.status == "ERROR")) {
+        clearInterval(intervalId);
       }
     };
     xhr.send(body);
