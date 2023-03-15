@@ -3,7 +3,6 @@
 <!--<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1333.0.min.js"></script>-->
 <script type="text/javascript" src="js/demo.js"></script>
 <script src="js/aws-sdk.js"></script>
-
 <div>
     <div class="row">
         <div class="col-lg-7">
@@ -13,9 +12,16 @@
 					List the available input mezzanine files copied into a source S3 bucket. User can select one
 					of the available files as encoding/transcoding input.
 	            </p>
-				<div id="assets-selector" class="asset-selector">
-					<label id="selector-label">Source assets:</label>
-					<select id="select-asset"></select>
+				<div class="demo-input-box input">
+					<div class="demo-item-header">
+						<div>Select Source Asset</div>
+					</div>
+					<div class="demo-select-target">
+						<select id="available_targets" class="form-control" name="available-targets">
+						</select>
+					</div>
+					<br>
+					<input type="button" id="start-encoding-button" value="Start" class="btn btn-outline-primary"/>
 				</div>
             </ul>
         </div>
@@ -43,9 +49,26 @@
 				    <a href="https://bitmovin.com/dashboard">(https://bitmovin.com/dashboard)</a>.
 				    Please wait until the encoding status is displayed as "FINISHED."
 			    </p>
-				<div>
-					<input type="button" id="start-encoding-button" value="Start (Re)Encoding"/>
-					<a id="encoding-status" href="https://bitmovin.com/dashboard/encoding/home" target=”_blank”>Encoding Dashboard</a>
+				<div class="demo-input-box input">
+					<div class="demo-item-header">
+						<div>Encoding Status</div>
+					</div>
+                    <label class="text-label"><strong>Asset : </strong></label>
+                    <label class="text-label" id="encoding-asset">...</label>
+                    <br>
+					<label class="text-label"><strong>Id : </strong></label>
+					<label class="text-label" id="encoding-id">...</label>
+					<br>
+					<label class="text-label"><strong>State : </strong></label>
+					<label class="text-label" id="encoding-state">...</label>
+					<br>
+					<label for="encoding-progress"><strong>Progress : </strong></label>
+					<progress id="encoding-progress" max="100" value="0"> 0% </progress>
+					<br>
+					<a id="encoding-dashboard" href="https://bitmovin.com/dashboard/encoding/home" target=”_blank” class="btn btn-outline-primary">
+						Open Dashboard
+					</a>
+
 				</div>
 		    </ul>
 	    </div>
@@ -53,7 +76,7 @@
 	<div class="row">
 		<div class="col-lg-7">
 			<ul class="mp-4">
-				<li>Step 3: Configuring Automated Workflow for SSAI Manifest</li>
+				<li>Step 3: Automated Workflow for SSAI Manifest</li>
 				<p>
 					The encoding process is complete, and packaged HLS/DASH content including pre-roll Advertisement
 					stitched using AWS MediaTailor is available in S3 bucket now. The content can be streamed to

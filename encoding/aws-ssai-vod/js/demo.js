@@ -2,6 +2,7 @@
 const AWS_S3_INPUT_BUCKET_NAME = 'nab-demo-input-test';
 const AWS_USER_ACCESS_KEY = '';
 const AWS_USER_ACCESS_SECRET = '';
+const SSAI_HLS_PLAYBACK_PREFIX = "https://0ed91c03b8af40c09acb289b8691d218.mediatailor.us-east-1.amazonaws.com/v1/master/e43236c6c3da2f9adba09ce309a47dcec2045396/NABDemoVOD/";
 
 var player;
 var encodingSources = [];
@@ -9,7 +10,11 @@ var currentEncodingSource;
 var s3;
 var intervalId = 0;
 var startEncodingButton = document.getElementById('start-encoding-button');
-var selectAssetDropDown = document.getElementById("select-asset");
+var selectAssetDropDown = document.getElementById("available_targets");
+var encodingAssetLabel     = document.getElementById("encoding-asset");
+var encodingIdLabel     = document.getElementById("encoding-id");
+var encodingStateLabel  = document.getElementById("encoding-state");
+var encodingProgress    = document.getElementById("encoding-progress");
 var controlLog = document.getElementById('control-log');
 
 function init() {
@@ -20,7 +25,8 @@ function init() {
   startEncodingButton.onclick = startEncoding;
   selectAssetDropDown.onchange = onSelectionChange;
 
-  toggleStartEncodingButton(true, "Checking Encoding Status...");
+  toggleStartEncodingButton(true, "Start");
+  resetEncodingStatus("...");
   // scan S3 input source buffer
   scanAwsS3Bucket();
 }
@@ -49,10 +55,6 @@ const createPlayer = (container) => {
       playbackfinished: function () {
         controlLog.innerHTML += 'PlaybackFinished<br>';
       },
-      metadataparsed: function (e) {
-        controlLog.innerHTML += 'MetadataParsed Event<br>';
-        controlLog.innerHTML += JSON.stringify(e) + '<br>';
-      },
       metadata: function (e) {
         controlLog.innerHTML += 'Metadata Event<br>';
         controlLog.innerHTML += JSON.stringify(e) + '<br>';
@@ -64,9 +66,13 @@ const createPlayer = (container) => {
 };
 
 const loadPlayer = (source_info) => {
+  var hlsUrl = source_info.hls;
+  var ssaiHlsUrl = hlsUrl.replace(/(https:|)(^|\/\/)(.*?\/)/g, SSAI_HLS_PLAYBACK_PREFIX);
+  console.log('Loading Player: hlsUrl=' + hlsUrl);
+  console.log('Loading Player: ssaiHlsUrl=' + ssaiHlsUrl);
   var source = {
     title: source_info.asset,
-    hls: source_info.hls,
+    hls: ssaiHlsUrl,
   };
   player.load(source).then(
       function () {
@@ -118,7 +124,8 @@ function populateEncodingSourcesDropdown(data) {
 function startEncoding() {
   var currentSelectedSource = getCurrentSelectedSource();
   // disable start encoding button
-  toggleStartEncodingButton(true, "Starting Encoding...");
+  toggleStartEncodingButton(true, "Start");
+  resetEncodingStatus(currentEncodingSource.Key, "PREPARING");
 
   const xhr = new XMLHttpRequest();
   xhr.open("POST", "https://6xbphss2bk.execute-api.us-east-1.amazonaws.com/Test/start-vod-encoding");
@@ -130,14 +137,18 @@ function startEncoding() {
     if (xhr.readyState === 4 && (xhr.status >= 200 && xhr.status < 300)) {
       var response = JSON.parse(xhr.responseText);
       console.log(response);
-      startEncodingButton.value = response.status + ": " + response.progress + "%";
+      encodingAssetLabel.innerHTML = response.asset;
+      encodingIdLabel.innerHTML = response.encoding_id;
+      encodingStateLabel.innerHTML = response.status;
+      encodingProgress.value = response.progress;
       updateEncodingDashboardLink(response.status_url);
       intervalId = setInterval(function () {
         checkAndUpdateEncodingStatus(response.asset, response.encoding_id);
       }, 10000);
     } else {
       console.log(`Error: ${xhr.status}`);
-      toggleStartEncodingButton(false, "Start Encoding");
+      toggleStartEncodingButton(false, "Start");
+      resetEncodingStatus(currentEncodingSource.Key, "ERROR");
     }
   };
   xhr.send(body);
@@ -153,26 +164,23 @@ function checkAndUpdateEncodingStatus(asset, encoding_id) {
   xhr.onload = () => {
     if (xhr.readyState === 4 && (xhr.status >= 200 && xhr.status < 300)) {
       console.log('Encoding Status : ' + xhr.responseText);
-      var result = JSON.parse(xhr.responseText);
-      if (result.status == "FINISHED") {
-        // enable back start encoding button
-        toggleStartEncodingButton(false, "Start Re-Encoding");
-        updateEncodingDashboardLink(result.status_url);
-        loadPlayer(result);
-      } else if (result.status == "ERROR") {
-        toggleStartEncodingButton(false, "Start Encoding");
-        updateEncodingDashboardLink(result.status_url);
-      } else {
-        startEncodingButton.value = result.status + ": " + result.progress + "%";
-        updateEncodingDashboardLink(result.status_url);
+      var response = JSON.parse(xhr.responseText);
+      if (response.status == "FINISHED") {
+        loadPlayer(response);
       }
     } else {
       console.log(`Error: ${xhr.status}`);
     }
 
-    if (result.status == "FINISHED" || result.status == "ERROR") {
+    if (response.status == "FINISHED" || response.status == "ERROR") {
+      toggleStartEncodingButton(false, "Start");
       clearIntervalTimer();
     }
+    encodingAssetLabel.innerHTML = response.asset;
+    encodingIdLabel.innerHTML = response.encoding_id;
+    encodingStateLabel.innerHTML = response.status;
+    encodingProgress.value = response.progress;
+    updateEncodingDashboardLink(response.status_url);
   };
   xhr.send(body);
 }
@@ -216,8 +224,8 @@ function updateEncodingStatus(dbData) {
     }, 10000);
   } else {
     console.log("No encodings exist");
-    toggleStartEncodingButton(false, "Start Encoding");
-    updateEncodingDashboardLink("https://bitmovin.com/dashboard/encoding/home")
+    toggleStartEncodingButton(false, "Start");
+    resetEncodingStatus("...");
   }
 }
 
@@ -228,7 +236,8 @@ function onSelectionChange() {
     return;
   }
 
-  toggleStartEncodingButton(true, "Checking Encoding Status...");
+  toggleStartEncodingButton(true, "Start");
+  resetEncodingStatus("...");
   clearIntervalTimer();
   queryDynamoDb();
 }
@@ -242,7 +251,7 @@ function toggleStartEncodingButton(disable, value=null) {
 }
 
 function updateEncodingDashboardLink(url) {
-  document.getElementById("encoding-status").href = url;
+  document.getElementById("encoding-dashboard").href = url;
 }
 
 function scrollControlLog() {
@@ -254,6 +263,14 @@ function clearIntervalTimer() {
   console.log('clearing intervalId=' + intervalId);
   clearInterval(intervalId);
   intervalId = 0;
+}
+
+function resetEncodingStatus(asset_name, state="...") {
+  encodingAssetLabel.innerHTML = asset_name;
+  encodingIdLabel.innerHTML = "...";
+  encodingStateLabel.innerHTML = state;
+  encodingProgress.value = 0.0;
+  updateEncodingDashboardLink("https://bitmovin.com/dashboard/encoding/home")
 }
 
 $(document).ready(init);
