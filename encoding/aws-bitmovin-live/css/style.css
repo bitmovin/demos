@@ -1,0 +1,70 @@
+
+li{
+    font-weight:bold;
+}
+
+@media (min-width: 1200px) {
+    .player-col {
+        float: left;
+    }
+}
+
+.bmpui-controls-hidden {
+    all: unset !important;
+}
+
+.bmpui-ui-controlbar.bmpui-hidden {
+    visibility: unset !important;
+    opacity: unset !important;
+}
+
+.bmpui-ui-titlebar.bmpui-hidden {
+    visibility: unset !important;
+    opacity: unset !important;
+}
+
+.button-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0062cc;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#loading {
+    margin: 20px auto;
+    width: 20px;
+    height: 20px;
+    border: 4px solid rgba(52, 152, 219, 0.2);
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}

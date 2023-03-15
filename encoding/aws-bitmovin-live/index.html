@@ -17,13 +17,15 @@
 	                    class="btn btn-outline-primary">
 		            Start Live Encoding
 	            </button>
-	            
+	
 	            <button id=live-encoding-stop
 	                    class="btn btn-outline-primary"
 	                    style="margin-left: 10px;">
 		            Stop Live Encoding
 	            </button>
-	            <p id="encoding-start-result"></p>
+	            <div id="encodingId" class="hidden">Encoding ID: N/A</div>
+	            <div id="encodingStatus" class="hidden">Encoding Status: N/A</div>
+	            <div id="loading" class="hidden"></div>
             </ul>
         </div>
         <div class="col-lg-4">
@@ -67,12 +69,12 @@
 		</div>
 	</div>
     <div class="row">
-	    <h3 class="mb-4">SSAI Playback with Bitmovin Player</h3>
+	    <h3 class="mb-4">Live and Live-to-VOD Playback with Bitmovin Player</h3>
 	    <p>
-		    It is now time to play the SSAI manifest, which can be done using Bitmovin Player.
-		    The left column of the web application will display the player screen while the
-		    right column will showcase the player log, which demonstrates how we extract events
-		    from the SSAI stream via metadata.
+		    It is now time to play the Live manifest, which can be done using Bitmovin Player.
+		    The left column of the player application will display the live player screen while the
+		    right column will showcase the live-to-vod player screen, which demonstrates how we can clip
+		    the VOD manifest from Live.
 	    </p>
         <div class="col-lg-5 player-col">
             <div id="player-wrapper">
@@ -80,13 +82,22 @@
                     <div id="player-container"></div>
                 </div>
             </div>
+	        <button id=live-playback
+	                class="btn btn-outline-primary">
+		        Load
+	        </button>
         </div>
-	    <div class="col-lg-5">
+	    <div class="col-lg-5 player-col">
 		    <div id="live-to-vod-player-wrapper">
 			    <div id="player2">
 				    <div id="player-container2"></div>
 			    </div>
 		    </div>
+		    <button id=live-to-vod-playback
+		            class="btn btn-outline-primary"
+		            style="margin-top: 10px;">
+			    Load
+		    </button>
 	    </div>
     </div>
 </div>

@@ -1,6 +1,6 @@
 {
   "title": "AWS NAB Bitmovin Live Encoding",
-  "description": "SSAI Live Encoding Workflow with AWS MediaTailor",
+  "description": "Bitmovin Live Encoding on AWS with Live to VOD clipping",
   "long_description": "demo description",
   "executable": {
     "executable": true,
@@ -13,8 +13,8 @@
     "vod"
   ],
   "metadata":{
-    "title":"AWS MediaTailor Live SSAI Encoding Workflow",
-    "description": "AWS MediaTailor Live SSAI Encoding Workflow"
+    "title":"Bitmovin Live Encoding Workflow on AWS with Live to VOD clipping",
+    "description": "Bitmovin Live Encoding Workflow on AWS with Live to VOD clipping"
   },
   "priority": 1000
 }
