@@ -77,11 +77,25 @@ async function clipLast60Sec() {
 }
 
 function liveLoad() {
-    loadPlayer();
+    var source = {
+        hls: hlsPlaybackUrl
+    };
+    player.load(source).then(function () {
+        console.log('Successfully loaded source'); // Success!
+    }, function () {
+        console.log('Error while loading source'); // Error!
+    });
 }
 
 function liveToVodLoad() {
-    loadLiveToVodPlayer();
+    var source = {
+        hls: liveToVodHlsUrl
+    };
+    vodPlayer.load(source).then(function () {
+        console.log('Successfully loaded source'); // Success!
+    }, function () {
+        console.log('Error while loading source'); // Error!
+    });
 }
 
 async function fetchLiveEncodingStatus() {
@@ -105,6 +119,8 @@ async function checkStatusUntilRunning() {
 
     encodingStatusDiv.textContent = `Encoding Status: ${status}. Please ingest your live stream in srt://44.194.223.128:2088`;
     loadingDiv.classList.add("hidden");
+
+    loadPlayer();
 }
 
 function loadPlayer() {
