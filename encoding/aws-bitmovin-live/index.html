@@ -1,6 +1,5 @@
 <script type="text/javascript"
         src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
-<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1333.0.min.js"></script>
 
 <div>
     <div class="row">
@@ -62,10 +61,6 @@
 					will be available for playback in the designated player.
 				</p>
 			</ul>
-			<div class="button-container">
-				<button id="last-30-sec-btn">Last 30 sec to VOD</button>
-				<button id="last-60-sec-btn">Last 60 sec to VOD</button>
-			</div>
 		</div>
 	</div>
     <div class="row">
@@ -81,23 +76,22 @@
                 <div id="player">
                     <div id="player-container"></div>
                 </div>
+	            <button id=live-reload-btn
+	                    class="btn btn-outline-primary">
+		            Reload
+	            </button>
             </div>
-	        <button id=live-playback
-	                class="btn btn-outline-primary">
-		        Load
-	        </button>
         </div>
 	    <div class="col-lg-5 player-col">
 		    <div id="live-to-vod-player-wrapper">
 			    <div id="player2">
 				    <div id="player-container2"></div>
 			    </div>
+			    <div class="button-container">
+				    <button id="last-10-sec-btn">Last 10 sec to VOD</button>
+				    <button id="last-30-sec-btn">Last 30 sec to VOD</button>
+			    </div>
 		    </div>
-		    <button id=live-to-vod-playback
-		            class="btn btn-outline-primary"
-		            style="margin-top: 10px;">
-			    Load
-		    </button>
 	    </div>
     </div>
 </div>

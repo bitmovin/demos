@@ -1,35 +1,34 @@
 const liveStartBtn = document.getElementById("live-encoding-start");
 const liveStopBtn = document.getElementById("live-encoding-stop");
+const liveReloadBtn = document.getElementById("live-reload-btn");
 const liveToVod30Btn = document.getElementById("last-30-sec-btn");
-const liveToVod60Btn = document.getElementById("last-60-sec-btn");
-const liveLoadBtn = document.getElementById("live-playback");
-const liveToVodLoadBtn = document.getElementById("live-to-vod-playback");
+const liveToVod10Btn = document.getElementById("last-10-sec-btn");
 const encodingIdDiv = document.getElementById("encodingId");
 const encodingStatusDiv = document.getElementById("encodingStatus");
 const loadingDiv = document.getElementById("loading");
 
 const API_GATEWAY_URL = "https://6xbphss2bk.execute-api.us-east-1.amazonaws.com/Test";
 
-let player;
+let livePlayer;
 let vodPlayer;
 let hlsPlaybackUrl = null;
 let liveToVodHlsUrl = null;
-let BITMOVIN_PLAYER_LICENSE_KEY = ''
-let BITMOVIN_ANALYTICS_LICENSE_KEY = ''
-let liveEdgeSegmentNum = 0
+const BITMOVIN_PLAYER_LICENSE_KEY = '';
+const BITMOVIN_ANALYTICS_LICENSE_KEY = '';
+let liveEdgeSegmentNum = 0;
 
 async function startEncoding() {
-    encodingIdDiv.classList.remove("hidden");
-    loadingDiv.classList.remove("hidden");
-    encodingIdDiv.textContent = `Setting up the Live Encoder. Please wait...`;
+    showEncodingIdDiv();
+    showLoadingDiv();
+    updateEncodingIdDiv("Setting up the Live Encoder. Please wait...");
 
     const response = await fetch(`${API_GATEWAY_URL}/start-live-encoding`, { method: "POST" });
 
-    encodingStatusDiv.classList.remove("hidden");
+    showEncodingStatusDiv();
 
     const data = await response.json();
 
-    if (hlsPlaybackUrl == null && data.url && data.url.hls) {
+    if (hlsPlaybackUrl === null && data.url && data.url.hls) {
         hlsPlaybackUrl = data.url.hls;
         console.log(hlsPlaybackUrl);
     }
@@ -40,9 +39,9 @@ async function startEncoding() {
 
 async function stopEncoding() {
     const response = await fetch(`${API_GATEWAY_URL}/stop-live-encoding`, { method: "POST" });
-    encodingStatusDiv.classList.add("hidden");
-    encodingIdDiv.classList.add("hidden");
-    loadingDiv.classList.add("hidden");
+    hideEncodingStatusDiv();
+    hideEncodingIdDiv();
+    hideLoadingDiv();
 
     const data = await response.json();
     console.log(data);
@@ -50,52 +49,18 @@ async function stopEncoding() {
     return data.encoding_id;
 }
 
-async function clipLast30Sec() {
-    const response = await fetch(`${API_GATEWAY_URL}/start-live-to-vod?startSegment=${liveEdgeSegmentNum - 14}&endSegment=${liveEdgeSegmentNum}`, { method: "POST" });
+async function clipLastNSeconds(n) {
+    const segmentDiff = Math.floor(n / 2) -1;
+    const response = await fetch(`${API_GATEWAY_URL}/start-live-to-vod?startSegment=${liveEdgeSegmentNum - segmentDiff}&endSegment=${liveEdgeSegmentNum}`, { method: "POST" });
     const data = await response.json();
     console.log(data);
 
-    if (liveToVodHlsUrl == null && data.url && data.url.hls) {
+    if (data.url && data.url.hls) {
         liveToVodHlsUrl = data.url.hls;
         console.log(liveToVodHlsUrl);
     }
     loadLiveToVodPlayer();
     return data.encoding_id;
-}
-
-async function clipLast60Sec() {
-    const response = await fetch(`${API_GATEWAY_URL}/start-live-to-vod?startSegment=${liveEdgeSegmentNum - 59}&endSegment=${liveEdgeSegmentNum}`, { method: "POST" });
-    const data = await response.json();
-    console.log(data);
-
-    if (liveToVodHlsUrl == null && data.url && data.url.hls) {
-        liveToVodHlsUrl = data.url.hls;
-        console.log(liveToVodHlsUrl);
-    }
-    loadLiveToVodPlayer();
-    return data.encoding_id;
-}
-
-function liveLoad() {
-    var source = {
-        hls: hlsPlaybackUrl
-    };
-    player.load(source).then(function () {
-        console.log('Successfully loaded source'); // Success!
-    }, function () {
-        console.log('Error while loading source'); // Error!
-    });
-}
-
-function liveToVodLoad() {
-    var source = {
-        hls: liveToVodHlsUrl
-    };
-    vodPlayer.load(source).then(function () {
-        console.log('Successfully loaded source'); // Success!
-    }, function () {
-        console.log('Error while loading source'); // Error!
-    });
 }
 
 async function fetchLiveEncodingStatus() {
@@ -109,21 +74,60 @@ async function fetchLiveEncodingStatus() {
 
 async function checkStatusUntilRunning() {
     let status = await fetchLiveEncodingStatus();
-    encodingStatusDiv.textContent = `Encoding Status: ${status}`;
+    updateEncodingStatusDiv(`Encoding Status: ${status}`);
 
     while (status !== "Status.RUNNING" && status !== "Status.CANCELED" && status !== "Status.FINISHED" ) {
         await new Promise(resolve => setTimeout(resolve, 5000));
         status = await fetchLiveEncodingStatus();
-        encodingStatusDiv.textContent = `Encoding Status: ${status}`;
+        updateEncodingStatusDiv(`Encoding Status: ${status}`);
     }
 
-    encodingStatusDiv.textContent = `Encoding Status: ${status}. Please ingest your live stream in srt://44.194.223.128:2088`;
-    loadingDiv.classList.add("hidden");
-
-    loadPlayer();
+    updateEncodingStatusDiv(`Encoding Status: ${status}. Please ingest your live stream in srt://44.194.223.128:2088`);
+    hideLoadingDiv();
 }
 
-function loadPlayer() {
+function reloadLive() {
+    livePlayer.load({ hls: hlsPlaybackUrl }).then(function () {
+        console.log('Successfully loaded source'); // Success!
+        livePlayer.timeShift(0);
+    }, function () {
+        console.log('Error while loading source'); // Error!
+    });
+}
+
+function loadLiveToVodPlayer() {
+    vodPlayer.load({ hls: liveToVodHlsUrl }).then(function () {
+        console.log('Successfully loaded source'); // Success!
+    }, function () {
+        console.log('Error while loading source'); // Error!
+    });
+}
+
+function initializeLiveToVodPlayer() {
+    var config = {
+        key: BITMOVIN_PLAYER_LICENSE_KEY,
+        analytics: {
+            key: BITMOVIN_ANALYTICS_LICENSE_KEY,
+            videoId: 'live-to-vod-demo',
+        },
+        playback: {
+            muted: true,
+            autoplay: true,
+            preferredTech: [{
+                player: 'html5',
+                streaming: 'hls'
+            }]
+        },
+        logs: {
+            level: 'debug'
+        }
+    };
+
+    var playerContainer = document.getElementById('player-container2');
+    vodPlayer = new bitmovin.player.Player(playerContainer, config);
+}
+
+function initializeLivePlayer() {
     var config = {
         key: BITMOVIN_PLAYER_LICENSE_KEY,
         analytics: {
@@ -132,7 +136,11 @@ function loadPlayer() {
         },
         playback: {
             muted: true,
-            autoplay: true
+            autoplay: true,
+            preferredTech: [{
+                player: 'html5',
+                streaming: 'hls'
+            }]
         },
         logs: {
             level: 'debug'
@@ -145,60 +153,54 @@ function loadPlayer() {
                         liveEdgeSegmentNum = parseInt(filename.substring(8, filename.lastIndexOf('.')), 10);
                     }
                 }
-
                 return Promise.resolve(response);
             }
         }
     };
 
     var playerContainer = document.getElementById('player-container');
-    player = new bitmovin.player.Player(playerContainer, config);
-
-    var source = {
-        hls: hlsPlaybackUrl
-    };
-    player.load(source).then(function () {
-        console.log('Successfully loaded source'); // Success!
-    }, function () {
-        console.log('Error while loading source'); // Error!
-    });
+    livePlayer = new bitmovin.player.Player(playerContainer, config);
 }
 
-function loadLiveToVodPlayer() {
-    var config = {
-        key: BITMOVIN_PLAYER_LICENSE_KEY,
-        analytics: {
-            key: BITMOVIN_ANALYTICS_LICENSE_KEY,
-            videoId: 'live-to-vod-demo',
-        },
-        playback: {
-            muted: true,
-            autoplay: true
-        },
-        logs: {
-            level: 'debug'
-        }
-    };
+function showEncodingIdDiv() {
+    encodingIdDiv.classList.remove("hidden");
+}
 
-    var playerContainer = document.getElementById('player-container2');
-    vodPlayer = new bitmovin.player.Player(playerContainer, config);
+function hideEncodingIdDiv() {
+    encodingIdDiv.classList.add("hidden");
+}
 
-    var source = {
-        hls: liveToVodHlsUrl
-    };
-    vodPlayer.load(source).then(function () {
-        console.log('Successfully loaded source'); // Success!
-    }, function () {
-        console.log('Error while loading source'); // Error!
-    });
+function updateEncodingIdDiv(text) {
+    encodingIdDiv.textContent = text;
+}
+
+function showEncodingStatusDiv() {
+    encodingStatusDiv.classList.remove("hidden");
+}
+
+function hideEncodingStatusDiv() {
+    encodingStatusDiv.classList.add("hidden");
+}
+
+function updateEncodingStatusDiv(text) {
+    encodingStatusDiv.textContent = text;
+}
+
+function showLoadingDiv() {
+    loadingDiv.classList.remove("hidden");
+}
+
+function hideLoadingDiv() {
+    loadingDiv.classList.add("hidden");
 }
 
 $(() => {
     liveStartBtn.addEventListener("click", async () => {
         console.log("Live Encoding Start button clicked");
-        const encodingId = await startEncoding();
-        encodingIdDiv.textContent = `Encoding ID: ${encodingId}`;
-        await checkStatusUntilRunning();
+        startEncoding().then(async (encodingId) => {
+            updateEncodingIdDiv(`Encoding ID: ${encodingId}`);
+            await checkStatusUntilRunning();
+        });
     });
 
     liveStopBtn.addEventListener("click", () => {
@@ -208,21 +210,19 @@ $(() => {
 
     liveToVod30Btn.addEventListener("click", () => {
         console.log("Live to VOD 30 seconds button clicked");
-        clipLast30Sec();
+        clipLastNSeconds(30);
     });
 
-    liveToVod60Btn.addEventListener("click", () => {
-        console.log("Live to VOD 60 seconds button clicked");
-        clipLast60Sec();
+    liveToVod10Btn.addEventListener("click", () => {
+        console.log("Live to VOD 10 seconds button clicked");
+        clipLastNSeconds(10);
     });
 
-    liveLoadBtn.addEventListener("click", () => {
-        console.log("Live Loads button clicked");
-        liveLoad();
+    liveReloadBtn.addEventListener("click", () => {
+        console.log("Live reload button clicked");
+        reloadLive();
     });
 
-    liveToVodLoadBtn.addEventListener("click", () => {
-        console.log("Live to Vod Loads button clicked");
-        liveToVodLoad();
-    });
+    initializeLivePlayer();
+    initializeLiveToVodPlayer();
 });
