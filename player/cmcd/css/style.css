@@ -1,0 +1,33 @@
+.demo-event-box {
+    padding: 23px;
+    border: solid 1px #CBE0ED;
+    border-radius: 4px;
+}
+
+.demo-event-box > div {
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 23px;
+}
+
+#logContent {
+    height: 300px;
+    width: 100%;
+    font-size: 16px;
+    line-height: 19px;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-left: 0px;
+    background-color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    color: #000000;
+}
+
+.log-message {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: unset !important;
+    flex-wrap: wrap;
+}
