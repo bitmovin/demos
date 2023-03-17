@@ -10,12 +10,35 @@ const playerConfig = {
   }
 };
 
+const cmcdConfig = {
+  sessionId: uuidv4(),
+  contentId: '1111-111111-111111-11111',
+};
+
+const cmcdPlugin = new window.bitmovin.player.integration.Cmcd.CmcdIntegration(cmcdConfig);
+playerConfig.network = {
+  preprocessHttpRequest: cmcdPlugin.preprocessHttpRequest,
+  preprocessHttpResponse: cmcdPlugin.preprocessHttpResponse,
+};
+playerConfig.adaptation = {
+  desktop: {
+    onVideoAdaptation: cmcdPlugin.onVideoAdaptation,
+    onAudioAdaptation: cmcdPlugin.onAudioAdaptation,
+  },
+  mobile: {
+    onVideoAdaptation: cmcdPlugin.onVideoAdaptation,
+    onAudioAdaptation: cmcdPlugin.onAudioAdaptation,
+  },
+};
+
 const source = {
   hls: 'https://bitmovindemocmcd-a.akamaihd.net/content/MI201109210084_1/m3u8s-fmp4-rel/main.m3u8',
 };
 
 const playerContainer = document.getElementById('player-container');
 const player = new bitmovin.player.Player(playerContainer, playerConfig);
+
+cmcdPlugin.setPlayer(player);
 
 $(document).ready(function () {
   player.load(source);
