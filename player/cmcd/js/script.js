@@ -63,6 +63,26 @@ function parseS3ObjectListingAndFetchDataStreamLogFiles(response, newRequestTime
   console.log(`Found ${response.ListBucketResult.KeyCount} of max ${response.ListBucketResult.MaxKeys} keys (isTruncated=${response.ListBucketResult.IsTruncated})`);
 
   const elements = response.ListBucketResult.Contents;
+  const relevantEntries = elements.filter(element => {
+    const timestamp = new Date(element.Key.split('-')[2] * 1000);
+    if (timestamp >= lastSuccessfulRetrieval) {
+      return true;
+    }
+  });
+
+  lastSuccessfulRetrieval = newRequestTimestamp;
+
+  if (relevantEntries.length > 0) {
+    let fetchPromises = []
+    relevantEntries.forEach(element => {
+      fetchPromises.push(
+        fetch('https://bitmovin-cmcd-demo.s3.amazonaws.com/' + element.Key)
+        .then(response => response.arrayBuffer())
+      );
+    });
+
+    return Promise.all(fetchPromises);
+  }
 }
 
 $(function() {
