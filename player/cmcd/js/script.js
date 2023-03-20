@@ -1,3 +1,8 @@
+const LOG_PULL_INTERVALL_SECONDS = 10 * 1000;
+
+let lastSuccessfulRetrieval = new Date();
+let cmcdSessionId;
+
 function setupPlayerWithCmcd() {
   cmcdSessionId = uuidv4();
 
@@ -50,6 +55,14 @@ function getCmcdAndCdnLogFromS3() {
   // See https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectsV2.html
   fetch('https://bitmovin-cmcd-demo.s3.amazonaws.com\?list-type\=2\&prefix\=akamai/ak')
   .then(response => response.text())
+  .then(response => (new X2JS()).xml2js(response))
+  .then(response => parseS3ObjectListingAndFetchDataStreamLogFiles(response, newRequestTimestamp))
+}
+
+function parseS3ObjectListingAndFetchDataStreamLogFiles(response, newRequestTimestamp) {
+  console.log(`Found ${response.ListBucketResult.KeyCount} of max ${response.ListBucketResult.MaxKeys} keys (isTruncated=${response.ListBucketResult.IsTruncated})`);
+
+  const elements = response.ListBucketResult.Contents;
 }
 
 $(function() {
