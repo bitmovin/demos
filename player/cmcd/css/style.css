@@ -31,3 +31,7 @@
     margin-bottom: unset !important;
     flex-wrap: wrap;
 }
+
+.cmcd-log {
+    color: blue;
+}
