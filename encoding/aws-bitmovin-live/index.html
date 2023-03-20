@@ -67,29 +67,36 @@
 	    <h3 class="mb-4">Live and Live-to-VOD Playback with Bitmovin Player</h3>
 	    <p>
 		    It is now time to play the Live manifest, which can be done using Bitmovin Player.
-		    The left column of the player application will display the live player screen while the
-		    right column will showcase the live-to-vod player screen, which demonstrates how we can clip
-		    the VOD manifest from Live.
+		    The left column of the player application will display the live player screen. Please clock
+		    the Load button when the stream becomes available.
+		    The right column will showcase the live-to-vod player screen, which demonstrates how we can clip
+		    the VOD manifest from Live. Please select either button which triggers an AWS Lambda function
+		    to generate a clipped VOD manifest from the Live manifest.
 	    </p>
-        <div class="col-lg-5 player-col">
-            <div id="player-wrapper">
-                <div id="player">
-                    <div id="player-container"></div>
+        <div class="col-lg-6 player-col">
+            <div class="player-wrapper">
+	            <div class="player" id="player">
+		            <div class="player-container" id="player-container"></div>
                 </div>
-	            <button id=live-reload-btn
-	                    class="btn btn-outline-primary">
-		            Reload
-	            </button>
+	            <div class="button-container">
+		            <button id=live-reload-btn
+		                    class="btn btn-outline-primary">
+			            Load
+		            </button>
+	            </div>
             </div>
         </div>
-	    <div class="col-lg-5 player-col">
-		    <div id="live-to-vod-player-wrapper">
-			    <div id="player2">
-				    <div id="player-container2"></div>
+	    <div class="col-lg-6 player-col">
+		    <div class="player-wrapper">
+			    <div class="player" id="player2">
+				    <div class="player-container" id="player-container2"></div>
 			    </div>
 			    <div class="button-container">
-				    <button id="last-10-sec-btn">Last 10 sec to VOD</button>
-				    <button id="last-30-sec-btn">Last 30 sec to VOD</button>
+				    <button id="last-10-sec-btn"
+				            class="btn btn-outline-primary">Last 10 sec to VOD</button>
+				    <button id="last-30-sec-btn"
+				            class="btn btn-outline-primary"
+				            style="margin-left: 10px;">Last 30 sec to VOD</button>
 			    </div>
 		    </div>
 	    </div>

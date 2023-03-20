@@ -8,82 +8,131 @@ const encodingStatusDiv = document.getElementById("encodingStatus");
 const loadingDiv = document.getElementById("loading");
 
 const API_GATEWAY_URL = "https://6xbphss2bk.execute-api.us-east-1.amazonaws.com/Test";
+const BITMOVIN_PLAYER_LICENSE_KEY = '';
+const BITMOVIN_ANALYTICS_LICENSE_KEY = '';
 
 let livePlayer;
 let vodPlayer;
 let hlsPlaybackUrl = null;
 let liveToVodHlsUrl = null;
-const BITMOVIN_PLAYER_LICENSE_KEY = '';
-const BITMOVIN_ANALYTICS_LICENSE_KEY = '';
 let liveEdgeSegmentNum = 0;
+let targetDuration = 0;
+let isLiveEncodingStarted = false;
 
 async function startEncoding() {
-    showEncodingIdDiv();
-    showLoadingDiv();
-    updateEncodingIdDiv("Setting up the Live Encoder. Please wait...");
+    try {
+        showEncodingIdDiv();
+        showLoadingDiv();
+        updateEncodingIdDiv("Setting up the Live Encoder. Please wait...");
 
-    const response = await fetch(`${API_GATEWAY_URL}/start-live-encoding`, { method: "POST" });
+        const response = await fetch(`${API_GATEWAY_URL}/start-live-encoding`, { method: "POST" });
+        if (!response.ok) {
+            console.log(response.statusText);
+            throw new Error(`Failed to start live encoding: ${response.statusText}`);
+        }
 
-    showEncodingStatusDiv();
+        showEncodingStatusDiv();
 
-    const data = await response.json();
+        const data = await response.json();
 
-    if (hlsPlaybackUrl === null && data.url && data.url.hls) {
-        hlsPlaybackUrl = data.url.hls;
-        console.log(hlsPlaybackUrl);
+        if (hlsPlaybackUrl === null && data.url && data.url.hls) {
+            hlsPlaybackUrl = data.url.hls;
+            console.log(hlsPlaybackUrl);
+        }
+        console.log(data);
+
+        return data.encoding_id;
+    } catch (error) {
+        stopEncoding();
+        console.error(error);
+        hideLoadingDiv();
+        updateEncodingIdDiv("Error: Failed to start live encoding. Please check the console log for more details.");
     }
-    console.log(data);
-
-    return data.encoding_id;
 }
 
 async function stopEncoding() {
-    const response = await fetch(`${API_GATEWAY_URL}/stop-live-encoding`, { method: "POST" });
-    hideEncodingStatusDiv();
-    hideEncodingIdDiv();
-    hideLoadingDiv();
+    try {
+        const response = await fetch(`${API_GATEWAY_URL}/stop-live-encoding`, { method: "POST" });
+        if (!response.ok) {
+            throw new Error(`Failed to stop live encoding: ${response.statusText}`);
+        }
 
-    const data = await response.json();
-    console.log(data);
+        hideEncodingStatusDiv();
+        hideEncodingIdDiv();
+        hideLoadingDiv();
+        isLiveEncodingStarted = false;
+        toggleButtonState();
 
-    return data.encoding_id;
+        const data = await response.json();
+        console.log(data);
+
+        return data.encoding_id;
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 async function clipLastNSeconds(n) {
-    const segmentDiff = Math.floor(n / 2) -1;
-    const response = await fetch(`${API_GATEWAY_URL}/start-live-to-vod?startSegment=${liveEdgeSegmentNum - segmentDiff}&endSegment=${liveEdgeSegmentNum}`, { method: "POST" });
-    const data = await response.json();
-    console.log(data);
+    try {
+        const segmentDiff = Math.floor(n / targetDuration);
+        const response = await fetch(`${API_GATEWAY_URL}/start-live-to-vod?startSegment=${liveEdgeSegmentNum - segmentDiff}&endSegment=${liveEdgeSegmentNum}`, { method: "POST" });
+        if (!response.ok) {
+            throw new Error(`Failed to clip last ${n} seconds: ${response.statusText}`);
+        }
 
-    if (data.url && data.url.hls) {
-        liveToVodHlsUrl = data.url.hls;
-        console.log(liveToVodHlsUrl);
+        const data = await response.json();
+        console.log(data);
+
+        if (data.url && data.url.hls) {
+            liveToVodHlsUrl = data.url.hls;
+            console.log(liveToVodHlsUrl);
+        }
+        loadLiveToVodPlayer();
+        return data.encoding_id;
+    } catch (error) {
+        console.error(error);
     }
-    loadLiveToVodPlayer();
-    return data.encoding_id;
 }
 
 async function fetchLiveEncodingStatus() {
-    const response = await fetch(`${API_GATEWAY_URL}/live-encoding-status`);
+    try {
+        const response = await fetch(`${API_GATEWAY_URL}/live-encoding-status`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch live encoding status: ${response.statusText}`);
+        }
 
-    const data = await response.json();
-    console.log(data);
+        const data = await response.json();
+        console.log(data);
 
-    return data.encoding_status;
+        return data.encoding_status;
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 async function checkStatusUntilRunning() {
-    let status = await fetchLiveEncodingStatus();
-    updateEncodingStatusDiv(`Encoding Status: ${status}`);
-
-    while (status !== "Status.RUNNING" && status !== "Status.CANCELED" && status !== "Status.FINISHED" ) {
-        await new Promise(resolve => setTimeout(resolve, 5000));
-        status = await fetchLiveEncodingStatus();
+    try {
+        let status = await fetchLiveEncodingStatus();
         updateEncodingStatusDiv(`Encoding Status: ${status}`);
-    }
 
-    updateEncodingStatusDiv(`Encoding Status: ${status}. Please ingest your live stream in srt://44.194.223.128:2088`);
-    hideLoadingDiv();
+        while (status !== "Status.RUNNING" && status !== "Status.CANCELED" && status !== "Status.FINISHED" ) {
+            await new Promise(resolve => setTimeout(resolve, 5000));
+            status = await fetchLiveEncodingStatus();
+            updateEncodingStatusDiv(`Encoding Status: ${status}`);
+        }
+
+        if (status === "Status.RUNNING") {
+            isLiveEncodingStarted = true;
+            toggleButtonState();
+        }
+
+        updateEncodingStatusDiv(`Encoding Status: ${status}. Please ingest your live stream in srt://44.194.223.128:2088`);
+        hideLoadingDiv();
+    } catch (error) {
+        console.error(error);
+        hideLoadingDiv();
+        updateEncodingStatusDiv("Error: " + error.message);
+    }
 }
 
 function reloadLive() {
@@ -108,7 +157,9 @@ function initializeLiveToVodPlayer() {
         key: BITMOVIN_PLAYER_LICENSE_KEY,
         analytics: {
             key: BITMOVIN_ANALYTICS_LICENSE_KEY,
-            videoId: 'live-to-vod-demo',
+            title: 'NAB Live to VOD demo',
+            videoId: "live-to-vod-demo",
+            userId: 'nab-user-1',
         },
         playback: {
             muted: true,
@@ -132,7 +183,9 @@ function initializeLivePlayer() {
         key: BITMOVIN_PLAYER_LICENSE_KEY,
         analytics: {
             key: BITMOVIN_ANALYTICS_LICENSE_KEY,
-            videoId: 'live-playback-demo',
+            title: 'NAB Live Encoding demo',
+            videoId: "live-playback-demo",
+            userId: 'nab-user-1',
         },
         playback: {
             muted: true,
@@ -153,6 +206,9 @@ function initializeLivePlayer() {
                         liveEdgeSegmentNum = parseInt(filename.substring(8, filename.lastIndexOf('.')), 10);
                     }
                 }
+                if (type === "manifest/hls/variant") {
+                    targetDuration = extractTargetDuration(response.body);
+                }
                 return Promise.resolve(response);
             }
         }
@@ -160,6 +216,17 @@ function initializeLivePlayer() {
 
     var playerContainer = document.getElementById('player-container');
     livePlayer = new bitmovin.player.Player(playerContainer, config);
+}
+
+function extractTargetDuration(body) {
+    const targetDurationRegex = /#EXT-X-TARGETDURATION:(\d+)/;
+    const match = body.match(targetDurationRegex);
+
+    if (match && match[1]) {
+        return parseInt(match[1], 10);
+    } else {
+        throw new Error("Target duration not found in the input string.");
+    }
 }
 
 function showEncodingIdDiv() {
@@ -194,12 +261,22 @@ function hideLoadingDiv() {
     loadingDiv.classList.add("hidden");
 }
 
+function toggleButtonState() {
+    liveReloadBtn.disabled = !isLiveEncodingStarted;
+    liveToVod30Btn.disabled = !isLiveEncodingStarted;
+    liveToVod10Btn.disabled = !isLiveEncodingStarted;
+}
+
 $(() => {
+    toggleButtonState();
+
     liveStartBtn.addEventListener("click", async () => {
         console.log("Live Encoding Start button clicked");
         startEncoding().then(async (encodingId) => {
-            updateEncodingIdDiv(`Encoding ID: ${encodingId}`);
-            await checkStatusUntilRunning();
+            if (encodingId) {
+                updateEncodingIdDiv(`Encoding ID: ${encodingId}`);
+                await checkStatusUntilRunning();
+            }
         });
     });
 
