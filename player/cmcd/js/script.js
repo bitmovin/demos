@@ -44,6 +44,14 @@ function setupPlayerWithCmcd() {
   });
 }
 
+function getCmcdAndCdnLogFromS3() {
+  const newRequestTimestamp = new Date();
+
+  // See https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectsV2.html
+  fetch('https://bitmovin-cmcd-demo.s3.amazonaws.com\?list-type\=2\&prefix\=akamai/ak')
+  .then(response => response.text())
+}
+
 $(function() {
   setupPlayerWithCmcd();
 });
