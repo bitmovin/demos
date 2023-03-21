@@ -79,6 +79,10 @@ function setupPlayerWithCmcd() {
 }
 
 function log(data) {
+  if (!data || data.length < 1) {
+    return;
+  }
+
   const sorted = data.sort((a, b) => a.timestamp > b.timestamp);
 
   $('#logContent').html('');
