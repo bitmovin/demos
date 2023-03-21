@@ -231,9 +231,7 @@ function parseDataStreamLogFiles(responses) {
     return;
   }
 
-  let logs = '';
-  responses.forEach(response => logs += gunzipLogFile(response));
-  const allLogs = logs.split('\n');
+  const allLogs = responses.map(response => gunzipLogFile(response)).join('').split('\n);
 
   const matchingLogs = allLogs.filter(line => line.includes(`sid=%22${cmcdSessionId}%22`));
   const noOrOtherSessionId = allLogs.filter(line => !line.includes(`sid=%22${cmcdSessionId}%22`));
