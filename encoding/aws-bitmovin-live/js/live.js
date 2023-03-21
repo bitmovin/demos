@@ -8,8 +8,8 @@ const encodingStatusDiv = document.getElementById("encodingStatus");
 const loadingDiv = document.getElementById("loading");
 
 const API_GATEWAY_URL = "https://6xbphss2bk.execute-api.us-east-1.amazonaws.com/Test";
-const BITMOVIN_PLAYER_LICENSE_KEY = '';
-const BITMOVIN_ANALYTICS_LICENSE_KEY = '';
+const BITMOVIN_PLAYER_LICENSE_KEY = '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30';
+const BITMOVIN_ANALYTICS_LICENSE_KEY = '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4';
 
 let livePlayer;
 let vodPlayer;
@@ -157,9 +157,7 @@ function initializeLiveToVodPlayer() {
         key: BITMOVIN_PLAYER_LICENSE_KEY,
         analytics: {
             key: BITMOVIN_ANALYTICS_LICENSE_KEY,
-            title: 'NAB Live to VOD demo',
-            videoId: "live-to-vod-demo",
-            userId: 'nab-user-1',
+            videoId: "live-to-vod-demo"
         },
         playback: {
             muted: true,
@@ -183,9 +181,7 @@ function initializeLivePlayer() {
         key: BITMOVIN_PLAYER_LICENSE_KEY,
         analytics: {
             key: BITMOVIN_ANALYTICS_LICENSE_KEY,
-            title: 'NAB Live Encoding demo',
-            videoId: "live-playback-demo",
-            userId: 'nab-user-1',
+            videoId: "live-playback-demo"
         },
         playback: {
             muted: true,
