@@ -119,11 +119,11 @@ function beautifyCmcdHeaderData(data) {
     }
     if (cmcd.startsWith(`${CMCD_KEYS.BufferLength}=`)) {
       const value = cmcd.split('=')[1];
-      return `Buffer Length: ${Number.parseFloat(value)/1000}s`;
+      return `Buffer Length: ${(Number.parseFloat(value)/1000).toFixed(2)}s`;
     }
     if (cmcd.startsWith(`${CMCD_KEYS.EncodedBitrate}=`)) {
       const value = cmcd.split('=')[1];
-      return `Encoded Bitrate: ${value}`;
+      return `Encoded Bitrate: ${value}kbps`;
     }
     if (cmcd.startsWith(`${CMCD_KEYS.ContentId}=`)) {
       const value = cmcd.split('=')[1];
@@ -131,7 +131,7 @@ function beautifyCmcdHeaderData(data) {
     }
     if (cmcd.startsWith(`${CMCD_KEYS.ObjectDuration}=`)) {
       const value = cmcd.split('=')[1];
-      return `Object Duration: ${Number.parseFloat(value)/1000}s`;
+      return `Object Duration: ${(Number.parseFloat(value)/1000).toFixed(2)}s`;
     }
     if (cmcd.startsWith(`${CMCD_KEYS.Deadline}=`)) {
       const value = cmcd.split('=')[1];
@@ -139,7 +139,7 @@ function beautifyCmcdHeaderData(data) {
     }
     if (cmcd.startsWith(`${CMCD_KEYS.MeasuredThroughput}=`)) {
       const value = cmcd.split('=')[1];
-      return `Measured Throughput: ${value}`;
+      return `Measured Throughput: ${value}kbps`;
     }
     if (cmcd.startsWith(`${CMCD_KEYS.NextObjectRequest}=`)) {
       const value = cmcd.split('=')[1];
@@ -151,11 +151,11 @@ function beautifyCmcdHeaderData(data) {
     }
     if (cmcd.startsWith(`${CMCD_KEYS.PlaybackRate}=`)) {
       const value = cmcd.split('=')[1];
-      return `Playback Rate: ${value}`;
+      return `Playback Rate: ${value}x`;
     }
     if (cmcd.startsWith(`${CMCD_KEYS.RequestedMaximumThroughput}=`)) {
       const value = cmcd.split('=')[1];
-      return `Requested Maximum Throughput: ${value}`;
+      return `Requested Maximum Throughput: ${value}kbps`;
     }
     if (cmcd.startsWith(`${CMCD_KEYS.StreamingFormat}=`)) {
       const value = cmcd.split('=')[1];
@@ -176,7 +176,7 @@ function beautifyCmcdHeaderData(data) {
     }
     if (cmcd.startsWith(`${CMCD_KEYS.TopBitrate}=`)) {
       const value = cmcd.split('=')[1];
-      return `Top Bitrate: ${value}`;
+      return `Top Bitrate: ${value}kbps`;
     }
     // Version is usually omitted for version 1
 
