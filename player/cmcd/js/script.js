@@ -186,7 +186,7 @@ function beautifyCmcdHeaderData(data) {
     return cmcd;
   });
 
-  return beautified.filter(cmcd => !!cmcd).join(', ');
+  return beautified.filter(Boolean).join(', ');
 }
 
 function getCmcdAndCdnLogFromS3() {
