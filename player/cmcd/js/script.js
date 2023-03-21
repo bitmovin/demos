@@ -42,6 +42,12 @@ let cmcdSessionId;
 function setupPlayerWithCmcd() {
   cmcdSessionId = uuidv4();
 
+  const cmcdConfig = {
+    sessionId: cmcdSessionId,
+    contentId: '1111-111111-111111-11111',
+  };
+  const cmcdPlugin = new window.bitmovin.player.integration.Cmcd.CmcdIntegration(cmcdConfig);
+  
   const playerConfig = {
     key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
     analytics: {
@@ -51,28 +57,15 @@ function setupPlayerWithCmcd() {
     playback: {
       muted: true,
       autoplay: true,
+    },
+    network: {
+      preprocessHttpRequest: cmcdPlugin.preprocessHttpRequest,
+      preprocessHttpResponse: cmcdPlugin.preprocessHttpResponse,
+    },
+    adaptation: {
+      onVideoAdaptation: cmcdPlugin.onVideoAdaptation,
+      onAudioAdaptation: cmcdPlugin.onAudioAdaptation,
     }
-  };
-
-  const cmcdConfig = {
-    sessionId: cmcdSessionId,
-    contentId: '1111-111111-111111-11111',
-  };
-
-  const cmcdPlugin = new window.bitmovin.player.integration.Cmcd.CmcdIntegration(cmcdConfig);
-  playerConfig.network = {
-    preprocessHttpRequest: cmcdPlugin.preprocessHttpRequest,
-    preprocessHttpResponse: cmcdPlugin.preprocessHttpResponse,
-  };
-  playerConfig.adaptation = {
-    desktop: {
-      onVideoAdaptation: cmcdPlugin.onVideoAdaptation,
-      onAudioAdaptation: cmcdPlugin.onAudioAdaptation,
-    },
-    mobile: {
-      onVideoAdaptation: cmcdPlugin.onVideoAdaptation,
-      onAudioAdaptation: cmcdPlugin.onAudioAdaptation,
-    },
   };
 
   const playerContainer = document.getElementById('player-container');
