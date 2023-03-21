@@ -1,8 +1,5 @@
 <script type="text/javascript"
         src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
-<!--<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1333.0.min.js"></script>-->
-<script type="text/javascript" src="js/demo.js"></script>
-<script src="js/aws-sdk.js"></script>
 <div>
     <div class="row">
         <div class="col-lg-7">
@@ -20,8 +17,6 @@
 						<select id="available_targets" class="form-control" name="available-targets">
 						</select>
 					</div>
-					<br>
-					<input type="button" id="start-encoding-button" value="Start" class="btn btn-outline-primary"/>
 				</div>
             </ul>
         </div>
@@ -39,23 +34,22 @@
 		    <ul class="mp-4">
 			    <li>Step 2: Start VOD Encoding and Monitoring Progress</li>
 			    <p>
-					To initiate the encoding process, we will trigger an AWS Lambda function through REST APIs
-					deployed using AWS API Gateway. The lambda function will use Bitmovin encoding APIs to create,
-					start and monitor VOD encoding. Bitmovin API will spawn EC2 instances to perform encoding, which
+					To initiate the encoding process, an AWS Lambda function is triggered through REST APIs
+					deployed using AWS API Gateway. The lambda function uses Bitmovin encoding APIs to create,
+					start and monitor VOD encoding. Bitmovin API spawns EC2 instances to perform encoding, which
 					will copy the input mezzanine file from S3 bucket, transcode, package as per input required by
-					AWS Mediatailor and upload the encoded output to an S3 bucket. The lambda function will also use
-					AWS MediaTailor to stitch an Ad or bumper into the packaged VOD content as pre-roll.
-					Detailed encoding progress can also be monitored on Bitmovin dashboard
-				    <a href="https://bitmovin.com/dashboard">(https://bitmovin.com/dashboard)</a>.
-				    Please wait until the encoding status is displayed as "FINISHED."
+					AWS Mediatailor and upload the encoded output to an S3 bucket. Detailed encoding status can be
+					seen in <a href="https://bitmovin.com/dashboard">Bitmovin dashboard</a>
 			    </p>
 				<div class="demo-input-box input">
-					<div class="demo-item-header">
-						<div>Encoding Status</div>
-					</div>
-                    <label class="text-label"><strong>Asset : </strong></label>
-                    <label class="text-label" id="encoding-asset">...</label>
-                    <br>
+					<button id="vod-encoding-start" class="btn btn-outline-primary">
+						Start VOD Encoding
+					</button>
+					<div id="loading" class="hidden"></div>
+					<br>
+					<label class="text-label"><strong>Asset : </strong></label>
+					<label class="text-label" id="encoding-asset">...</label>
+					<br>
 					<label class="text-label"><strong>Id : </strong></label>
 					<label class="text-label" id="encoding-id">...</label>
 					<br>
@@ -68,7 +62,7 @@
 					<a id="encoding-dashboard" href="https://bitmovin.com/dashboard/encoding/home" target=”_blank” class="btn btn-outline-primary">
 						Open Dashboard
 					</a>
-
+					<br>
 				</div>
 		    </ul>
 	    </div>
@@ -80,7 +74,8 @@
 				<p>
 					The encoding process is complete, and packaged HLS/DASH content including pre-roll Advertisement
 					stitched using AWS MediaTailor is available in S3 bucket now. The content can be streamed to
-					viewers across the world using AWS cloudfront CDN.
+					viewers across the world using AWS cloudfront CDN. In this demo, the content can be played in
+					Bitmovin player in next section.
 				</p>
 			</ul>
 		</div>
