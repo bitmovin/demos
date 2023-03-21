@@ -35,3 +35,7 @@
 .cmcd-log {
     color: blue;
 }
+
+.description > .col-lg-9 {
+  padding-left: 0;
+}
