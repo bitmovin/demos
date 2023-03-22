@@ -10,6 +10,11 @@
     padding-bottom: 23px;
 }
 
+.demo-event-box img.partner-logo {
+  float: right;
+  width: 100px;
+}
+
 #logContent {
     height: 300px;
     width: 100%;
@@ -34,8 +39,4 @@
 
 .cmcd-log {
     color: blue;
-}
-
-.description > .col-lg-9 {
-  padding-left: 0;
 }
