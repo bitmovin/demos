@@ -36,7 +36,11 @@ async function startEncoding() {
         const data = await response.json();
 
         if (hlsPlaybackUrl === null && data.url && data.url.hls) {
-            hlsPlaybackUrl = data.url.hls;
+            if (data.url.hls.startsWith('http://')) {
+                hlsPlaybackUrl = data.url.hls.replace('http://', 'https://');
+            } else {
+                hlsPlaybackUrl = data.url.hls;
+            }
             console.log(hlsPlaybackUrl);
         }
         console.log(data);
@@ -84,7 +88,11 @@ async function clipLastNSeconds(n) {
         console.log(data);
 
         if (data.url && data.url.hls) {
-            liveToVodHlsUrl = data.url.hls;
+            if (data.url.hls.startsWith('http://')) {
+                liveToVodHlsUrl = data.url.hls.replace('http://', 'https://');
+            } else {
+                liveToVodHlsUrl = data.url.hls;
+            }
             console.log(liveToVodHlsUrl);
         }
         loadLiveToVodPlayer();
