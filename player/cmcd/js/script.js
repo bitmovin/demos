@@ -1,4 +1,4 @@
-const LOG_PULL_INTERVALL_SECONDS = 10 * 1000;
+const LOG_PULL_INTERVALL_SECONDS = 5 * 1000;
 
 const DELIMITER = '&nbsp;'
 const CMCD_KEYS = {
