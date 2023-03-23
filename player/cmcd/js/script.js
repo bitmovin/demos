@@ -33,7 +33,7 @@ function setupPlayerWithCmcd() {
     sessionId: cmcdSessionId,
     contentId: '1111-111111-111111-11111',
   };
-  const cmcdPlugin = new window.bitmovin.player.integration.Cmcd.CmcdIntegration(cmcdConfig);
+  const cmcdIntegration = new window.bitmovin.player.integration.Cmcd.CmcdIntegration(cmcdConfig);
   
   const playerConfig = {
     key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
@@ -46,12 +46,12 @@ function setupPlayerWithCmcd() {
       autoplay: true,
     },
     network: {
-      preprocessHttpRequest: cmcdPlugin.preprocessHttpRequest,
-      preprocessHttpResponse: cmcdPlugin.preprocessHttpResponse,
+      preprocessHttpRequest: cmcdIntegration.preprocessHttpRequest,
+      preprocessHttpResponse: cmcdIntegration.preprocessHttpResponse,
     },
     adaptation: {
-      onVideoAdaptation: cmcdPlugin.onVideoAdaptation,
-      onAudioAdaptation: cmcdPlugin.onAudioAdaptation,
+      onVideoAdaptation: cmcdIntegration.onVideoAdaptation,
+      onAudioAdaptation: cmcdIntegration.onAudioAdaptation,
     }
   };
 
@@ -62,12 +62,12 @@ function setupPlayerWithCmcd() {
     const analyticsImpressionId = player.analytics.getCurrentImpressionId();
     if (analyticsImpressionId) {
       cmcdSessionId = analyticsImpressionId;
-      cmcdPlugin.setSessionId(cmcdSessionId);
+      cmcdIntegration.setSessionId(cmcdSessionId);
       console.log(`Updated CMCD session ID to match Analytics Impression ID ${cmcdSessionId}`);
     }
   }
 
-  cmcdPlugin.setPlayer(player);
+  cmcdIntegration.setPlayer(player);
 
   player.load({
     hls: 'https://bitmovindemocmcd-a.akamaihd.net/content/MI201109210084_1/m3u8s-fmp4-rel/main.m3u8',
