@@ -1,18 +1,5 @@
 const LOG_PULL_INTERVALL_SECONDS = 10 * 1000;
 
-const FIELD = {
-  TIMESTAMP: 4,
-  HTTP_STATUS: 6,
-  HTTP_VERSION: 7,
-  HOST: 8,
-  METHOD: 9,
-  PATH: 10,
-  PORT: 11,
-  MIME_TYPE: 14,
-  USER_AGENT: 15,
-  ENCRYPTION_VERSION: 16,
-  CMCD_DATA: 36,
-};
 const DELIMITER = '&nbsp;'
 const CMCD_KEYS = {
   EncodedBitrate: 'br',
@@ -228,10 +215,15 @@ function parseDataStreamLogFiles(responses) {
     return;
   }
 
-  const allLogs = responses.map(response => gunzipLogFile(response)).join('').split('\n');
+  const allLogs = responses
+  .map(response => gunzipLogFile(response))
+  .join('')
+  .trim()
+  .split('\n')
+  .map(line => JSON.parse(line)); 
 
-  const matchingLogs = allLogs.filter(line => line.includes(`sid=%22${cmcdSessionId}%22`));
-  const noOrOtherSessionId = allLogs.filter(line => !line.includes(`sid=%22${cmcdSessionId}%22`));
+  const matchingLogs = allLogs.filter(log => log.customField.includes(`sid=%22${cmcdSessionId}%22`));
+  const noOrOtherSessionId = allLogs.filter(log => !log.customField.includes(`sid=%22${cmcdSessionId}%22`));
 
   console.log(`No session ID or not ${cmcdSessionId}, ignoring those:`);
   console.log(noOrOtherSessionId);
@@ -246,14 +238,14 @@ function gunzipLogFile(content) {
 }
 
 function convertLogLineToLoggingDataStructure(logLine) {
-  const data = logLine.split(' ');
   return {
-    timestamp: new Date(Number.parseFloat(data[FIELD.TIMESTAMP]) * 1000),
-    cdnLog: data[FIELD.HTTP_STATUS] + DELIMITER +
-            data[FIELD.METHOD] + DELIMITER +
-            data[FIELD.HTTP_VERSION] + DELIMITER +
-            data[FIELD.HOST] + '/' + data[FIELD.PATH] + DELIMITER,
-    cmcdLog: beautifyCmcdHeaderData(data[FIELD.CMCD_DATA]),
+    timestamp: new Date(Number.parseFloat(logLine.reqTimeSec) * 1000),
+    cdnLog: logLine.statusCode + DELIMITER +
+            logLine.reqMethod + DELIMITER +
+            logLine.proto + DELIMITER +
+            logLine.reqHost + '/' + logLine.reqPath + DELIMITER +
+            (parseInt(logLine.cacheStatus) ? 'Cache HIT' : 'Cache MISS'),
+    cmcdLog: beautifyCmcdHeaderData(logLine.customField),
   }
 }
 
