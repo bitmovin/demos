@@ -57,7 +57,16 @@ function setupPlayerWithCmcd() {
 
   const playerContainer = document.getElementById('player-container');
   const player = new bitmovin.player.Player(playerContainer, playerConfig);
-  
+
+  if (player.analytics) {
+    const analyticsImpressionId = player.analytics.getCurrentImpressionId();
+    if (analyticsImpressionId) {
+      cmcdSessionId = analyticsImpressionId;
+      cmcdPlugin.setSessionId(cmcdSessionId);
+      console.log(`Updated CMCD session ID to match Analytics Impression ID ${cmcdSessionId}`);
+    }
+  }
+
   cmcdPlugin.setPlayer(player);
 
   player.load({
