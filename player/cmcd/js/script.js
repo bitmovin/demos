@@ -30,6 +30,7 @@ function setupPlayerWithCmcd() {
   cmcdSessionId = uuidv4();
 
   const cmcdConfig = {
+    useQueryArgs: true,
     sessionId: cmcdSessionId,
     contentId: '1111-111111-111111-11111',
   };
@@ -96,7 +97,7 @@ function log(data) {
 }
 
 function beautifyCmcdHeaderData(data) {
-  const cmcdFields = data.replace('CMCD-HEADER:', '').split(',');
+  const cmcdFields = data.replace('CMCD-HEADER:', '').replace('CMCD-QST:', '').split(',');
 
   const beautified = cmcdFields.map(cmcd => {
     if (cmcd === CMCD_KEYS.Startup) {
