@@ -44,7 +44,7 @@ li{
     }
 }
 
-#loading {
+.loading {
     margin: 20px auto;
     width: 20px;
     height: 20px;
