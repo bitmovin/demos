@@ -172,7 +172,11 @@ async function checkIfEncodingRunning() {
             updateElementText(elements.encodingIdDiv, `Encoding ID: ${ret.encoding_id}`);
             updateElementText(elements.encodingStatusDiv, `Encoding Status: ${ret.encoding_status}. Please ingest your live stream in srt://44.194.223.128:2088`);
             if (ret.live_encoding_info && ret.live_encoding_info.hls) {
-                hlsPlaybackUrl = ret.live_encoding_info.hls;
+                if (ret.live_encoding_info.hls.startsWith('http://')) {
+                    hlsPlaybackUrl = ret.live_encoding_info.hls.replace('http://', 'https://');
+                } else {
+                    hlsPlaybackUrl = ret.live_encoding_info.hls;
+                }
                 reloadLive();
             }
         } else if (ret.encoding_status === "Status.QUEUED") {
@@ -183,7 +187,11 @@ async function checkIfEncodingRunning() {
             updateElementText(elements.encodingIdDiv, `Encoding ID: ${ret.encoding_id}`);
             updateElementText(elements.encodingStatusDiv, `Encoding Status: ${ret.encoding_status}`);
             if (ret.live_encoding_info && ret.live_encoding_info.hls) {
-                hlsPlaybackUrl = ret.live_encoding_info.hls;
+                if (ret.live_encoding_info.hls.startsWith('http://')) {
+                    hlsPlaybackUrl = ret.live_encoding_info.hls.replace('http://', 'https://');
+                } else {
+                    hlsPlaybackUrl = ret.live_encoding_info.hls;
+                }
             }
             await checkStatusUntilRunning();
         }
