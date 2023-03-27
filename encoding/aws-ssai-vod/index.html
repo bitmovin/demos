@@ -3,12 +3,15 @@
 <div>
     <div class="row">
         <div class="col-lg-7">
-            <ul class="mb-4">
+            <ul class="mp-4">
 	            <li>Step 1: List source/input VOD mezzanine files from S3 bucket</li>
-	            <p>
-					List the available input mezzanine files copied into a source S3 bucket. User can select one
-					of the available files as encoding/transcoding input.
-	            </p>
+				<details open class="mb-4">
+					<summary>Details</summary>
+					<p>
+						List the available input mezzanine files copied into a source S3 bucket. User can select one
+						of the available files as encoding/transcoding input.
+					</p>
+				</details>
 				<div class="demo-input-box input">
 					<div class="demo-item-header">
 						<div>Select Source Asset</div>
@@ -33,14 +36,17 @@
 	    <div class="col-lg-7">
 		    <ul class="mp-4">
 			    <li>Step 2: Start VOD Encoding and Monitoring Progress</li>
-			    <p>
-					To initiate the encoding process, an AWS Lambda function is triggered through REST APIs
-					deployed using AWS API Gateway. The lambda function uses Bitmovin encoding APIs to create,
-					start and monitor VOD encoding. Bitmovin API spawns EC2 instances to perform encoding, which
-					will copy the input mezzanine file from S3 bucket, transcode, package as per input required by
-					AWS Mediatailor and upload the encoded output to an S3 bucket. Detailed encoding status can be
-					seen in <a href="https://bitmovin.com/dashboard">Bitmovin dashboard</a>
-			    </p>
+				<details open class="mb-4">
+					<summary>Details</summary>
+					<p>
+						To initiate the encoding process, an AWS Lambda function is triggered through REST APIs
+						deployed using AWS API Gateway. The lambda function uses Bitmovin encoding APIs to create,
+						start and monitor VOD encoding. Bitmovin API spawns EC2 instances to perform encoding, which
+						will copy the input mezzanine file from S3 bucket, transcode, package as per input required by
+						AWS Mediatailor and upload the encoded output to an S3 bucket. Detailed encoding status can be
+						seen in <a href="https://bitmovin.com/dashboard">Bitmovin dashboard</a>
+					</p>
+				</details>
 				<div class="demo-input-box input">
 					<button id="vod-encoding-start" class="btn btn-outline-primary">
 						Start VOD Encoding
@@ -71,31 +77,49 @@
 		<div class="col-lg-7">
 			<ul class="mp-4">
 				<li>Step 3: Automated Workflow for SSAI Manifest</li>
-				<p>
-					The encoding process is complete, and packaged HLS/DASH content including pre-roll Advertisement
-					stitched using AWS MediaTailor is available in S3 bucket now. The content can be streamed to
-					viewers across the world using AWS cloudfront CDN. In this demo, the content can be played in
-					Bitmovin player in next section.
-				</p>
+				<details open class="mb-4">
+					<summary>Details</summary>
+					<p>
+						The encoding process is complete, and packaged HLS/DASH content including pre-roll Advertisement
+						stitched using AWS MediaTailor is available in S3 bucket now. The content can be streamed to
+						viewers across the world using AWS cloudfront CDN. In this demo, the content can be played in
+						Bitmovin player in next section.
+					</p>
+				</details>
+				<label class="text-label"><strong>HLS URL : </strong></label>
+				<a id="playlist_url" href="" target=”_blank”>
+					...
+				</a>
 			</ul>
 		</div>
 	</div>
     <div class="row">
-	    <h3 class="mb-4">SSAI Playback with Bitmovin Player</h3>
-	    <p>
-		    It is now time to play the SSAI manifest, which can be done using Bitmovin Player.
-		    The left column of the web application will display the player screen while the
-		    right column will showcase the player log, which demonstrates the events related
-			to Advertisement extracted from the SSAI stream via metadata added to the stream
-			by Bitmovin encoder/packager and AWS Mediatailor.
-	    </p>
+		<div class="col-lg-7">
+			<ul class="mp-4">
+				<li>Step 4: SSAI playback with Bitmovin player</li>
+				<details open class="mb-4">
+					<summary>Details</summary>
+					<p>
+						It is now time to play the SSAI manifest, which can be done using Bitmovin Player.
+						The left column of the web application will display the player screen while the
+						right column will showcase the player log, which demonstrates the events related
+						to Advertisement extracted from the SSAI stream via metadata added to the stream
+						by Bitmovin encoder/packager and AWS Mediatailor.
+					</p>
+				</details>
+		    </ul>
+		</div>
         <div class="col-lg-6 player-col">
             <div id="player-wrapper">
                 <div id="player">
                     <div id="player-container"></div>
                 </div>
+				<div class="button-container">
+					<button id=load-source class="btn btn-outline-primary">
+						Reload
+					</button>
+				</div>
             </div>
-
         </div>
 	    <div class="col-lg-6 code-col">
 		    <div id="control-log"></div>

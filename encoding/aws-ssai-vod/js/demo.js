@@ -6,6 +6,7 @@ var player;
 var encodingSources = [];
 var currentEncodingSource;
 var intervalId = 0;
+var currentLoadedSourceInfo = null;
 const startEncodingButton = document.getElementById('vod-encoding-start');
 const selectAssetDropDown = document.getElementById("available_targets");
 const encodingAssetLabel  = document.getElementById("encoding-asset");
@@ -14,16 +15,20 @@ const encodingStateLabel  = document.getElementById("encoding-state");
 const encodingProgress    = document.getElementById("encoding-progress");
 const loadingDiv = document.getElementById("loading");
 const controlLog = document.getElementById('control-log');
+const loadSourceButton = document.getElementById('load-source');
+const assetInfoLabel = document.getElementById("playlist_url");
 
 function init() {
   // create player
   var playerContainer = document.getElementById('player-container');
   player = createPlayer(playerContainer);
 
-  startEncodingButton.onclick = startEncoding;
   selectAssetDropDown.onchange = onSelectionChange;
+  startEncodingButton.onclick = startEncoding;
+  loadSourceButton.onclick = onClickLoadSource;
 
   toggleStartEncodingButton(true);
+  toggleLoadSourceButton(true);
   resetEncodingStatus("...");
   // scan S3 input source buffer
   scanSourceBucket();
@@ -106,6 +111,8 @@ function checkAndUpdateEncodingStatus(asset_name) {
       var response = JSON.parse(xhr.responseText);
       if (response.status == "FINISHED") {
         loadSource(response);
+        toggleLoadSourceButton(false);
+        currentLoadedSourceInfo = response;
       }
 
       if (response.status == "FINISHED" || response.status == "ERROR" || response.status == "CANCELLED" || response.status == "NOT_FOUND") {
@@ -148,7 +155,7 @@ function updateEncodingStatus() {
   checkAndUpdateEncodingStatus(currentSelectedSource.Key);
   intervalId = setInterval(function () {
     checkAndUpdateEncodingStatus(currentSelectedSource.Key);
-  }, 10000);
+  }, 5000);
 }
 
 function onSelectionChange() {
@@ -160,6 +167,7 @@ function onSelectionChange() {
 
   showLoadingDiv();
   toggleStartEncodingButton(true);
+  toggleLoadSourceButton(true);
   resetEncodingStatus("...");
   clearIntervalTimer();
   updateEncodingStatus();
@@ -167,6 +175,11 @@ function onSelectionChange() {
 
 function toggleStartEncodingButton(disable) {
   startEncodingButton.disabled = disable;
+}
+
+function toggleLoadSourceButton(disable) {
+  loadSourceButton.disabled = disable;
+  currentLoadedSourceInfo = null;
 }
 
 function scrollControlLog() {
@@ -186,6 +199,8 @@ function resetEncodingStatus(asset_name, state="...") {
   encodingStateLabel.innerHTML = state;
   encodingProgress.value = 0.0;
   document.getElementById("encoding-dashboard").href = "https://bitmovin.com/dashboard/encoding/home";
+  assetInfoLabel.href = "";
+  assetInfoLabel.innerHTML = "...";
 }
 
 function showLoadingDiv() {
@@ -200,9 +215,9 @@ function hideLoadingDiv() {
 
 const createPlayer = (container) => {
   var config = {
-    key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
+    key: 'e14e2f19-bac0-4206-ae12-f9aff71f66e8',
     analytics: {
-      key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+      key: 'cd45515d-bfb9-47a0-8dae-4523b6082360',
       videoId: 'vod-ssai-demo'
     },
     playback: {
@@ -240,6 +255,8 @@ const loadSource = (source_info) => {
   var ssaiHlsUrl = hlsUrl.replace(/(https:|)(^|\/\/)(.*?\/)/g, SSAI_HLS_PLAYBACK_PREFIX);
   console.log('Loading Player: hlsUrl=' + hlsUrl);
   console.log('Loading Player: ssaiHlsUrl=' + ssaiHlsUrl);
+  assetInfoLabel.href = ssaiHlsUrl;
+  assetInfoLabel.innerHTML = ssaiHlsUrl;
   var source = {
     title: source_info.asset,
     hls: ssaiHlsUrl,
@@ -252,6 +269,12 @@ const loadSource = (source_info) => {
         console.log('Error while creating Bitmovin Player instance ' + reason);
       }
   );
+};
+
+const onClickLoadSource = () => {
+  if (currentLoadedSourceInfo != null) {
+    loadSource(currentLoadedSourceInfo);
+  }
 };
 
 $(document).ready(init);
