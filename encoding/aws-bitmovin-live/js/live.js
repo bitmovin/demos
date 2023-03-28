@@ -13,8 +13,8 @@ const elements = {
 };
 
 const API_GATEWAY_URL = "https://6xbphss2bk.execute-api.us-east-1.amazonaws.com/Test";
-const BITMOVIN_PLAYER_LICENSE_KEY = '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30';
-const BITMOVIN_ANALYTICS_LICENSE_KEY = '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4';
+const BITMOVIN_PLAYER_LICENSE_KEY = 'e14e2f19-bac0-4206-ae12-f9aff71f66e8';
+const BITMOVIN_ANALYTICS_LICENSE_KEY = 'cd45515d-bfb9-47a0-8dae-4523b6082360';
 
 let livePlayer, vodPlayer;
 let hlsPlaybackUrl = null;
