@@ -12,7 +12,7 @@ const elements = {
     liveToVodLoadingDiv: document.getElementById("live-to-vod-loading")
 };
 
-const API_GATEWAY_URL = "https://6xbphss2bk.execute-api.us-east-1.amazonaws.com/Test";
+const API_GATEWAY_URL = "https://n5yiys7fgb.execute-api.us-west-2.amazonaws.com/nab-bitmovin-demo";
 const BITMOVIN_PLAYER_LICENSE_KEY = 'e14e2f19-bac0-4206-ae12-f9aff71f66e8';
 const BITMOVIN_ANALYTICS_LICENSE_KEY = 'cd45515d-bfb9-47a0-8dae-4523b6082360';
 
@@ -152,7 +152,7 @@ async function checkStatusUntilRunning() {
             // toggleButtonState();
         }
 
-        updateElementText(elements.encodingStatusDiv, `Encoding Status: ${status}. Please ingest your live stream in srt://44.194.223.128:2088`);
+        updateElementText(elements.encodingStatusDiv, `Encoding Status: ${status}. Please ingest your live stream in srt://54.149.166.239:2088`);
         hideElement(elements.loadingDiv);
     } catch (error) {
         console.error(error);
@@ -170,7 +170,7 @@ async function checkIfEncodingRunning() {
             showElement(elements.encodingIdDiv);
             showElement(elements.encodingStatusDiv);
             updateElementText(elements.encodingIdDiv, `Encoding ID: ${ret.encoding_id}`);
-            updateElementText(elements.encodingStatusDiv, `Encoding Status: ${ret.encoding_status}. Please ingest your live stream in srt://44.194.223.128:2088`);
+            updateElementText(elements.encodingStatusDiv, `Encoding Status: ${ret.encoding_status}. Please ingest your live stream in srt://54.149.166.239:2088`);
             if (ret.live_encoding_info && ret.live_encoding_info.hls) {
                 if (ret.live_encoding_info.hls.startsWith('http://')) {
                     hlsPlaybackUrl = ret.live_encoding_info.hls.replace('http://', 'https://');
