@@ -1,6 +1,6 @@
-const SSAI_HLS_PLAYBACK_PREFIX = "https://0ed91c03b8af40c09acb289b8691d218.mediatailor.us-east-1.amazonaws.com/v1/master/e43236c6c3da2f9adba09ce309a47dcec2045396/NABDemoVOD/";
+const SSAI_HLS_PLAYBACK_PREFIX = "https://8f6c9947be7343248b0d6a1e8cd68f77.mediatailor.us-west-2.amazonaws.com/v1/master/5b53b59f1df6346968191b83457c3593ec959b98/NAB_DEMO/";
 
-const API_GATEWAY_URL = "https://6xbphss2bk.execute-api.us-east-1.amazonaws.com/Test";
+const API_GATEWAY_URL = "https://n5yiys7fgb.execute-api.us-west-2.amazonaws.com/nab-bitmovin-demo";
 
 var player;
 var encodingSources = [];
@@ -16,7 +16,7 @@ const encodingProgress    = document.getElementById("encoding-progress");
 const loadingDiv = document.getElementById("loading");
 const controlLog = document.getElementById('control-log');
 const loadSourceButton = document.getElementById('load-source');
-const assetInfoLabel = document.getElementById("playlist_url");
+const assetInfoLabel = document.getElementById("vod-url");
 
 function init() {
   // create player
@@ -36,7 +36,7 @@ function init() {
 
 function scanSourceBucket() {
   const xhr = new XMLHttpRequest();
-  const response = xhr.open("GET", `${API_GATEWAY_URL}/scan-sources`);
+  const response = xhr.open("GET", `${API_GATEWAY_URL}/scan-input`);
   xhr.onload = () => {
     if (xhr.readyState === 4 && (xhr.status >= 200 && xhr.status < 300)) {
       var response = JSON.parse(xhr.responseText);
@@ -199,8 +199,8 @@ function resetEncodingStatus(asset_name, state="...") {
   encodingStateLabel.innerHTML = state;
   encodingProgress.value = 0.0;
   document.getElementById("encoding-dashboard").href = "https://bitmovin.com/dashboard/encoding/home";
-  assetInfoLabel.href = "";
-  assetInfoLabel.innerHTML = "...";
+  assetInfoLabel.classList.add("hidden");
+  assetInfoLabel.innerHTML = "";
 }
 
 function showLoadingDiv() {
@@ -231,6 +231,9 @@ const createPlayer = (container) => {
       stop_download_on_pause: true
     },
     events: {
+      sourceloaded: function () {
+        controlLog.innerHTML += 'Loaded<br>';
+      },
       play: function () {
         controlLog.innerHTML += 'Playing<br>';
       },
@@ -255,8 +258,9 @@ const loadSource = (source_info) => {
   var ssaiHlsUrl = hlsUrl.replace(/(https:|)(^|\/\/)(.*?\/)/g, SSAI_HLS_PLAYBACK_PREFIX);
   console.log('Loading Player: hlsUrl=' + hlsUrl);
   console.log('Loading Player: ssaiHlsUrl=' + ssaiHlsUrl);
-  assetInfoLabel.href = ssaiHlsUrl;
-  assetInfoLabel.innerHTML = ssaiHlsUrl;
+  assetInfoLabel.classList.remove("hidden");
+  assetInfoLabel.innerHTML = `<strong>Manifest URL</strong>:<br>${ssaiHlsUrl}`;
+  controlLog.innerHTML = '';
   var source = {
     title: source_info.asset,
     hls: ssaiHlsUrl,

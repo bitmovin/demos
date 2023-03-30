@@ -5,7 +5,7 @@
         <div class="col-lg-7">
             <ul class="mp-4">
 	            <li>Step 1: List source/input VOD mezzanine files from S3 bucket</li>
-				<details open class="mb-4">
+				<details close class="mb-4">
 					<summary>Details</summary>
 					<p>
 						List the available input mezzanine files copied into a source S3 bucket. User can select one
@@ -23,20 +23,10 @@
 				</div>
             </ul>
         </div>
-        <div class="col-lg-4">
-	        <h4>Demo Architecture</h4>
-	        <a href="https://apac-inputs.s3.ap-southeast-1.amazonaws.com/demo/demo-architecture.png"
-	           data-featherlight="image">
-		        <img class="w-100"
-		             src="https://bitmovin-aws-nab-demo.s3.us-west-2.amazonaws.com/demo-diagram-image/demo-architecture.png"/>
-	        </a>
-        </div>
-    </div>
-	<div class="row">
 	    <div class="col-lg-7">
 		    <ul class="mp-4">
 			    <li>Step 2: Start VOD Encoding and Monitoring Progress</li>
-				<details open class="mb-4">
+				<details close class="mb-4">
 					<summary>Details</summary>
 					<p>
 						To initiate the encoding process, an AWS Lambda function is triggered through REST APIs
@@ -72,12 +62,18 @@
 				</div>
 		    </ul>
 	    </div>
-    </div>
-	<div class="row">
+		<div class="col-lg-5">
+			<h4>Demo Architecture</h4>
+			<a href="https://apac-inputs.s3.ap-southeast-1.amazonaws.com/demo/demo-architecture.png"
+			   data-featherlight="image">
+				<img class="w-100"
+					 src="https://bitmovin-aws-nab-demo.s3.us-west-2.amazonaws.com/demo-diagram-image/demo-architecture.png"/>
+			</a>
+		</div>
 		<div class="col-lg-7">
 			<ul class="mp-4">
 				<li>Step 3: Automated Workflow for SSAI Manifest</li>
-				<details open class="mb-4">
+				<details close class="mb-4">
 					<summary>Details</summary>
 					<p>
 						The encoding process is complete, and packaged HLS/DASH content including pre-roll Advertisement
@@ -86,18 +82,12 @@
 						Bitmovin player in next section.
 					</p>
 				</details>
-				<label class="text-label"><strong>HLS URL : </strong></label>
-				<a id="playlist_url" href="" target=”_blank”>
-					...
-				</a>
 			</ul>
 		</div>
-	</div>
-    <div class="row">
 		<div class="col-lg-7">
 			<ul class="mp-4">
 				<li>Step 4: SSAI playback with Bitmovin player</li>
-				<details open class="mb-4">
+				<details close class="mb-4">
 					<summary>Details</summary>
 					<p>
 						It is now time to play the SSAI manifest, which can be done using Bitmovin Player.
@@ -119,6 +109,7 @@
 						Reload
 					</button>
 				</div>
+				<div id="vod-url" class="hidden" style="margin-left: 20px;"></div>
             </div>
         </div>
 	    <div class="col-lg-6 code-col">
