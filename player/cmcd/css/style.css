@@ -1,3 +1,7 @@
+span, b {
+  font-size: medium;
+}
+
 .demo-event-box {
     padding: 23px;
     border: solid 1px #CBE0ED;
