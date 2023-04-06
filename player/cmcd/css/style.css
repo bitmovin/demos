@@ -14,9 +14,15 @@ span, b {
     padding-bottom: 23px;
 }
 
-.demo-event-box img.partner-logo {
+.cmcd-prefetch-diagram > div {
+  font-size: 20px;
+  font-weight: 500;
+  padding-top: 23px;
+}
+
+.cmcd-prefetch-diagram img.partner-logo {
   float: right;
-  width: 100px;
+  width: 130px;
 }
 
 #logContent {
