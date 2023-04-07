@@ -25,6 +25,10 @@ span, b {
   width: 130px;
 }
 
+.diagram-title {
+  display: inline;
+}
+
 #logContent {
     height: 300px;
     width: 100%;
