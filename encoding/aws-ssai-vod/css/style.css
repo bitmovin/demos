@@ -39,10 +39,6 @@ button {
     font-size: 16px;
 }
 
-button:hover {
-    background-color: #0062cc;
-}
-
 .hidden {
     display: none;
 }
