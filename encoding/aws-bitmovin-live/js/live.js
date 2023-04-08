@@ -9,12 +9,14 @@ const elements = {
     loadingDiv: document.getElementById("loading"),
     liveUrlDiv: document.getElementById("live-url"),
     liveToVodUrlDiv: document.getElementById("live-to-vod-url"),
-    liveToVodLoadingDiv: document.getElementById("live-to-vod-loading")
+    liveToVodLoadingDiv: document.getElementById("live-to-vod-loading"),
+    dashboardLink: document.getElementById("encoding-dashboard")
 };
 
 const API_GATEWAY_URL = "https://n5yiys7fgb.execute-api.us-west-2.amazonaws.com/nab-bitmovin-demo";
 const BITMOVIN_PLAYER_LICENSE_KEY = 'e14e2f19-bac0-4206-ae12-f9aff71f66e8';
 const BITMOVIN_ANALYTICS_LICENSE_KEY = 'cd45515d-bfb9-47a0-8dae-4523b6082360';
+const BITMOVIN_TENANT_ORG_ID = '29cd0a27-5d62-45ad-b20e-5efdcb372f5e';
 
 let livePlayer, vodPlayer;
 let hlsPlaybackUrl = null;
@@ -72,6 +74,7 @@ async function stopEncoding() {
         hideElement(elements.liveToVodLoadingDiv);
         isLiveEncodingStarted = false;
         toggleButtonState(elements.liveStartBtn, isLiveEncodingStarted)
+        elements.dashboardLink.href = `https://bitmovin.com/dashboard/encoding/home`;
 
         const data = await response.json();
         console.log(data);
@@ -171,6 +174,7 @@ async function checkIfEncodingRunning() {
             showElement(elements.encodingStatusDiv);
             updateElementText(elements.encodingIdDiv, `Encoding ID: ${ret.encoding_id}`);
             updateElementText(elements.encodingStatusDiv, `Encoding Status: ${ret.encoding_status}. Please ingest your live stream in srt://54.149.166.239:2088`);
+            elements.dashboardLink.href = `https://bitmovin.com/dashboard/live/encodings/${ret.encoding_id}?orgId=${BITMOVIN_TENANT_ORG_ID}`;
             if (ret.live_encoding_info && ret.live_encoding_info.hls) {
                 if (ret.live_encoding_info.hls.startsWith('http://')) {
                     hlsPlaybackUrl = ret.live_encoding_info.hls.replace('http://', 'https://');
@@ -186,6 +190,7 @@ async function checkIfEncodingRunning() {
             showElement(elements.encodingStatusDiv);
             updateElementText(elements.encodingIdDiv, `Encoding ID: ${ret.encoding_id}`);
             updateElementText(elements.encodingStatusDiv, `Encoding Status: ${ret.encoding_status}`);
+            elements.dashboardLink.href = `https://bitmovin.com/dashboard/live/encodings/${ret.encoding_id}?orgId=${BITMOVIN_TENANT_ORG_ID}`;
             if (ret.live_encoding_info && ret.live_encoding_info.hls) {
                 if (ret.live_encoding_info.hls.startsWith('http://')) {
                     hlsPlaybackUrl = ret.live_encoding_info.hls.replace('http://', 'https://');
@@ -325,7 +330,8 @@ $(() => {
         console.log("Live Encoding Start button clicked");
         startEncoding().then(async (encodingId) => {
             if (encodingId) {
-                updateElementText(elements.encodingIdDiv, `Encoding ID: ${encodingId}`)
+                updateElementText(elements.encodingIdDiv, `Encoding ID: ${encodingId}`);
+                elements.dashboardLink.href = `https://bitmovin.com/dashboard/live/encodings/${encodingId}?orgId=${BITMOVIN_TENANT_ORG_ID}`;
                 await checkStatusUntilRunning();
             }
         });
