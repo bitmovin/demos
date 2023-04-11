@@ -1,0 +1,24 @@
+{
+  "title": "CMCD Support",
+  "description": "Send CMCD data from Player to CDN",
+  "long_description": "To be defined.",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "code": {
+    "show_code": false,
+    "language": "js",
+    "files": []
+  },
+  "metadata":{
+    "title":"Enable CMCD » Video Player | Bitmovin",
+    "description": "Send Common Media Client Data (CMCD) data from Player to CDN"
+  },
+  "tags": [
+    "CMCD",
+    "Common Media Client Data",
+    "CDN Logging",
+    "experimental"
+  ]
+}
