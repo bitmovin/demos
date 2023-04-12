@@ -1,6 +1,28 @@
 (function () {
   console.log("Starting WISH ABR");
 
+  const events = [
+    "loadstart",
+    "suspend",
+    "abort",
+    "error",
+    "emptied",
+    "stalled",
+    "loadedmetadata",
+    "loadeddata",
+    "canplay",
+    "canplaythrough",
+    "playing",
+    "waiting",
+    "seeking",
+    "seeked",
+    "ended",
+    "durationchange",
+    "play",
+    "pause",
+    "ratechange",
+  ];
+
   var qualitySwitches = 0;
   var buffer_size = 40;
   var throughputHistory = [];
@@ -108,6 +130,21 @@
       .load(sourceConfig)
       .then(function () {
         console.log("Successfully loaded Source Config!");
+        events.forEach((event) => {
+          document
+            .querySelector("#bitmovinplayer-video-player video")
+            .addEventListener(event, (e) => {
+              axios
+                .get(
+                  logURL.replace("%event%", e.type) +
+                    "&noCache=" +
+                    new Date().getTime()
+                )
+                .catch((error) => {
+                  console.log(error);
+                });
+            });
+        });
       })
       .catch(function (reason) {
         console.log("Error while loading source:", reason);
@@ -126,16 +163,16 @@
       bitmovinABRSuggestion
     );
     next_selected_quality = 0;
-    bitratesKbps = availableVideoQualities.map(function (quality) {
-      return quality.bitrate / 1000;
+
+    availableVideoQualities.sort(function (a, b) {
+      return a.bitrate - b.bitrate;
     });
 
-    // sort bitrates
-    bitratesKbps.sort(function (a, b) {
-      if (a === Infinity) return 1;
-      else if (isNaN(a)) return -1;
-      else return a - b;
-    });
+    bitratesKbps = [];
+    for (var i = 0; i < availableVideoQualities.length; i++) {
+      if (availableVideoQualities[i].height <= maxResolution)
+        bitratesKbps.push(availableVideoQualities[i].bitrate / 1000);
+    }
 
     currentBufferS = player.getVideoBufferLength();
 
@@ -311,7 +348,7 @@
     var num_considered_bitrate = bitratesKbps.length;
     var R_i = bitratesKbps[num_considered_bitrate - 1];
     var R_min = bitratesKbps[0];
-    var Q_k = qualityLevelList[qualityLevelList.length - 2];
+    var Q_k = bitratesKbps[num_considered_bitrate - 2];
     var delta_B = m_xi * buffer_size - low_buff_thresS;
     denominator_exp = Math.exp(
       2 * qualityLevelList[num_considered_bitrate - 1] - 2 * qualityLevelList[0]
@@ -321,10 +358,7 @@
       1 /
       (1 +
         delta_B / segment_duration +
-        Math.pow(R_i, 3) /
-          (m_delta *
-            Math.pow(R_min, 2) *
-            bitratesKbps[num_considered_bitrate - 2]));
+        Math.pow(R_i, 3) / (m_delta * Math.pow(R_min, 2) * Q_K));
     beta = (alpha * delta_B) / segment_duration;
     gamma = 1 - alpha - beta;
   }
@@ -356,11 +390,11 @@
       average_quality += qualityLevelList[m_qualityIndex];
     }
 
-    average_quality = (average_quality * 1.0) / quality_window;
+    bufferCost = temp * (SD / (currentbufferS - low_buff_thresS));
 
     bandwidthCost = temp;
 
-    bufferCost = temp * ((SD * 1.0) / (currentbufferS - low_buff_thresS));
+    bufferCost = temp * (SD / (currentbufferS - low_buff_thresS));
     qualityCost =
       Math.exp(
         qualityLevelList[length_quality - 1] +
@@ -373,22 +407,13 @@
   }
 
   function onVideoAdaptation() {
-    availableVideoQualities = player.getAvailableVideoQualities();
-
-    var length = bitratesKbps.length;
+    const quality_function = document.getElementById("quality_function").value;
+    const length = bitratesKbps.length;
 
     low_buff_thresS = SD;
     if (downloadedData == null || currentBufferS < SD) {
-      var minBitrate = availableVideoQualities[0].bitrate;
-      var minQuality = availableVideoQualities[0];
-      for (var i = 0; i < availableVideoQualities.length; i++) {
-        if (availableVideoQualities[i].bitrate < minBitrate) {
-          minQuality = availableVideoQualities[i];
-          minBitrate = availableVideoQualities[i].bitrate;
-        }
-      }
-      downloadedData = minQuality;
-      return minQuality;
+      downloadedData = availableVideoQualities[0];
+      return downloadedData;
     }
     selected_quality_index_array.push(downloadedData.bitrate / 1000);
     num_downloaded_segments = selected_quality_index_array.length;
@@ -412,7 +437,9 @@
     );
 
     for (var i = length - 1; i >= 0; i--) {
-      if (bitratesKbps[i] < smoothThroughputKbps * (1 + 0.1)) {
+      if (bitratesKbps[i] < lastThroughputKbps * (1 + 0.1)) {
+        // MMSP
+        // if (bitratesKbps[i] < smoothThroughputKbps * (1 + 0.1)) {
         max_quality = i;
         break;
       }
@@ -457,21 +484,11 @@
 
     last_selected_quality = next_selected_quality;
 
-    var finalDecision;
-    for (var i = 0; i < availableVideoQualities.length; i++) {
-      if (
-        availableVideoQualities[i].bitrate ===
-        bitratesKbps[next_selected_quality] * 1000
-      ) {
-        finalDecision = availableVideoQualities[i];
-        break;
-      }
-    }
-
     downloadedData = finalDecision;
     lastBufferS = currentBufferS;
+    downloadedData = availableVideoQualities[next_selected_quality];
 
-    return finalDecision;
+    return availableVideoQualities[next_selected_quality];
   }
 
   function getQualityIndexFromBitrate(bitrate, bitrates_length) {
