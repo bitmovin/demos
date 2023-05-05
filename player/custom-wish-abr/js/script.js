@@ -484,7 +484,6 @@
 
     last_selected_quality = next_selected_quality;
 
-    downloadedData = finalDecision;
     lastBufferS = currentBufferS;
     downloadedData = availableVideoQualities[next_selected_quality];
 
