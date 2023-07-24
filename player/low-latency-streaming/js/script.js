@@ -50,6 +50,7 @@ var conf = {
         muted: true,
     },
     adaptation: {
+        logic: 'low-latency-v1',
         preload: false,
     },
     logs: {
@@ -116,8 +117,6 @@ function printBufferLevels() {
 function loadPlayer() {
     player = new bitmovin.player.Player(document.getElementById('player-container'), conf);
     player.load(source).then(function() {
-    // ABR is not supported yet for low latency
-    player.setVideoQuality(player.getAvailableVideoQualities()[0].id);
     updateTargetLatency();
 
     if (isFirefox) {
