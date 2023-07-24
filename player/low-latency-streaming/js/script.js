@@ -8,7 +8,7 @@ var latencyDisplay = document.querySelector('#latency');
 var slider = document.querySelector('#targetLatencySlider');
 var targetLatencyDisplay = document.querySelector('#targetLatency');
 
-var targetLatency = 3;
+var targetLatency = 5;
 var videoOnly = false;
 var dashUrl = 'https://cmafref.akamaized.net/cmaf/live-ull/2006350/akambr/out.mpd';
 
