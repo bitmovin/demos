@@ -10,7 +10,7 @@ var targetLatencyDisplay = document.querySelector('#targetLatency');
 
 var targetLatency = 3;
 var videoOnly = false;
-var dashUrl = 'https://akamaibroadcasteruseast.akamaized.net/cmaf/live/657078/akasource/out.mpd';
+var dashUrl = 'https://cmafref.akamaized.net/cmaf/live-ull/2006350/akambr/out.mpd';
 
 var queryString = getQueryParams();
 
