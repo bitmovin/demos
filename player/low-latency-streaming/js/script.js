@@ -76,7 +76,7 @@ var conf = {
     },
     live: {
         lowLatency: {
-        targetLatency: 3,
+        targetLatency: targetLatency,
         catchup: {
             playbackRateThreshold: 0.075,
             seekThreshold: 5,
