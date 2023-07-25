@@ -76,18 +76,22 @@ var conf = {
     },
     live: {
         lowLatency: {
-        targetLatency: targetLatency,
-        catchup: {
-            playbackRateThreshold: 0.075,
-            seekThreshold: 5,
-            playbackRate: 1.2,
+            targetLatency: targetLatency,
+            catchup: {
+                playbackRateThreshold: 0.075,
+                seekThreshold: 5,
+                playbackRate: 1.2,
+            },
+            fallback: {
+                playbackRateThreshold: 0.075,
+                seekThreshold: 5,
+                playbackRate: 0.95,
+            },
         },
-        fallback: {
-            playbackRateThreshold: 0.075,
-            seekThreshold: 5,
-            playbackRate: 0.95,
-        },
-        },
+        synchronization: [{
+            method: 'httphead',
+            serverUrl: 'https://time.akamai.com',
+        }],
     },
     nonetwork: {
         preprocessHttpResponse: function(type, response) {
