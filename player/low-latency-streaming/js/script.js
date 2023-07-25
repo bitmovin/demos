@@ -8,9 +8,9 @@ var latencyDisplay = document.querySelector('#latency');
 var slider = document.querySelector('#targetLatencySlider');
 var targetLatencyDisplay = document.querySelector('#targetLatency');
 
-var targetLatency = 3;
+var targetLatency = 5;
 var videoOnly = false;
-var dashUrl = 'https://akamaibroadcasteruseast.akamaized.net/cmaf/live/657078/akasource/out.mpd';
+var dashUrl = 'https://cmafref.akamaized.net/cmaf/live-ull/2006350/akambr/out.mpd';
 
 var queryString = getQueryParams();
 
@@ -50,7 +50,10 @@ var conf = {
         muted: true,
     },
     adaptation: {
+        logic: 'low-latency-v1',
         preload: false,
+        // Encourage switching to a higher quality sooner
+        qualityStabilityBalance: 0.3,
     },
     logs: {
         //level: 'debug'
@@ -73,18 +76,22 @@ var conf = {
     },
     live: {
         lowLatency: {
-        targetLatency: 3,
-        catchup: {
-            playbackRateThreshold: 0.075,
-            seekThreshold: 5,
-            playbackRate: 1.2,
+            targetLatency: targetLatency,
+            catchup: {
+                playbackRateThreshold: 0.075,
+                seekThreshold: 5,
+                playbackRate: 1.2,
+            },
+            fallback: {
+                playbackRateThreshold: 0.075,
+                seekThreshold: 5,
+                playbackRate: 0.95,
+            },
         },
-        fallback: {
-            playbackRateThreshold: 0.075,
-            seekThreshold: 5,
-            playbackRate: 0.95,
-        },
-        },
+        synchronization: [{
+            method: 'httphead',
+            serverUrl: 'https://time.akamai.com',
+        }],
     },
     nonetwork: {
         preprocessHttpResponse: function(type, response) {
@@ -116,8 +123,6 @@ function printBufferLevels() {
 function loadPlayer() {
     player = new bitmovin.player.Player(document.getElementById('player-container'), conf);
     player.load(source).then(function() {
-    // ABR is not supported yet for low latency
-    player.setVideoQuality(player.getAvailableVideoQualities()[0].id);
     updateTargetLatency();
 
     if (isFirefox) {
