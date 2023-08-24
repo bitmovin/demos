@@ -1,5 +1,5 @@
 {
-  "title": "AWS NAB Bitmovin Live Encoding",
+  "title": "AWS IBC Bitmovin Live Encoding",
   "description": "Bitmovin Live Encoding on AWS with Live to VOD clipping",
   "long_description": "demo description",
   "executable": {

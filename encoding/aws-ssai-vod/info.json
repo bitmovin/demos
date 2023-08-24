@@ -1,5 +1,5 @@
 {
-  "title": "AWS NAB Bitmovin VOD Encoding",
+  "title": "AWS IBC Bitmovin VOD Encoding",
   "description": "SSAI VOD Encoding Workflow with AWS MediaTailor",
   "long_description": "demo description",
   "executable": {
