@@ -155,7 +155,7 @@ async function checkStatusUntilRunning() {
             // toggleButtonState();
         }
 
-        updateElementText(elements.encodingStatusDiv, `Encoding Status: ${status}. Please ingest your live stream in srt://54.149.166.239:2088`);
+        updateElementText(elements.encodingStatusDiv, `Encoding Status: ${status}. Please ingest your live stream in srt://3.74.248.75:2088`);
         hideElement(elements.loadingDiv);
     } catch (error) {
         console.error(error);
@@ -173,7 +173,7 @@ async function checkIfEncodingRunning() {
             showElement(elements.encodingIdDiv);
             showElement(elements.encodingStatusDiv);
             updateElementText(elements.encodingIdDiv, `Encoding ID: ${ret.encoding_id}`);
-            updateElementText(elements.encodingStatusDiv, `Encoding Status: ${ret.encoding_status}. Please ingest your live stream in srt://54.149.166.239:2088`);
+            updateElementText(elements.encodingStatusDiv, `Encoding Status: ${ret.encoding_status}. Please ingest your live stream in srt://3.74.248.75:2088`);
             elements.dashboardLink.href = `https://bitmovin.com/dashboard/live/encodings/${ret.encoding_id}?orgId=${BITMOVIN_TENANT_ORG_ID}`;
             if (ret.live_encoding_info && ret.live_encoding_info.hls) {
                 if (ret.live_encoding_info.hls.startsWith('http://')) {
