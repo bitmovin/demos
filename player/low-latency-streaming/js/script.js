@@ -5,7 +5,9 @@ var audioBufferDisplay = document.querySelector('#audioBufferLength');
 var playbackSpeedDisplay = document.querySelector('#playbackSpeed');
 var timeDisplay = document.querySelector('#time');
 var latencyDisplay = document.querySelector('#latency');
-var slider = document.querySelector('#targetLatencySlider');
+var latencySlider = document.querySelector('#targetLatencySlider');
+var qualityStabilityDisplay = document.querySelector('#qualityStability');
+var qualityStabilitySlider = document.querySelector('#qualtyStabilitySlider');
 var targetLatencyDisplay = document.querySelector('#targetLatency');
 
 var targetLatency = 5;
@@ -31,13 +33,25 @@ if (queryString.dashUrl) {
 }
 
 var updateTargetLatency = function() {
-    targetLatencyDisplay.innerText = slider.value + 's';
-    targetLatency = Number(slider.value);
+    targetLatencyDisplay.innerText = latencySlider.value + 's';
+    targetLatency = Number(latencySlider.value);
     player.lowlatency.setTargetLatency(targetLatency);
 };
 
-slider.oninput = updateTargetLatency;
-slider.value = String(targetLatency);
+latencySlider.oninput = updateTargetLatency;
+latencySlider.value = String(targetLatency);
+
+var updateQualityStability = function() {
+    var targetValue = Number(qualityStabilitySlider.value);
+    if (isNaN(targetValue) || targetValue < 0 || targetValue > 1) {
+        console.warn('Invalid value for qualityStabilityBalance: ', targetValue);
+        return;
+    }
+    console.log('Setting qualityStabilityBalence to', targetValue);
+    player.adaptation.setConfig({qualityStabilityBalance: targetValue});
+    qualityStabilityDisplay.innerText = targetValue;
+}
+qualityStabilitySlider.oninput = updateQualityStability;
 
 var conf = {
     key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
@@ -50,10 +64,7 @@ var conf = {
         muted: true,
     },
     adaptation: {
-        logic: 'low-latency-v1',
         preload: false,
-        // Encourage switching to a higher quality sooner
-        qualityStabilityBalance: 0.3,
     },
     logs: {
         //level: 'debug'
