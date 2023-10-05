@@ -47,7 +47,6 @@ var updateQualityStability = function() {
         console.warn('Invalid value for qualityStabilityBalance: ', targetValue);
         return;
     }
-    console.log('Setting qualityStabilityBalence to', targetValue);
     player.adaptation.setConfig({qualityStabilityBalance: targetValue});
     qualityStabilityDisplay.innerText = targetValue;
 }
