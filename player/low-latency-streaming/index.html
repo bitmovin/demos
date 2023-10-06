@@ -70,6 +70,18 @@
                     </div>
                 </div>
             </div>
+            <div class="quality-control">
+                <div title="Defines the balance between quality (i.e. bitrate) and stability in a range of [0, 1].&#013;0 means that the player will aim to play the best possible quality, potentially at the cost of lower playback stability.&#013;1 means that the player will aim for the highest stability with the least amount of stalls, while potentially sacrificing quality.">
+                    Quality-Stability Tradeoff: <span id="qualityStability">0.3</span>
+                </div>
+                <div class="slide-container">
+                    <input type="range" min="0" max="1" value="0.3" step="0.01" class="slider" id="qualtyStabilitySlider">
+                    <div class="latency-status-row">
+                        <div>Quality</div>
+                        <div style="text-align: right">Stability</div>
+                    </div>
+                </div>
+            </div>
             <div id="firefoxWarning">
             </div>
         </div>
