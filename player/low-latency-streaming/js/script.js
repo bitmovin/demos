@@ -63,6 +63,7 @@ var conf = {
         muted: true,
     },
     adaptation: {
+        logic: 'low-latency-v1',
         preload: false,
         // Encourage switching to a higher quality sooner
         qualityStabilityBalance: 0.3,
