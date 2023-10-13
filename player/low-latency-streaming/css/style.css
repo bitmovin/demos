@@ -157,3 +157,8 @@
     text-align: center;
     color: red;
 }
+
+.demo-row {
+    display: flex;
+    align-items: flex-start;
+}
