@@ -138,6 +138,9 @@ function printBufferLevels() {
 
 function loadPlayer() {
     player = new bitmovin.player.Player(document.getElementById('player-container'), conf);
+
+    setPlayerEvents(player);
+
     player.load(source).then(function() {
     updateTargetLatency();
 
@@ -323,6 +326,84 @@ function setupChart() {
     }
   });
 }
+
+function setPlayerEvents(player) {
+    player.on(bitmovin.player.PlayerEvent.AudioPlaybackQualityChanged, function (data) {
+      log("On Audio Playback Quality Changed: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.VideoPlaybackQualityChanged, function (data) {
+      log("On Video Playback Quality Changed: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.StallStarted, function (data) {
+      log("On Buffering Started: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.StallEnded, function (data) {
+      log("On Buffering Ended: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.Playing, function (data) {
+      log("On Playing: " + JSON.stringify(data))
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.Paused, function (data) {
+      log("On Paused: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.Play, function (data) {
+      log("On Play: " + JSON.stringify(data))
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.MetadataParsed, function (data) {
+      log("On Metadata Parsed: " + JSON.stringify(data))
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.Ready, function (data) {
+      log("On Ready: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.SourceLoaded, function (data) {
+      log("On Loaded: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.Error, function (data) {
+      log("On Error: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.AdError, function (data) {
+      log("On Ad Error: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.Seek, function (data) {
+      log("On Seek Started: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.Seeked, function (data) {
+      log("On Seek Finished: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.TimeChanged, function () {
+      updateCount++;
+  
+      if (updateCount % 4 == 1) {
+        updateCharts(player);
+      }
+    });
+  }
   
 setupChart();
 $(document).ready(loadPlayer);
