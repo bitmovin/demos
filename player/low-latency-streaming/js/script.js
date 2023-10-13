@@ -20,6 +20,9 @@ var targetLatencyFromUrl = queryString.latency;
 
 var isFirefox = typeof InstallTrigger !== 'undefined';
 
+var initialTimestamp, bufferChart, bitrateChart;
+var updateCount = 0;
+
 if (targetLatencyFromUrl && !isNaN(Number(targetLatencyFromUrl))) {
     targetLatency = targetLatencyFromUrl;
 }
@@ -170,4 +173,156 @@ function getQueryParams() {
     return queryParams;
 }
 
+function clearChart() {
+  bufferChart.destroy();
+  bitrateChart.destroy();
+}
+
+function addNewData(videoBuffer, audioBuffer, bitrate) {
+  var currentTimeDiff = (Date.now() - initialTimestamp) / 1000;
+
+  addChartData(bufferChart, 0, currentTimeDiff, videoBuffer);
+  addChartData(bufferChart, 1, currentTimeDiff, audioBuffer);
+  addChartData(bitrateChart, 0, currentTimeDiff, bitrate / 1000000);
+}
+
+function updateCharts(player) {
+  addNewData(player.getVideoBufferLength(), player.getAudioBufferLength(), player.getDownloadedVideoData().bitrate);
+}
+
+function addChartData(chart, seriesIndex, xAxis, yAxis) {
+  chart.series[seriesIndex].addPoint([xAxis, yAxis], true, false);
+}
+
+function setupChart() {
+  initialTimestamp = Date.now();
+  bufferChart = Highcharts.chart(document.getElementById("buffer-chart"), {
+
+    chart: {
+      type: 'spline',
+      zoomType: 'x'
+    },
+    credits: {
+      enabled: false
+    },
+    title: {
+      text: 'Buffer Levels'
+    },
+    xAxis: {
+      title: {
+        text: 'time',
+        align: 'low'
+      },
+      min: 0
+    },
+    yAxis: {
+      title: {
+        text: 'sec',
+        align: 'high'
+      },
+      min: 0
+    },
+    legend: {
+      align: 'center',
+      verticalAlign: 'bottom'
+    },
+    series: [{
+      name: 'Video',
+      data: [[0, 0]],
+      marker: {
+        enabled: true,
+        fillColor: '#ffffff',
+        lineWidth: 2,
+        lineColor: null,
+        symbol: 'circle'
+      },
+      color: '#1FAAE2'
+    }, {
+      name: 'Audio',
+      data: [[0, 0]],
+      marker: {
+        enabled: true,
+        fillColor: '#ffffff',
+        lineWidth: 2,
+        lineColor: null,
+        symbol: 'circle'
+      },
+      color: '#F49D1D'
+    }],
+
+    responsive: {
+      rules: [{
+        condition: {
+          maxWidth: 500
+        },
+        chartOptions: {
+          legend: {
+            layout: 'horizontal',
+            align: 'center',
+            verticalAlign: 'bottom'
+          }
+        }
+      }]
+    }
+  });
+
+  bitrateChart = Highcharts.chart(document.getElementById("bitrate-chart"), {
+    chart: {
+      type: 'spline',
+      zoomType: 'x'
+    },
+    credits: {
+      enabled: false
+    },
+    title: {
+      text: 'Bitrate'
+    },
+    xAxis: {
+      title: {
+        text: 'time',
+        align: 'low'
+      },
+      min: 0
+    },
+    yAxis: {
+      title: {
+        text: 'Mbps',
+        align: 'high'
+      },
+      min: 0
+    },
+    legend: {
+      align: 'center',
+      verticalAlign: 'bottom'
+    },
+    series: [{
+      name: 'Video',
+      data: [[0, 0]],
+      marker: {
+        enabled: true,
+        fillColor: '#ffffff',
+        lineWidth: 2,
+        lineColor: null,
+        symbol: 'circle'
+      },
+      color: '#1FAAE2'
+    }],
+    responsive: {
+      rules: [{
+        condition: {
+          maxWidth: 500
+        },
+        chartOptions: {
+          legend: {
+            layout: 'horizontal',
+            align: 'center',
+            verticalAlign: 'bottom'
+          }
+        }
+      }]
+    }
+  });
+}
+  
+setupChart();
 $(document).ready(loadPlayer);
