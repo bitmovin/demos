@@ -336,14 +336,6 @@ function setPlayerEvents(player) {
       updateCharts(player);
     });
   
-    player.on(bitmovin.player.PlayerEvent.Play, function (data) {
-      log("On Play: " + JSON.stringify(data))
-    });
-  
-    player.on(bitmovin.player.PlayerEvent.MetadataParsed, function (data) {
-      log("On Metadata Parsed: " + JSON.stringify(data))
-    });
-  
     player.on(bitmovin.player.PlayerEvent.Ready, function (data) {
       log("On Ready: " + JSON.stringify(data));
       updateCharts(player);
@@ -356,21 +348,6 @@ function setPlayerEvents(player) {
   
     player.on(bitmovin.player.PlayerEvent.Error, function (data) {
       log("On Error: " + JSON.stringify(data));
-      updateCharts(player);
-    });
-  
-    player.on(bitmovin.player.PlayerEvent.AdError, function (data) {
-      log("On Ad Error: " + JSON.stringify(data));
-      updateCharts(player);
-    });
-  
-    player.on(bitmovin.player.PlayerEvent.Seek, function (data) {
-      log("On Seek Started: " + JSON.stringify(data));
-      updateCharts(player);
-    });
-  
-    player.on(bitmovin.player.PlayerEvent.Seeked, function (data) {
-      log("On Seek Finished: " + JSON.stringify(data));
       updateCharts(player);
     });
   
