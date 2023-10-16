@@ -76,8 +76,8 @@ var conf = {
     },
     style: {},
     events: {
-        playbackspeedchanged: function(e) {
-        playbackSpeedDisplay.innerText = e.to;
+        [bitmovin.player.PlayerEvent.LatencyModeChanged]: function(e) {
+            playbackSpeedDisplay.innerText = e.to;
         },
     },
     tweaks: {
