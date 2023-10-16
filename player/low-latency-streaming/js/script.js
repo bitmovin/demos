@@ -327,6 +327,10 @@ function setupChart() {
   });
 }
 
+function log(text) {
+  console.debug(text);
+}
+
 function setPlayerEvents(player) {
     player.on(bitmovin.player.PlayerEvent.AudioPlaybackQualityChanged, function (data) {
       log("On Audio Playback Quality Changed: " + JSON.stringify(data));
