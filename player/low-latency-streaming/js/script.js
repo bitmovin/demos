@@ -197,10 +197,8 @@ function addChartData(chart, seriesIndex, xAxis, yAxis) {
   chart.series[seriesIndex].addPoint([xAxis, yAxis], true, false);
 }
 
-function setupChart() {
-  initialTimestamp = Date.now();
-  bufferChart = Highcharts.chart(document.getElementById("buffer-chart"), {
-
+function getBaseChartConfig() {
+  return {
     chart: {
       type: 'spline',
       zoomType: 'x'
@@ -208,8 +206,9 @@ function setupChart() {
     credits: {
       enabled: false
     },
-    title: {
-      text: 'Buffer Levels'
+    legend: {
+      align: 'center',
+      verticalAlign: 'bottom'
     },
     xAxis: {
       title: {
@@ -218,16 +217,36 @@ function setupChart() {
       },
       min: 0
     },
+    responsive: {
+      rules: [{
+        condition: {
+          maxWidth: 500
+        },
+        chartOptions: {
+          legend: {
+            layout: 'horizontal',
+            align: 'center',
+            verticalAlign: 'bottom'
+          }
+        }
+      }]
+    }
+  }
+}
+
+function setupChart() {
+  initialTimestamp = Date.now();
+  bufferChart = Highcharts.chart(document.getElementById("buffer-chart"), {
+    ...getBaseChartConfig(),
+    title: {
+      text: 'Buffer Levels'
+    },
     yAxis: {
       title: {
         text: 'sec',
         align: 'high'
       },
       min: 0
-    },
-    legend: {
-      align: 'center',
-      verticalAlign: 'bottom'
     },
     series: [{
       name: 'Video',
@@ -252,40 +271,13 @@ function setupChart() {
       },
       color: '#F49D1D'
     }],
-
-    responsive: {
-      rules: [{
-        condition: {
-          maxWidth: 500
-        },
-        chartOptions: {
-          legend: {
-            layout: 'horizontal',
-            align: 'center',
-            verticalAlign: 'bottom'
-          }
-        }
-      }]
-    }
+    
   });
 
   bitrateChart = Highcharts.chart(document.getElementById("bitrate-chart"), {
-    chart: {
-      type: 'spline',
-      zoomType: 'x'
-    },
-    credits: {
-      enabled: false
-    },
+    ... getBaseChartConfig(),
     title: {
       text: 'Bitrate'
-    },
-    xAxis: {
-      title: {
-        text: 'time',
-        align: 'low'
-      },
-      min: 0
     },
     yAxis: {
       title: {
@@ -293,10 +285,6 @@ function setupChart() {
         align: 'high'
       },
       min: 0
-    },
-    legend: {
-      align: 'center',
-      verticalAlign: 'bottom'
     },
     series: [{
       name: 'Video',
@@ -310,20 +298,6 @@ function setupChart() {
       },
       color: '#1FAAE2'
     }],
-    responsive: {
-      rules: [{
-        condition: {
-          maxWidth: 500
-        },
-        chartOptions: {
-          legend: {
-            layout: 'horizontal',
-            align: 'center',
-            verticalAlign: 'bottom'
-          }
-        }
-      }]
-    }
   });
 }
 
