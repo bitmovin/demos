@@ -308,9 +308,6 @@
     if (browser === BROWSER.IE || browser === BROWSER.EDGE) {
       document.querySelector('#available-manifest-type').selectedIndex = 2;
     }
-    if (browser === BROWSER.SAFARI) {
-      document.querySelector('#available-manifest-type').selectedIndex = 1;
-    }
   }
 
   getSupportedDRMSystem(true).then(function () {

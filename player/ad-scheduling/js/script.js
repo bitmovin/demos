@@ -23,8 +23,8 @@ var conf = {
 };
 
 var source = {
-  dash: '//cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
   hls: '//cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
+  dash: '//cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
   progressive: '//cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4',
   poster: '//cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg'
 };
@@ -103,8 +103,8 @@ function removeSchedule() {
 
   player = new bitmovin.player.Player(playerContainer, conf);
   player.load({
-    dash: '//cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
     hls: '//cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
+    dash: '//cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
     progressive: '//cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4',
     poster: '//cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg'
   });

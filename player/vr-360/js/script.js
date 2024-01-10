@@ -13,8 +13,8 @@ var conf = {
 };
 
 var source = {
-  dash: 'https://cdn.bitmovin.com/content/assets/playhouse-vr/mpds/105560.mpd',
   hls: 'https://cdn.bitmovin.com/content/assets/playhouse-vr/m3u8s/105560.m3u8',
+  dash: 'https://cdn.bitmovin.com/content/assets/playhouse-vr/mpds/105560.mpd',
   progressive: 'https://cdn.bitmovin.com/content/assets/playhouse-vr/progressive.mp4',
   poster: 'https://cdn.bitmovin.com/content/assets/playhouse-vr/poster.jpg',
   vr: {

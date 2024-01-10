@@ -4,8 +4,8 @@ var config = {
 };
 
 var source = {
-  dash: 'https://cdn.bitmovin.com/content/assets/sintel/sintel.mpd',
   hls: 'https://cdn.bitmovin.com/content/assets/sintel/hls/playlist.m3u8',
+  dash: 'https://cdn.bitmovin.com/content/assets/sintel/sintel.mpd',
   poster: 'https://cdn.bitmovin.com/content/assets/sintel/poster.png'
 };
 
