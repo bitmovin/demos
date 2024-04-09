@@ -1,7 +1,5 @@
 <script type="text/javascript"
-        src="//cdn.bitmovin.com/player/web/8.4.0/bitmovinplayer.js"></script>
-<script type="text/javascript"
-        src="https://cdn.bitmovin.com/analytics/web/beta/2/bitmovinanalytics.min.js"></script>
+        src="https://cdn.jsdelivr.net/npm/bitmovin-player@latest/bitmovinplayer.js"></script>
 
 <div class="row">
     <div class="col-lg-6">
@@ -56,7 +54,7 @@
                 <div class="latency-status-row">
                     <div>Latency Mode</div>
                     <div>
-                        <span id="playbackSpeed">1</span>
+                        <span id="playbackSpeed">suspended</span>
                     </div>
                 </div>
             </div>
@@ -65,15 +63,36 @@
                     Target Latency: <span id="targetLatency">2</span>
                 </div>
                 <div class="slide-container">
-                    <input type="range" min="0.5" max="5" value="2" step="0.1" class="slider" id="targetLatencySlider">
+                    <input type="range" min="3" max="7" value="5" step="0.1" class="slider" id="targetLatencySlider">
                     <div class="latency-status-row">
                         <div>Low</div>
                         <div style="text-align: right">High</div>
                     </div>
                 </div>
             </div>
+            <div class="quality-control">
+                <div title="Defines the balance between quality (i.e. bitrate) and stability in a range of [0, 1].&#013;0 means that the player will aim to play the best possible quality, potentially at the cost of lower playback stability.&#013;1 means that the player will aim for the highest stability with the least amount of stalls, while potentially sacrificing quality.">
+                    Quality-Stability Tradeoff: <span id="qualityStability">0.3</span>
+                </div>
+                <div class="slide-container">
+                    <input type="range" min="0" max="1" value="0.3" step="0.01" class="slider" id="qualtyStabilitySlider">
+                    <div class="latency-status-row">
+                        <div>Quality</div>
+                        <div style="text-align: right">Stability</div>
+                    </div>
+                </div>
+            </div>
             <div id="firefoxWarning">
             </div>
         </div>
+    </div>
+</div>
+
+<div class="row demo-row">
+    <div class="col-lg-6 chart">
+        <div class="chart" id="buffer-chart"></div>
+    </div>
+    <div class="col-lg-6 chart">
+        <div class="chart" id="bitrate-chart"></div>
     </div>
 </div>

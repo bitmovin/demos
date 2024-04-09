@@ -22,10 +22,10 @@
                 <div class="type-header">Stream type</div>
                 <div class="demo-stream-type-input">
                     <div class="input-type">
-                        <label><input type="radio" name="stream-format" value="dash" checked> DASH</label>
+                        <label><input type="radio" name="stream-format" value="hls" checked> HLS</label>
                     </div>
                     <div class="input-type">
-                        <label><input type="radio" name="stream-format" value="hls"> HLS</label>
+                        <label><input type="radio" name="stream-format" value="dash"> DASH</label>
                     </div>
                     <div class="input-type">
                         <label><input type="radio" name="stream-format" value="smooth"> Smooth</label>
@@ -58,6 +58,32 @@
             </div>
             <input id="drm-license" class="form-control" name="drm-license" type="text" placeholder="DRM License URL">
             <div id="drm-error" class="error"></div>
+        </div>
+        <div class="demo-input-box input">
+            <div class="demo-item-header">
+                <div>Test your stream on real devices with Stream Lab</div>
+            </div>
+            <div class="demo-select-target">
+                <select id="available-targets" class="form-control" name="available-targets">
+                    <option value='1'>Chrome on macOS</option>
+                    <option value='2'>Chrome on Ubuntu Linux</option>
+                    <option value='3'>Chrome on Windows 10</option>
+                    <option value='4'>Edge on Windows 10</option>
+                    <option value='5'>Firefox on macOS</option>
+                    <option value='6'>Firefox on Ubuntu Linux</option>
+                    <option value='7'>Firefox on Windows 10</option>
+                    <option value='8'>Internet Explorer 11 on Windows 10</option>
+                    <option value='9'>Internet Explorer 11 on Windows 7</option>
+                    <option value='10'>LG WebOS (various model years)</option>
+                    <option value='11'>Microsoft Xbox Series S</option>
+                    <option value='12'>PlayStation 5</option>
+                    <option value='13'>Safari on macOS</option>
+                    <option value='14'>Samsung Tizen (various model years)</option>
+                </select>
+                <a href="https://bitmovin.com/dashboard/player/stream-testing" target="_blank" class="btn btn-outline-primary">
+                    Open&nbsp;dashboard
+                </a>
+            </div>
         </div>
     </div>
 </div>

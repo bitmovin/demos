@@ -5,18 +5,23 @@ var audioBufferDisplay = document.querySelector('#audioBufferLength');
 var playbackSpeedDisplay = document.querySelector('#playbackSpeed');
 var timeDisplay = document.querySelector('#time');
 var latencyDisplay = document.querySelector('#latency');
-var slider = document.querySelector('#targetLatencySlider');
+var latencySlider = document.querySelector('#targetLatencySlider');
+var qualityStabilityDisplay = document.querySelector('#qualityStability');
+var qualityStabilitySlider = document.querySelector('#qualtyStabilitySlider');
 var targetLatencyDisplay = document.querySelector('#targetLatency');
 
-var targetLatency = 3;
+var targetLatency = 5;
 var videoOnly = false;
-var dashUrl = 'https://akamaibroadcasteruseast.akamaized.net/cmaf/live/657078/akasource/out.mpd';
+var dashUrl = 'https://cmafref.akamaized.net/cmaf/live-ull/2006350/akambr/out.mpd';
 
 var queryString = getQueryParams();
 
 var targetLatencyFromUrl = queryString.latency;
 
 var isFirefox = typeof InstallTrigger !== 'undefined';
+
+var initialTimestamp, bufferChart, bitrateChart;
+var updateCount = 0;
 
 if (targetLatencyFromUrl && !isNaN(Number(targetLatencyFromUrl))) {
     targetLatency = targetLatencyFromUrl;
@@ -31,13 +36,24 @@ if (queryString.dashUrl) {
 }
 
 var updateTargetLatency = function() {
-    targetLatencyDisplay.innerText = slider.value + 's';
-    targetLatency = Number(slider.value);
+    targetLatencyDisplay.innerText = latencySlider.value + 's';
+    targetLatency = Number(latencySlider.value);
     player.lowlatency.setTargetLatency(targetLatency);
 };
 
-slider.oninput = updateTargetLatency;
-slider.value = String(targetLatency);
+latencySlider.oninput = updateTargetLatency;
+latencySlider.value = String(targetLatency);
+
+var updateQualityStability = function() {
+    var targetValue = Number(qualityStabilitySlider.value);
+    if (isNaN(targetValue) || targetValue < 0 || targetValue > 1) {
+        console.warn('Invalid value for qualityStabilityBalance: ', targetValue);
+        return;
+    }
+    player.adaptation.setConfig({qualityStabilityBalance: targetValue});
+    qualityStabilityDisplay.innerText = targetValue;
+}
+qualityStabilitySlider.oninput = updateQualityStability;
 
 var conf = {
     key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
@@ -50,15 +66,18 @@ var conf = {
         muted: true,
     },
     adaptation: {
+        logic: 'low-latency-v1',
         preload: false,
+        // Encourage switching to a higher quality sooner
+        qualityStabilityBalance: 0.3,
     },
     logs: {
         //level: 'debug'
     },
     style: {},
     events: {
-        playbackspeedchanged: function(e) {
-        playbackSpeedDisplay.innerText = e.to;
+        [bitmovin.player.PlayerEvent.LatencyModeChanged]: function(e) {
+            playbackSpeedDisplay.innerText = e.to;
         },
     },
     tweaks: {
@@ -73,18 +92,22 @@ var conf = {
     },
     live: {
         lowLatency: {
-        targetLatency: 3,
-        catchup: {
-            playbackRateThreshold: 0.075,
-            seekThreshold: 5,
-            playbackRate: 1.2,
+            targetLatency: targetLatency,
+            catchup: {
+                playbackRateThreshold: 0.075,
+                seekThreshold: 5,
+                playbackRate: 1.2,
+            },
+            fallback: {
+                playbackRateThreshold: 0.075,
+                seekThreshold: 5,
+                playbackRate: 0.95,
+            },
         },
-        fallback: {
-            playbackRateThreshold: 0.075,
-            seekThreshold: 5,
-            playbackRate: 0.95,
-        },
-        },
+        synchronization: [{
+            method: 'httphead',
+            serverUrl: 'https://time.akamai.com',
+        }],
     },
     nonetwork: {
         preprocessHttpResponse: function(type, response) {
@@ -115,9 +138,10 @@ function printBufferLevels() {
 
 function loadPlayer() {
     player = new bitmovin.player.Player(document.getElementById('player-container'), conf);
+
+    setPlayerEvents(player);
+
     player.load(source).then(function() {
-    // ABR is not supported yet for low latency
-    player.setVideoQuality(player.getAvailableVideoQualities()[0].id);
     updateTargetLatency();
 
     if (isFirefox) {
@@ -152,4 +176,189 @@ function getQueryParams() {
     return queryParams;
 }
 
+function clearChart() {
+  bufferChart.destroy();
+  bitrateChart.destroy();
+}
+
+function addNewData(videoBuffer, audioBuffer, bitrate) {
+  var currentTimeDiff = (Date.now() - initialTimestamp) / 1000;
+
+  addChartData(bufferChart, 0, currentTimeDiff, videoBuffer);
+  addChartData(bufferChart, 1, currentTimeDiff, audioBuffer);
+  addChartData(bitrateChart, 0, currentTimeDiff, bitrate / 1000000);
+}
+
+function updateCharts(player) {
+  addNewData(player.getVideoBufferLength(), player.getAudioBufferLength(), player.getDownloadedVideoData().bitrate);
+}
+
+function addChartData(chart, seriesIndex, xAxis, yAxis) {
+  chart.series[seriesIndex].addPoint([xAxis, yAxis], true, false);
+}
+
+function getBaseChartConfig() {
+  return {
+    chart: {
+      type: 'spline',
+      zoomType: 'x'
+    },
+    credits: {
+      enabled: false
+    },
+    legend: {
+      align: 'center',
+      verticalAlign: 'bottom'
+    },
+    xAxis: {
+      title: {
+        text: 'time',
+        align: 'low'
+      },
+      min: 0
+    },
+    responsive: {
+      rules: [{
+        condition: {
+          maxWidth: 500
+        },
+        chartOptions: {
+          legend: {
+            layout: 'horizontal',
+            align: 'center',
+            verticalAlign: 'bottom'
+          }
+        }
+      }]
+    }
+  }
+}
+
+function setupChart() {
+  initialTimestamp = Date.now();
+  bufferChart = Highcharts.chart(document.getElementById("buffer-chart"), {
+    ...getBaseChartConfig(),
+    title: {
+      text: 'Buffer Levels'
+    },
+    yAxis: {
+      title: {
+        text: 'sec',
+        align: 'high'
+      },
+      min: 0
+    },
+    series: [{
+      name: 'Video',
+      data: [[0, 0]],
+      marker: {
+        enabled: true,
+        fillColor: '#ffffff',
+        lineWidth: 2,
+        lineColor: null,
+        symbol: 'circle'
+      },
+      color: '#1FAAE2'
+    }, {
+      name: 'Audio',
+      data: [[0, 0]],
+      marker: {
+        enabled: true,
+        fillColor: '#ffffff',
+        lineWidth: 2,
+        lineColor: null,
+        symbol: 'circle'
+      },
+      color: '#F49D1D'
+    }],
+    
+  });
+
+  bitrateChart = Highcharts.chart(document.getElementById("bitrate-chart"), {
+    ... getBaseChartConfig(),
+    title: {
+      text: 'Bitrate'
+    },
+    yAxis: {
+      title: {
+        text: 'Mbps',
+        align: 'high'
+      },
+      min: 0
+    },
+    series: [{
+      name: 'Video',
+      data: [[0, 0]],
+      marker: {
+        enabled: true,
+        fillColor: '#ffffff',
+        lineWidth: 2,
+        lineColor: null,
+        symbol: 'circle'
+      },
+      color: '#1FAAE2'
+    }],
+  });
+}
+
+function log(text) {
+  console.debug(text);
+}
+
+function setPlayerEvents(player) {
+    player.on(bitmovin.player.PlayerEvent.AudioPlaybackQualityChanged, function (data) {
+      log("On Audio Playback Quality Changed: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.VideoPlaybackQualityChanged, function (data) {
+      log("On Video Playback Quality Changed: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.StallStarted, function (data) {
+      log("On Buffering Started: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.StallEnded, function (data) {
+      log("On Buffering Ended: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.Playing, function (data) {
+      log("On Playing: " + JSON.stringify(data))
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.Paused, function (data) {
+      log("On Paused: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.Ready, function (data) {
+      log("On Ready: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.SourceLoaded, function (data) {
+      log("On Loaded: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.Error, function (data) {
+      log("On Error: " + JSON.stringify(data));
+      updateCharts(player);
+    });
+  
+    player.on(bitmovin.player.PlayerEvent.TimeChanged, function () {
+      updateCount++;
+  
+      if (updateCount % 4 == 1) {
+        updateCharts(player);
+      }
+    });
+  }
+  
+setupChart();
 $(document).ready(loadPlayer);

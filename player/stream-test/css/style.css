@@ -166,6 +166,7 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
 
 .demo-row {
     display: flex;
+    align-items: flex-start;
 }
 
 .demo-start {
@@ -333,4 +334,12 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
 .error {
     color: red;
     font-weight: bold;
+}
+
+.demo-select-target {
+    display: flex;
+}
+
+.demo-select-target select {
+    margin-right: 10px;
 }

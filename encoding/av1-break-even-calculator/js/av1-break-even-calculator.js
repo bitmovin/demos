@@ -58,7 +58,7 @@ $(function() {
     const multiplierStreamHd = 2;
     const multiplierStreamSd = 1;
     const multiplierTech3Pass = 2; // Multipass
-    const multiplierCodecAv1 = 10;
+    const multiplierCodecAv1 = 4;
     
     // streams/renditions
     const ingressCostPerGb = 0.00;
