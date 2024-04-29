@@ -142,14 +142,23 @@
     border: 3px solid #1FAAE2;
 }
 
-.latency-control {
+.latency-control, .quality-control {
     padding: 35px 20px 10px 20px;
     margin: 7px;
     font-size: 15px;
     width: 100%;
 }
 
+.quality-control {
+    padding-top: 0px;
+}
+
 #firefoxWarning {
     text-align: center;
     color: red;
+}
+
+.demo-row {
+    display: flex;
+    align-items: flex-start;
 }
