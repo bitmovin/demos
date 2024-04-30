@@ -63,3 +63,11 @@
         margin-bottom: 0px;
     }
 }
+
+li span {
+    font-size: inherit;
+}
+
+a {
+    font-size: inherit;
+}
