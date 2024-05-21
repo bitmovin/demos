@@ -1,0 +1,40 @@
+<script type="text/javascript"
+        src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
+<script type="text/javascript"
+        src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.js"></script>
+<script type="text/javascript"
+        src="https://cdn.bitmovin.com/analytics/web/beta/2/bitmovinanalytics.min.js"></script>
+<link rel="stylesheet"
+      href="https://cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.css">
+
+<div class="ui-rewind-fast-forward-demo">
+  <div class="row">
+    <div class="col-md-12">
+        <div class="description">
+            <p>Click the rewind or fast-forward button in the control panel to seek -/+ 10</p>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-lg-6 player-col">
+          <div id="player" class="tv-frame">
+              <div id="player-container"></div>
+          </div>
+      </div>
+      <div class="col-lg-6 code-col">
+          ${code:setup.js}
+      </div>
+  </div>
+  <div class="row">
+    <div class="row text-with-code">
+      <div class="col-md-8">
+        <p>Setting up a custom player UI can be done using different components exposed by <a href="https://github.com/bitmovin/bitmovin-player-ui/">
+          Player UI Framework.</a> To add Rewind and Fast-Forward button, QuickSeekButton can be used: </p>
+      </div>
+      <div class="col-md-4">
+        <div class="buildui-code">
+          ${code:buildUI.js}
+        </div>
+      </div>
+  </div>
+</div>
