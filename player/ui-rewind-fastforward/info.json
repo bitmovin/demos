@@ -1,0 +1,26 @@
+{
+  "title": "Rewind/Fast-forward",
+  "description": "Custom player UI with rewind and fast-forward buttons",
+  "long_description": "A custom player UI with rewind and fast-forward buttons in the control bar. A quick -10/+10 seconds seek is performed when the buttons are clicked.",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "code": {
+    "show_code": true,
+    "language": "js",
+    "files": [
+      "buildUI.js",
+      "setup.js"
+    ]
+  },
+  "metadata":{
+    "title":"Bitmovin Player UI » Rewind/Fast-Forward",
+    "description": "Try Rewind and Fast-Forwad with Bitmovin Player UI"
+  },
+  "tags": [
+    "rewind",
+    "fast-forward",
+    "seek"
+  ]
+}
