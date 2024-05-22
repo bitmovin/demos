@@ -10,7 +10,7 @@ var source = {
 };
 
 var player = new bitmovin.player.Player(document.getElementById('player-container'), conf);
-const uiManager = new bitmovin.playerui.UIManager(player, [{
+var uiManager = new bitmovin.playerui.UIManager(player, [{
   ui: buildUI(),
 }]);
 
