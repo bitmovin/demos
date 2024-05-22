@@ -1,7 +1,7 @@
 {
-  "title": "Rewind/Fast-forward",
+  "title": "Rewind/Fast-Forward",
   "description": "Custom player UI with rewind and fast-forward buttons",
-  "long_description": "A custom player UI with rewind and fast-forward buttons in the control bar. A quick -10/+10 seconds seek is performed when the buttons are clicked.",
+  "long_description": "A custom player UI with rewind and fast-forward buttons in the control bar. A quick -/+10 seconds seek is performed when the buttons are clicked.",
   "executable": {
     "executable": true,
     "indexfile": "index.html"
