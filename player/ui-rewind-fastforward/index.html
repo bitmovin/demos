@@ -27,8 +27,21 @@
   </div>
   <div class="row">
     <div class="col-lg-6 info-col">
-      <p>Setting up a custom player UI can be done using different components exposed by <a href="https://github.com/bitmovin/bitmovin-player-ui/">
-        Player UI Framework.</a> To add Rewind and Fast-Forward button, QuickSeekButton can be used: </p>
+      <h2>
+        Setting up custom UI
+      </h2>
+      <p>
+        Custom player UI can be build using different components exposed by <a href="https://github.com/bitmovin/bitmovin-player-ui/">
+        Player UI Framework.</a> To add Rewind and Fast-Forward button, <code>QuickSeekButton</code> component can be add to <code>ControlBar</code>.
+      </p>
+      <p>
+        The <code>QuickSeekButton</code> component is a button that allows the user to seek forward or backward by a certain amount of time.
+        The amount of time can be configured by setting the <code>seekSeconds</code> property.
+      </p>
+      <p>
+        The <code>UIContainer</code> returned from the function <code>buildUI</code> is passed in the <code>bitmovin.playerui.UIManager</code>
+        along with player to build custom UI.
+      </p>
     </div>
     <div class="col-lg-6 code-col">
       ${code:buildUI.js}
