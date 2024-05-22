@@ -1,9 +1,5 @@
 const conf = {
   key: '<YOUR PLAYER KEY>',
-  playback: {
-    autoplay: true,
-    muted: true,
-  },
   ui: false
 };
 
