@@ -6,14 +6,9 @@
   .code-col {
     float: right;
   }
-}
 
-@media (min-width: 991px) {
-  .text-with-code p {
-    margin-top: 20px;
+  .info-col {
+    float: left;
+    margin-top: 30px;
   }
-}
-
-.ui-rewind-fast-forward-demo .buildui-code {
-  display: none;
 }
