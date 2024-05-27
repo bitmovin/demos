@@ -1,0 +1,49 @@
+<script type="text/javascript"
+        src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
+<script type="text/javascript"
+        src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.js"></script>
+<script type="text/javascript"
+        src="https://cdn.bitmovin.com/analytics/web/beta/2/bitmovinanalytics.min.js"></script>
+<link rel="stylesheet"
+      href="https://cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.css">
+
+<div>
+  <div class="row">
+    <div class="col-md-12">
+        <div class="description">
+            <p>Click the rewind or fast-forward button in the control panel to seek -/+ 10 seconds</p>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-lg-6 player-col">
+          <div id="player" class="tv-frame">
+              <div id="player-container"></div>
+          </div>
+      </div>
+      <div class="col-lg-6 code-col">
+          ${code:setup.js}
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 info-col">
+      <h2>
+        Setting up custom UI
+      </h2>
+      <p>
+        Custom player UI can be build using different components exposed by <a href="https://github.com/bitmovin/bitmovin-player-ui/">
+        Player UI Framework.</a> To add Rewind and Fast-Forward button, <code>QuickSeekButton</code> component can be add to <code>ControlBar</code>.
+      </p>
+      <p>
+        The <code>QuickSeekButton</code> component is a button that allows the user to seek forward or backward by a certain amount of time.
+        The amount of time can be configured by setting the <code>seekSeconds</code> property.
+      </p>
+      <p>
+        The <code>UIContainer</code> returned from the function <code>buildUI</code> is passed in the <code>bitmovin.playerui.UIManager</code>
+        along with player to build custom UI.
+      </p>
+    </div>
+    <div class="col-lg-6 code-col">
+      ${code:buildUI.js}
+    </div>
+</div>

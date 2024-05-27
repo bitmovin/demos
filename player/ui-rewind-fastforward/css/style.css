@@ -1,0 +1,18 @@
+a {
+  font-size: 18px;
+}
+
+@media (min-width: 1200px) {
+  .player-col {
+    float: left;
+  }
+
+  .code-col {
+    float: right;
+  }
+
+  .info-col {
+    float: left;
+    margin-top: 30px;
+  }
+}
