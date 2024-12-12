@@ -55,70 +55,29 @@ var updateQualityStability = function() {
 }
 qualityStabilitySlider.oninput = updateQualityStability;
 
-var conf = {
-    key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
-    analytics: {
-        key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
-        videoId: 'low-latency-streaming'
-    },
-    playback: {
-        autoplay: true,
-        muted: true,
-    },
-    adaptation: {
-        logic: 'low-latency-v1',
-        preload: false,
-        // Encourage switching to a higher quality sooner
-        qualityStabilityBalance: 0.3,
-    },
-    logs: {
-        //level: 'debug'
-    },
-    style: {},
-    events: {
-        [bitmovin.player.PlayerEvent.LatencyModeChanged]: function(e) {
-            playbackSpeedDisplay.innerText = e.to;
-        },
-    },
-    tweaks: {
-        RESTART_THRESHOLD: 0.2,
-        RESTART_THRESHOLD_DELTA: 0.05,
-        STARTUP_THRESHOLD: 0.2,
-        STARTUP_THRESHOLD_DELTA: 0.05,
-        END_OF_BUFFER_TOLERANCE: 0.05,
-        LIVE_EDGE_DISTANCE: 0.5,
-        LOW_LATENCY_BUFFER_GUARD: 0.8,
-        CHUNKED_CMAF_STREAMING: true,
-    },
-    live: {
-        lowLatency: {
-            targetLatency: targetLatency,
-            catchup: {
-                playbackRateThreshold: 0.075,
-                seekThreshold: 5,
-                playbackRate: 1.2,
-            },
-            fallback: {
-                playbackRateThreshold: 0.075,
-                seekThreshold: 5,
-                playbackRate: 0.95,
-            },
-        },
-        synchronization: [{
-            method: 'httphead',
-            serverUrl: 'https://time.akamai.com',
-        }],
-    },
-    nonetwork: {
-        preprocessHttpResponse: function(type, response) {
-        if (type === 'manifest/dash') {
-            if (videoOnly) {
-            response.body = response.body.replace('mp4a.40.2', 'dummy');
-            }
-        }
-        return response;
-        }
-    }
+var conf = bitmovin.player.util
+  .PlayerConfigBuilder('29ba4a30-8b5e-4336-a7dd-c94ff3b25f30')
+  .enableLowLatency({ targetLatency: targetLatency })
+  .build();
+
+conf.analytics = {
+  key: '45adcf9b-8f7c-4e28-91c5-50ba3d442cd4',
+  videoId: 'low-latency-streaming',
+};
+
+conf.playback = {
+  autoplay: true,
+  muted: true,
+};
+
+conf.adaptation = {
+  qualityStabilityBalance: 0.3, // Encourage switching to a higher quality sooner
+};
+
+conf.events = {
+  [bitmovin.player.PlayerEvent.LatencyModeChanged]: function (e) {
+    playbackSpeedDisplay.innerText = e.to;
+  },
 };
 
 var source = { dash: dashUrl };
