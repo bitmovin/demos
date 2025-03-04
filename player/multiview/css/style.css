@@ -1,0 +1,239 @@
+@media (min-width: 992px) {
+    .player-col {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+#player-container {
+    position: relative;
+    background-color: black;
+}
+#player-container:before {
+    display: block;
+    content: '';
+    width: 100%;
+    padding-bottom: 56.25%;
+}
+.grid {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    color: #fff;
+    font-weight: 300;
+    background: rgba(44, 131, 185, 1);
+    background: -moz-linear-gradient(left, rgba(44, 131, 185, 1) 0%, rgba(30, 171, 227, 1) 100%);
+    background: -webkit-gradient(
+            left top,
+            right top,
+            color-stop(0%, rgba(44, 131, 185, 1)),
+            color-stop(100%, rgba(30, 171, 227, 1))
+    );
+    background: -webkit-linear-gradient(left, rgba(44, 131, 185, 1) 0%, rgba(30, 171, 227, 1) 100%);
+    background: -o-linear-gradient(left, rgba(44, 131, 185, 1) 0%, rgba(30, 171, 227, 1) 100%);
+    background: -ms-linear-gradient(left, rgba(44, 131, 185, 1) 0%, rgba(30, 171, 227, 1) 100%);
+    background: linear-gradient(to right, rgba(44, 131, 185, 1) 0%, rgba(30, 171, 227, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2c83b9', endColorstr='#1eabe3', GradientType=1);
+}
+
+#wrapper {
+    background: url(../images/logo-bg-demopage.png);
+    height: 100vh;
+}
+
+#banner {
+    border-bottom: 1px solid #fff;
+    background-color: #1eabe3;
+    width: 100%;
+}
+
+#banner h1 {
+    margin: 0;
+    padding: 30px;
+}
+
+.logo {
+    padding: 10px;
+    width: 25%;
+    min-width: 350px;
+    float: left;
+    margin: auto;
+}
+
+.title {
+    width: 75%;
+    white-space: nowrap;
+}
+
+.clear {
+    clear: both;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90vw;
+    max-width: 800px;
+    overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+p {
+    font-weight: 300;
+    text-align: center;
+    margin: 35px;
+}
+
+#player {
+    margin: auto;
+}
+
+a {
+    color: #97d9ef;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #fff;
+}
+
+@media (max-width: 800px) {
+    .logo {
+        width: 100%;
+    }
+
+    .title {
+        display: none;
+    }
+}
+
+.grid {
+    display: grid;
+    align-content: center;
+    align-items: center;
+    gap: 5px 10px;
+    width: 100%;
+    height: 100%;
+}
+.tile {
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+.tile img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Layouts for different tile counts */
+.grid.tile-count-1 {
+    grid-template-columns: 1fr;
+}
+.grid.tile-count-2 {
+    grid-template-columns: 1fr 1fr;
+}
+.grid.tile-count-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: 'a a b' 'a a c';
+}
+.grid.tile-count-3 > .tile:nth-child(1) {
+    grid-area: a;
+}
+.grid.tile-count-3 > .tile:nth-child(2) {
+    grid-area: b;
+}
+.grid.tile-count-3 > .tile:nth-child(3) {
+    grid-area: c;
+}
+.grid.tile-count-4 {
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "a b"
+            "a c"
+            "a d";
+}
+.grid.tile-count-4 > .tile:nth-child(1) {
+    grid-area: a;
+}
+.grid.tile-count-4 > .tile:nth-child(2) {
+    grid-area: b;
+}
+.grid.tile-count-4 > .tile:nth-child(3) {
+    grid-area: c;
+}
+.grid.tile-count-4 > .tile:nth-child(4) {
+    grid-area: d;
+}
+
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 10px 15px;
+    margin: 10px;
+    max-width: 90vw;
+    min-height: 80px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.item {
+    flex: 0 0 150px;
+    aspect-ratio: 16 / 9;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    scroll-snap-align: start;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.item:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+.item.selected {
+    outline: 2px solid #006aed;
+}
+.item .checkmark {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 18px;
+    height: 18px;
+    color: white;
+    background-color: #006aed;
+    border-radius: 50%;
+    font-size: 0.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.item.selected .checkmark {
+    opacity: 1;
+}

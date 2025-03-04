@@ -1,0 +1,23 @@
+{
+  "title": "Multiview Playback",
+  "description": "Achieve multiview playback through a customizable layout",
+  "long_description": "To be defined.",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "code": {
+    "show_code": false,
+    "language": "js",
+    "files": []
+  },
+  "metadata":{
+    "title":"Multiview Demo | Bitmovin",
+    "description": "Achieve multiview playback through a customizable layout"
+  },
+  "tags": [
+    "multiview",
+    "multiplayer",
+    "layout"
+  ]
+}
