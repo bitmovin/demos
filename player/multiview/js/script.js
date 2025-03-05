@@ -136,9 +136,7 @@ function createPlayerTile(source) {
   tile.draggable = true;
 
   tile.addEventListener("dragstart", event => {
-    console.warn(`Dragging`, event.target);
     if (event.target.id === 'player') {
-      console.warn(`Dragging ${event.target.title}`);
       draggedElement = event.target;
     }
   });
