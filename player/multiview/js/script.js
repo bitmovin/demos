@@ -36,13 +36,6 @@ var activeSources = [];
 var reusablePlayers = [];
 var draggedElement = null;
 
-const onPageLoad = () => {
-  populateCarousel();
-
-  // Pre-select the first item to showcase the feature
-  toggleCarouselItem(document.getElementById('0'));
-}
-
 function populateCarousel() {
   const carousel = document.getElementById('carousel');
 
@@ -174,5 +167,7 @@ function createPlayerTile(source) {
   return tile;
 }
 
-// Page listeners
-window.addEventListener('load', () => onPageLoad());
+populateCarousel();
+
+// Pre-select the first item to showcase the feature
+toggleCarouselItem(document.getElementById('0'));
