@@ -1,7 +1,7 @@
 {
   "title": "Multiview Playback",
   "description": "Achieve multiview playback through a customizable layout",
-  "long_description": "To be defined.",
+  "long_description": "Give your audience the ability to never miss a play and experience every angle with Multiview Playback on the Bitmovin Player.",
   "executable": {
     "executable": true,
     "indexfile": "index.html"
