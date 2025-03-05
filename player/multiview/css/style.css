@@ -5,6 +5,12 @@
     }
 }
 
+@media (min-width: 768px) {
+    .grid {
+        gap: 5px 10px;
+    }
+}
+
 #player-container {
     position: relative;
     background-color: black;
@@ -29,11 +35,15 @@
     margin: auto;
 }
 
+.bitmovinplayer-container {
+    min-width: unset;
+    min-height: unset;
+}
+
 .grid {
     display: grid;
     align-content: center;
     align-items: center;
-    gap: 5px 10px;
 }
 .tile {
     aspect-ratio: 16/9;
