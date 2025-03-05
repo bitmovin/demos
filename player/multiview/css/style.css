@@ -8,6 +8,8 @@
 #player-container {
     position: relative;
     background-color: black;
+    /* compensate TV border width */
+    padding: 5px;
 }
 #player-container:before {
     display: block;
@@ -19,6 +21,8 @@
     position: absolute;
     left: 0;
     top: 0;
+    /* compensate TV border width */
+    inset: 5px;
 }
 
 body {
@@ -123,8 +127,6 @@ a:hover {
     align-content: center;
     align-items: center;
     gap: 5px 10px;
-    width: 100%;
-    height: 100%;
 }
 .tile {
     aspect-ratio: 16/9;
