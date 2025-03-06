@@ -68,6 +68,16 @@ function populateCarousel() {
   }
 }
 
+function initializePlayers() {
+  document.getElementById('0').classList.add('selected');
+  document.getElementById('1').classList.add('selected');
+
+  enableSource(sources[0]);
+  enableSource(sources[1]);
+
+  updateGrid();
+}
+
 const toggleCarouselItem = (item) => {
   item.classList.toggle('selected');
 
@@ -75,29 +85,29 @@ const toggleCarouselItem = (item) => {
   const source = sources[sourceId];
   const isSelected = item.classList.contains('selected');
   if (isSelected) {
-    activeSources.push(source);
-    if (primarySource == null) {
-      primarySource = source;
-    }
+    enableSource(source);
   } else {
-    activeSources = activeSources.filter(active => {
-      const shouldKeep = active.title !== source.title;
-      if (!shouldKeep) {
-        // Unload the player instance, so that it can be reused
-        const player = findPlayerForSource(source);
-        player?.unload().then(() => {
-          unusedPlayers.push(player);
-        });
-      }
-      return shouldKeep;
-    });
-
-    if (primarySource === source) {
-      primarySource = activeSources[0];
-    }
+    disableSource(source);
   }
 
   updateGrid();
+}
+
+function enableSource(source) {
+  activeSources.push(source);
+}
+
+function disableSource(source) {
+  activeSources.splice(activeSources.indexOf(source), 1);
+
+  if (primarySource === source) {
+    const newPrimaryPlayer = findPlayerForSource(activeSources[0]);
+    setPrimaryPlayer(newPrimaryPlayer, activeSources[0]);
+  }
+  const player = findPlayerForSource(source);
+  player?.unload().then(() => {
+    unusedPlayers.push(player);
+  });
 }
 
 function updateGrid() {
@@ -115,13 +125,8 @@ function updateGrid() {
     const tile = player.getContainer();
     tile.title = source.title;
 
-    const controlBar = getControlBar(player);
-    if (source === primarySource) {
-      tile.classList.add('primary');
-      controlBar?.classList.add('active');
-    } else {
-      tile.classList.remove('primary');
-      controlBar?.classList.remove('active');
+    if (primarySource === null) {
+      setPrimaryPlayer(player, source);
     }
 
     grid.appendChild(tile);
@@ -180,28 +185,38 @@ function findPlayerForSource(source) {
   return allPlayers.find(player => player.getSource() === source);
 }
 
-function setPrimaryPlayer(newPrimaryPlayer) {
-  const newPrimarySource = newPrimaryPlayer.getSource();
+function setPrimaryPlayer(newPrimaryPlayer, newPrimarySource) {
+  if (newPrimarySource === primarySource || newPrimaryPlayer === null) {
+    return;
+  }
+
   const container = document.getElementById('player-container');
 
   // Remove active classes from the previous primary player
   container.querySelector('.bmpui-ui-controlbar.active')?.classList.remove('active');
   container.querySelector('.tile.primary')?.classList.remove('primary');
-  const previousPrimaryPlayer = findPlayerForSource(primarySource);
+
+  if (newPrimaryPlayer == null) {
+    primarySource = null;
+    return;
+  }
 
   // Add active classes to the new primary player
-  container.querySelector('.tile[title="' + newPrimarySource.title + '"]')?.classList.add('primary');
+  newPrimaryPlayer.getContainer().classList.add('primary');
   getControlBar(newPrimaryPlayer)?.classList.add('active');
 
-  // Keep the volume state consistent across players
-  if (previousPrimaryPlayer.isMuted()) {
-    newPrimaryPlayer.mute();
-  } else {
-    newPrimaryPlayer.unmute();
+  const previousPrimaryPlayer = findPlayerForSource(primarySource);
+  if (previousPrimaryPlayer) {
+    // Keep the volume state consistent across players
+    if (previousPrimaryPlayer.isMuted()) {
+      newPrimaryPlayer.mute();
+    } else {
+      newPrimaryPlayer.unmute();
+    }
+    const volume = previousPrimaryPlayer.getVolume();
+    newPrimaryPlayer.setVolume(volume);
+    previousPrimaryPlayer.mute();
   }
-  const volume = previousPrimaryPlayer.getVolume();
-  newPrimaryPlayer.setVolume(volume);
-  previousPrimaryPlayer.mute();
 
   primarySource = newPrimarySource;
 }
@@ -247,11 +262,10 @@ const onTileClicked = (tile, player, event) => {
   if (!tile.classList.contains('primary')) {
     // Prevent play/pause button from having an effect when the source is not the primary one (requires another click)
     event.stopPropagation();
-    setPrimaryPlayer(player);
+    setPrimaryPlayer(player, player.getSource());
   }
 }
 
 populateCarousel();
 
-// Pre-select the first item to showcase the feature
-toggleCarouselItem(document.getElementById('0'));
+initializePlayers();
