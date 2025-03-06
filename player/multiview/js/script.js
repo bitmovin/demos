@@ -36,7 +36,8 @@ const playerConfig = {
 };
 
 var activeSources = [];
-var reusablePlayers = [];
+var allPlayers = [];
+var unusedPlayers = [];
 var draggedElement = null;
 var primarySource = null;
 
@@ -84,7 +85,9 @@ const toggleCarouselItem = (item) => {
       if (!shouldKeep) {
         // Unload the player instance, so that it can be reused
         const player = findPlayerForSource(source);
-        player && player.unload();
+        player?.unload().then(() => {
+          unusedPlayers.push(player);
+        });
       }
       return shouldKeep;
     });
@@ -129,7 +132,7 @@ function updateGrid() {
 }
 
 function getPlayerId(player) {
-  return reusablePlayers.indexOf(player);
+  return allPlayers.indexOf(player);
 }
 
 function getControlBar(player) {
@@ -144,7 +147,7 @@ function getPlayerInstance(playerConfig, source) {
     return player;
   }
 
-  player = reusablePlayers.find(player => player.getSource() == null);
+  player = unusedPlayers.shift();
   if (player) {
     // Re-use one of the unused player instances
     player.load(source);
@@ -168,13 +171,13 @@ function getPlayerInstance(playerConfig, source) {
 
     controlBarsContainer.appendChild(controlBar);
   });
-  reusablePlayers.push(newPlayer);
+  allPlayers.push(newPlayer);
 
   return newPlayer;
 }
 
 function findPlayerForSource(source) {
-  return reusablePlayers.find(player => player.getSource() === source);
+  return allPlayers.find(player => player.getSource() === source);
 }
 
 function setPrimaryPlayer(newPrimaryPlayer) {
