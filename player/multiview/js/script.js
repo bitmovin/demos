@@ -35,6 +35,9 @@ const playerConfig = {
 var activeSources = [];
 var reusablePlayers = [];
 var draggedElement = null;
+var primarySource = null;
+
+const controlBarsContainer = document.getElementById('controlbars-container');
 
 function populateCarousel() {
   const carousel = document.getElementById('carousel');
@@ -69,6 +72,9 @@ const toggleCarouselItem = (item) => {
   const isSelected = item.classList.contains('selected');
   if (isSelected) {
     activeSources.push(source);
+    if (primarySource == null) {
+      primarySource = source;
+    }
   } else {
     activeSources = activeSources.filter(active => {
       const shouldKeep = active.title !== source.title;
@@ -79,6 +85,10 @@ const toggleCarouselItem = (item) => {
       }
       return shouldKeep;
     });
+
+    if (primarySource === source) {
+      primarySource = activeSources[0];
+    }
   }
 
   updateGrid();
@@ -98,11 +108,25 @@ function updateGrid() {
 
     const tile = player.getContainer();
     tile.title = source.title;
+
+    const controlBar = getControlBar(source);
+    if (source === primarySource) {
+      tile.classList.add('primary');
+      controlBar?.classList.add('active');
+    } else {
+      tile.classList.remove('primary');
+      controlBar?.classList.remove('active');
+    }
+
     grid.appendChild(tile);
   }
 
   // Set grid layout using CSS classes
   grid.classList.add(`tile-count-${activeSources.length}`);
+}
+
+function getControlBar(source) {
+  return controlBarsContainer.querySelector('.bmpui-ui-controlbar[data-source-title="' + source.title + '"]');
 }
 
 function getPlayerInstance(playerConfig, source) {
@@ -120,15 +144,40 @@ function getPlayerInstance(playerConfig, source) {
   }
 
   // Create a new player instance
-  const container = createPlayerTile(source);
+  const container = createPlayerTile();
   const newPlayer = new bitmovin.player.Player(container, playerConfig);
-  newPlayer.load(source);
+  container.addEventListener('click', event => onTileClicked(container, newPlayer, event), true);
+
+  newPlayer.load(source).then(() => {
+    // Move the control bar to the controlbars-container to be full-width
+    // This lets us simulate a common control bar for all players
+
+    const controlBar = container.getElementsByClassName('bmpui-ui-controlbar')[0];
+    controlBar.setAttribute('data-source-title', source.title);
+    if (source === primarySource) {
+      controlBar.classList.add('active');
+    }
+
+    controlBarsContainer.appendChild(controlBar);
+  });
   reusablePlayers.push(newPlayer);
 
   return newPlayer;
 }
 
-function createPlayerTile(source) {
+function setPrimarySource(newPrimarySource) {
+  const container = document.getElementById('player-container');
+
+  container.querySelector('.bmpui-ui-controlbar.active')?.classList.remove('active');
+  container.querySelector('.tile.primary')?.classList.remove('primary');
+
+  container.querySelector('.tile[title="' + newPrimarySource.title + '"]')?.classList.add('primary');
+  getControlBar(newPrimarySource)?.classList.add('active');
+
+  primarySource = newPrimarySource;
+}
+
+function createPlayerTile() {
   const tile = document.createElement('div');
 
   tile.classList.add('tile');
@@ -163,6 +212,14 @@ function createPlayerTile(source) {
   });
 
   return tile;
+}
+
+const onTileClicked = (tile, player, event) => {
+  if (!tile.classList.contains('primary')) {
+    // Prevent play/pause button from having an effect when the source is not the primary one (requires another click)
+    event.stopPropagation();
+    setPrimarySource(player.getSource());
+  }
 }
 
 populateCarousel();
