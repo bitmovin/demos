@@ -35,11 +35,11 @@ const playerConfig = {
   }
 };
 
-var activeSources = [];
-var allPlayers = [];
-var unusedPlayers = [];
-var draggedElement = null;
-var primarySource = null;
+const activeSources = [];
+const allPlayers = [];
+const unusedPlayers = [];
+let draggedElement = null;
+let primarySource = null;
 
 const controlBarsContainer = document.getElementById('controlbars-container');
 
