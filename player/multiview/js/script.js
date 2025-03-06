@@ -109,7 +109,7 @@ function updateGrid() {
     const tile = player.getContainer();
     tile.title = source.title;
 
-    const controlBar = getControlBar(source);
+    const controlBar = getControlBar(player);
     if (source === primarySource) {
       tile.classList.add('primary');
       controlBar?.classList.add('active');
@@ -125,8 +125,13 @@ function updateGrid() {
   grid.classList.add(`tile-count-${activeSources.length}`);
 }
 
-function getControlBar(source) {
-  return controlBarsContainer.querySelector('.bmpui-ui-controlbar[data-source-title="' + source.title + '"]');
+function getPlayerId(player) {
+  return reusablePlayers.indexOf(player);
+}
+
+function getControlBar(player) {
+  const playerId = getPlayerId(player);
+  return controlBarsContainer.querySelector('.bmpui-ui-controlbar[data-player-id="' + playerId + '"]');
 }
 
 function getPlayerInstance(playerConfig, source) {
@@ -153,7 +158,7 @@ function getPlayerInstance(playerConfig, source) {
     // This lets us simulate a common control bar for all players
 
     const controlBar = container.getElementsByClassName('bmpui-ui-controlbar')[0];
-    controlBar.setAttribute('data-source-title', source.title);
+    controlBar.setAttribute('data-player-id', getPlayerId(newPlayer).toString());
     if (source === primarySource) {
       controlBar.classList.add('active');
     }
@@ -165,14 +170,15 @@ function getPlayerInstance(playerConfig, source) {
   return newPlayer;
 }
 
-function setPrimarySource(newPrimarySource) {
+function setPrimaryPlayer(newPrimaryPlayer) {
+  const newPrimarySource = newPrimaryPlayer.getSource();
   const container = document.getElementById('player-container');
 
   container.querySelector('.bmpui-ui-controlbar.active')?.classList.remove('active');
   container.querySelector('.tile.primary')?.classList.remove('primary');
 
   container.querySelector('.tile[title="' + newPrimarySource.title + '"]')?.classList.add('primary');
-  getControlBar(newPrimarySource)?.classList.add('active');
+  getControlBar(newPrimaryPlayer)?.classList.add('active');
 
   primarySource = newPrimarySource;
 }
@@ -218,7 +224,7 @@ const onTileClicked = (tile, player, event) => {
   if (!tile.classList.contains('primary')) {
     // Prevent play/pause button from having an effect when the source is not the primary one (requires another click)
     event.stopPropagation();
-    setPrimarySource(player.getSource());
+    setPrimaryPlayer(player);
   }
 }
 
