@@ -30,6 +30,9 @@ const playerConfig = {
     muted: true,
     autoplay: true
   },
+  ui: {
+    disableAutoHideWhenHovered: true,
+  }
 };
 
 var activeSources = [];
