@@ -80,7 +80,7 @@ const toggleCarouselItem = (item) => {
       const shouldKeep = active.title !== source.title;
       if (!shouldKeep) {
         // Unload the player instance, so that it can be reused
-        const player = reusablePlayers.find(player => player.getSource() === source);
+        const player = findPlayerForSource(source);
         player && player.unload();
       }
       return shouldKeep;
@@ -135,7 +135,7 @@ function getControlBar(player) {
 }
 
 function getPlayerInstance(playerConfig, source) {
-  let player = reusablePlayers.find(player => player.getSource() === source);
+  let player = findPlayerForSource(source);
   if (player) {
     // An active player instance already exists for this source
     return player;
@@ -170,15 +170,32 @@ function getPlayerInstance(playerConfig, source) {
   return newPlayer;
 }
 
+function findPlayerForSource(source) {
+  return reusablePlayers.find(player => player.getSource() === source);
+}
+
 function setPrimaryPlayer(newPrimaryPlayer) {
   const newPrimarySource = newPrimaryPlayer.getSource();
   const container = document.getElementById('player-container');
 
+  // Remove active classes from the previous primary player
   container.querySelector('.bmpui-ui-controlbar.active')?.classList.remove('active');
   container.querySelector('.tile.primary')?.classList.remove('primary');
+  const previousPrimaryPlayer = findPlayerForSource(primarySource);
 
+  // Add active classes to the new primary player
   container.querySelector('.tile[title="' + newPrimarySource.title + '"]')?.classList.add('primary');
   getControlBar(newPrimaryPlayer)?.classList.add('active');
+
+  // Keep the volume state consistent across players
+  if (previousPrimaryPlayer.isMuted()) {
+    newPrimaryPlayer.mute();
+  } else {
+    newPrimaryPlayer.unmute();
+  }
+  const volume = previousPrimaryPlayer.getVolume();
+  newPrimaryPlayer.setVolume(volume);
+  previousPrimaryPlayer.mute();
 
   primarySource = newPrimarySource;
 }
