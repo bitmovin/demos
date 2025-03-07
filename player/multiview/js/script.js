@@ -228,15 +228,15 @@ function createPlayerTile() {
   tile.id = 'player';
   tile.draggable = true;
 
-  tile.addEventListener("dragstart", event => {
+  tile.addEventListener('dragstart', event => {
     if (event.target.id === 'player') {
       draggedElement = event.target;
     }
   });
-  tile.addEventListener("dragover", (event) => {
+  tile.addEventListener('dragover', (event) => {
     event.preventDefault();
   });
-  tile.addEventListener("drop", (event) => {
+  tile.addEventListener('drop', (event) => {
     event.preventDefault();
 
     const targetElement = event.target.closest('#player');
