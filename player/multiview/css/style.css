@@ -26,6 +26,9 @@
     box-sizing: border-box;
 }
 .grid {
+    display: grid;
+    align-content: center;
+    align-items: center;
     position: absolute;
     left: 0;
     top: 0;
@@ -60,11 +63,6 @@
     min-height: unset;
 }
 
-.grid {
-    display: grid;
-    align-content: center;
-    align-items: center;
-}
 .tile {
     aspect-ratio: 16/9;
     border-radius: 10px;
