@@ -186,7 +186,7 @@ function findPlayerForSource(source) {
 }
 
 function setPrimaryPlayer(newPrimaryPlayer, newPrimarySource) {
-  if (newPrimarySource === primarySource || newPrimaryPlayer === null) {
+  if (newPrimarySource === primarySource) {
     return;
   }
 
