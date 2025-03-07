@@ -1,0 +1,185 @@
+@media (min-width: 992px) {
+    .player-col {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+.bmpui-ui-controlbar {
+    z-index: 1002;
+    visibility: hidden;
+}
+.bmpui-ui-controlbar.active {
+    visibility: visible;
+}
+
+#player-container {
+    position: relative;
+    background-color: black;
+    box-sizing: border-box;
+}
+#player-container:before {
+    display: block;
+    content: '';
+    width: 100%;
+    padding-bottom: 56.25%;
+    box-sizing: border-box;
+}
+.grid {
+    display: grid;
+    align-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    inset: 0;
+}
+
+@media (min-width: 768px) {
+    .grid {
+        gap: 5px 10px;
+        /* compensate TV border width */
+        inset: 15px;
+    }
+    #player-container {
+        /* compensate TV border width */
+        padding: 15px;
+    }
+}
+
+#controlbars-container {
+    position: relative;
+    color: #fff;
+    font-family: sans-serif;
+    font-size: 1em;
+}
+
+#player {
+    margin: auto;
+}
+
+.bitmovinplayer-container {
+    min-width: unset;
+    min-height: unset;
+}
+
+.tile {
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid black;
+    box-sizing: border-box;
+}
+.tile.primary {
+    border-color: #006aed;
+}
+.tile img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Layouts for different tile counts */
+.grid.tile-count-1 {
+    grid-template-columns: 1fr;
+}
+.grid.tile-count-2 {
+    grid-template-columns: 1fr 1fr;
+}
+.grid.tile-count-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: 'a a b' 'a a c';
+}
+.grid.tile-count-3 > .tile:nth-child(1) {
+    grid-area: a;
+}
+.grid.tile-count-3 > .tile:nth-child(2) {
+    grid-area: b;
+}
+.grid.tile-count-3 > .tile:nth-child(3) {
+    grid-area: c;
+}
+.grid.tile-count-4 {
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "a b"
+            "a c"
+            "a d";
+}
+.grid.tile-count-4 > .tile:nth-child(1) {
+    grid-area: a;
+}
+.grid.tile-count-4 > .tile:nth-child(2) {
+    grid-area: b;
+}
+.grid.tile-count-4 > .tile:nth-child(3) {
+    grid-area: c;
+}
+.grid.tile-count-4 > .tile:nth-child(4) {
+    grid-area: d;
+}
+
+.carousel-container {
+    border: solid 1px #CBE0ED;
+    border-radius: 4px;
+}
+.carousel-title {
+    padding: 10px 15px 0 15px;
+}
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 15px;
+    max-width: 90vw;
+    min-height: 80px;
+    background-color: #fff;
+}
+
+.item {
+    flex: 0 0 150px;
+    aspect-ratio: 16 / 9;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    scroll-snap-align: start;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.item:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+.item.selected {
+    outline: 2px solid #006aed;
+}
+.item .checkmark {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 18px;
+    height: 18px;
+    color: white;
+    background-color: #006aed;
+    border-radius: 50%;
+    font-size: 0.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.item.selected .checkmark {
+    opacity: 1;
+}
