@@ -1,0 +1,230 @@
+/* Overall demo styling */
+.sgai-demo {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    line-height: 1.6;
+    color: #2c3e50;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 12px;
+    padding: 40px;
+    margin: 20px 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.sgai-demo > p {
+    font-size: 1.1em;
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    background: rgba(0, 106, 237, 0.05);
+    border-left: 4px solid #006AED;
+    border-radius: 8px;
+}
+
+/* Player container */
+#player-container {
+    margin: 40px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Ad partners section - Less prominent */
+#ad-partners {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #e9ecef;
+}
+
+#ad-partners .weak-header {
+    display: block;
+    font-size: 1.1em;
+    font-weight: 500;
+    color: #6c757d;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#logo-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin: 25px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+#logo-container img {
+    flex: 1;
+    max-width: 22%;
+    height: auto;
+    object-fit: contain;
+    max-height: 50px;
+    filter: grayscale(20%);
+    transition: all 0.3s ease;
+}
+
+#logo-container img:hover {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+#logo-container a {
+    display: inline-block;
+    flex: 1;
+    max-width: 22%;
+    text-decoration: none;
+}
+
+#logo-container a img {
+    max-width: 100%;
+    cursor: pointer;
+}
+
+/* New ad formats section - More prominent */
+#new-ad-formats {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 12px;
+    padding: 40px;
+    margin: 40px 0;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border: 2px solid #006AED;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2.5em;
+}
+
+#new-ad-formats h2 {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 40px;
+    background: linear-gradient(134deg, #CE25F7 1.83%, #006AED 100.34%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+#new-ad-formats img {
+    max-width: 100%;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+#new-ad-formats img:hover {
+    transform: scale(1.02);
+}
+
+/* SGAI description section */
+#sgai-description {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.benefits-columns {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+#sgai-description h2 {
+    color: #006AED;
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#sgai-benefits-playback,
+#sgai-increasing-revenue {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    margin: 0;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    border: 1px solid #e9ecef;
+    flex: 1;
+}
+
+#sgai-benefits-playback .weak-header,
+#sgai-increasing-revenue .weak-header {
+    display: block;
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.benefits-container {
+    margin-top: 25px;
+}
+
+.benefit-box {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 25px;
+    margin: 20px 0;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.benefit-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    border-color: #006AED;
+}
+
+.benefit-box h4 {
+    margin: 0 0 15px 0;
+    color: #006AED;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.benefit-box p {
+    margin: 0;
+    color: #495057;
+    line-height: 1.6;
+    font-size: 0.95em;
+}
+
+/* Button styling - Simple and clean */
+.btn-primary {
+    background-color: #006AED;
+    border: 1px solid #006AED;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-weight: normal;
+    text-transform: none;
+    letter-spacing: normal;
+    color: #fff;
+    transition: all 0.15s ease-in-out;
+    box-shadow: none;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: #1ab3ff;
+    border-color: #1ab3ff;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Divider styling */
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #006AED, transparent);
+    margin: 40px 0;
+}
