@@ -37,8 +37,8 @@ var conf = {
           }
         });
 
-        console.warn('YOLO-> Extracted URL', url);
-        console.warn('YOLO-> Extracted session ID', sessionId);
+        console.warn('DBG-> Extracted URL', url);
+        console.warn('DBG-> Extracted session ID', sessionId);
       }
 
       if (type === 'manifest/hls/variant') {
@@ -57,8 +57,7 @@ var conf = {
 };
 
 var source = {
-  hls:
-    'https://csm-e-yopoc2-live-usw2-eb.bln1.yospace.com/csm/sgai/extlive/lefort01,tennis-interstitial-dual.m3u8?yo.t.jt=1000',
+    hls: 'https://bitmovin-player-eu-west1-ci-input.s3.amazonaws.com/general/hls/interstitials/aom_pre_mid/main.m3u8 '
 };
 
 var hidden = false;
