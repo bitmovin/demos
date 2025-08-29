@@ -57,7 +57,8 @@ var conf = {
 };
 
 var source = {
-    hls: 'https://bitmovin-player-eu-west1-ci-input.s3.amazonaws.com/general/hls/interstitials/aom_pre_mid/main.m3u8 '
+  hls:
+    'https://csm-e-yopoc2-live-usw2-eb.bln1.yospace.com/csm/sgai/extlive/lefort01,tennis-interstitial-dual.m3u8?yo.t.jt=1000&yo.op=737000883',
 };
 
 var hidden = false;
