@@ -111,11 +111,11 @@ function disableSource(source) {
 }
 
 function updateGrid() {
-  const grid = document.getElementById('grid');
+  const grid = document.getElementById('tvgrid');
 
   // Clear existing tiles and classes
   grid.innerHTML = '';
-  grid.className = 'grid';
+  grid.className = 'tvgrid';
 
   // Add tiles dynamically
   for (let i = 0; i < activeSources.length; i++) {
