@@ -46,6 +46,7 @@ var config = {
   cast: {
     enable: true
   },
+  ui: false,
   events: {
     aderror: function (err) {
       document.querySelector('#ad-error').innerHTML = 'Ad-Error:' + err.message;
@@ -87,6 +88,7 @@ var updateCount = 0;
 
 var playerContainer = document.getElementById('player');
 var player = new bitmovin.player.Player(playerContainer, config);
+var uiManager = new bitmovin.playerui.UIFactory.buildUI(player);
 
 setPlayerEvents(player);
 
