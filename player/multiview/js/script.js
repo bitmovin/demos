@@ -57,6 +57,10 @@ function populateCarousel() {
     img.src = source.poster;
     img.alt = source.title;
 
+    const title = document.createElement('div');
+    title.className = 'title';
+    title.textContent = source.title;
+
     const checkmark = document.createElement('span');
     checkmark.className = 'checkmark';
     checkmark.textContent = '✔';
@@ -67,6 +71,7 @@ function populateCarousel() {
     item.addEventListener('click', () => toggleCarouselItem(item));
 
     item.appendChild(img);
+    item.appendChild(title);
     item.appendChild(checkmark);
     carousel.appendChild(item);
   }
