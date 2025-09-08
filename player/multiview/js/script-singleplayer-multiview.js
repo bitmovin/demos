@@ -26,7 +26,7 @@ window.onload = function () {
     },
     adaptation: {
       onVideoAdaptation: function (data) {
-        console.warn(
+        console.debug(
           [...data.representations].filter(v => v.bandwidth < 4000000).sort((a, b) => b.bandwidth - a.bandwidth),
         );
         return [...data.representations]
@@ -113,7 +113,7 @@ window.onload = function () {
 
     uiManager.currentUi.playerWrapper.getPlayer().on('tileSelected', function (event) {
       if (event.tileIndex === null && !inTileView) {
-        console.warn('Grid clicked');
+        console.debug('Grid clicked');
         inTileView = true;
         return spmvPlayer.load({
           hls: source.hls,
@@ -125,7 +125,7 @@ window.onload = function () {
       }
 
       if (event.tileIndex === 0 && inTileView) {
-        console.warn('Tile 1 clicked');
+        console.debug('Tile 1 clicked');
         inTileView = false;
         return spmvPlayer.load({
           hls: source1.hls,
@@ -137,7 +137,7 @@ window.onload = function () {
       }
 
       if (event.tileIndex === 1 && inTileView) {
-        console.warn('Tile 2 clicked');
+        console.debug('Tile 2 clicked');
         inTileView = false;
         return spmvPlayer.load({
           hls: source2.hls,
@@ -149,7 +149,7 @@ window.onload = function () {
       }
 
       if (event.tileIndex === 2 && inTileView) {
-        console.warn('Tile 3 clicked');
+        console.debug('Tile 3 clicked');
         inTileView = false;
         return spmvPlayer.load({
           hls: source3.hls,
@@ -161,7 +161,7 @@ window.onload = function () {
       }
 
       if (event.tileIndex === 3 && inTileView) {
-        console.warn('Tile 4 clicked');
+        console.debug('Tile 4 clicked');
         inTileView = false;
         return spmvPlayer.load({
           hls: source4.hls,
