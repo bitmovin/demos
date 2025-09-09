@@ -57,7 +57,7 @@ var conf = {
 };
 
 var source = {
-    hls: 'https://bitmovin-player-eu-west1-ci-input.s3.amazonaws.com/general/hls/interstitials/aom_pre_mid/main.m3u8 '
+  hls: 'https://demo.bitmovin.com/public/sgai/aip/assets/video_1080p.m3u8',
 };
 
 var hidden = false;
