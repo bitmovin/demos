@@ -1,5 +1,17 @@
 var url, sessionId;
 
+// Dynamically load the advertising module because the demo framework throws an error otherwise
+function loadAdvertisingModule() {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://cdn.bitmovin.com/player/web/8.195.0-beta.2/modules/bitmovinplayer-advertising-bitmovin.js';
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
+
 var conf = {
   key: '29ba4a30-8b5e-4336-a7dd-c94ff3b25f30',
   analytics: {
@@ -14,60 +26,34 @@ var conf = {
   },
   playback: {
     muted: true,
+    autoplay: true,
   },
-  network: {
-    preprocessHttpResponse: (type, response) => {
-      if (type === 'manifest/hls/master') {
-        const lines = response.body.split('\n');
-
-        const hostRegex = /^#EXT-X-DEFINE:NAME="host",VALUE="([^"]+)"/;
-        const sessionIdRegex = /^#EXT-X-DEFINE:NAME="sessionId",VALUE="([^"]+)"/;
-
-        lines.forEach((line) => {
-          const trimmedLine = line.trim();
-
-          const hostMatch = trimmedLine.match(hostRegex);
-          if (hostMatch) {
-            url = hostMatch[1];
-          }
-
-          const sessionMatch = trimmedLine.match(sessionIdRegex);
-          if (sessionMatch) {
-            sessionId = sessionMatch[1];
-          }
-        });
-
-        console.warn('DBG-> Extracted URL', url);
-        console.warn('DBG-> Extracted session ID', sessionId);
-      }
-
-      if (type === 'manifest/hls/variant') {
-        console.warn('Replacing DEFINE tags in variant');
-        response.body = response.body.replaceAll('{$host}', url);
-        response.body = response.body.replaceAll('{$sessionId}', sessionId);
-      }
-
-      return Promise.resolve(response);
-    },
-  },
-  location: {
-    ui: 'https://cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.js',
-    ui_css: 'https://cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.css',
+  advertising: {
+    withCredentials: false,
   },
 };
 
 var source = {
-    hls: 'https://bitmovin-player-eu-west1-ci-input.s3.amazonaws.com/general/hls/interstitials/aom_pre_mid/main.m3u8 '
+  hls: 'https://demo.bitmovin.com/public/sgai/aip/assets/video_1080p.m3u8',
 };
 
 var hidden = false;
 var played = false;
 
 var playerContainer = document.getElementById('player-container');
-bitmovin.player.Player.addModule(bitmovin.analytics.PlayerModule);
-var player = new bitmovin.player.Player(playerContainer, conf);
 
-player.load(source);
+// Load advertising module and then initialize player
+loadAdvertisingModule()
+  .then(() => {
+    bitmovin.player.Player.addModule(bitmovin.analytics.PlayerModule);
+    bitmovin.player.Player.addModule(bitmovin.player['advertising-bitmovin'].default);
+    var player = new bitmovin.player.Player(playerContainer, conf);
+
+    player.load(source);
+  })
+  .catch((error) => {
+    console.error('Failed to load advertising module:', error);
+  });
 
 (function () {
   if (isAdblockEnabled) {
