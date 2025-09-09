@@ -1,23 +1,27 @@
 const sources = [
   {
-    hls: 'https://cdn.bitmovin.com/content/sports-mashup/sports-mashup-hls/m3u8/master.m3u8',
-    poster: 'https://cdn.bitmovin.com/content/sports-mashup/poster.jpg',
-    title: 'Bitmovin Sports Mashup',
+    title: 'Alcaraz vs. Griekspoor - Beijing 2024',
+    dash: 'https://cdn.bitmovin.com/content/demos/multiview-atp-tennistv/Alcaraz-Griekspoor-Beijing-2024/manifest.mpd',
+    hls: 'https://cdn.bitmovin.com/content/demos/multiview-atp-tennistv/Alcaraz-Griekspoor-Beijing-2024/manifest.m3u8',
+    poster: 'https://cdn.bitmovin.com/content/demos/multiview-atp-tennistv/Alcaraz-Griekspoor-Beijing-2024/poster.jpg',
   },
   {
-    dash: 'https://cdn.bitmovin.com/content/assets/MI201109210084/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd',
-    poster: 'https://cdn.bitmovin.com/content/assets/poster/hd/RedBull.jpg',
-    title: 'Red Bull - Art of Motion',
+    title: 'Draper vs. Hurkacz - Tokyo 2024',
+    dash: 'https://cdn.bitmovin.com/content/demos/multiview-atp-tennistv/Draper-Hurkacz-Tokyo-2024/manifest.mpd',
+    hls: 'https://cdn.bitmovin.com/content/demos/multiview-atp-tennistv/Draper-Hurkacz-Tokyo-2024/manifest.m3u8',
+    poster: 'https://cdn.bitmovin.com/content/demos/multiview-atp-tennistv/Draper-Hurkacz-Tokyo-2024/poster.jpg',
   },
   {
-    dash: 'https://cdn.bitmovin.com/content/assets/bbb/stream.mpd',
-    poster: 'https://cdn.bitmovin.com/content/assets/poster/hd/BigBuckBunny.jpg',
-    title: 'Big Buck Bunny',
+    title: 'Fritz vs. Fils - Tokyo 2024',
+    dash: 'https://cdn.bitmovin.com/content/demos/multiview-atp-tennistv/Fritz-Fils-Tokyo-2024/manifest.mpd',
+    hls: 'https://cdn.bitmovin.com/content/demos/multiview-atp-tennistv/Fritz-Fils-Tokyo-2024/manifest.m3u8',
+    poster: 'https://cdn.bitmovin.com/content/demos/multiview-atp-tennistv/Fritz-Fils-Tokyo-2024/poster.jpg',
   },
   {
-    dash: 'https://cdn.bitmovin.com/content/assets/sintel/sintel.mpd',
-    poster: 'https://cdn.bitmovin.com/content/assets/sintel/poster.png',
-    title: 'Sintel',
+    title: 'Medvedev vs. Monfils - Beijing 2024',
+    dash: 'https://cdn.bitmovin.com/content/demos/multiview-atp-tennistv/Medvedev-Monfils-Beijing-2024/manifest.mpd',
+    hls: 'https://cdn.bitmovin.com/content/demos/multiview-atp-tennistv/Medvedev-Monfils-Beijing-2024/manifest.m3u8',
+    poster: 'https://cdn.bitmovin.com/content/demos/multiview-atp-tennistv/Medvedev-Monfils-Beijing-2024/poster.jpg',
   },
 ];
 const playerConfig = {
@@ -53,6 +57,10 @@ function populateCarousel() {
     img.src = source.poster;
     img.alt = source.title;
 
+    const title = document.createElement('div');
+    title.className = 'title';
+    title.textContent = source.title;
+
     const checkmark = document.createElement('span');
     checkmark.className = 'checkmark';
     checkmark.textContent = '✔';
@@ -63,6 +71,7 @@ function populateCarousel() {
     item.addEventListener('click', () => toggleCarouselItem(item));
 
     item.appendChild(img);
+    item.appendChild(title);
     item.appendChild(checkmark);
     carousel.appendChild(item);
   }
