@@ -30,10 +30,6 @@ var conf = {
   advertising: {
     withCredentials: false,
   },
-  location: {
-    ui: 'https://cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.js',
-    ui_css: 'https://cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.css',
-  },
 };
 
 var source = {
