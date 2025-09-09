@@ -26,6 +26,7 @@ var conf = {
   },
   playback: {
     muted: true,
+    autoplay: true,
   },
   advertising: {
     withCredentials: false,
