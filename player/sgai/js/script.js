@@ -34,7 +34,8 @@ var conf = {
 };
 
 var source = {
-  hls: 'https://demo.bitmovin.com/public/sgai/aip/assets/video_1080p.m3u8',
+  hls:
+    'https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/adblendr-hls-interstitials/playlist.m3u8',
 };
 
 var hidden = false;
