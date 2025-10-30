@@ -364,16 +364,17 @@ function insertUrlParam(key, value) {
     }
 }
 
-function getUrlParameter(sParam) {
+function getUrlParameter(sParam, decode) {
     let sPageURL = window.location.search.substring(1),
-        sURLVariables = sPageURL.split("&"),
-        sParameterName,
-        i;
+      sURLVariables = sPageURL.split("&"),
+      sParameterName,
+      i;
 
     for (i = 0; i < sURLVariables.length; i++) {
         sParameterName = sURLVariables[i].split("=");
         if (sParameterName[0] === sParam) {
-            return typeof sParameterName[1] === undefined ? true : atob(decodeURIComponent(sParameterName[1]));
+            let value = decodeURIComponent(sParameterName[1]);
+            return decode === false ? value : atob(value);
         }
     }
     return false;
@@ -580,5 +581,51 @@ function onTimechanged() {
     }
 }
 
-loadEditors();
-initialize();
+function loadScript(src, scriptId) {
+    return new Promise(function (resolve, reject) {
+        var script = document.createElement("script");
+        script.src = src;
+        script.async = true;
+
+        if (scriptId) {
+            script.setAttribute("data-script-id", scriptId);
+        }
+
+        script.onload = function () {
+            resolve();
+        };
+
+        script.onerror = function () {
+            reject(new Error("Failed to load script: " + src));
+        };
+
+        document.head.appendChild(script);
+    });
+}
+
+function loadPlayerLibrary() {
+    var version = getUrlParameter('playerVersion',false) || '8';
+    var scriptSrc = 'https://cdn.bitmovin.com/player/web/' + version + '/bitmovinplayer.js';
+    return loadScript(scriptSrc, "playerLibrary");
+}
+
+function loadAnalyticsLibrary() {
+    var scriptSrc = 'https://cdn.bitmovin.com/analytics/web/2/bitmovinanalytics.min.js';
+    return loadScript(scriptSrc, "analyticsLibrary");
+}
+
+function loadLibrariesSequentially() {
+     loadEditors();
+     loadPlayerLibrary()
+      .then(function () {
+          return loadAnalyticsLibrary();
+      })
+      .then(function () {
+          return initialize();
+      })
+      .catch(function (error) {
+          console.error("Error loading scripts :", error);
+      });
+}
+
+loadLibrariesSequentially();
