@@ -106,3 +106,61 @@ body:not(.fullscreen) :not(.no-frame).notebook-frame::before {
     color: red;
     font-weight: bold;
 }
+
+.editor-toggle-radio {
+    display: flex;
+    gap: 10px;
+}
+
+.toggle-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 0;
+    padding: 2px 6px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+
+.toggle-label:hover {
+    background-color: #f8f9fa;
+}
+
+.toggle-label input[type="radio"] {
+    margin: 0 4px 0 0;
+    cursor: pointer;
+}
+
+.toggle-label input[type="radio"]:checked + .toggle-text {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.toggle-text {
+    font-size: 11px;
+    color: #6c757d;
+    transition: all 0.2s ease;
+}
+
+.full-length-layout .col-md-6 {
+    width: 100% !important;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+}
+
+.full-length-layout .col-md-6:first-child {
+    margin-bottom: 20px;
+}
+
+.full-length-layout .editor-section {
+    margin: 7px 0;
+}
+
+@media (max-width: 768px) {
+    .full-length-layout .col-md-6 {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+}
