@@ -61,12 +61,19 @@ function loadEditors() {
     playerConfigEditor.session.setMode("ace/mode/javascript");
 
     playerConfigEditor.setOptions({
-        enableLiveAutocompletion: true
+        enableLiveAutocompletion: true,
+        minLines:15,
+        maxLines:15
     });
 
     sourceConfigEditor = ace.edit("editor2");
     sourceConfigEditor.setTheme("ace/theme/twilight");
     sourceConfigEditor.session.setMode("ace/mode/javascript");
+
+    sourceConfigEditor.setOptions({
+        minLines:15,
+        maxLines:15
+    });
 
     JSONEditor.defaults.options.theme = "bootstrap4";
     JSONEditor.defaults.options.disable_edit_json = true;
@@ -150,11 +157,21 @@ function loadEditors() {
     playerConfigReader.renderer.setShowGutter(false);
     playerConfigReader.setReadOnly(true);
 
+    playerConfigReader.setOptions({
+        minLines:15,
+        maxLines:15
+    });
+
     sourceConfigReader = ace.edit("editorSourceConfig");
     sourceConfigReader.setTheme("ace/theme/twilight");
     sourceConfigReader.session.setMode("ace/mode/javascript");
     sourceConfigReader.renderer.setShowGutter(false);
     sourceConfigReader.setReadOnly(true);
+
+     sourceConfigReader.setOptions({
+        minLines:15,
+        maxLines:15
+    });
 
 }
 
