@@ -5,6 +5,7 @@ var playerConfigEditor, sourceConfigEditor, playerConfigReader, sourceConfigRead
     sourceSchemaGenerator;
 var updateCount = 0;
 var player = null;
+var editorsFullLength = false;
 var demoKey = "0427d010-2bea-4b63-b02f-21340f73c0fb";
 var playerConfig = {
     key: demoKey
@@ -150,6 +151,8 @@ function loadEditors() {
     document.querySelector("#source-config-link").addEventListener("click", navigateToSourceConfig);
     document.querySelector("#player-config-copy").addEventListener("click", copyPlayerConfig);
     document.querySelector("#source-config-copy").addEventListener("click", copySourceConfig);
+    document.querySelector("#compact-mode").addEventListener("change", toggleEditors);
+    document.querySelector("#expand-mode").addEventListener("change", toggleEditors);
 
     playerConfigReader = ace.edit("editorPlayerConfig");
     playerConfigReader.setTheme("ace/theme/twilight");
@@ -626,6 +629,46 @@ function loadLibrariesSequentially() {
       .catch(function (error) {
           console.error("Error loading scripts :", error);
       });
+}
+
+function toggleEditors() {
+    var expandMode = document.querySelector("#expand-mode").checked;
+    var editorRow = document.getElementById("editor-row");
+    var editor1 = document.getElementById("editor1");
+    var editor2 = document.getElementById("editor2");
+
+    if (expandMode) {
+        playerConfigEditor.setOptions({
+            minLines: 30,
+            maxLines: Infinity
+        });
+        sourceConfigEditor.setOptions({
+            minLines: 30,
+            maxLines: Infinity
+        });
+
+        editorRow.classList.add('full-length-layout');
+        editor1.style.height = '600px';
+        editor2.style.height = '600px';
+
+    } else {
+        playerConfigEditor.setOptions({
+            minLines: 15,
+            maxLines: 15
+        });
+        sourceConfigEditor.setOptions({
+            minLines: 15,
+            maxLines: 15
+        });
+
+        editorRow.classList.remove('full-length-layout');
+        editor1.style.height = '300px';
+        editor2.style.height = '300px';
+    }
+
+    // Resize both editors
+    playerConfigEditor.resize();
+    sourceConfigEditor.resize();
 }
 
 loadLibrariesSequentially();

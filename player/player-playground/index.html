@@ -10,10 +10,22 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" id="editor-row">
     <div class="col-md-6">
         <div class="editor-section">
-            <div>Player Configuration</div>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>Player Configuration</div>
+                <div class="editor-toggle-radio">
+                    <label class="toggle-label">
+                        <input type="radio" id="compact-mode" name="editor-mode" value="compact" checked>
+                        <span class="toggle-text">Compact View</span>
+                    </label>
+                    <label class="toggle-label">
+                        <input type="radio" id="expand-mode" name="editor-mode" value="expand">
+                        <span class="toggle-text">Expanded View</span>
+                    </label>
+                </div>
+            </div>
             <div class="float-right p-2">Note : Key is optional for demo</div>
             <div class="editor" id="editor1"></div>
             <div id="error-div-player" class="error"></div>
