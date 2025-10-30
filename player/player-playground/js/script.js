@@ -51,6 +51,15 @@ var sources = [
             progressive: "https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4",
             poster: "https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg",
         }
+    },
+    {
+        title: "DASH + Widevine",
+        dash: 'https://cdn.bitmovin.com/content/assets/art-of-motion_drm/mpds/11331.mpd',
+        drm: {
+            widevine: {
+                LA_URL: 'https://cwip-shaka-proxy.appspot.com/no_auth'
+            }
+        }
     }
 ];
 
