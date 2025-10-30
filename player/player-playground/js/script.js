@@ -54,10 +54,13 @@ var sources = [
     },
     {
         title: "DASH + Widevine",
-        dash: 'https://cdn.bitmovin.com/content/assets/art-of-motion_drm/mpds/11331.mpd',
-        drm: {
-            widevine: {
-                LA_URL: 'https://cwip-shaka-proxy.appspot.com/no_auth'
+        url: {
+            dash: 'https://cdn.bitmovin.com/content/assets/art-of-motion_drm/mpds/11331.mpd',
+            poster: 'https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg',
+            drm: {
+                widevine: {
+                    LA_URL: 'https://cwip-shaka-proxy.appspot.com/no_auth'
+                }
             }
         }
     }
