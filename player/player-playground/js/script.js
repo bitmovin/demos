@@ -63,6 +63,31 @@ var sources = [
                 }
             }
         }
+    },
+    {
+        title: "DASH + PlayReady",
+        url: {
+            dash: 'https://path/to/your/dash-playready.mpd',
+            poster: 'https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg',
+            drm: {
+                playready: {
+                    LA_URL: 'https://path/to/your/playready-license'
+                }
+            }
+        }
+    },
+    {
+        title: "HLS + Fairplay",
+        url: {
+            hls: 'https://path/to/your/hls-fairplay.m3u8',
+            poster: 'https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg',
+            drm: {
+                fairplay: {
+                    certificateURL: 'https://path/to/your/fairplay-certificate',
+                    LA_URL: 'https://path/to/your/fairplay-license'
+                }
+            }
+        }
     }
 ];
 
