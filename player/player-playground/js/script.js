@@ -54,10 +54,38 @@ var sources = [
     },
     {
         title: "DASH + Widevine",
-        dash: 'https://cdn.bitmovin.com/content/assets/art-of-motion_drm/mpds/11331.mpd',
-        drm: {
-            widevine: {
-                LA_URL: 'https://cwip-shaka-proxy.appspot.com/no_auth'
+        url: {
+            dash: 'https://cdn.bitmovin.com/content/assets/art-of-motion_drm/mpds/11331.mpd',
+            poster: 'https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg',
+            drm: {
+                widevine: {
+                    LA_URL: 'https://cwip-shaka-proxy.appspot.com/no_auth'
+                }
+            }
+        }
+    },
+    {
+        title: "DASH + PlayReady",
+        url: {
+            dash: 'https://path/to/your/dash-playready.mpd',
+            poster: 'https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg',
+            drm: {
+                playready: {
+                    LA_URL: 'https://path/to/your/playready-license'
+                }
+            }
+        }
+    },
+    {
+        title: "HLS + Fairplay",
+        url: {
+            hls: 'https://path/to/your/hls-fairplay.m3u8',
+            poster: 'https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg',
+            drm: {
+                fairplay: {
+                    certificateURL: 'https://path/to/your/fairplay-certificate',
+                    LA_URL: 'https://path/to/your/fairplay-license'
+                }
             }
         }
     }
