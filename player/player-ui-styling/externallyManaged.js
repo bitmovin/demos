@@ -9,7 +9,7 @@ var source = {
   poster: 'https://cdn.bitmovin.com/content/assets/sintel/poster.png'
 };
 
-var currentUiManager, isSmallscreen = false;
+var currentUiManager, isTvUi = false;
 var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
 
@@ -17,12 +17,12 @@ player.load(source).then(function () {
   currentUiManager = bitmovin.playerui.UIFactory.buildUI(player);
 });
 
-function toggleSmallScreenUI() {
+function toggleTvUI() {
   currentUiManager.release();
-  if (!isSmallscreen) {
-    currentUiManager = bitmovin.playerui.UIFactory.buildSmallScreenUI(player);
+  if (!isTvUi) {
+    currentUiManager = bitmovin.playerui.UIFactory.buildTvUI(player);
   } else {
     currentUiManager = bitmovin.playerui.UIFactory.buildUI(player);
   }
-  isSmallscreen = !isSmallscreen;
+  isTvUi = !isTvUi;
 }

@@ -17,7 +17,7 @@ var source = {
 };
 
 var currentUiManager;
-var isSmallscreen = false;
+var isTvUi = false;
 var showWatermark = false;
 var bigSeekEnabled = false;
 var seekbarBackdropColor = null;
@@ -25,22 +25,28 @@ var bufferLevelColor = null;
 
 var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
+var toggleTvUiButton = document.getElementById('tvui') || document.getElementById('smallscreen');
+var watermarkButton = document.getElementById('watermark');
 
 player.load(source).then(function () {
   rebuildUi();
 });
 
 
-document.getElementById('smallscreen').addEventListener('click', function() {
-  isSmallscreen = !isSmallscreen;
-  rebuildUi();
-});
+if (toggleTvUiButton) {
+  toggleTvUiButton.addEventListener('click', function() {
+    isTvUi = !isTvUi;
+    rebuildUi();
+  });
+}
 
 
-document.getElementById('watermark').addEventListener('click', function() {
-  showWatermark = !showWatermark;
-  rebuildUi();
-});
+if (watermarkButton) {
+  watermarkButton.addEventListener('click', function() {
+    showWatermark = !showWatermark;
+    rebuildUi();
+  });
+}
 
 
 document.getElementById('bigseek').addEventListener('click', function() {
@@ -68,9 +74,19 @@ function rebuildUi() {
     currentUiManager.release();
   }
 
+  if (watermarkButton) {
+    if (isTvUi) {
+      watermarkButton.disabled = true;
+      watermarkButton.textContent = 'Watermark (Not Available in TV UI)';
+    } else {
+      watermarkButton.disabled = false;
+      watermarkButton.textContent = showWatermark ? 'Disable Watermark' : 'Enable Watermark';
+    }
+  }
+
   var uiConfig = { includeWatermark: showWatermark };
-  currentUiManager = isSmallscreen
-    ? bitmovin.playerui.UIFactory.buildSmallScreenUI(player, uiConfig)
+  currentUiManager = isTvUi
+    ? bitmovin.playerui.UIFactory.buildTvUI(player, uiConfig)
     : bitmovin.playerui.UIFactory.buildUI(player, uiConfig);
 
   applySeekbarStyles();
