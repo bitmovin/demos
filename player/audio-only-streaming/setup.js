@@ -1,6 +1,6 @@
 var conf = {
   key: '<YOUR PLAYER KEY>',
-  ui: false
+  ui: false,
 };
   
 var source = {
