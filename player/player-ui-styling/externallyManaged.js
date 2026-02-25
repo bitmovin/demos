@@ -1,4 +1,4 @@
-var config = {
+var conf = {
   key: '<YOUR PLAYER KEY HERE>',
   ui: false
 };
