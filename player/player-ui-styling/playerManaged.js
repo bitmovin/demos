@@ -6,4 +6,5 @@ const config = {
   },
 };
 
-bitmovin.player('player-id').setup(config);
+const playerContainer = document.getElementById('player-id');
+const player = new bitmovin.player.Player(playerContainer, config);
