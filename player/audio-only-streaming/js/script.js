@@ -14,7 +14,7 @@ var source = {
 
 var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
-bitmovin.playerui.UIFactory.buildModernSmallScreenUI(player);
+bitmovin.playerui.UIFactory.buildSmallScreenUI(player);
 
 $(document).ready(function () {
   player.load(source);
