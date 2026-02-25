@@ -94,8 +94,7 @@ function rebuildUi() {
 
 function applySeekbarStyles() {
   var wrappers = document.querySelectorAll('.bmpui-ui-seekbar');
-  for (var i = 0; i < wrappers.length; i++) {// TODO: use for-each
-    var wrapper = wrappers[i];
+  wrappers.forEach(function(wrapper) {
     wrapper.classList.toggle('bigseek', bigSeekEnabled);
 
     var backdrops = wrapper.querySelectorAll('.bmpui-seekbar-backdrop');
@@ -103,7 +102,7 @@ function applySeekbarStyles() {
 
     var bufferLevels = wrapper.querySelectorAll('.bmpui-seekbar-bufferlevel');
     setColorClass(bufferLevels, bufferLevelColor, ['red']);
-  }
+  });
 }
 
 function setColorClass(elements, activeClass, availableClasses) {
