@@ -22,16 +22,16 @@ var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
 
 player.load(source).then(function () {
-  currentUiManager = bitmovin.playerui.UIFactory.buildDefaultUI(player);
+  currentUiManager = bitmovin.playerui.UIFactory.buildUI(player);
 });
 
 
 document.getElementById('smallscreen').addEventListener('click', function() {
   currentUiManager.release();
   if (!isSmallscreen) {
-    currentUiManager = bitmovin.playerui.UIFactory.buildModernSmallScreenUI(player);
+    currentUiManager = bitmovin.playerui.UIFactory.buildSmallScreenUI(player);
   } else {
-    currentUiManager = bitmovin.playerui.UIFactory.buildDefaultUI(player);
+    currentUiManager = bitmovin.playerui.UIFactory.buildUI(player);
   }
   isSmallscreen = !isSmallscreen;
 });
