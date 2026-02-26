@@ -25,7 +25,7 @@ var bufferLevelColor = null;
 
 var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
-var toggleTvUiButton = document.getElementById('tvui') || document.getElementById('smallscreen');
+var toggleTvUiButton = document.getElementById('tvui');
 var watermarkButton = document.getElementById('watermark');
 
 player.load(source).then(function () {
@@ -96,10 +96,6 @@ function applySeekbarStyles() {
   var wrappers = document.querySelectorAll('.bmpui-ui-seekbar');
   wrappers.forEach(function(wrapper) {
     wrapper.classList.toggle('bigseek', bigSeekEnabled);
-    var seekbar = wrapper.querySelector('.bmpui-seekbar');
-    if (seekbar) {
-      seekbar.classList.toggle('bigseek', bigSeekEnabled);
-    }
 
     var backdrops = wrapper.querySelectorAll('.bmpui-seekbar-backdrop');
     setColorClass(backdrops, seekbarBackdropColor, ['orange', 'green']);
