@@ -49,16 +49,11 @@ function buildUiManager(player) {
     throw new Error('bitmovin.playerui.UIFactory is not available');
   }
 
-  if (typeof bitmovin.playerui.UIFactory.buildUI === 'function') {
-    return bitmovin.playerui.UIFactory.buildUI(player);
+  if (typeof bitmovin.playerui.UIFactory.buildUI !== 'function') {
+    throw new Error('bitmovin-player-ui v4 is required: UIFactory.buildUI is missing');
   }
 
-  // Fallback for older UI bundles that still expose the old method name.
-  if (typeof bitmovin.playerui.UIFactory.buildDefaultUI === 'function') {
-    return bitmovin.playerui.UIFactory.buildDefaultUI(player);
-  }
-
-  throw new Error('No compatible UIFactory build method found');
+  return bitmovin.playerui.UIFactory.buildUI(player);
 }
 
 // Load advertising module and then initialize player
