@@ -106,13 +106,12 @@ function applySeekbarStyles() {
 }
 
 function setColorClass(elements, activeClass, availableClasses) {
-  for (var i = 0; i < elements.length; i++) {
-    var element = elements[i];
+  elements.forEach(function(element) {
     for (var c = 0; c < availableClasses.length; c++) {
       element.classList.remove(availableClasses[c]);
     }
     if (activeClass) {
       element.classList.add(activeClass);
     }
-  }
+  });
 }
