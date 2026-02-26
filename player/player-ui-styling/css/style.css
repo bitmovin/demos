@@ -57,11 +57,18 @@ a {
 .bmpui-ui-seekbar.bigseek .bmpui-seekbar-backdrop,
 .bmpui-ui-seekbar.bigseek .bmpui-seekbar-bufferlevel,
 .bmpui-ui-seekbar.bigseek .bmpui-seekbar-playbackposition,
-.bmpui-ui-seekbar.bigseek .bmpui-seekbar-seekposition {
+.bmpui-ui-seekbar.bigseek .bmpui-seekbar-seekposition,
+.bmpui-seekbar.bigseek,
+.bmpui-seekbar.bigseek .bmpui-seekbar-bars,
+.bmpui-seekbar.bigseek .bmpui-seekbar-backdrop,
+.bmpui-seekbar.bigseek .bmpui-seekbar-bufferlevel,
+.bmpui-seekbar.bigseek .bmpui-seekbar-playbackposition,
+.bmpui-seekbar.bigseek .bmpui-seekbar-seekposition {
     height: 0.8rem;
 }
 
-.bmpui-ui-seekbar.bigseek .bmpui-seekbar-playbackposition-marker {
+.bmpui-ui-seekbar.bigseek .bmpui-seekbar-playbackposition-marker,
+.bmpui-seekbar.bigseek .bmpui-seekbar-playbackposition-marker {
     transform: scale(1.2);
 }
 
