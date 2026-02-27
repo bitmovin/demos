@@ -31,6 +31,7 @@ var conf = {
   advertising: {
     withCredentials: false,
   },
+  ui: false,
 };
 
 var source = {
@@ -43,12 +44,25 @@ var played = false;
 
 var playerContainer = document.getElementById('player-container');
 
+function buildUiManager(player) {
+  if (!bitmovin.playerui || !bitmovin.playerui.UIFactory) {
+    throw new Error('bitmovin.playerui.UIFactory is not available');
+  }
+
+  if (typeof bitmovin.playerui.UIFactory.buildUI !== 'function') {
+    throw new Error('bitmovin-player-ui v4 is required: UIFactory.buildUI is missing');
+  }
+
+  return bitmovin.playerui.UIFactory.buildUI(player);
+}
+
 // Load advertising module and then initialize player
 loadAdvertisingModule()
   .then(() => {
     bitmovin.player.Player.addModule(bitmovin.analytics.PlayerModule);
     bitmovin.player.Player.addModule(bitmovin.player['advertising-bitmovin'].default);
     var player = new bitmovin.player.Player(playerContainer, conf);
+    buildUiManager(player);
 
     player.load(source);
   })
