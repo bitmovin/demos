@@ -16,60 +16,102 @@ var source = {
   poster: 'https://cdn.bitmovin.com/content/assets/sintel/poster.png'
 };
 
-var currentUiManager, isSmallscreen = false;
+var currentUiManager;
+var isTvUi = false;
+var showWatermark = false;
+var bigSeekEnabled = false;
+var seekbarBackdropColor = null;
+var bufferLevelColor = null;
 
 var playerContainer = document.getElementById('player-container');
 var player = new bitmovin.player.Player(playerContainer, conf);
+var toggleTvUiButton = document.getElementById('tvui');
+var watermarkButton = document.getElementById('watermark');
 
 player.load(source).then(function () {
-  currentUiManager = bitmovin.playerui.UIFactory.buildDefaultUI(player);
+  rebuildUi();
 });
 
 
-document.getElementById('smallscreen').addEventListener('click', function() {
-  currentUiManager.release();
-  if (!isSmallscreen) {
-    currentUiManager = bitmovin.playerui.UIFactory.buildModernSmallScreenUI(player);
-  } else {
-    currentUiManager = bitmovin.playerui.UIFactory.buildDefaultUI(player);
-  }
-  isSmallscreen = !isSmallscreen;
-});
+if (toggleTvUiButton) {
+  toggleTvUiButton.addEventListener('click', function() {
+    isTvUi = !isTvUi;
+    rebuildUi();
+  });
+}
 
 
-document.getElementById('watermark').addEventListener('click', function() {
-  $('.bmpui-ui-watermark').toggle();
-});
+if (watermarkButton) {
+  watermarkButton.addEventListener('click', function() {
+    showWatermark = !showWatermark;
+    rebuildUi();
+  });
+}
 
 
 document.getElementById('bigseek').addEventListener('click', function() {
-  var seekbar = $('.bmpui-seekbar')[0];
-  seekbar.classList.toggle('bigseek');
+  bigSeekEnabled = !bigSeekEnabled;
+  applySeekbarStyles();
 });
 
 document.getElementById('color2').addEventListener('click', function() {
-  toggleColorClass('green', '.bmpui-seekbar-backdrop');
+  seekbarBackdropColor = seekbarBackdropColor === 'green' ? null : 'green';
+  applySeekbarStyles();
 });
 
 document.getElementById('color1').addEventListener('click', function() {
-  toggleColorClass('orange', '.bmpui-seekbar-backdrop');
+  seekbarBackdropColor = seekbarBackdropColor === 'orange' ? null : 'orange';
+  applySeekbarStyles();
 });
 
 document.getElementById('redbuffer').addEventListener('click', function() {
-  toggleColorClass('red', '.bmpui-seekbar-bufferlevel')
+  bufferLevelColor = bufferLevelColor === 'red' ? null : 'red';
+  applySeekbarStyles();
 });
 
-function toggleColorClass(colorClassName, elementClass) {
-  var allElements = document.querySelectorAll(elementClass);
-  for (var i = 0; i < allElements.length; i++) {
-    var element = allElements[i];
-    var hadClass = element.classList.contains(colorClassName);
-    /* IE does not support multiple inputs for classList.remove, thanks IE */
-    element.classList.remove('red');
-    element.classList.remove('green');
-    element.classList.remove('orange');
-    if (!hadClass) {
-      element.classList.add(colorClassName);
+function rebuildUi() {
+  if (currentUiManager) {
+    currentUiManager.release();
+  }
+
+  if (watermarkButton) {
+    if (isTvUi) {
+      watermarkButton.disabled = true;
+      watermarkButton.textContent = 'Watermark (Not Available in TV UI)';
+    } else {
+      watermarkButton.disabled = false;
+      watermarkButton.textContent = showWatermark ? 'Disable Watermark' : 'Enable Watermark';
     }
   }
+
+  var uiConfig = { includeWatermark: showWatermark };
+  currentUiManager = isTvUi
+    ? bitmovin.playerui.UIFactory.buildTvUI(player, uiConfig)
+    : bitmovin.playerui.UIFactory.buildUI(player, uiConfig);
+
+  applySeekbarStyles();
+}
+
+function applySeekbarStyles() {
+  var wrappers = document.querySelectorAll('.bmpui-ui-seekbar');
+  wrappers.forEach(function(wrapper) {
+    wrapper.classList.toggle('bigseek', bigSeekEnabled);
+
+    var backdrops = wrapper.querySelectorAll('.bmpui-seekbar-backdrop');
+    setColorClass(backdrops, seekbarBackdropColor, ['orange', 'green']);
+
+    var bufferLevels = wrapper.querySelectorAll('.bmpui-seekbar-bufferlevel');
+    setColorClass(bufferLevels, bufferLevelColor, ['red']);
+  });
+}
+
+function setColorClass(elements, activeClass, availableClasses) {
+  elements.forEach(function(element) {
+    for (var c = 0; c < availableClasses.length; c++) {
+      element.classList.remove(availableClasses[c]);
+    }
+    if (activeClass) {
+      element.classList.add(activeClass);
+    }
+  });
 }
