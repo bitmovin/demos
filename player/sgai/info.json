@@ -1,0 +1,20 @@
+{
+  "title": "Server Guided Ad Insertion (SGAI)",
+  "description": "Use SGAI to create next generation ad experiences",
+  "long_description": "Deliver more personalized and targeted ads with SGAI. Reduce infrastructure costs in your ad workflow and improve ad selection with SGAI. Enable new advertising experiences by combining SGAI with new user experiences to show double-box, picture-in-picture or L-shape ads.",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "code": {
+    "show_code": true,
+    "language": "js",
+    "files": []
+  },
+  "tags": ["advertissement", "server guided", "sgai", "hls interstitials", "ads"],
+  "metadata": {
+    "title": "Server Guided Ad Insertion » Demo | Bitmovin",
+    "description": "Use SGAI to create next generation ad experiences"
+  },
+  "priority": 840
+}

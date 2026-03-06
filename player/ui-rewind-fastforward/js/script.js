@@ -17,23 +17,29 @@ var source = {
 var player = new bitmovin.player.Player(document.getElementById('player-container'), conf);
 
 function buildUI() {
-  let mainSettingsPanelPage = new bitmovin.playerui.SettingsPanelPage({
-    components: [
-      new bitmovin.playerui.SettingsPanelItem(bitmovin.playerui.i18n.getLocalizer('settings.video.quality'), new bitmovin.playerui.VideoQualitySelectBox()),
-      new bitmovin.playerui.SettingsPanelItem(bitmovin.playerui.i18n.getLocalizer('speed'), new bitmovin.playerui.PlaybackSpeedSelectBox()),
-    ],
-  });
-
   let settingsPanel = new bitmovin.playerui.SettingsPanel({
-    components: [
-      mainSettingsPanelPage,
-    ],
+    components: [],
     hidden: true,
   });
 
+  let mainSettingsPanelPage = new bitmovin.playerui.SettingsPanelPage({
+    components: [
+      new bitmovin.playerui.DynamicSettingsPanelItem({
+        label: bitmovin.playerui.i18n.getLocalizer('settings.video.quality'),
+        settingComponent: new bitmovin.playerui.VideoQualitySelectBox(),
+        container: settingsPanel,
+      }),
+      new bitmovin.playerui.DynamicSettingsPanelItem({
+        label: bitmovin.playerui.i18n.getLocalizer('speed'),
+        settingComponent: new bitmovin.playerui.PlaybackSpeedSelectBox(),
+        container: settingsPanel,
+      }),
+    ],
+  });
+  settingsPanel.addComponent(mainSettingsPanelPage);
+
   let controlBar = new bitmovin.playerui.ControlBar({
     components: [
-      settingsPanel,
       new bitmovin.playerui.Container({
         components: [
           new bitmovin.playerui.PlaybackTimeLabel({ timeLabelMode: bitmovin.playerui.PlaybackTimeLabelMode.CurrentTime, hideInLivePlayback: true }),
@@ -63,6 +69,8 @@ function buildUI() {
       new bitmovin.playerui.BufferingOverlay(),
       new bitmovin.playerui.PlaybackToggleOverlay(),
       controlBar,
+      new bitmovin.playerui.DismissClickOverlay({ target: settingsPanel }),
+      settingsPanel,
       new bitmovin.playerui.TitleBar(),
       new bitmovin.playerui.ErrorMessageOverlay(),
     ],

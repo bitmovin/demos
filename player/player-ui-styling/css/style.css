@@ -52,8 +52,17 @@ a {
 /*background-color: #ff1237;*/
 /*}*/
 
-.bmpui-seekbar.bigseek > * {
-    font-size: 3em;
+.bmpui-ui-seekbar.bigseek .bmpui-seekbar,
+.bmpui-ui-seekbar.bigseek .bmpui-seekbar-bars,
+.bmpui-ui-seekbar.bigseek .bmpui-seekbar-backdrop,
+.bmpui-ui-seekbar.bigseek .bmpui-seekbar-bufferlevel,
+.bmpui-ui-seekbar.bigseek .bmpui-seekbar-playbackposition,
+.bmpui-ui-seekbar.bigseek .bmpui-seekbar-seekposition {
+    height: 0.8rem;
+}
+
+.bmpui-ui-seekbar.bigseek .bmpui-seekbar-playbackposition-marker {
+    transform: scale(1.2);
 }
 
 .bmpui-seekbar-backdrop.orange {

@@ -5,6 +5,7 @@ var playerConfigEditor, sourceConfigEditor, playerConfigReader, sourceConfigRead
     sourceSchemaGenerator;
 var updateCount = 0;
 var player = null;
+var editorsFullLength = false;
 var demoKey = "0427d010-2bea-4b63-b02f-21340f73c0fb";
 var playerConfig = {
     key: demoKey
@@ -50,6 +51,43 @@ var sources = [
             progressive: "https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4",
             poster: "https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg",
         }
+    },
+    {
+        title: "DASH + Widevine",
+        url: {
+            dash: 'https://cdn.bitmovin.com/content/assets/art-of-motion_drm/mpds/11331.mpd',
+            poster: 'https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg',
+            drm: {
+                widevine: {
+                    LA_URL: 'https://cwip-shaka-proxy.appspot.com/no_auth'
+                }
+            }
+        }
+    },
+    {
+        title: "DASH + PlayReady",
+        url: {
+            dash: 'https://path/to/your/dash-playready.mpd',
+            poster: 'https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg',
+            drm: {
+                playready: {
+                    LA_URL: 'https://path/to/your/playready-license'
+                }
+            }
+        }
+    },
+    {
+        title: "HLS + Fairplay",
+        url: {
+            hls: 'https://path/to/your/hls-fairplay.m3u8',
+            poster: 'https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg',
+            drm: {
+                fairplay: {
+                    certificateURL: 'https://path/to/your/fairplay-certificate',
+                    LA_URL: 'https://path/to/your/fairplay-license'
+                }
+            }
+        }
     }
 ];
 
@@ -61,12 +99,19 @@ function loadEditors() {
     playerConfigEditor.session.setMode("ace/mode/javascript");
 
     playerConfigEditor.setOptions({
-        enableLiveAutocompletion: true
+        enableLiveAutocompletion: true,
+        minLines:15,
+        maxLines:15
     });
 
     sourceConfigEditor = ace.edit("editor2");
     sourceConfigEditor.setTheme("ace/theme/twilight");
     sourceConfigEditor.session.setMode("ace/mode/javascript");
+
+    sourceConfigEditor.setOptions({
+        minLines:15,
+        maxLines:15
+    });
 
     JSONEditor.defaults.options.theme = "bootstrap4";
     JSONEditor.defaults.options.disable_edit_json = true;
@@ -143,6 +188,8 @@ function loadEditors() {
     document.querySelector("#source-config-link").addEventListener("click", navigateToSourceConfig);
     document.querySelector("#player-config-copy").addEventListener("click", copyPlayerConfig);
     document.querySelector("#source-config-copy").addEventListener("click", copySourceConfig);
+    document.querySelector("#compact-mode").addEventListener("change", toggleEditors);
+    document.querySelector("#expand-mode").addEventListener("change", toggleEditors);
 
     playerConfigReader = ace.edit("editorPlayerConfig");
     playerConfigReader.setTheme("ace/theme/twilight");
@@ -150,11 +197,21 @@ function loadEditors() {
     playerConfigReader.renderer.setShowGutter(false);
     playerConfigReader.setReadOnly(true);
 
+    playerConfigReader.setOptions({
+        minLines:15,
+        maxLines:15
+    });
+
     sourceConfigReader = ace.edit("editorSourceConfig");
     sourceConfigReader.setTheme("ace/theme/twilight");
     sourceConfigReader.session.setMode("ace/mode/javascript");
     sourceConfigReader.renderer.setShowGutter(false);
     sourceConfigReader.setReadOnly(true);
+
+     sourceConfigReader.setOptions({
+        minLines:15,
+        maxLines:15
+    });
 
 }
 
@@ -347,16 +404,17 @@ function insertUrlParam(key, value) {
     }
 }
 
-function getUrlParameter(sParam) {
+function getUrlParameter(sParam, decode) {
     let sPageURL = window.location.search.substring(1),
-        sURLVariables = sPageURL.split("&"),
-        sParameterName,
-        i;
+      sURLVariables = sPageURL.split("&"),
+      sParameterName,
+      i;
 
     for (i = 0; i < sURLVariables.length; i++) {
         sParameterName = sURLVariables[i].split("=");
         if (sParameterName[0] === sParam) {
-            return typeof sParameterName[1] === undefined ? true : atob(decodeURIComponent(sParameterName[1]));
+            let value = decodeURIComponent(sParameterName[1]);
+            return decode === false ? value : atob(value);
         }
     }
     return false;
@@ -563,5 +621,91 @@ function onTimechanged() {
     }
 }
 
-loadEditors();
-initialize();
+function loadScript(src, scriptId) {
+    return new Promise(function (resolve, reject) {
+        var script = document.createElement("script");
+        script.src = src;
+        script.async = true;
+
+        if (scriptId) {
+            script.setAttribute("data-script-id", scriptId);
+        }
+
+        script.onload = function () {
+            resolve();
+        };
+
+        script.onerror = function () {
+            reject(new Error("Failed to load script: " + src));
+        };
+
+        document.head.appendChild(script);
+    });
+}
+
+function loadPlayerLibrary() {
+    var version = getUrlParameter('playerVersion',false) || '8';
+    var scriptSrc = 'https://cdn.bitmovin.com/player/web/' + version + '/bitmovinplayer.js';
+    return loadScript(scriptSrc, "playerLibrary");
+}
+
+function loadAnalyticsLibrary() {
+    var scriptSrc = 'https://cdn.bitmovin.com/analytics/web/2/bitmovinanalytics.min.js';
+    return loadScript(scriptSrc, "analyticsLibrary");
+}
+
+function loadLibrariesSequentially() {
+     loadEditors();
+     loadPlayerLibrary()
+      .then(function () {
+          return loadAnalyticsLibrary();
+      })
+      .then(function () {
+          return initialize();
+      })
+      .catch(function (error) {
+          console.error("Error loading scripts :", error);
+      });
+}
+
+function toggleEditors() {
+    var expandMode = document.querySelector("#expand-mode").checked;
+    var editorRow = document.getElementById("editor-row");
+    var editor1 = document.getElementById("editor1");
+    var editor2 = document.getElementById("editor2");
+
+    if (expandMode) {
+        playerConfigEditor.setOptions({
+            minLines: 30,
+            maxLines: Infinity
+        });
+        sourceConfigEditor.setOptions({
+            minLines: 30,
+            maxLines: Infinity
+        });
+
+        editorRow.classList.add('full-length-layout');
+        editor1.style.height = '600px';
+        editor2.style.height = '600px';
+
+    } else {
+        playerConfigEditor.setOptions({
+            minLines: 15,
+            maxLines: 15
+        });
+        sourceConfigEditor.setOptions({
+            minLines: 15,
+            maxLines: 15
+        });
+
+        editorRow.classList.remove('full-length-layout');
+        editor1.style.height = '300px';
+        editor2.style.height = '300px';
+    }
+
+    // Resize both editors
+    playerConfigEditor.resize();
+    sourceConfigEditor.resize();
+}
+
+loadLibrariesSequentially();

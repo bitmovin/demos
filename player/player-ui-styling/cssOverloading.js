@@ -1,13 +1,13 @@
 function toGreen() {
-  toggleColorClass('green', '.bmpui-seekbar-backdrop')
+  toggleColorClass('green', '.bmpui-ui-seekbar .bmpui-seekbar-backdrop')
 }
 
 function toOrange() {
-  toggleColorClass('orange', '.bmpui-seekbar-backdrop')
+  toggleColorClass('orange', '.bmpui-ui-seekbar .bmpui-seekbar-backdrop')
 }
 
 function toggleRedBufferLevel() {
-  toggleColorClass('red', '.bmpui-seekbar-bufferlevel')
+  toggleColorClass('red', '.bmpui-ui-seekbar .bmpui-seekbar-bufferlevel')
 }
 
 function toggleColorClass(colorClassName, elementClass) {
