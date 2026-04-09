@@ -3,7 +3,7 @@ function loadAdvertisingModule() {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = 'https://cdn.bitmovin.com/player/web/8.195.0-beta.2/modules/bitmovinplayer-advertising-bitmovin.js';
+    script.src = 'https://cdn.bitmovin.com/player/web/8/modules/bitmovinplayer-advertising-bitmovin.js';
     script.onload = resolve;
     script.onerror = reject;
     document.head.appendChild(script);
