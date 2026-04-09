@@ -52,12 +52,18 @@ var sources = {
   },
 };
 
-var playerIds = ['player-linear', 'player-lshape', 'player-doublebox'];
-var sourceKeys = ['linear', 'lshape', 'doublebox'];
+var players = [
+  { containerId: 'player-linear', source: sources.linear, videoId: 'server-guided-ad-insertion-linear' },
+  { containerId: 'player-lshape', source: sources.lshape, videoId: 'server-guided-ad-insertion-lshape' },
+  { containerId: 'player-doublebox', source: sources.doublebox, videoId: 'server-guided-ad-insertion-doublebox' },
+];
 
-function createPlayer(containerId, source) {
+function createPlayer(containerId, source, videoId) {
   var container = document.getElementById(containerId);
-  var player = new bitmovin.player.Player(container, conf);
+  var playerConf = Object.assign({}, conf, {
+    analytics: Object.assign({}, conf.analytics, { videoId: videoId }),
+  });
+  var player = new bitmovin.player.Player(container, playerConf);
 
   player.on(bitmovin.player.PlayerEvent.PlaybackFinished, function () {
     player.play();
@@ -72,8 +78,8 @@ loadAdvertisingModule()
     bitmovin.player.Player.addModule(bitmovin.analytics.PlayerModule);
     bitmovin.player.Player.addModule(bitmovin.player['advertising-bitmovin'].default);
 
-    playerIds.forEach((playerId, index) => {
-      createPlayer(playerId, sources[sourceKeys[index]]);
+    players.forEach(({ containerId, source, videoId }) => {
+      createPlayer(containerId, source, videoId);
     });
   })
   .catch((error) => {
