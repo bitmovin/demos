@@ -1,11 +1,9 @@
-var url, sessionId;
-
 // Dynamically load the advertising module because the demo framework throws an error otherwise
 function loadAdvertisingModule() {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = 'https://cdn.bitmovin.com/player/web/8.195.0-beta.2/modules/bitmovinplayer-advertising-bitmovin.js';
+    script.src = 'https://cdn.bitmovin.com/player/web/8/modules/bitmovinplayer-advertising-bitmovin.js';
     script.onload = resolve;
     script.onerror = reject;
     document.head.appendChild(script);
@@ -32,39 +30,57 @@ var conf = {
     withCredentials: false,
   },
   ui: false,
+  adaptation: {
+    desktop: {
+      limitToPlayerSize: true,
+    },
+    mobile: {
+      limitToPlayerSize: true,
+    },
+  },
 };
 
-var source = {
-  hls:
-    'https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/adblendr-hls-interstitials/playlist.m3u8',
+var sources = {
+  linear: {
+    hls: 'https://cdn.bitmovin.com/content/internal/demos/sgai/aip-recordings/linear/manifest.m3u8',
+  },
+  lshape: {
+    hls: 'https://cdn.bitmovin.com/content/internal/demos/sgai/aip-recordings/l-bar/manifest.m3u8',
+  },
+  doublebox: {
+    hls: 'https://cdn.bitmovin.com/content/internal/demos/sgai/aip-recordings/double-box/manifest.m3u8',
+  },
 };
 
-var hidden = false;
-var played = false;
+var players = [
+  { containerId: 'player-linear', source: sources.linear, videoId: 'server-guided-ad-insertion-linear' },
+  { containerId: 'player-lshape', source: sources.lshape, videoId: 'server-guided-ad-insertion-lshape' },
+  { containerId: 'player-doublebox', source: sources.doublebox, videoId: 'server-guided-ad-insertion-doublebox' },
+];
 
-var playerContainer = document.getElementById('player-container');
+function createPlayer(containerId, source, videoId) {
+  var container = document.getElementById(containerId);
+  var playerConf = Object.assign({}, conf, {
+    analytics: Object.assign({}, conf.analytics, { videoId: videoId }),
+  });
+  var player = new bitmovin.player.Player(container, playerConf);
 
-function buildUiManager(player) {
-  if (!bitmovin.playerui || !bitmovin.playerui.UIFactory) {
-    throw new Error('bitmovin.playerui.UIFactory is not available');
-  }
+  player.on(bitmovin.player.PlayerEvent.PlaybackFinished, function () {
+    player.play();
+  });
 
-  if (typeof bitmovin.playerui.UIFactory.buildUI !== 'function') {
-    throw new Error('bitmovin-player-ui v4 is required: UIFactory.buildUI is missing');
-  }
-
-  return bitmovin.playerui.UIFactory.buildUI(player);
+  player.load(source);
+  return player;
 }
 
-// Load advertising module and then initialize player
 loadAdvertisingModule()
   .then(() => {
     bitmovin.player.Player.addModule(bitmovin.analytics.PlayerModule);
     bitmovin.player.Player.addModule(bitmovin.player['advertising-bitmovin'].default);
-    var player = new bitmovin.player.Player(playerContainer, conf);
-    buildUiManager(player);
 
-    player.load(source);
+    players.forEach(({ containerId, source, videoId }) => {
+      createPlayer(containerId, source, videoId);
+    });
   })
   .catch((error) => {
     console.error('Failed to load advertising module:', error);

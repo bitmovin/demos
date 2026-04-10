@@ -1,4 +1,4 @@
-<script type="text/javascript" src="https://cdn.bitmovin.com/player/web/8.195.0-beta.2/bitmovinplayer.js"></script>
+<script type="text/javascript" src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bitmovin-player-ui@4/dist/js/bitmovinplayer-ui.js"></script>
 <script type="text/javascript" src="https://cdn.bitmovin.com/analytics/web/beta/2/bitmovinanalytics.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bitmovin-player-ui@4/dist/css/bitmovinplayer-ui.css" />
@@ -11,7 +11,26 @@
     double-box, picture-in-picture or L-shape ads.
   </p>
 
-  <div id="player-container"></div>
+  <div id="players-container">
+    <div class="player-column">
+      <h3>Linear</h3>
+      <div class="player-wrapper">
+        <div id="player-linear"></div>
+      </div>
+    </div>
+    <div class="player-column">
+      <h3>L-Shape</h3>
+      <div class="player-wrapper">
+        <div id="player-lshape"></div>
+      </div>
+    </div>
+    <div class="player-column">
+      <h3>Double-Box</h3>
+      <div class="player-wrapper">
+        <div id="player-doublebox"></div>
+      </div>
+    </div>
+  </div>
 
   <div id="ad-partners">
     <span class="weak-header">Working with your ad partners</span>
@@ -20,9 +39,7 @@
       <a href="https://demo.bitmovin.com/public/sgai/gam/index.html" target="_blank">
         <img src="https://demo.bitmovin.com/public/static-img/logo-gam.png" alt="Google Ad Manager logo" />
       </a>
-      <a href="https://demo.bitmovin.com/public/sgai/aip/" target="_blank">
-        <img src="https://demo.bitmovin.com/public/static-img/logo-aip.webp" alt="AIP logo" />
-      </a>
+      <img src="https://demo.bitmovin.com/public/static-img/logo-aip.webp" alt="AIP logo" />
       <img src="https://demo.bitmovin.com/public/static-img/logo-mediatailor-full.webp" alt="MediaTailor logo" />
     </div>
   </div>
