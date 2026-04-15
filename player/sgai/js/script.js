@@ -1,12 +1,6 @@
-// Dynamically load the advertising module because the demo framework throws an error otherwise
-function loadAdvertisingModule() {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://cdn.bitmovin.com/player/web/8/modules/bitmovinplayer-advertising-bitmovin.js';
-    script.onload = resolve;
-    script.onerror = reject;
-    document.head.appendChild(script);
+function setupPlayers() {
+  players.forEach(({ containerId, source, videoId }) => {
+    createPlayer(containerId, source, videoId);
   });
 }
 
@@ -19,15 +13,9 @@ var conf = {
   logs: {
     level: 'debug',
   },
-  tweaks: {
-    enable_sgai_handling: true,
-  },
   playback: {
     muted: true,
     autoplay: true,
-  },
-  advertising: {
-    withCredentials: false,
   },
   ui: false,
   adaptation: {
@@ -73,25 +61,4 @@ function createPlayer(containerId, source, videoId) {
   return player;
 }
 
-loadAdvertisingModule()
-  .then(() => {
-    bitmovin.player.Player.addModule(bitmovin.analytics.PlayerModule);
-    bitmovin.player.Player.addModule(bitmovin.player['advertising-bitmovin'].default);
-
-    players.forEach(({ containerId, source, videoId }) => {
-      createPlayer(containerId, source, videoId);
-    });
-  })
-  .catch((error) => {
-    console.error('Failed to load advertising module:', error);
-  });
-
-(function () {
-  if (isAdblockEnabled) {
-    var blockerWrapperEl = document.getElementById('blocker-wrapper');
-    var blockerInfoEl = document.getElementById('blocker-info');
-    blockerInfoEl.innerHTML =
-      '<b>Ad Blocker detected!</b> However, ads will still play, since they are inserted already on the server side.';
-    blockerWrapperEl.style.display = 'block';
-  }
-})();
+setupPlayers();
