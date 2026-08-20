@@ -1,0 +1,178 @@
+span, b {
+  font-size: medium;
+}
+
+/* Player with click-to-play overlay (requests only start on user interaction) */
+.cmcd-orange-player-wrapper {
+  position: relative;
+  box-shadow: 0 12px 40px rgba(20, 10, 46, 0.25);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#playOverlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  background: #140a2e url('https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/poster.jpg') center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#playOverlay .play-button {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: rgba(20, 10, 46, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+#playOverlay:hover .play-button {
+  background: #006aed;
+  transform: scale(1.08);
+}
+
+#playOverlay .play-button svg {
+  margin-left: 6px;
+}
+
+#playOverlay.hidden {
+  display: none;
+}
+
+/* Live request log */
+.cmcd-orange-requests-panel {
+  margin-top: 32px;
+}
+
+.cmcd-orange-requests-panel .panel-title {
+  font-size: 20px;
+  font-weight: 500;
+  padding-bottom: 8px;
+}
+
+.cmcd-orange-requests-panel .panel-hint {
+  font-size: 15px;
+  margin-bottom: 14px;
+}
+
+#requestLog {
+  height: 400px;
+  overflow-y: scroll;
+  border: 1px solid #d8d5e6;
+  border-radius: 8px;
+  background: #140a2e;
+  color: #d4d4e4;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12px;
+}
+
+#requestLog::-webkit-scrollbar {
+  width: 12px;
+}
+
+#requestLog::-webkit-scrollbar-track {
+  background: #241542;
+  border-radius: 0 8px 8px 0;
+}
+
+#requestLog::-webkit-scrollbar-thumb {
+  background: #5d5484;
+  border-radius: 6px;
+  border: 2px solid #241542;
+}
+
+#requestLog::-webkit-scrollbar-thumb:hover {
+  background: #7a71a3;
+}
+
+.req-entry {
+  padding: 9px 14px;
+  border-bottom: 1px solid #2b1b4d;
+}
+
+.req-entry .req-file {
+  color: #7fb3ff;
+  word-break: break-all;
+  font-size: 12px;
+}
+
+.req-entry .req-time {
+  color: #8b84ad;
+  margin-right: 8px;
+  font-size: 12px;
+}
+
+.cmcd-keys {
+  margin-top: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+}
+
+.cmcd-key {
+  background: #241542;
+  border: 1px solid #3b2a63;
+  border-radius: 4px;
+  padding: 1px 7px;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+
+.cmcd-key b {
+  color: #4ecfb0;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* Partner strip */
+.cmcd-orange-partner-strip {
+  background: #edf3f9;
+  border-radius: 10px;
+  padding: 28px 32px;
+  margin: 32px 0;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.cmcd-orange-partner-strip .partner-logos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.cmcd-orange-partner-strip .partner-title {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.cmcd-orange-partner-strip p {
+  font-size: 15px;
+  margin-bottom: 0;
+}
+
+@media (max-width: 720px) {
+  .cmcd-orange-partner-strip {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cmcd-orange-partner-strip .partner-logos {
+    flex-direction: row;
+  }
+}

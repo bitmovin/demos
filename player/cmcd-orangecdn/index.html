@@ -1,0 +1,75 @@
+<script type="text/javascript" src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
+
+<div class="description">
+    <p>Watch Bitmovin's Player attach standardised CMCD telemetry to every manifest and segment request. Streams are delivered live from Orange CDN and CMCD data is queryable through Hydrolix &amp; Bitmovin's Observability.</p>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="cmcd-orange-player-wrapper">
+            <div id="playerContainer"></div>
+            <div id="playOverlay" title="Play">
+                <div class="play-button">
+                    <svg width="30" height="34" viewBox="0 0 30 34" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0 L30 17 L0 34 Z" fill="#ffffff"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <ul>
+            <li>
+                <span><b>Global session visibility</b>. Each Player request includes a session ID and content ID, so CDN edge logs and player analytics describe the same viewer session. In this demo, the CMCD session ID is also stored in Bitmovin's Observability, making each CDN log line joinable to full player session &amp; QoE data.</span>
+            </li>
+            <li>
+                <span><b>AI-native observability</b>. CMCD data can be aligned between <a href="https://developer.bitmovin.com/platform/docs/ai-at-bitmovin" target="_blank" rel="noopener">Bitmovin's MCP Server</a> and the Hydrolix MCP Server, so AI agents can join player-side QoE with edge delivery logs and answer questions spanning the whole delivery chain in a single conversation. <a href="https://bitmovin.com/skill" target="_blank" rel="noopener">Bitmovin's Skills</a> can also be used to perform root cause issue analysis.</span>
+            </li>
+            <li>
+                <span><b>Faster root-cause analysis</b>. Buffer level, measured throughput and top bitrate travel with each request. When a viewer hits buffering, the CDN logs contain the client-side context needed to determine whether this is a delivery problem or a player issue.</span>
+            </li>
+            <li>
+                <span><b>Smarter delivery</b>. The next-object-request hint tells the CDN which segment the player will ask for next, enabling pre-fetching and cache optimisation which can reduce startup time and rebuffering.</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 cmcd-orange-requests-panel">
+        <div class="panel-title">Network requests with CMCD data</div>
+        <p class="panel-hint">A live view of the requests this page is sending to the CDN, with each CMCD key decoded. <strong>Press play and see the request data below.</strong></p>
+        <div id="requestLog"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="cmcd-orange-partner-strip">
+            <div class="partner-logos">
+                <a href="https://hydrolix.io/" target="_blank" rel="noopener">
+                    <svg width="106" height="30" viewBox="0 0 187 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M186.367 34.2019H185.294C184.905 34.2019 183.535 33.7828 182.41 32.9958C181.173 32.1576 180.222 30.9617 179.22 29.7044C178.955 29.3671 178.679 29.0298 178.423 28.7129L173.832 34.7028C174.098 34.9992 174.364 35.2957 174.63 35.5921C175.673 36.7676 176.746 37.9737 178.249 39.0061C180.406 40.4576 183.054 41.3367 185.386 41.3571H186.459V35.2752L186.377 34.2019H186.367Z" fill="#282157"/>
+                        <path d="M165.939 24.5835L170.591 18.6038C170.346 18.3381 170.11 18.0723 169.875 17.8065C168.832 16.631 167.759 15.4147 166.256 14.3925C164.109 12.941 161.461 12.0619 159.181 12.0415H158.097V18.2665L158.128 19.3398H159.201C159.539 19.3398 160.459 19.6362 161.665 20.4642C163.373 21.6192 164.732 23.132 165.939 24.5835Z" fill="#282157"/>
+                        <path d="M185.365 12.0415C183.075 12.0619 180.417 12.941 178.27 14.3925C175.816 16.0688 174.078 18.2461 172.544 20.1677L171.951 20.9037C171.879 20.9957 171.552 21.425 171.072 22.069C170.499 22.8356 169.702 23.9089 168.853 25.0333C166.921 27.5989 165.561 29.3264 165.019 29.8988C164.651 30.2974 164.314 30.6961 163.976 31.0947C163.322 31.8716 162.698 32.6075 161.982 33.0879C160.909 33.8137 159.59 34.2123 159.181 34.2123H158.118V41.3777H159.201C161.481 41.3471 164.119 40.468 166.277 39.0165C168.72 37.3504 170.448 35.1834 171.971 33.2719L172.585 32.5053C172.646 32.4235 172.953 32.0249 173.393 31.4218C173.965 30.6552 174.793 29.541 175.673 28.3757C178.178 25.0639 179.139 23.9089 179.507 23.5102C180.826 22.0894 181.991 21.0468 182.963 20.4028C184.189 19.5749 185.038 19.35 185.283 19.35H186.459V12.0415H185.375H185.365Z" fill="#36BDB1"/>
+                        <path d="M19.4874 40.8664V23.3465C19.4874 19.36 17.4017 18.1027 14.1197 18.1027C11.1956 18.1027 8.87465 19.7689 7.56595 21.4963V40.8562H3.05176e-05V1.13477H7.56595V15.854C9.41653 13.6461 12.9848 11.3871 17.6982 11.3871C24.0167 11.3871 27.0533 14.842 27.0533 20.4435V40.8766H19.4874V40.8664Z" fill="#282157"/>
+                        <path d="M31.1124 45.3327C31.7667 45.6291 32.7789 45.8131 33.4946 45.8131C35.4577 45.8131 36.7664 45.2816 37.4821 43.7279L38.5556 41.2849L26.8795 12.0918H34.9873L42.4919 32.1058L49.9965 12.0918H58.1554L44.6288 45.5678C42.4817 50.9853 38.6681 52.4163 33.7195 52.539C32.83 52.539 30.9181 52.3652 29.9673 52.1199L31.1021 45.3327H31.1124Z" fill="#282157"/>
+                        <path d="M77.7656 40.8664V37.1764C75.4959 40.0385 72.3366 41.5819 68.891 41.5819C61.6216 41.5819 56.1414 36.1031 56.1414 26.505C56.1414 16.9068 61.5705 11.3769 68.891 11.3769C72.2854 11.3769 75.5061 12.8693 77.7656 15.7824V1.13477H85.3929V40.8664H77.7656ZM77.7656 31.5749V21.3839C76.5183 19.4827 73.768 18.1027 71.2119 18.1027C66.9177 18.1027 63.9425 21.4963 63.9425 26.505C63.9425 31.5136 66.9177 34.8459 71.2119 34.8459C73.7782 34.8459 76.5183 33.4762 77.7656 31.5647" fill="#282157"/>
+                        <path d="M88.1328 40.866V12.092H95.6988V16.0273C97.7232 13.4617 101.302 11.3765 104.87 11.3765V18.7667C104.338 18.6441 103.623 18.5827 102.784 18.5827C100.279 18.5827 96.9461 20.0138 95.6885 21.8639V40.866H88.1226H88.1328Z" fill="#282157"/>
+                        <path d="M104.757 26.4534C104.757 18.2863 110.483 11.3765 119.95 11.3765C129.418 11.3765 135.205 18.2863 135.205 26.4534C135.205 34.6206 129.479 41.5815 119.95 41.5815C110.421 41.5815 104.757 34.6717 104.757 26.4534ZM127.343 26.4534C127.343 21.9866 124.664 18.1125 119.95 18.1125C115.237 18.1125 112.62 21.9866 112.62 26.4534C112.62 30.9203 115.247 34.8557 119.95 34.8557C124.654 34.8557 127.343 30.9816 127.343 26.4534Z" fill="#282157"/>
+                        <path d="M144.795 1.13477H137.229V40.8664H144.795V1.13477Z" fill="#282157"/>
+                        <path d="M147.362 4.46687C147.362 1.96256 149.447 0 151.891 0C154.335 0 156.42 1.96256 156.42 4.46687C156.42 6.97118 154.396 8.99508 151.891 8.99508C149.386 8.99508 147.362 6.97118 147.362 4.46687Z" fill="#FFC614"/>
+                        <path d="M155.705 12.0918H148.139V40.8658H155.705V12.0918Z" fill="#282157"/>
+                    </svg>
+                </a>
+                <a href="https://wholesale.orange.com/international/en/our-solutions/orange-cdn.html" target="_blank" rel="noopener">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 283.5 283.5"><g><rect x="0" y="0" fill="#FF7900" width="283.5" height="283.5"/><g><path fill="#FFFFFF" d="M111.2,256c-4,2.6-8.4,3.9-13,3.9c-7.4,0-11.7-4.9-11.7-11.5c0-8.8,8.1-13.5,24.8-15.4v-2.2 c0-2.9-2.2-4.5-6.2-4.5c-4,0-7.3,1.6-9.6,4.5l-7-4c3.7-5.1,9.3-7.7,16.8-7.7c10.3,0,16.1,4.5,16.1,11.7c0,0,0,28.5,0,28.6h-9.2 L111.2,256z M96.6,247.7c0,2.6,1.7,5.1,4.7,5.1c3.3,0,6.4-1.4,9.6-4.2v-9.3C101.2,240.6,96.6,243,96.6,247.7z"/><path fill="#FFFFFF" d="M129.5,221.1l8.6-1.2l0.9,4.7c4.9-3.5,8.7-5.4,13.6-5.4c8.1,0,12.3,4.3,12.3,12.8v27.5h-10.4v-25.7 c0-4.8-1.3-7-5-7c-3.1,0-6.2,1.4-9.7,4.4v28.3h-10.3V221.1z"/><path fill="#FFFFFF" d="M233.7,260.2c-11.6,0-18.6-7.5-18.6-20.5c0-13.1,7-20.6,18.4-20.6c11.4,0,18.2,7.2,18.2,20.1 c0,0.7-0.1,1.4-0.1,2h-26.3c0.1,7.5,3.2,11.2,9.3,11.2c3.9,0,6.5-1.6,8.9-5.1l7.6,4.2C247.8,257.2,241.8,260.2,233.7,260.2z M241.5,234.5c0-5.3-3-8.4-7.9-8.4c-4.7,0-7.6,3-8,8.4H241.5z"/><path fill="#FFFFFF" d="M34.9,260.6c-10.3,0-19.5-6.5-19.5-20.8c0-14.3,9.3-20.8,19.5-20.8c10.3,0,19.5,6.5,19.5,20.8 C54.4,254.1,45.2,260.6,34.9,260.6z M34.9,227.7c-7.7,0-9.2,7-9.2,12c0,5.1,1.4,12,9.2,12c7.8,0,9.2-7,9.2-12 C44.1,234.7,42.6,227.7,34.9,227.7z"/><path fill="#FFFFFF" d="M61.5,220h9.9v4.6c1.9-2.5,6.5-5.5,10.9-5.5c0.4,0,0.9,0,1.3,0.1v9.7c-0.2,0-0.3,0-0.5,0 c-4.5,0-9.5,0.7-11,4.2v26.2H61.5V220z"/><path fill="#FFFFFF" d="M190.3,251c7.9-0.1,8.5-8.1,8.5-13.3c0-6.2-3-11.2-8.6-11.2c-3.7,0-7.9,2.7-7.9,11.6 C182.4,243,182.7,251,190.3,251z M208.9,219.9v37.4c0,6.6-0.5,17.4-19.3,17.6c-7.8,0-14.9-3.1-16.4-9.8l10.2-1.6 c0.4,1.9,1.6,3.9,7.4,3.9c5.4,0,8-2.6,8-8.7v-4.6l-0.1-0.1c-1.6,2.9-4.2,5.7-10.2,5.7c-9.2,0-16.4-6.4-16.4-19.7 c0-13.2,7.5-20.6,15.9-20.6c7.9,0,10.8,3.6,11.5,5.5l-0.1,0l0.9-4.7H208.9z"/><path fill="#FFFFFF" d="M255.7,206.8h-4.1v11.3h-2.2v-11.3h-4.1v-1.7h10.3V206.8z M272.7,218.1h-2.2v-10.9h-0.1l-4.3,10.9h-1.4 l-4.3-10.9h-0.1v10.9h-2.2v-13h3.3l3.9,9.9l3.8-9.9h3.3V218.1z"/></g></g></svg>
+                </a>
+            </div>
+            <div class="partner-text">
+                <div class="partner-title">Built with Hydrolix and Orange CDN</div>
+                <p>This demo is a collaboration between Bitmovin, Hydrolix and Orange CDN. Playback is delivered from Orange CDN's edge and CMCD-enriched request logs are streamed into Hydrolix for querying at scale. The shared session ID connects the edge logs to Bitmovin's Observability, giving player, CDN and log platform one common view of every session.</p>
+            </div>
+        </div>
+    </div>
+</div>
