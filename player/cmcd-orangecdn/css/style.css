@@ -2,12 +2,23 @@ span, b {
   font-size: medium;
 }
 
-/* Player with click-to-play overlay (requests only start on user interaction) */
+/* Player with click-to-play overlay (requests only start on user interaction),
+   centered directly above the request log */
 .cmcd-orange-player-wrapper {
   position: relative;
+  width: 47.5%;
+  min-width: 320px;
+  margin: 0 auto;
   box-shadow: 0 12px 40px rgba(20, 10, 46, 0.25);
   border-radius: 6px;
   overflow: hidden;
+}
+
+@media (max-width: 720px) {
+  .cmcd-orange-player-wrapper {
+    width: 100%;
+    min-width: 0;
+  }
 }
 
 #playOverlay {
@@ -174,5 +185,6 @@ span, b {
 
   .cmcd-orange-partner-strip .partner-logos {
     flex-direction: row;
+    flex-wrap: wrap;
   }
 }
