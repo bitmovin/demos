@@ -1,0 +1,26 @@
+{
+  "title": "CMCD with Orange CDN and Hydrolix",
+  "description": "Send CMCD data from Player to Orange CDN and query it through Hydrolix and Bitmovin Observability",
+  "long_description": "Watch Bitmovin's Player attach standardised CMCD (Common Media Client Data, CTA-5004) telemetry to every manifest and segment request. Streams are delivered live from Orange CDN and CMCD-enriched request logs are streamed into Hydrolix, where they can be joined with Bitmovin Observability data through a shared session ID.",
+  "executable": {
+    "executable": true,
+    "indexfile": "index.html"
+  },
+  "code": {
+    "show_code": false,
+    "language": "js",
+    "files": []
+  },
+  "metadata": {
+    "title": "CMCD with Orange CDN & Hydrolix » Video Player | Bitmovin",
+    "description": "See Common Media Client Data (CMCD) sent from Bitmovin Player to Orange CDN and queryable through Hydrolix & Bitmovin Observability"
+  },
+  "tags": [
+    "CMCD",
+    "Common Media Client Data",
+    "Orange CDN",
+    "Hydrolix",
+    "CDN Logging",
+    "Observability"
+  ]
+}
