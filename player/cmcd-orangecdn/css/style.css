@@ -147,6 +147,20 @@ span, b {
   font-size: 12px;
 }
 
+/* Benefits section heading */
+.cmcd-orange-section-title {
+  font-size: 20px;
+  font-weight: 700;
+  padding-bottom: 8px;
+}
+
+/* Divider between the request log and the benefit bullets */
+hr.cmcd-orange-rule {
+  border: none;
+  border-top: 1px solid #e4e2ef;
+  margin: 40px 0 32px;
+}
+
 /* Partner strip */
 .cmcd-orange-partner-strip {
   background: #edf3f9;
