@@ -1,4 +1,5 @@
-<script type="text/javascript" src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
+<script type="text/javascript" src="https://cdn.bitmovin.com/player/web/8.273.0/bitmovinplayer.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@bitmovin/player-web-integration-cmcd@0.6.0/dist/js/bitmovin-player-integration-cmcd.js"></script>
 
 <div class="description">
     <p>Watch Bitmovin's Player attach standardised CMCD telemetry to every manifest and segment request. Streams are delivered from Orange CDN and CMCD data is queryable through Hydrolix &amp; Bitmovin's Observability.</p>
@@ -16,13 +17,14 @@
                 </div>
             </div>
         </div>
+        <div id="playerError" class="cmcd-orange-player-error" hidden></div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-12 cmcd-orange-requests-panel">
         <div class="panel-title">Network requests with CMCD data</div>
-        <p class="panel-hint">A live view of the requests this page is sending to the CDN, with each CMCD key decoded. <strong>Press play and see the request data below.</strong></p>
+        <p class="panel-hint">A live view of the requests this page is sending to the CDN, with each CMCD key decoded. <strong>Press play and see the request data below.</strong> On iPhones running iOS below 17.1, playback falls back to Apple's native player, which cannot attach CMCD data — the log will stay empty there.</p>
         <div id="requestLog"></div>
     </div>
 </div>

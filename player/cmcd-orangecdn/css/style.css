@@ -59,6 +59,25 @@ span, b {
   display: none;
 }
 
+.cmcd-orange-player-error {
+  width: 47.5%;
+  min-width: 320px;
+  margin: 12px auto 0;
+  padding: 10px 14px;
+  border: 1px solid #f1b8b8;
+  border-radius: 6px;
+  background: #fdf1f1;
+  color: #a03030;
+  font-size: 14px;
+}
+
+@media (max-width: 720px) {
+  .cmcd-orange-player-error {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
 /* Live request log */
 .cmcd-orange-requests-panel {
   margin-top: 32px;

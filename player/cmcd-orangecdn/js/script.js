@@ -9,6 +9,10 @@ function setupPlayerWithCmcd() {
     key: '910f0c4a-1556-4148-b0f0-b21840c569eb',
     playback: {
       muted: true,
+      // Prefer MSE-based playback for HLS so preprocessHttpRequest fires and CMCD
+      // is attached on Safari too; falls back to the native player where MSE for
+      // HLS is unavailable (e.g. iPhones below iOS 17.1)
+      preferredTech: [{ player: 'html5', streaming: 'hls' }],
     },
     analytics: {
       key: '23c016d2-f127-4c02-bdd2-9724a2774903',
@@ -58,12 +62,27 @@ function setupPlayerWithCmcd() {
     },
   };
 
-  // The stream is only loaded (and requests only start) when the user presses play
+  // The stream is only loaded (and requests only start) when the user presses play.
+  // On failure the overlay is restored so the user can retry.
   const playOverlay = document.getElementById('playOverlay');
+  const playerError = document.getElementById('playerError');
+  let loading = false;
   playOverlay.addEventListener('click', () => {
+    if (loading) return;
+    loading = true;
+    playerError.hidden = true;
     playOverlay.classList.add('hidden');
-    player.load(source).then(() => player.play());
-  }, { once: true });
+    player.load(source)
+      .then(() => player.play().catch(() => { /* autoplay interrupted, e.g. hidden tab */ }))
+      .catch(error => {
+        loading = false;
+        playOverlay.classList.remove('hidden');
+        playerError.textContent = 'The stream could not be loaded'
+          + (error && (error.name || error.code) ? ' (' + (error.name || 'error code ' + error.code) + ')' : '')
+          + '. Press play to try again.';
+        playerError.hidden = false;
+      });
+  });
 }
 
 // Live log of outgoing requests carrying CMCD data
