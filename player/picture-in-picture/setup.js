@@ -21,7 +21,10 @@ var conf = {
         )
         ;
       }
-    }
+    },
+    viewmodechanged: function() {
+      adjustPlayer();
+    },
   }
 };
 
