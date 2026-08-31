@@ -1,0 +1,18 @@
+body .demo-detail .code-example {
+    margin-top: 0;
+}
+
+@media (min-width: 1200px) {
+    .player-col {
+        float: left;
+    }
+
+    .code-col {
+        float: right;
+    }
+}
+
+body:not(.fullscreen) :not(.no-frame).phone-frame::before {
+    top: 0;
+    left: 0;
+}
